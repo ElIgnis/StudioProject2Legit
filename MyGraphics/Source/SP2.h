@@ -80,6 +80,9 @@ private:
 		GEO_SHELF,
 		GEO_REFRIDGE,
 		GEO_THIRDSHELF,
+		GEO_SIDESHELF,
+		GEO_CashierTable,
+		GEO_CASHIER,
 		NUM_GEOMETRY,
 	};
 

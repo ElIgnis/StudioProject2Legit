@@ -188,8 +188,8 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall.obj");
-	//meshList[GEO_WALL]->textureID = LoadTGA("Image//chair.tga");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
@@ -210,7 +210,6 @@ void SP2::Init()
 	meshList[GEO_DOORMAN]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_DOORMAN]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_DOORMAN]->material.kShininess = 5.f;
-
 
 	//Trolley
 	//meshList[Geo_TROLLEY] = MeshBuilder::GenerateOBJ("Trolley", "OBJ//Trolleys.obj");
@@ -236,19 +235,41 @@ void SP2::Init()
 	meshList[GEO_SHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_SHELF]->material.kShininess = 5.f;
 
-	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//Refridge.obj");
+	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//LongRefridge.obj");
 	meshList[GEO_REFRIDGE]->textureID = LoadTGA("Image//Refridge.tga");
 	meshList[GEO_REFRIDGE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_REFRIDGE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_REFRIDGE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_REFRIDGE]->material.kShininess = 5.f;
 
-	meshList[GEO_THIRDSHELF] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//thirdShelf.obj");
+	meshList[GEO_THIRDSHELF] = MeshBuilder::GenerateOBJ("ThirdShelf", "OBJ//thirdShelf.obj");
 	meshList[GEO_THIRDSHELF]->textureID = LoadTGA("Image//thirdShelf.tga");
 	meshList[GEO_THIRDSHELF]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_THIRDSHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_THIRDSHELF]->material.kShininess = 5.f;
+
+	meshList[GEO_SIDESHELF] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//LongShelf.obj");
+	meshList[GEO_SIDESHELF]->textureID = LoadTGA("Image//LongShelf.tga");
+	meshList[GEO_SIDESHELF]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_SIDESHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_SIDESHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_SIDESHELF]->material.kShininess = 5.f;
+
+	meshList[GEO_CashierTable] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
+	meshList[GEO_CashierTable]->textureID = LoadTGA("Image//Table.tga");
+	meshList[GEO_CashierTable]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CashierTable]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CashierTable]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CashierTable]->material.kShininess = 5.f;
+
+	meshList[GEO_CASHIER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Cashiers.obj");
+	meshList[GEO_CASHIER]->textureID = LoadTGA("Image//Cashiers.tga");
+	meshList[GEO_CASHIER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CASHIER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CASHIER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CASHIER]->material.kShininess = 5.f;
+
 }
 
 static float ROT_LIMIT = 45.f;
@@ -517,20 +538,14 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
-	for (int i = 0; i > -54; i -= 9)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 0, i);
-		{
-			modelStack.PushMatrix();
-			//scale, translate, rotate
-			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-2, -2.20, -2);
-			RenderMesh(meshList[GEO_REFRIDGE], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-	}
+
+	modelStack.PushMatrix();
+	//scale, translate, rotate
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(-3, -2.20, -25);
+	RenderMesh(meshList[GEO_REFRIDGE], true);
+	modelStack.PopMatrix();
+
 	for (int i = 0; i > -54; i -= 8.5)
 	{
 		modelStack.PushMatrix();
@@ -539,9 +554,49 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-20, -2.20, -2);
+			modelStack.Translate(-20, -2.20, 0);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i > -50; i -=32 )
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 0, i);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-44, -2.20, -10);
+			modelStack.Rotate(90, 0, 1, 0);
+			//modelStack.Rotate(30,0,0,1);
+			RenderMesh(meshList[GEO_SIDESHELF], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+	for (int i = 0; i > -40; i -= 17)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(0, -2.20, 20);
+			//modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_CashierTable], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-1, 0.9, 18);
+			//modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_CASHIER], false);
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
