@@ -2,7 +2,7 @@
 
 CInventory::CInventory(void)
 {
-	InventorySize = 15;
+	MaxInventorySize = 15;
 }
 
 CInventory::~CInventory(void)
@@ -12,8 +12,13 @@ CInventory::~CInventory(void)
 bool CInventory::AddToInvent(CItem *Item)
 {
 	//Allows addition only if inventory size is lesser
-	if(Inventory.size() < InventorySize)
+	if(Inventory.size() < MaxInventorySize)
 	{
+		//Cannot add destroyed items
+		if(Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+		{
+			return false;
+		}
 		Inventory.push_back(Item);
 		return true;
 	}

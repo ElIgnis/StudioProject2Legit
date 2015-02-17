@@ -256,12 +256,12 @@ void SP2::Init()
 	meshList[GEO_SIDESHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_SIDESHELF]->material.kShininess = 5.f;
 
-	meshList[GEO_CashierTable] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
-	meshList[GEO_CashierTable]->textureID = LoadTGA("Image//Table.tga");
-	meshList[GEO_CashierTable]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	meshList[GEO_CashierTable]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CashierTable]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CashierTable]->material.kShininess = 5.f;
+	meshList[GEO_CASHIERTABLE] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
+	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//Table.tga");
+	meshList[GEO_CASHIERTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CASHIERTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CASHIERTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CASHIERTABLE]->material.kShininess = 5.f;
 
 	meshList[GEO_CASHIER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Cashiers.obj");
 	meshList[GEO_CASHIER]->textureID = LoadTGA("Image//Cashiers.tga");
@@ -287,6 +287,7 @@ void SP2::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 	camera.Update(dt);
+	
 
 	//FPS value
 	fps = 1 / dt;
@@ -474,6 +475,7 @@ void SP2::RenderSkyBox()
 	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();
 }
+
 void SP2::RenderObject()
 {
 	Mtx44 MVP;
@@ -588,7 +590,7 @@ void SP2::RenderObject()
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(0, -2.20, 20);
 			//modelStack.Rotate(90, 0, 1, 0);
-			RenderMesh(meshList[GEO_CashierTable], false);
+			RenderMesh(meshList[GEO_CASHIERTABLE], false);
 			modelStack.PopMatrix();
 
 			modelStack.PushMatrix();
