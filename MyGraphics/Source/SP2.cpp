@@ -195,6 +195,13 @@ void SP2::Init()
 	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_WALL]->material.kShininess = 5.f;
 
+	meshList[GEO_CEILING] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Ceiling.obj");
+	meshList[GEO_CEILING]->textureID = LoadTGA("Image//Ceiling.tga");
+	meshList[GEO_CEILING]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CEILING]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CEILING]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CEILING]->material.kShininess = 5.f;
+
 	//ColdShelves
 	meshList[GEO_COLDSHELVE] = MeshBuilder::GenerateOBJ("ColdShelve", "OBJ//ColdShelves.obj");
 	meshList[GEO_COLDSHELVE]->textureID = LoadTGA("Image//ColdShelve.tga");
@@ -475,6 +482,13 @@ void SP2::RenderObject()
 	modelStack.Scale(1, 1, 1);
 	modelStack.Translate(0, 0, -25);
 	RenderMesh(meshList[GEO_WALL], true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	//scale, translate, rotate
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(0, 0, -25);
+	RenderMesh(meshList[GEO_CEILING], true);
 	modelStack.PopMatrix();
 
 	//Coldshelve
