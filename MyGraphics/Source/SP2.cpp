@@ -499,7 +499,7 @@ void SP2::RenderObject()
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-43, -2.12, 10);
+			modelStack.Translate(-42.4, -2.12, 10);
 			RenderMesh(meshList[GEO_COLDSHELVE], true);
 			modelStack.PopMatrix();
 		}
