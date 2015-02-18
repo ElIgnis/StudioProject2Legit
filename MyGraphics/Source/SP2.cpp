@@ -268,7 +268,7 @@ void SP2::Init()
 
 	//Shelf Items
 	//Coke
-	meshList[GEO_CAN_COKE] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Can_Coke0.obj");
+	meshList[GEO_CAN_COKE] = MeshBuilder::GenerateOBJ("Can_Coke", "OBJ//Can_Coke0.obj");
 	meshList[GEO_CAN_COKE]->textureID = LoadTGA("Image//Can_Coke_Tex.tga");
 	meshList[GEO_CAN_COKE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_COKE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -276,7 +276,7 @@ void SP2::Init()
 	meshList[GEO_CAN_COKE]->material.kShininess = 5.f;
 
 	//Mountain Dew
-	meshList[GEO_CAN_MTNDEW] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Can_MtnDew.obj");
+	meshList[GEO_CAN_MTNDEW] = MeshBuilder::GenerateOBJ("Can_MtnDew", "OBJ//Can_MtnDew.obj");
 	meshList[GEO_CAN_MTNDEW]->textureID = LoadTGA("Image//Can_MtnDew_Tex.tga");
 	meshList[GEO_CAN_MTNDEW]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_MTNDEW]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -284,7 +284,7 @@ void SP2::Init()
 	meshList[GEO_CAN_MTNDEW]->material.kShininess = 5.f;
 
 	//Kinder Bueno
-	meshList[GEO_PACK_KINDER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Packet_KinderBueno.obj");
+	meshList[GEO_PACK_KINDER] = MeshBuilder::GenerateOBJ("Packet_KinderBueno", "OBJ//Packet_KinderBueno.obj");
 	meshList[GEO_PACK_KINDER]->textureID = LoadTGA("Image//Packet_KinderBueno_Tex.tga");
 	meshList[GEO_PACK_KINDER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_KINDER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -292,7 +292,7 @@ void SP2::Init()
 	meshList[GEO_PACK_KINDER]->material.kShininess = 5.f;
 
 	//Snicker
-	meshList[GEO_PACK_SNICKER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Packet_Snickers.obj");
+	meshList[GEO_PACK_SNICKER] = MeshBuilder::GenerateOBJ("Packet_Snickers", "OBJ//Packet_Snickers.obj");
 	meshList[GEO_PACK_SNICKER]->textureID = LoadTGA("Image//Packet_Snickers_Tex.tga");
 	meshList[GEO_PACK_SNICKER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_SNICKER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -300,7 +300,7 @@ void SP2::Init()
 	meshList[GEO_PACK_SNICKER]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_BOX_ICECREAM] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_IceCream.obj");
+	meshList[GEO_BOX_ICECREAM] = MeshBuilder::GenerateOBJ("Box_IceCream", "OBJ//Box_IceCream.obj");
 	meshList[GEO_BOX_ICECREAM]->textureID = LoadTGA("Image//Box_IceCream_Tex.tga");
 	meshList[GEO_BOX_ICECREAM]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_ICECREAM]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -308,7 +308,7 @@ void SP2::Init()
 	meshList[GEO_BOX_ICECREAM]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_BOX_PIZZA] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_Pizza.obj");
+	meshList[GEO_BOX_PIZZA] = MeshBuilder::GenerateOBJ("Box_Pizza", "OBJ//Box_Pizza.obj");
 	meshList[GEO_BOX_PIZZA]->textureID = LoadTGA("Image//Box_Pizza_Tex.tga");
 	meshList[GEO_BOX_PIZZA]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_PIZZA]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -316,7 +316,7 @@ void SP2::Init()
 	meshList[GEO_BOX_PIZZA]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_BOX_CHOC_CEREAL] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_Chocolate_Cereal.obj");
+	meshList[GEO_BOX_CHOC_CEREAL] = MeshBuilder::GenerateOBJ("Box_Chocolate_Cereal", "OBJ//Box_Chocolate_Cereal.obj");
 	meshList[GEO_BOX_CHOC_CEREAL]->textureID = LoadTGA("Image//Box_ChocolateC_Tex.tga");
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -324,7 +324,7 @@ void SP2::Init()
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_BOX_CEREAL] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_Cereal.obj");
+	meshList[GEO_BOX_CEREAL] = MeshBuilder::GenerateOBJ("Box_Cereal", "OBJ//Box_Cereal.obj");
 	meshList[GEO_BOX_CEREAL]->textureID = LoadTGA("Image//Box_Cereal_Tex.tga");
 	meshList[GEO_BOX_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -332,16 +332,16 @@ void SP2::Init()
 	meshList[GEO_BOX_CEREAL]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_CAN_BEANS] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_Cereal.obj");
-	meshList[GEO_CAN_BEANS]->textureID = LoadTGA("Image//Box_Cereal_Tex.tga");
+	meshList[GEO_CAN_BEANS] = MeshBuilder::GenerateOBJ("Can_Beans", "OBJ//Can_Beans.obj");
+	meshList[GEO_CAN_BEANS]->textureID = LoadTGA("Image//Can_Beans_Tex.tga");
 	meshList[GEO_CAN_BEANS]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_BEANS]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_CAN_BEANS]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_CAN_BEANS]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_CAN_SARDINE] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Box_Cereal.obj");
-	meshList[GEO_CAN_SARDINE]->textureID = LoadTGA("Image//Box_Cereal_Tex.tga");
+	meshList[GEO_CAN_SARDINE] = MeshBuilder::GenerateOBJ("Can_Sardines", "OBJ//Can_Sardines.obj");
+	meshList[GEO_CAN_SARDINE]->textureID = LoadTGA("Image//Can_Sardines_Tex.tga");
 	meshList[GEO_CAN_SARDINE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_SARDINE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_CAN_SARDINE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
@@ -690,11 +690,8 @@ void SP2::RenderObject()
 
 	modelStack.PushMatrix();
 	modelStack.Translate(20, -2, 20);
-	RenderMesh(meshList[GEO_BOX_CEREAL], false);
+	RenderMesh(meshList[GEO_CAN_SARDINE], false);
 	modelStack.PopMatrix();
-
-
-
 }
 
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
