@@ -13,6 +13,7 @@ public:
 	float worldScale;
 	float angle;
 	float CAMERA_SPEED;
+	float CAMERA_SPEED2;
 
 	Vector3 oldpos;
 	Vector3 oldtgt;
