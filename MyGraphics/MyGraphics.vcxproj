@@ -103,6 +103,7 @@
     <ClCompile Include="Source\SP2.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\VillainAI.cpp" />
     <ClCompile Include="Source\VillainState.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -8,6 +8,10 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "Utility.h"
+
+//Marcus
+#include "Player.h"
+
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -121,6 +125,24 @@ private:
 
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+
+	//Player functions
+	CPlayer player;
+	bool modeCustomer;
+	bool modeGuard;
+	bool modeVillain;
+
+	int startingAmount;
+	int amountSpent;
+	int remaindingAmount;
+	int amountOvershot;
+	int objectsDestroyed;
+
+	bool missionComplete;
+
+	//Time Taken
+	string timeElapsed;
+	float elapsedTime;
 };
 
 #endif

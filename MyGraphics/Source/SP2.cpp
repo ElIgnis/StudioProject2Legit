@@ -10,6 +10,8 @@
 #include "Vertex.h"
 #include "LoadTGA.h"
 
+#include <iomanip>
+
 SP2::SP2()
 {
 }
@@ -249,6 +251,15 @@ void SP2::Init()
 	meshList[GEO_THIRDSHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_THIRDSHELF]->material.kShininess = 5.f;
+
+	//Marcus
+	modeCustomer = false;
+	modeGuard = false;
+	modeVillain = false;
+
+	elapsedTime = 0;
+	startingAmount = 150;
+	objectsDestroyed = 0;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -256,7 +267,7 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
-	if(Application::IsKeyPressed('5')) //enable back face culling
+	if(Application::IsKeyPressed('1')) //enable back face culling
 		glEnable(GL_CULL_FACE);
 	if(Application::IsKeyPressed('2')) //disable back face culling
 		glDisable(GL_CULL_FACE);
@@ -283,6 +294,70 @@ void SP2::Update(double dt)
 	plXCoord = s_plX.str();
 	plZCoord = s_plZ.str();
 
+	//Time Taken
+	elapsedTime += (float)(1*dt);
+	std::stringstream s_timeElapsed;
+	s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
+	timeElapsed = s_timeElapsed.str();
+
+
+	//Marcus
+	//Player position
+	player.setPos(camera.position);
+
+	//Player functions
+	if (modeCustomer == true)
+	{
+		
+	}
+	else if (modeGuard == true)
+	{
+		
+	}
+	else if (modeVillain == true)
+	{
+		
+	}
+
+	if (missionComplete == true || missionComplete == false)
+	{
+		player.setTimeTaken(elapsedTime);
+		if (modeCustomer == true)
+		{
+			if (missionComplete == true)
+			{
+				player.setShopperScoreSucceed(dt, remaindingAmount);
+			}
+			else
+			{
+				player.setShopperScoreFailed(dt, amountOvershot);
+			}
+		}
+
+		else if (modeGuard == true)
+		{
+			if (missionComplete == true)
+			{
+				player.setGuardScoreSucceed(dt);
+			}
+			else
+			{
+				player.setGuardScoreFailed(dt);
+			}
+		}
+
+		else if (modeVillain == true)
+		{
+			if (missionComplete == true)
+			{
+				player.setVillainScoreSucceed(dt);
+			}
+			else
+			{
+				player.setVillainScoreFailed(objectsDestroyed);
+			}
+		}
+	}
 }
 
 void SP2::Render()
@@ -357,6 +432,7 @@ void SP2::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
+	RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
