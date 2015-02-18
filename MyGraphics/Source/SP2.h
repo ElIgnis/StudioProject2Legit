@@ -11,6 +11,7 @@
 
 //Marcus
 #include "Player.h"
+#include "Item.h"
 
 #include <sstream>
 #include <fstream>
@@ -76,7 +77,7 @@ private:
 		GEO_BOTTOM,
 		GEO_WALL,
 		//GEO_FLOOR,
-		//GEO_CEILING,
+		GEO_CEILING,
 		GEO_COLDSHELVE,
 		Geo_TROLLEY,
 		GEO_DOORMAN,
@@ -84,6 +85,9 @@ private:
 		GEO_SHELF,
 		GEO_REFRIDGE,
 		GEO_THIRDSHELF,
+		GEO_SIDESHELF,
+		GEO_CASHIERTABLE,
+		GEO_CASHIER,
 		NUM_GEOMETRY,
 	};
 
@@ -132,17 +136,29 @@ private:
 	bool modeGuard;
 	bool modeVillain;
 
+	//Customer
 	int startingAmount;
 	int amountSpent;
 	int remaindingAmount;
 	int amountOvershot;
+	//Villain
 	int objectsDestroyed;
+	bool isCaught;
+	//Guard
+	bool villainCaught;
+	bool villainEscaped;
 
 	bool missionComplete;
+	bool missionFailed;
 
 	//Time Taken
 	string timeElapsed;
 	float elapsedTime;
+	string countDownTime;
+	float countDown;
+
+	//Item
+	
 };
 
 #endif

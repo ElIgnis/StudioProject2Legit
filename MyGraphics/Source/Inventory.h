@@ -11,7 +11,7 @@ public:
 
 	vector<CItem*>Inventory;
 
-	unsigned int InventorySize;
+	unsigned int MaxInventorySize;
 
 	bool AddToInvent(CItem *Item);
 	bool RemoveFromInvent(unsigned int index);

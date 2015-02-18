@@ -190,12 +190,19 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall.obj");
-	//meshList[GEO_WALL]->textureID = LoadTGA("Image//chair.tga");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_WALL]->material.kShininess = 5.f;
+
+	meshList[GEO_CEILING] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Ceiling.obj");
+	meshList[GEO_CEILING]->textureID = LoadTGA("Image//Ceiling.tga");
+	meshList[GEO_CEILING]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CEILING]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CEILING]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CEILING]->material.kShininess = 5.f;
 
 	//ColdShelves
 	meshList[GEO_COLDSHELVE] = MeshBuilder::GenerateOBJ("ColdShelve", "OBJ//ColdShelves.obj");
@@ -213,7 +220,6 @@ void SP2::Init()
 	meshList[GEO_DOORMAN]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_DOORMAN]->material.kShininess = 5.f;
 
-
 	//Trolley
 	//meshList[Geo_TROLLEY] = MeshBuilder::GenerateOBJ("Trolley", "OBJ//Trolleys.obj");
 	//meshList[Geo_TROLLEY]->textureID = LoadTGA("Image//Shiny_Silver_Text.tga");
@@ -230,36 +236,69 @@ void SP2::Init()
 	meshList[GEO_STANDER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_STANDER]->material.kShininess = 5.f;
 
-	//Shelf
-	meshList[GEO_SHELF] = MeshBuilder::GenerateOBJ("Shelf", "OBJ//Shelf.obj");
-	meshList[GEO_SHELF]->textureID = LoadTGA("Image//Shelf.tga");
-	meshList[GEO_SHELF]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	meshList[GEO_SHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_SHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_SHELF]->material.kShininess = 5.f;
-
-	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//Refridge.obj");
+	//Refridge
+	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//LongRefridge.obj");
 	meshList[GEO_REFRIDGE]->textureID = LoadTGA("Image//Refridge.tga");
 	meshList[GEO_REFRIDGE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_REFRIDGE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_REFRIDGE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_REFRIDGE]->material.kShininess = 5.f;
 
-	meshList[GEO_THIRDSHELF] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//thirdShelf.obj");
+	//Shelf
+	meshList[GEO_THIRDSHELF] = MeshBuilder::GenerateOBJ("ThirdShelf", "OBJ//thirdShelf.obj");
 	meshList[GEO_THIRDSHELF]->textureID = LoadTGA("Image//thirdShelf.tga");
 	meshList[GEO_THIRDSHELF]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_THIRDSHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_THIRDSHELF]->material.kShininess = 5.f;
 
+
 	//Marcus
 	modeCustomer = false;
-	modeGuard = false;
+	modeGuard = true;
 	modeVillain = false;
 
+	missionComplete = false;
+	missionFailed = false;
+
 	elapsedTime = 0;
-	startingAmount = 150;
-	objectsDestroyed = 0;
+	countDown = 180;
+
+	if (modeCustomer == true)
+	{
+		startingAmount = 150;
+	}
+	else
+	{
+		startingAmount = 0;
+	}
+
+	if (modeVillain == true)
+	{
+		isCaught = false;
+		objectsDestroyed = 0;
+	}
+	if (modeGuard == true)
+	{
+		villainEscaped = false;
+		villainCaught = false;
+	}
+
+	//CashierTable
+	meshList[GEO_CASHIERTABLE] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
+	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//Table.tga");
+	meshList[GEO_CASHIERTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CASHIERTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CASHIERTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CASHIERTABLE]->material.kShininess = 5.f;
+
+	//CashierRegister
+	meshList[GEO_CASHIER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Cashiers.obj");
+	meshList[GEO_CASHIER]->textureID = LoadTGA("Image//Cashiers.tga");
+	meshList[GEO_CASHIER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CASHIER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CASHIER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CASHIER]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -277,6 +316,7 @@ void SP2::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
 	camera.Update(dt);
+	
 
 	//FPS value
 	fps = 1 / dt;
@@ -299,27 +339,83 @@ void SP2::Update(double dt)
 	std::stringstream s_timeElapsed;
 	s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
 	timeElapsed = s_timeElapsed.str();
-
+	//Count down timer for Guard
+	countDown -= (float)(1 * dt);
+	std::stringstream s_countDown;
+	s_countDown << std::fixed << std::setprecision(2) << countDown;
+	countDownTime = s_countDown.str();
 
 	//Marcus
-	//Player position
+	//Player functions
+	//Choose game mode
+	if (Application::IsKeyPressed('Z')) //Play as Customer
+	{
+		modeCustomer = true;
+		modeGuard = false;
+		modeVillain = false;
+	}
+	else if (Application::IsKeyPressed('X')) //Play as Security Guard
+	{
+		modeCustomer = false;
+		modeGuard = true;
+		modeVillain = false;
+	}
+	else if (Application::IsKeyPressed('C')) //Play as Villain
+	{
+		modeCustomer = false;
+		modeGuard = false;
+		modeVillain = true;
+	}
+
+	//Game start
+	if (missionComplete == false && missionFailed == false)
+	{
+		if (modeCustomer == true)
+		{
+
+		}
+
+		else if (modeGuard == true)
+		{
+			//if (score > 0 && playerposition == villain position && keypress)
+			{
+				missionComplete = true;
+			}
+			//else if (score <= 0)
+			{
+				missionFailed = true;
+			}
+		}
+
+		else if (modeVillain == true)
+		{
+			//if (playerposition == item position && keypress)
+			{
+				objectsDestroyed++;
+			}
+
+			//if(objectsDestroyed == target && isCaught == false)
+			{
+				missionComplete = true;
+			}
+		}
+	}
+
+	//Game end
 	player.setPos(camera.position);
 
-	//Player functions
-	if (modeCustomer == true)
+	if (amountSpent < startingAmount)
 	{
-		
+		remaindingAmount = startingAmount - amountSpent;
+		missionComplete = true;
 	}
-	else if (modeGuard == true)
+	else
 	{
-		
-	}
-	else if (modeVillain == true)
-	{
-		
+		amountOvershot = amountSpent - startingAmount;
+		missionFailed = true;
 	}
 
-	if (missionComplete == true || missionComplete == false)
+	if (missionComplete == true || missionFailed == true)
 	{
 		player.setTimeTaken(elapsedTime);
 		if (modeCustomer == true)
@@ -340,9 +436,10 @@ void SP2::Update(double dt)
 			{
 				player.setGuardScoreSucceed(dt);
 			}
-			else
+
+			if(missionFailed = true)
 			{
-				player.setGuardScoreFailed(dt);
+				player.setGuardScoreSucceed(180);
 			}
 		}
 
@@ -422,8 +519,11 @@ void SP2::Render()
 	float a = 0.1f;
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Translate(0, -3, 0);
 	RenderSkyBox();
 	RenderObject();
+	modelStack.PopMatrix();
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
@@ -432,7 +532,27 @@ void SP2::Render()
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
+	if (modeCustomer == true || modeVillain == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
+	}
+	else if (modeGuard == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], countDownTime, Color (1, 1, 1), 5.f, 8.f, 11.f);
+	}
+
+	if (modeCustomer == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	}
+	else if (modeVillain == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	}
+	else if (modeGuard == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	}
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
@@ -529,6 +649,7 @@ void SP2::RenderSkyBox()
 	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();
 }
+
 void SP2::RenderObject()
 {
 	Mtx44 MVP;
@@ -541,6 +662,13 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_WALL], true);
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	//scale, translate, rotate
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(0, 0, -25);
+	RenderMesh(meshList[GEO_CEILING], true);
+	modelStack.PopMatrix();
+
 	//Coldshelve
 	for (int i = 0; i > -75; i-=15)
 	{
@@ -549,8 +677,21 @@ void SP2::RenderObject()
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(40.1, -2.1, 10);
+			modelStack.Translate(40.1, -2.12, 10);
 			modelStack.Rotate(180, 0, 1, 0);
+			RenderMesh(meshList[GEO_COLDSHELVE], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i > -75; i -= 15)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 0, i);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-42.4, -2.12, 10);
 			RenderMesh(meshList[GEO_COLDSHELVE], true);
 			modelStack.PopMatrix();
 		}
@@ -571,6 +712,7 @@ void SP2::RenderObject()
 	//RenderMesh(meshList[Geo_TROLLEY], true);
 	//modelStack.PopMatrix();
 
+	//Promoter
 	modelStack.PushMatrix();
 	//scale, translate, rotate
 	modelStack.Scale(1, 1, 1);
@@ -578,35 +720,14 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_STANDER], true);
 	modelStack.PopMatrix();
 
-	for (int i = 0; i > -60; i -= 15)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0,0,i);
-		{
-			modelStack.PushMatrix();
-			//scale, translate, rotate
-			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(18, -2.20, -2);
-			modelStack.Rotate(90, 0, 1, 0);
-			RenderMesh(meshList[GEO_SHELF], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-	}
-	for (int i = 0; i > -54; i -= 9)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 0, i);
-		{
-			modelStack.PushMatrix();
-			//scale, translate, rotate
-			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-2, -2.20, -2);
-			RenderMesh(meshList[GEO_REFRIDGE], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-	}
+	//Refridge
+	modelStack.PushMatrix();
+	//scale, translate, rotate
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(-3, -2.20, -25);
+	RenderMesh(meshList[GEO_REFRIDGE], true);
+	modelStack.PopMatrix();
+
 	for (int i = 0; i > -54; i -= 8.5)
 	{
 		modelStack.PushMatrix();
@@ -615,9 +736,50 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-20, -2.20, -2);
+			modelStack.Translate(-20, -2.20, 0);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+	for (int i = 0; i > -54; i -= 8.5)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 0, i);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(18, -2.20, -2);
+			modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_THIRDSHELF], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+
+	for (int i = 0; i > -40; i -= 17)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(0, -2.20, 20);
+			//modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_CASHIERTABLE], false);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-1, 0.9, 18);
+			//modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_CASHIER], false);
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();

@@ -26,6 +26,7 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 void Camera3::Update(double dt)
 {
 	CAMERA_SPEED = 100.f;
+	CAMERA_SPEED2 = 10.f;
 
 	if(Application::IsKeyPressed(VK_LEFT))
 	{
@@ -126,8 +127,8 @@ void Camera3::Update(double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position -= right * CAMERA_SPEED * dt;
-		target -= right * CAMERA_SPEED * dt;
+		position -= right * CAMERA_SPEED2 * dt;
+		target -= right * CAMERA_SPEED2 * dt;
 		BoundsCheck();
 	}
 	if(Application::IsKeyPressed('D'))
@@ -139,8 +140,8 @@ void Camera3::Update(double dt)
 		Vector3 right = view.Cross(up);
 		right.y = 0;
 		right.Normalize();
-		position += right * CAMERA_SPEED * dt;
-		target += right * CAMERA_SPEED * dt;
+		position += right * CAMERA_SPEED2 * dt;
+		target += right * CAMERA_SPEED2 * dt;
 		BoundsCheck();
 	}
 	if(Application::IsKeyPressed('W'))
@@ -150,8 +151,8 @@ void Camera3::Update(double dt)
 		Vector3 view = (target - position).Normalized();
 		view.y = 0;
 		view.Normalize();
-		position += view * CAMERA_SPEED * dt;
-		target += view * CAMERA_SPEED * dt;
+		position += view * CAMERA_SPEED2 * dt;
+		target += view * CAMERA_SPEED2 * dt;
 		BoundsCheck();
 	}
 	if(Application::IsKeyPressed('S'))
@@ -161,8 +162,8 @@ void Camera3::Update(double dt)
 		Vector3 view = (target - position).Normalized();
 		view.y = 0;
 		view.Normalize();
-		position -= view * CAMERA_SPEED * dt;
-		target -= view * CAMERA_SPEED * dt;
+		position -= view * CAMERA_SPEED2 * dt;
+		target -= view * CAMERA_SPEED2 * dt;
 		BoundsCheck();
 	}
 	//if(Application::IsKeyPressed('R'))

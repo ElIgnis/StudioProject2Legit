@@ -56,33 +56,13 @@ int CPlayer::getShopperScoreFailed(void)
 	return score;
 }
 
-//Money
-void CPlayer::setShopperMoney(int a)
-{
-	money = a; 
-}
-int CPlayer::getShopperMoney(void)
-{
-	return money;
-}
-
 //GUARD FUNCTIONS
 //Score
 void CPlayer::setGuardScoreSucceed(double dt)
 {
-	score = 0;
+	score = 1800 - 10 * dt;
 }
 int CPlayer::getGuardScoreSucceed(void)
-{
-	return score;
-}
-
-//if mission fail
-void CPlayer::setGuardScoreFailed(double dt)
-{
-	score = 0;
-}
-int CPlayer::getGuardScoreFailed(void)
 {
 	return score;
 }
@@ -91,7 +71,7 @@ int CPlayer::getGuardScoreFailed(void)
 //Score
 void CPlayer::setVillainScoreSucceed(double dt)
 {
-	score = 500 + 20 / dt * 200;
+	score = 500 + 300 / dt * 200;
 }
 int CPlayer::getVillainScoreSucceed(void)
 {

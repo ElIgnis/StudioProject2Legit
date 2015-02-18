@@ -27,7 +27,7 @@ void Camera::Reset()
 
 void Camera::Update(double dt)
 {
-	static const float CAMERA_SPEED = 200.f;
+	static const float CAMERA_SPEED = 0.5f;
 	if(Application::IsKeyPressed(VK_LEFT) || Application::IsKeyPressed('A'))
 	{
 		position.x -= (float)(CAMERA_SPEED * 0.2 * dt);

@@ -32,15 +32,9 @@ public:
 	void setShopperScoreFailed(double dt, int moneyNeeded);
 	int getShopperScoreFailed(void);
 
-	void setShopperMoney(int a);
-	int getShopperMoney(void);
-
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
-
-	void setGuardScoreFailed(double dt);
-	int getGuardScoreFailed(void);
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
