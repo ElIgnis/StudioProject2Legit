@@ -689,7 +689,7 @@ void SP2::RenderObject()
 	}
 
 	modelStack.PushMatrix();
-	modelStack.Translate(20, -2, 20);
+	modelStack.Translate(20, -1.4, 20);
 	RenderMesh(meshList[GEO_CAN_SARDINE], false);
 	modelStack.PopMatrix();
 }
