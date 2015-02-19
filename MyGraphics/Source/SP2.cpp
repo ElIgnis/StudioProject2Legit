@@ -225,19 +225,12 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall3.obj");
 	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_WALL]->material.kShininess = 5.f;
-
-	meshList[GEO_CEILING] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Ceiling.obj");
-	meshList[GEO_CEILING]->textureID = LoadTGA("Image//Ceiling.tga");
-	meshList[GEO_CEILING]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	meshList[GEO_CEILING]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CEILING]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CEILING]->material.kShininess = 5.f;
 
 	//ColdShelves
 	meshList[GEO_COLDSHELVE] = MeshBuilder::GenerateOBJ("ColdShelve", "OBJ//ColdShelves.obj");
@@ -383,6 +376,15 @@ void SP2::Init()
 	meshList[GEO_CAN_SARDINE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_CAN_SARDINE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_CAN_SARDINE]->material.kShininess = 5.f;
+
+	//Entry
+	meshList[GEO_ENTRY] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Entry.obj");
+	meshList[GEO_ENTRY]->textureID = LoadTGA("Image//Entry.tga");
+	meshList[GEO_ENTRY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_ENTRY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_ENTRY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_ENTRY]->material.kShininess = 5.f;
+
 }
 
 static float ROT_LIMIT = 45.f;
@@ -770,15 +772,8 @@ void SP2::RenderObject()
 	modelStack.PushMatrix();
 	//scale, translate, rotate
 	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(0, 0, -25);
+	modelStack.Translate(0, 1, -25);
 	RenderMesh(meshList[GEO_WALL], true);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	//scale, translate, rotate
-	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(0, 0, -25);
-	RenderMesh(meshList[GEO_CEILING], true);
 	modelStack.PopMatrix();
 
 	//Coldshelve
@@ -813,7 +808,7 @@ void SP2::RenderObject()
 	modelStack.PushMatrix();
 	//scale, translate, rotate
 	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(35, -2.125, 0);
+	modelStack.Translate(35, -1.8, 0);
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
@@ -828,7 +823,7 @@ void SP2::RenderObject()
 	modelStack.PushMatrix();
 	//scale, translate, rotate
 	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(25, -2.25, 4);
+	modelStack.Translate(25, -1.8, 4);
 	RenderMesh(meshList[GEO_STANDER], true);
 	modelStack.PopMatrix();
 
@@ -836,7 +831,7 @@ void SP2::RenderObject()
 	modelStack.PushMatrix();
 	//scale, translate, rotate
 	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(-3, -2.20, -25);
+	modelStack.Translate(-3, -2, -25);
 	RenderMesh(meshList[GEO_REFRIDGE], true);
 	modelStack.PopMatrix();
 
@@ -848,7 +843,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-20, -2.20, 0);
+			modelStack.Translate(-20, -1.8, 0);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
 			modelStack.PopMatrix();
@@ -864,7 +859,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(18, -2.20, -2);
+			modelStack.Translate(18, -1.8, -2);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
 			modelStack.PopMatrix();
@@ -898,9 +893,39 @@ void SP2::RenderObject()
 	}
 
 	modelStack.PushMatrix();
-	modelStack.Translate(20, -2, 20);
+	modelStack.Translate(20, -1.4, 20);
 	RenderMesh(meshList[GEO_CAN_SARDINE], false);
 	modelStack.PopMatrix();
+	for (int i = 0; i > -10; i -= 6)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(43, -1.8, 38);
+			RenderMesh(meshList[GEO_ENTRY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i > -10; i -= 6)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(38, -1.8, 38);
+			modelStack.Rotate(180,0,1,0);
+			RenderMesh(meshList[GEO_ENTRY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
 }
 
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
