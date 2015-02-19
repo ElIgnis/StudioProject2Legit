@@ -67,7 +67,7 @@ void SP2::Init()
 
 	//Initialize camera settings
 	camera.Init(Vector3(0, 0, 0.1), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	
+
 	//cl check
 	double plX = camera.position.x;
 	double plZ = camera.position.z;
@@ -123,6 +123,41 @@ void SP2::Init()
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
+
+	//Marcus
+	startScreen = true;
+	gameStart = false;
+	endScreen = false;
+
+	modeCustomer = false;
+	modeGuard = true;
+	modeVillain = false;
+
+	missionComplete = false;
+	missionFailed = false;
+
+	elapsedTime = 0;
+	countDown = 180;
+
+	if (modeCustomer == true)
+	{
+		startingAmount = 150;
+	}
+	else
+	{
+		startingAmount = 0;
+	}
+
+	if (modeVillain == true)
+	{
+		isCaught = false;
+		objectsDestroyed = 0;
+	}
+	if (modeGuard == true)
+	{
+		villainEscaped = false;
+		villainCaught = false;
+	}
 
 	lights[0].type = Light::LIGHT_POINT;
 	lights[0].position.Set(8.5f, 0.f, 260.f);
@@ -252,38 +287,6 @@ void SP2::Init()
 	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_THIRDSHELF]->material.kShininess = 5.f;
 
-
-	//Marcus
-	modeCustomer = false;
-	modeGuard = true;
-	modeVillain = false;
-
-	missionComplete = false;
-	missionFailed = false;
-
-	elapsedTime = 0;
-	countDown = 180;
-
-	if (modeCustomer == true)
-	{
-		startingAmount = 150;
-	}
-	else
-	{
-		startingAmount = 0;
-	}
-
-	if (modeVillain == true)
-	{
-		isCaught = false;
-		objectsDestroyed = 0;
-	}
-	if (modeGuard == true)
-	{
-		villainEscaped = false;
-		villainCaught = false;
-	}
-
 	//CashierTable
 	meshList[GEO_CASHIERTABLE] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
 	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//Table.tga");
@@ -299,6 +302,87 @@ void SP2::Init()
 	meshList[GEO_CASHIER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_CASHIER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_CASHIER]->material.kShininess = 5.f;
+
+	//Shelf Items
+	//Coke
+	meshList[GEO_CAN_COKE] = MeshBuilder::GenerateOBJ("Can_Coke", "OBJ//Can_Coke0.obj");
+	meshList[GEO_CAN_COKE]->textureID = LoadTGA("Image//Can_Coke_Tex.tga");
+	meshList[GEO_CAN_COKE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_COKE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_COKE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_COKE]->material.kShininess = 5.f;
+
+	//Mountain Dew
+	meshList[GEO_CAN_MTNDEW] = MeshBuilder::GenerateOBJ("Can_MtnDew", "OBJ//Can_MtnDew.obj");
+	meshList[GEO_CAN_MTNDEW]->textureID = LoadTGA("Image//Can_MtnDew_Tex.tga");
+	meshList[GEO_CAN_MTNDEW]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_MTNDEW]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_MTNDEW]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_MTNDEW]->material.kShininess = 5.f;
+
+	//Kinder Bueno
+	meshList[GEO_PACK_KINDER] = MeshBuilder::GenerateOBJ("Packet_KinderBueno", "OBJ//Packet_KinderBueno.obj");
+	meshList[GEO_PACK_KINDER]->textureID = LoadTGA("Image//Packet_KinderBueno_Tex.tga");
+	meshList[GEO_PACK_KINDER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_PACK_KINDER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_PACK_KINDER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_KINDER]->material.kShininess = 5.f;
+
+	//Snicker
+	meshList[GEO_PACK_SNICKER] = MeshBuilder::GenerateOBJ("Packet_Snickers", "OBJ//Packet_Snickers.obj");
+	meshList[GEO_PACK_SNICKER]->textureID = LoadTGA("Image//Packet_Snickers_Tex.tga");
+	meshList[GEO_PACK_SNICKER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_PACK_SNICKER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_PACK_SNICKER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_SNICKER]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_BOX_ICECREAM] = MeshBuilder::GenerateOBJ("Box_IceCream", "OBJ//Box_IceCream.obj");
+	meshList[GEO_BOX_ICECREAM]->textureID = LoadTGA("Image//Box_IceCream_Tex.tga");
+	meshList[GEO_BOX_ICECREAM]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BOX_ICECREAM]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BOX_ICECREAM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_ICECREAM]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_BOX_PIZZA] = MeshBuilder::GenerateOBJ("Box_Pizza", "OBJ//Box_Pizza.obj");
+	meshList[GEO_BOX_PIZZA]->textureID = LoadTGA("Image//Box_Pizza_Tex.tga");
+	meshList[GEO_BOX_PIZZA]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BOX_PIZZA]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BOX_PIZZA]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_PIZZA]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_BOX_CHOC_CEREAL] = MeshBuilder::GenerateOBJ("Box_Chocolate_Cereal", "OBJ//Box_Chocolate_Cereal.obj");
+	meshList[GEO_BOX_CHOC_CEREAL]->textureID = LoadTGA("Image//Box_ChocolateC_Tex.tga");
+	meshList[GEO_BOX_CHOC_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BOX_CHOC_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BOX_CHOC_CEREAL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CHOC_CEREAL]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_BOX_CEREAL] = MeshBuilder::GenerateOBJ("Box_Cereal", "OBJ//Box_Cereal.obj");
+	meshList[GEO_BOX_CEREAL]->textureID = LoadTGA("Image//Box_Cereal_Tex.tga");
+	meshList[GEO_BOX_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BOX_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BOX_CEREAL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CEREAL]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_CAN_BEANS] = MeshBuilder::GenerateOBJ("Can_Beans", "OBJ//Can_Beans.obj");
+	meshList[GEO_CAN_BEANS]->textureID = LoadTGA("Image//Can_Beans_Tex.tga");
+	meshList[GEO_CAN_BEANS]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_BEANS]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_BEANS]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_BEANS]->material.kShininess = 5.f;
+
+	//Ice Cream
+	meshList[GEO_CAN_SARDINE] = MeshBuilder::GenerateOBJ("Can_Sardines", "OBJ//Can_Sardines.obj");
+	meshList[GEO_CAN_SARDINE]->textureID = LoadTGA("Image//Can_Sardines_Tex.tga");
+	meshList[GEO_CAN_SARDINE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_SARDINE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_SARDINE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_SARDINE]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -306,75 +390,85 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
-	if(Application::IsKeyPressed('1')) //enable back face culling
-		glEnable(GL_CULL_FACE);
-	if(Application::IsKeyPressed('2')) //disable back face culling
-		glDisable(GL_CULL_FACE);
-	if(Application::IsKeyPressed('3'))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
-	if(Application::IsKeyPressed('4'))
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-
-	camera.Update(dt);
-	
-
-	//FPS value
-	fps = 1 / dt;
-	std::stringstream ss;
-	ss << fps;
-	fpsText = ss.str();
-
-	//Pos checker
-	std::stringstream s_plX;
-	std::stringstream s_plZ;
-
-	s_plX << camera.position.x;
-	s_plZ << camera.position.z;
-
-	plXCoord = s_plX.str();
-	plZCoord = s_plZ.str();
-
-	//Time Taken
-	elapsedTime += (float)(1*dt);
-	std::stringstream s_timeElapsed;
-	s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
-	timeElapsed = s_timeElapsed.str();
-	//Count down timer for Guard
-	countDown -= (float)(1 * dt);
-	std::stringstream s_countDown;
-	s_countDown << std::fixed << std::setprecision(2) << countDown;
-	countDownTime = s_countDown.str();
-
-	//Marcus
-	//Player functions
-	//Choose game mode
-	if (Application::IsKeyPressed('Z')) //Play as Customer
+	if (startScreen == true)
 	{
-		modeCustomer = true;
-		modeGuard = false;
-		modeVillain = false;
-	}
-	else if (Application::IsKeyPressed('X')) //Play as Security Guard
-	{
-		modeCustomer = false;
-		modeGuard = true;
-		modeVillain = false;
-	}
-	else if (Application::IsKeyPressed('C')) //Play as Villain
-	{
-		modeCustomer = false;
-		modeGuard = false;
-		modeVillain = true;
+		//Choose mode
+		if (Application::IsKeyPressed('Z')) //Play as Customer
+		{
+			startScreen = false;
+			modeCustomer = true;
+			gameStart = true;
+		}
+		else if (Application::IsKeyPressed('X')) //Play as Security Guard
+		{
+			startScreen = false;
+			modeGuard = true;
+			gameStart = true;
+		}
+		else if (Application::IsKeyPressed('C')) //Play as Villain
+		{
+			startScreen = false;
+			modeVillain = true;
+			gameStart = true;
+		}
 	}
 
 	//Game start
-	if (missionComplete == false && missionFailed == false)
+	if (gameStart == true)
 	{
+		if(Application::IsKeyPressed('1')) //enable back face culling
+			glEnable(GL_CULL_FACE);
+		if(Application::IsKeyPressed('2')) //disable back face culling
+			glDisable(GL_CULL_FACE);
+		if(Application::IsKeyPressed('3'))
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
+		if(Application::IsKeyPressed('4'))
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+
+		camera.Update(dt);
+		player.setPos(camera.position);
+
+		//FPS value
+		fps = 1 / dt;
+		std::stringstream ss;
+		ss << fps;
+		fpsText = ss.str();
+
+		//Pos checker
+		std::stringstream s_plX;
+		std::stringstream s_plZ;
+
+		s_plX << camera.position.x;
+		s_plZ << camera.position.z;
+
+		plXCoord = s_plX.str();
+		plZCoord = s_plZ.str();
+
+		//Time Taken
+		elapsedTime += (float)(1*dt);
+		std::stringstream s_timeElapsed;
+		s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
+		timeElapsed = s_timeElapsed.str();
+		//Count down timer for Guard
+		countDown -= (float)(1 * dt);
+		std::stringstream s_countDown;
+		s_countDown << std::fixed << std::setprecision(2) << countDown;
+		countDownTime = s_countDown.str();
+
+
+		//Marcus
+		//Player functions
+		//Playing as Customer
 		if (modeCustomer == true)
 		{
-
+			if(Application::IsKeyPressed('Q'))
+			{
+				gameStart = false;
+				endScreen = true;
+			}
 		}
 
+		//Playing as Security Guard
 		else if (modeGuard == true)
 		{
 			//if (score > 0 && playerposition == villain position && keypress)
@@ -387,6 +481,7 @@ void SP2::Update(double dt)
 			}
 		}
 
+		//Playing as Villain
 		else if (modeVillain == true)
 		{
 			//if (playerposition == item position && keypress)
@@ -398,60 +493,64 @@ void SP2::Update(double dt)
 			{
 				missionComplete = true;
 			}
+
 		}
 	}
 
 	//Game end
-	player.setPos(camera.position);
-
-	if (amountSpent < startingAmount)
+	if (endScreen == true)
 	{
-		remaindingAmount = startingAmount - amountSpent;
-		missionComplete = true;
-	}
-	else
-	{
-		amountOvershot = amountSpent - startingAmount;
-		missionFailed = true;
-	}
-
-	if (missionComplete == true || missionFailed == true)
-	{
-		player.setTimeTaken(elapsedTime);
-		if (modeCustomer == true)
+		//Mission pass/fail for customer
+		if (amountSpent < startingAmount)
 		{
-			if (missionComplete == true)
-			{
-				player.setShopperScoreSucceed(dt, remaindingAmount);
-			}
-			else
-			{
-				player.setShopperScoreFailed(dt, amountOvershot);
-			}
+			remaindingAmount = startingAmount - amountSpent;
+			missionComplete = true;
+		}
+		else
+		{
+			amountOvershot = amountSpent - startingAmount;
+			missionFailed = true;
 		}
 
-		else if (modeGuard == true)
+		//Calculate score 
+		if (missionComplete == true || missionFailed == true)
 		{
-			if (missionComplete == true)
+			player.setTimeTaken(elapsedTime);
+			if (modeCustomer == true)
 			{
-				player.setGuardScoreSucceed(dt);
+				if (missionComplete == true)
+				{
+					player.setShopperScoreSucceed(dt, remaindingAmount);
+				}
+				else
+				{
+					player.setShopperScoreFailed(dt, amountOvershot);
+				}
 			}
 
-			if(missionFailed = true)
+			else if (modeGuard == true)
 			{
-				player.setGuardScoreSucceed(180);
-			}
-		}
+				if (missionComplete == true)
+				{
+					player.setGuardScoreSucceed(dt);
+				}
 
-		else if (modeVillain == true)
-		{
-			if (missionComplete == true)
-			{
-				player.setVillainScoreSucceed(dt);
+				if(missionFailed = true)
+				{
+					player.setGuardScoreSucceed(180);
+				}
 			}
-			else
+
+			else if (modeVillain == true)
 			{
-				player.setVillainScoreFailed(objectsDestroyed);
+				if (missionComplete == true)
+				{
+					player.setVillainScoreSucceed(dt);
+				}
+				else
+				{
+					player.setVillainScoreFailed(objectsDestroyed);
+				}
 			}
 		}
 	}
@@ -459,106 +558,119 @@ void SP2::Update(double dt)
 
 void SP2::Render()
 {
-	float textSize = 3.f;
-	//clear depth and color buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	//Temp variables
-	Mtx44 MVP;
-
-	viewStack.LoadIdentity();
-	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z, camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y, camera.up.z);
-	modelStack.LoadIdentity();
-
-	//Ceiling light
-	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
+	//Start Screen
+	if (startScreen = true)
 	{
-		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if(lights[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	//Exterior light
-	if(lights[1].type == Light::LIGHT_DIRECTIONAL)
+	//End Game Screen
+	if (endScreen = true)
 	{
-		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-		Mtx44 rotation;
-		rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if(lights[1].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
-
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[1].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
-		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-20.f, 0.f, -20.f);
-	modelStack.Scale(10.f, 10.f, 10.f);
-	float a = 0.1f;
-	modelStack.PopMatrix();
+	if (gameStart == true)
+	{
+		float textSize = 3.f;
+		//clear depth and color buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, -3, 0);
-	RenderSkyBox();
-	RenderObject();
-	modelStack.PopMatrix();
+		//Temp variables
+		Mtx44 MVP;
 
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+		viewStack.LoadIdentity();
+		viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z, camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y, camera.up.z);
+		modelStack.LoadIdentity();
 
-	//Text display for FPS
-	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
-	if (modeCustomer == true || modeVillain == true)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
-	}
-	else if (modeGuard == true)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], countDownTime, Color (1, 1, 1), 5.f, 8.f, 11.f);
-	}
+		//Ceiling light
+		if(lights[0].type == Light::LIGHT_DIRECTIONAL)
+		{
+			Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
+			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+		}
+		else if(lights[0].type == Light::LIGHT_SPOT)
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+			Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+		}
+		else
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		}
 
-	if (modeCustomer == true)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-	}
-	else if (modeVillain == true)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-	}
-	else if (modeGuard == true)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+		//Exterior light
+		if(lights[1].type == Light::LIGHT_DIRECTIONAL)
+		{
+			Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
+			Mtx44 rotation;
+			rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
+			Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
+		}
+		else if(lights[1].type == Light::LIGHT_SPOT)
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+
+			Vector3 spotDirection_cameraspace = viewStack.Top() * lights[1].spotDirection;
+			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+		}
+		else
+		{
+			Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
+			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+		}
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-20.f, 0.f, -20.f);
+		modelStack.Scale(10.f, 10.f, 10.f);
+		float a = 0.1f;
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(0, -3, 0);
+		RenderSkyBox();
+		RenderObject();
+		modelStack.PopMatrix();
+
+		MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
+		//Text display for FPS
+		RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
+		if (modeCustomer == true || modeVillain == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
+		}
+		else if (modeGuard == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], countDownTime, Color (1, 1, 1), 5.f, 8.f, 11.f);
+		}
+
+		if (modeCustomer == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+		}
+		else if (modeVillain == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+		}
+		else if (modeGuard == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+		}
 	}
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
-	
+
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -784,13 +896,18 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(20, -2, 20);
+	RenderMesh(meshList[GEO_CAN_SARDINE], false);
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
 		return;
-	
+
 	glDisable(GL_DEPTH_TEST);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -862,7 +979,7 @@ void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float si
 
 	glEnable(GL_DEPTH_TEST);
 }
-	
+
 void SP2::Exit()
 {
 	// Cleanup here

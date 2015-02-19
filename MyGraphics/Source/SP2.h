@@ -79,7 +79,6 @@ private:
 		//GEO_FLOOR,
 		GEO_CEILING,
 		GEO_COLDSHELVE,
-		Geo_TROLLEY,
 		GEO_DOORMAN,
 		GEO_STANDER,
 		GEO_SHELF,
@@ -88,6 +87,16 @@ private:
 		GEO_SIDESHELF,
 		GEO_CASHIERTABLE,
 		GEO_CASHIER,
+		GEO_CAN_COKE,
+		GEO_CAN_MTNDEW,
+		GEO_PACK_KINDER,
+		GEO_PACK_SNICKER,
+		GEO_BOX_ICECREAM,
+		GEO_BOX_PIZZA,
+		GEO_BOX_CHOC_CEREAL,
+		GEO_BOX_CEREAL,
+		GEO_CAN_BEANS,
+		GEO_CAN_SARDINE,
 		NUM_GEOMETRY,
 	};
 
@@ -131,6 +140,10 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 
 	//Player functions
+	bool startScreen;
+	bool gameStart;
+	bool endScreen;
+
 	CPlayer player;
 	bool modeCustomer;
 	bool modeGuard;
