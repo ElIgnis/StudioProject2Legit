@@ -20,11 +20,6 @@ Vector3 CPlayer::getPos(void)
 	return position;
 }
 
-//HighScore
-void setHighScore(int score)
-{
-}
-
 //Time Taken
 void CPlayer::setTimeTaken(double dt)
 {
@@ -56,6 +51,11 @@ int CPlayer::getShopperScoreFailed(void)
 	return score;
 }
 
+//Highscore
+void setShopperHighScore(int score)
+{
+}
+
 //GUARD FUNCTIONS
 //Score
 void CPlayer::setGuardScoreSucceed(double dt)
@@ -65,6 +65,11 @@ void CPlayer::setGuardScoreSucceed(double dt)
 int CPlayer::getGuardScoreSucceed(void)
 {
 	return score;
+}
+
+//Highscore
+void setGuardHighScore(int score)
+{
 }
 
 //VILLAIN FUNCTIONS
@@ -86,4 +91,9 @@ void CPlayer::setVillainScoreFailed(int destroyedOBJ)
 int CPlayer::getVillainScoreFailed(void)
 {
 	return score;
+}
+
+//Highscore
+void setVillainHighScore(int score)
+{
 }

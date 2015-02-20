@@ -20,8 +20,6 @@ public:
 	void setPos(Vector3 Pos);
 	Vector3 getPos(void);
 
-	void setHighScore(int score);
-
 	void setTimeTaken(double dt);
 	double getTimeTaken(void);
 
@@ -32,9 +30,13 @@ public:
 	void setShopperScoreFailed(double dt, int moneyNeeded);
 	int getShopperScoreFailed(void);
 
+	void setShopperHighScore(int score);
+
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
+
+	void setGuardHighScore(int score);
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
@@ -42,6 +44,8 @@ public:
 
 	void setVillainScoreFailed(int destroyedOBJ);
 	int getVillainScoreFailed(void);
+
+	void setVillainHighScore(int score);
 
 private:
 
