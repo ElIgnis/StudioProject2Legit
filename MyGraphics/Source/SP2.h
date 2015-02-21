@@ -108,6 +108,8 @@ private:
 		GEO_BOX_CHOCO,
 		GEO_ENTRY,
 		GEO_UI,
+		GEO_SENSOR,
+		GEO_LIGHTBULB,
 		NUM_GEOMETRY,
 	};
 

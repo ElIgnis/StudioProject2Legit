@@ -265,8 +265,8 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall3.obj");
-	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall.tga");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall2.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
@@ -468,6 +468,22 @@ void SP2::Init()
 	//Text
 	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(1, 1, 1), 1.f);
 	meshList[GEO_UI]->textureID = LoadTGA("Image//UI.tga");
+
+	//LightBulb
+	meshList[GEO_LIGHTBULB] = MeshBuilder::GenerateOBJ("LightBulb", "OBJ//Lightbulb.obj");
+	meshList[GEO_LIGHTBULB]->textureID = LoadTGA("Image//Lightbulb.tga");
+	meshList[GEO_LIGHTBULB]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_LIGHTBULB]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_LIGHTBULB]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_LIGHTBULB]->material.kShininess = 5.f;
+
+	//Sensor
+	meshList[GEO_SENSOR] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//Sensor.obj");
+	meshList[GEO_SENSOR]->textureID = LoadTGA("Image//Sensor.tga");
+	meshList[GEO_SENSOR]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_SENSOR]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_SENSOR]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_SENSOR]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -1067,6 +1083,42 @@ void SP2::RenderObject()
 			modelStack.Translate(38, -1.8, 38);
 			modelStack.Rotate(180,0,1,0);
 			RenderMesh(meshList[GEO_ENTRY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+	//LightBulb
+	for (int j = -20; j < 40; j += 20)
+	{
+		for (int i = 0; i > -40; i -= 20)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(j, 0, i);
+			{
+				modelStack.PushMatrix();
+				//scale, translate, rotate
+				modelStack.Scale(1, 1, 1);
+				modelStack.Translate(0, 7.5, 0);
+				RenderMesh(meshList[GEO_LIGHTBULB], true);
+				modelStack.PopMatrix();
+			}
+			modelStack.PopMatrix();
+		}
+	}
+
+	for (int i = 0; i < 50; i += 6)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-43, -1.8, 38);
+			modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_SENSOR], true);
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
