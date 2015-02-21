@@ -2,7 +2,7 @@
 
 CInventory::CInventory(void)
 {
-	MaxInventorySize = 15;
+	MaxInventorySize = 9;
 }
 
 CInventory::~CInventory(void)
@@ -19,23 +19,30 @@ bool CInventory::AddToInvent(CItem *Item)
 		{
 			return false;
 		}
-		Inventory.push_back(Item);
-		return true;
+		else if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		{
+			Inventory.push_back(Item);
+			return true;
+		}
 	}
+	else
 	return false;
 }
 
-bool CInventory::RemoveFromInvent(unsigned int index)
+bool CInventory::RemoveFromInvent(CItem * Item)
 {
 	int count = 0;
 	for(vector<CItem*>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++, count++)
 	{
 		//Overriding
-		if(count == index)
+		if(Item->ItemName == (*iter)->GetName())
 		{
-			Inventory.erase(iter);
-			return true;
-		}
+			if(Inventory.size() > 0)
+			{
+				Inventory.erase(iter);
+				return true;
+			}
+		}	
 	}
 	return false;
 }
@@ -44,7 +51,8 @@ void CInventory::PrintInvent(void)
 {
 	for(vector<CItem*>::iterator iter = Inventory.begin(); iter != Inventory.end(); iter++)
 	{
-		cout << (*iter)->GetName();
-		cout << (*iter)->GetPrice();
+		cout << (*iter)->GetName() << endl;
+		cout << (*iter)->GetPrice() << endl;
 	}
+	return;
 }
