@@ -9,14 +9,19 @@
 #include "Light.h"
 #include "Utility.h"
 
+//Wl
+#include "Item.h"
+#include "Shelf.h"
+#include "Inventory.h"
+
 //Marcus
 #include "Player.h"
-#include "Item.h"
 
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <iostream>
+#include <vector>
 
 using std::string;
 
@@ -77,6 +82,7 @@ private:
 		GEO_BOTTOM,
 		GEO_WALL,
 		GEO_COLDSHELVE,
+		GEO_CEILING,
 		GEO_DOORMAN,
 		GEO_STANDER,
 		GEO_SHELF,
@@ -85,7 +91,7 @@ private:
 		GEO_SIDESHELF,
 		GEO_CASHIERTABLE,
 		GEO_CASHIER,
-		GEO_CAN_COKE,
+		GEO_CAN_COKE,	//Important!! COKE must be at 20 do not insert anything before
 		GEO_CAN_MTNDEW,
 		GEO_PACK_KINDER,
 		GEO_PACK_SNICKER,
@@ -94,8 +100,14 @@ private:
 		GEO_BOX_CHOC_CEREAL,
 		GEO_BOX_CEREAL,
 		GEO_CAN_BEANS,
-		GEO_CAN_SARDINE,
+		GEO_CAN_SARDINES,
+		GEO_CAN_ROOTBEER,
+		GEO_CAN_MILO,
+		GEO_PACK_NOODLE,
+		GEO_PACK_TOBLERONE,
+		GEO_BOX_CHOCO,
 		GEO_ENTRY,
+		GEO_UI,
 		NUM_GEOMETRY,
 	};
 
@@ -120,6 +132,7 @@ private:
 	Light lights[2];
 
 	double fps;
+	float WorldOffset;
 
 	std::string plXCoord;
 	std::string plZCoord;
@@ -128,15 +141,45 @@ private:
 	float textWidth[256];
 	int count;
 
+	//Shelf Loading properties
+	string ShelfData;
+	std::vector<string>tokens;
+	char split_char;
+	int ItemLine;
+
+	//tokens indexing
+	enum Index
+	{
+		NAME,
+		PRICE,
+		POSX,
+		POSY,
+		POSZ,
+		GEO_TYPE,
+		NUM_INDEX,
+	};
+
+	CItem *Item;
+	CShelf Container;
+	CInventory PlayerInvent;
+
+	//Item taking
+	float Distance;
+	float MaxDistance;
+
+	//UI
+	int UIIndex;
+
 	bool toggleLight;
 
+	//Methods
 	void RenderSkyBox();
 	void RenderObject();
-
 	void RenderMesh(Mesh *mesh, bool enableLight);
-
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
+	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 
 	//Player functions
 	bool startScreen;

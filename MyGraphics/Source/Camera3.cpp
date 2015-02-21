@@ -166,6 +166,24 @@ void Camera3::Update(double dt)
 		target -= view * CAMERA_SPEED2 * dt;
 		BoundsCheck();
 	}
+	//Crouching
+	if(Application::IsKeyPressed(VK_CONTROL))
+	{
+		if(position.y > -3.5 && target.y > -3.5)
+		{
+			position.y -= CAMERA_SPEED2 * dt;
+			target.y -= CAMERA_SPEED2 * dt;
+		}
+	}
+	//Standing up
+	if(Application::IsKeyPressed(VK_SPACE))
+	{
+		if(position.y < 0 && target.y < 0)
+		{
+		position.y += CAMERA_SPEED2 * dt;
+		target.y += CAMERA_SPEED2 * dt;
+		}
+	}
 	//if(Application::IsKeyPressed('R'))
 	//{
 	//	Reset();

@@ -1,0 +1,2596 @@
+###Tier 1 is the front and Tier 4 is the most back ###
+########## Indexing goes from front to back #############
+########## Shelf 1 is most front #############
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+############## Right side cold shelf 1 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Kinder Bueno,2.60,39.1,0.6,16,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,14,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,12,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,10,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,8,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,6,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,4,GEO_PACK_KINDER
+## Top Layer T2
+Kinder Bueno,2.60,40.1,0.6,16,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,14,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,12,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,10,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,8,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,6,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,4,GEO_PACK_KINDER
+# Top Layer T3
+Kinder Bueno,2.60,41.1,0.6,16,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,14,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,12,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,10,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,8,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,6,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,4,GEO_PACK_KINDER
+# Top Layer T4
+Kinder Bueno,2.60,42.1,0.6,16,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,14,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,12,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,10,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,8,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,6,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,4,GEO_PACK_KINDER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Snickers,1.20,39.1,-1.25,16,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,14,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,12,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,10,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,8,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,6,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,4,GEO_PACK_SNICKERS
+## Middle Layer T2
+Snickers,1.20,40.1,-1.25,16,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,14,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,12,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,10,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,8,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,6,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,4,GEO_PACK_SNICKERS
+# Middle Layer T3
+Snickers,1.20,41.1,-1.25,16,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,14,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,12,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,10,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,8,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,6,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,4,GEO_PACK_SNICKERS
+# Middle Layer T4
+Snickers,1.20,42.1,-1.25,16,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,14,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,12,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,10,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,8,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,6,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,4,GEO_PACK_SNICKERS
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Toblerone,2.10,38.75,-3,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,5,GEO_PACK_TOBLERONE
+## Bottom Layer T2
+Toblerone,2.10,39.75,-3,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,5,GEO_PACK_TOBLERONE
+## Bottom Layer T3
+Toblerone,2.10,40.75,-3,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,5,GEO_PACK_TOBLERONE
+## Bottom Layer T4
+Toblerone,2.10,41.75,-3,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,5,GEO_PACK_TOBLERONE
+################ END OF COLD SHELF 1 DATA #################
+###############################################################################################################################################################################
+############## Right side cold shelf 2 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Kinder Bueno,2.60,39.1,0.6,1,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-1,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-3,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-5,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-7,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-9,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-11,GEO_PACK_KINDER
+## Top Layer T2
+Kinder Bueno,2.60,40.1,0.6,1,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-1,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-3,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-5,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-7,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-9,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-11,GEO_PACK_KINDER
+# Top Layer T3
+Kinder Bueno,2.60,41.1,0.6,1,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-1,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-3,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-5,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-7,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-9,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-11,GEO_PACK_KINDER
+# Top Layer T4
+Kinder Bueno,2.60,42.1,0.6,1,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-1,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-3,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-5,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-7,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-9,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-11,GEO_PACK_KINDER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Snickers,1.20,39.1,-1.25,1,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-1,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-3,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-5,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-7,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-9,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-11,GEO_PACK_SNICKERS
+## Middle Layer T2
+Snickers,1.20,40.1,-1.25,1,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-1,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-3,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-5,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-7,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-9,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-11,GEO_PACK_SNICKERS
+# Middle Layer T3
+Snickers,1.20,41.1,-1.25,1,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-1,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-3,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-5,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-7,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-9,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-11,GEO_PACK_SNICKERS
+# Middle Layer T4
+Snickers,1.20,42.1,-1.25,1,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-1,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-3,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-5,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-7,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-9,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-11,GEO_PACK_SNICKERS
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Toblerone,2.10,38.75,-3,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-10,GEO_PACK_TOBLERONE
+## Bottom Layer T2
+Toblerone,2.10,39.75,-3,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-10,GEO_PACK_TOBLERONE
+## Bottom Layer T3
+Toblerone,2.10,40.75,-3,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-10,GEO_PACK_TOBLERONE
+## Bottom Layer T4
+Toblerone,2.10,41.75,-3,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-10,GEO_PACK_TOBLERONE
+################ END OF COLD SHELF 2 DATA #################
+###############################################################################################################################################################################
+############## Right side cold shelf 3 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Kinder Bueno,2.60,39.1,0.6,-14,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-16,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-18,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-20,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-22,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-24,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-26,GEO_PACK_KINDER
+## Top Layer T2
+Kinder Bueno,2.60,40.1,0.6,-14,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-16,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-18,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-20,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-22,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-24,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-26,GEO_PACK_KINDER
+# Top Layer T3
+Kinder Bueno,2.60,41.1,0.6,-14,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-16,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-18,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-20,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-22,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-24,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-26,GEO_PACK_KINDER
+# Top Layer T4
+Kinder Bueno,2.60,42.1,0.6,-14,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-16,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-18,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-20,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-22,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-24,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-26,GEO_PACK_KINDER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Snickers,1.20,39.1,-1.25,-14,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-16,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-18,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-20,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-22,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-24,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-26,GEO_PACK_SNICKERS
+## Middle Layer T2
+Snickers,1.20,40.1,-1.25,-14,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-16,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-18,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-20,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-22,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-24,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-26,GEO_PACK_SNICKERS
+# Middle Layer T3
+Snickers,1.20,41.1,-1.25,-14,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-16,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-18,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-20,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-22,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-24,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-26,GEO_PACK_SNICKERS
+# Middle Layer T4
+Snickers,1.20,42.1,-1.25,-14,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-16,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-18,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-20,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-22,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-24,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-26,GEO_PACK_SNICKERS
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Toblerone,2.10,38.75,-3,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-25,GEO_PACK_TOBLERONE
+## Bottom Layer T2
+Toblerone,2.10,39.75,-3,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-25,GEO_PACK_TOBLERONE
+## Bottom Layer T3
+Toblerone,2.10,40.75,-3,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-25,GEO_PACK_TOBLERONE
+## Bottom Layer T4
+Toblerone,2.10,41.75,-3,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-25,GEO_PACK_TOBLERONE
+################ END OF COLD SHELF 3 DATA #################
+###############################################################################################################################################################################
+############## Right side cold shelf 4 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Kinder Bueno,2.60,39.1,0.6,-29,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-31,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-33,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-35,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-37,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-39,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-41,GEO_PACK_KINDER
+## Top Layer T2
+Kinder Bueno,2.60,40.1,0.6,-29,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-31,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-33,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-35,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-37,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-39,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-41,GEO_PACK_KINDER
+# Top Layer T3
+Kinder Bueno,2.60,41.1,0.6,-29,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-31,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-33,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-35,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-37,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-39,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-41,GEO_PACK_KINDER
+# Top Layer T4
+Kinder Bueno,2.60,42.1,0.6,-29,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-31,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-33,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-35,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-37,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-39,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-41,GEO_PACK_KINDER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Snickers,1.20,39.1,-1.25,-29,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-31,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-33,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-35,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-37,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-39,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-41,GEO_PACK_SNICKERS
+## Middle Layer T2
+Snickers,1.20,40.1,-1.25,-29,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-31,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-33,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-35,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-37,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-39,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-41,GEO_PACK_SNICKERS
+# Middle Layer T3
+Snickers,1.20,41.1,-1.25,-29,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-31,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-33,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-35,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-37,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-39,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-41,GEO_PACK_SNICKERS
+# Middle Layer T4
+Snickers,1.20,42.1,-1.25,-29,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-31,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-33,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-35,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-37,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-39,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-41,GEO_PACK_SNICKERS
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Toblerone,2.10,38.75,-3,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-40,GEO_PACK_TOBLERONE
+## Bottom Layer T2
+Toblerone,2.10,39.75,-3,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-40,GEO_PACK_TOBLERONE
+## Bottom Layer T3
+Toblerone,2.10,40.75,-3,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-40,GEO_PACK_TOBLERONE
+## Bottom Layer T4
+Toblerone,2.10,41.75,-3,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-40,GEO_PACK_TOBLERONE
+################ END OF COLD SHELF 4 DATA #################
+###############################################################################################################################################################################
+############## Right side cold shelf 5 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Kinder Bueno,2.60,39.1,0.6,-44,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-46,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-48,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-50,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-52,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-54,GEO_PACK_KINDER
+Kinder Bueno,2.60,39.1,0.6,-56,GEO_PACK_KINDER
+## Top Layer T2
+Kinder Bueno,2.60,40.1,0.6,-44,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-46,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-48,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-50,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-52,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-54,GEO_PACK_KINDER
+Kinder Bueno,2.60,40.1,0.6,-56,GEO_PACK_KINDER
+# Top Layer T3
+Kinder Bueno,2.60,41.1,0.6,-44,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-46,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-48,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-50,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-52,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-54,GEO_PACK_KINDER
+Kinder Bueno,2.60,41.1,0.6,-56,GEO_PACK_KINDER
+# Top Layer T4
+Kinder Bueno,2.60,42.1,0.6,-44,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-46,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-48,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-50,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-52,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-54,GEO_PACK_KINDER
+Kinder Bueno,2.60,42.1,0.6,-56,GEO_PACK_KINDER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Snickers,1.20,39.1,-1.25,-44,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-46,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-48,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-50,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-52,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-54,GEO_PACK_SNICKERS
+Snickers,1.20,39.1,-1.25,-56,GEO_PACK_SNICKERS
+## Middle Layer T2
+Snickers,1.20,40.1,-1.25,-44,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-46,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-48,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-50,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-52,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-54,GEO_PACK_SNICKERS
+Snickers,1.20,40.1,-1.25,-56,GEO_PACK_SNICKERS
+# Middle Layer T3
+Snickers,1.20,41.1,-1.25,-44,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-46,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-48,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-50,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-52,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-54,GEO_PACK_SNICKERS
+Snickers,1.20,41.1,-1.25,-56,GEO_PACK_SNICKERS
+# Middle Layer T4
+Snickers,1.20,42.1,-1.25,-44,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-46,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-48,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-50,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-52,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-54,GEO_PACK_SNICKERS
+Snickers,1.20,42.1,-1.25,-56,GEO_PACK_SNICKERS
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Toblerone,2.10,38.75,-3,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-3,-55,GEO_PACK_TOBLERONE
+## Bottom Layer T2
+Toblerone,2.10,39.75,-3,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-3,-55,GEO_PACK_TOBLERONE
+## Bottom Layer T3
+Toblerone,2.10,40.75,-3,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-3,-55,GEO_PACK_TOBLERONE
+## Bottom Layer T4
+Toblerone,2.10,41.75,-3,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-3,-55,GEO_PACK_TOBLERONE
+################ END OF COLD SHELF 5 DATA #################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+############## Right side red shelf 1 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,1,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,0,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-1,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-3,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-4,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-5,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,1,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,0,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-1,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-3,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-4,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-5,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,1,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,0,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-1,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-3,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-4,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-5,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-5,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-5,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-5,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-5,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-5,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-5,GEO_CAN_BEANS
+################ END OF RED SHELF 1 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 2 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-7,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-8,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-9,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-11,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-12,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-13,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-7,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-8,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-9,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-11,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-12,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-13,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-7,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-8,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-9,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-11,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-12,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-13,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-13,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-13,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-13,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-13,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-13,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-13,GEO_CAN_BEANS
+################ END OF RED SHELF 2 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 3 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-15,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-16,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-17,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-19,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-20,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-21,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-15,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-16,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-17,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-19,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-20,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-21,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-15,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-16,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-17,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-19,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-20,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-21,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-21,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-21,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-21,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-21,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-21,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-21,GEO_CAN_BEANS
+################ END OF RED SHELF 3 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 4 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-23,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-24,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-25,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-27,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-28,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-29,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-23,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-24,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-25,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-27,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-28,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-29,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-23,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-24,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-25,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-27,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-28,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-29,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-29,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-29,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-29,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-29,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-29,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-29,GEO_CAN_BEANS
+################ END OF RED SHELF 4 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 5 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-31,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-32,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-33,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-35,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-36,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-37,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-31,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-32,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-33,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-35,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-36,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-37,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-31,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-32,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-33,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-35,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-36,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-37,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-37,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-37,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-37,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-37,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-37,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-37,GEO_CAN_BEANS
+################ END OF RED SHELF 5 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 6 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-39,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-40,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-41,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-43,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-44,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-45,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-39,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-40,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-41,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-43,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-44,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-45,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-39,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-40,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-41,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-43,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-44,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-45,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-45,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-45,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-45,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-45,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-45,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-45,GEO_CAN_BEANS
+################ END OF RED SHELF 6 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 7 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,17.3,0.5,-47,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-48,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-49,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-51,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-52,GEO_CAN_MILO
+Milo,13.20,17.3,0.5,-53,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,16.3,0.5,-47,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-48,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-49,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-51,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-52,GEO_CAN_MILO
+Milo,13.20,16.3,0.5,-53,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,15.3,0.5,-47,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-48,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-49,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-51,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-52,GEO_CAN_MILO
+Milo,13.20,15.3,0.5,-53,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,17.3,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,17.3,-2.2,-53,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,16.3,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,16.3,-2.2,-53,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,15.3,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,15.3,-2.2,-53,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,17.3,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,17.3,-4.4,-53,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,16.3,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,16.3,-4.4,-53,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,15.3,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,15.3,-4.4,-53,GEO_CAN_BEANS
+################ END OF RED SHELF 7 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 8 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-5,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-5,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-5,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-5,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-5,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-5,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-5,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-5,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-5,GEO_BOX_CEREAL
+################ END OF RED SHELF 8 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 9 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-13,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-13,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-13,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-13,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-13,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-13,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-13,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-13,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-13,GEO_BOX_CEREAL
+################ END OF RED SHELF 9 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 10 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-21,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-21,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-21,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-21,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-21,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-21,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-21,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-21,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-21,GEO_BOX_CEREAL
+################ END OF RED SHELF 10 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 11 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-29,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-29,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-29,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-29,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-29,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-29,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-29,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-29,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-29,GEO_BOX_CEREAL
+################ END OF RED SHELF 11 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 12 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-36,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-37,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-37,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-37,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-37,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-37,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-37,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-37,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-37,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-37,GEO_BOX_CEREAL
+################ END OF RED SHELF 12 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 13 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-45,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-45,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-45,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-45,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-45,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-45,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-45,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-45,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-45,GEO_BOX_CEREAL
+################ END OF RED SHELF 13 DATA #################
+###############################################################################################################################################################################
+############## Right side red shelf 14 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,13.75,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,13.75,0.5,-53,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,12.75,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,12.75,0.5,-53,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,11.75,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,11.75,0.5,-53,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,13.75,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,13.75,-1.9,-53,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,12.75,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,12.75,-1.9,-53,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,11.75,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,11.75,-1.9,-53,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,13.75,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,13.75,-4.15,-53,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,12.75,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,12.75,-4.15,-53,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,11.75,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,11.75,-4.15,-53,GEO_BOX_CEREAL
+################ END OF RED SHELF 14 DATA #################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+############## Middle Fridge ####################
+############## Pizza Compartment ####################
+Pizza,1.50,-1.7,-1,-1.7,GEO_BOX_PIZZA
+Pizza,1.50,-3.4,-1,-1.7,GEO_BOX_PIZZA
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+############## Left side red shelf 1 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,1,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,0,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-1,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-3,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-4,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-5,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,1,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,0,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-1,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-3,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-4,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-5,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,1,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,0,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-1,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-3,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-4,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-5,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-5,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-5,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,1,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-1,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-3,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-5,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-5,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-5,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,1,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,0,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-1,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-3,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-4,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-5,GEO_CAN_BEANS
+################ END OF RED SHELF 1 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 2 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-7,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-8,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-9,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-11,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-12,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-13,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-7,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-8,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-9,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-11,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-12,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-13,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-7,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-8,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-9,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-11,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-12,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-13,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-13,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-13,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-7,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-9,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-11,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-13,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-13,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-13,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-7,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-8,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-9,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-11,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-12,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-13,GEO_CAN_BEANS
+################ END OF RED SHELF 2 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 3 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-15,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-16,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-17,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-19,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-20,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-21,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-15,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-16,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-17,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-19,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-20,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-21,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-15,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-16,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-17,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-19,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-20,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-21,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-21,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-21,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-15,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-17,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-19,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-21,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-21,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-21,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-15,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-16,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-17,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-19,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-20,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-21,GEO_CAN_BEANS
+################ END OF RED SHELF 3 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 4 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-23,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-24,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-25,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-27,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-28,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-29,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-23,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-24,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-25,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-27,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-28,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-29,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-23,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-24,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-25,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-27,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-28,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-29,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-29,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-29,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-23,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-25,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-27,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-29,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-29,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-29,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-23,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-24,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-25,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-27,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-28,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-29,GEO_CAN_BEANS
+################ END OF RED SHELF 4 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 5 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-31,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-32,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-33,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-35,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-36,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-37,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-31,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-32,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-33,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-35,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-36,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-37,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-31,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-32,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-33,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-35,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-36,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-37,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-37,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-37,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-31,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-33,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-35,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-37,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-37,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-37,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-31,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-32,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-33,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-35,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-36,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-37,GEO_CAN_BEANS
+################ END OF RED SHELF 5 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 6 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-39,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-40,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-41,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-43,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-44,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-45,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-39,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-40,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-41,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-43,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-44,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-45,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-39,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-40,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-41,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-43,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-44,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-45,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-45,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-45,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-39,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-41,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-43,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-45,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-45,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-45,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-39,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-40,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-41,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-43,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-44,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-45,GEO_CAN_BEANS
+################ END OF RED SHELF 6 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 7 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Milo,13.20,-20.7,0.5,-47,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-48,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-49,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-51,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-52,GEO_CAN_MILO
+Milo,13.20,-20.7,0.5,-53,GEO_CAN_MILO
+## Top Layer T2
+Milo,13.20,-21.7,0.5,-47,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-48,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-49,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-51,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-52,GEO_CAN_MILO
+Milo,13.20,-21.7,0.5,-53,GEO_CAN_MILO
+## Top Layer T3
+Milo,13.20,-22.7,0.5,-47,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-48,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-49,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-51,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-52,GEO_CAN_MILO
+Milo,13.20,-22.7,0.5,-53,GEO_CAN_MILO
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Sardines,2.45,-20.7,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,-20.7,-2.2,-53,GEO_CAN_SARDINES
+## Middle Layer T2
+Sardines,2.45,-21.7,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,-21.7,-2.2,-53,GEO_CAN_SARDINES
+## Middle Layer T3
+Sardines,2.45,-22.7,-2.2,-47,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-49,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-51,GEO_CAN_SARDINES
+Sardines,2.45,-22.7,-2.2,-53,GEO_CAN_SARDINES
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Baked Beans,1.50,-20.7,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,-20.7,-4.4,-53,GEO_CAN_BEANS
+## Bottom Layer T2
+Baked Beans,1.50,-21.7,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,-21.7,-4.4,-53,GEO_CAN_BEANS
+## Bottom Layer T3
+Baked Beans,1.50,-22.7,-4.4,-47,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-48,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-49,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-51,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-52,GEO_CAN_BEANS
+Baked Beans,1.50,-22.7,-4.4,-53,GEO_CAN_BEANS
+################ END OF RED SHELF 7 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 8 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-5,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-5,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-1,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-3,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-5,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-5,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-5,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-1,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-3,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-5,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-5,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-5,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-1,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-3,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-5,GEO_BOX_CEREAL
+################ END OF RED SHELF 8 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 9 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-13,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-13,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-7,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-9,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-11,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-13,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-13,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-13,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-7,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-9,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-11,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-13,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-13,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-13,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-7,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-9,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-11,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-13,GEO_BOX_CEREAL
+################ END OF RED SHELF 9 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 10 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-21,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-21,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-15,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-17,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-19,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-21,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-21,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-21,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-15,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-17,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-19,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-21,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-21,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-21,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-15,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-17,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-19,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-21,GEO_BOX_CEREAL
+################ END OF RED SHELF 10 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 11 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-29,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-29,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-23,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-25,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-27,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-29,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-29,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-29,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-23,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-25,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-27,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-29,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-29,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-29,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-23,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-25,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-27,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-29,GEO_BOX_CEREAL
+################ END OF RED SHELF 11 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 12 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-36,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-37,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-37,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-31,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-33,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-35,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-37,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-37,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-37,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-31,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-33,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-35,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-37,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-37,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-37,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-31,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-33,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-35,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-37,GEO_BOX_CEREAL
+################ END OF RED SHELF 12 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 13 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-45,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-45,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-39,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-41,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-43,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-45,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-45,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-45,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-39,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-41,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-43,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-45,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-45,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-45,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-39,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-41,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-43,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-45,GEO_BOX_CEREAL
+################ END OF RED SHELF 13 DATA #################
+###############################################################################################################################################################################
+############## Left side red shelf 14 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Instant Noodle,2.40,-24.25,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,-24.25,0.5,-53,GEO_PACK_NOODLE
+## Top Layer T2
+Instant Noodle,2.40,-25.25,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,-25.25,0.5,-53,GEO_PACK_NOODLE
+## Top Layer T3
+Instant Noodle,2.40,-26.25,0.5,-47,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-49,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-51,GEO_PACK_NOODLE
+Instant Noodle,2.40,-26.25,0.5,-53,GEO_PACK_NOODLE
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Chocolate Cereal,2.45,-24.25,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-24.25,-1.9,-53,GEO_BOX_CHOC_CEREAL
+## Middle Layer T2
+Chocolate Cereal,2.45,-25.25,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-25.25,-1.9,-53,GEO_BOX_CHOC_CEREAL
+## Middle Layer T3
+Chocolate Cereal,2.45,-26.25,-1.9,-47,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-49,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-51,GEO_BOX_CHOC_CEREAL
+Chocolate Cereal,2.45,-26.25,-1.9,-53,GEO_BOX_CHOC_CEREAL
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-24.25,-4.15,-53,GEO_BOX_CEREAL
+## Bottom Layer T2
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-25.25,-4.15,-53,GEO_BOX_CEREAL
+## Bottom Layer T3
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-47,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-49,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-51,GEO_BOX_CEREAL
+Mac N Cheese Cereal,1.50,-26.25,-4.15,-53,GEO_BOX_CEREAL
+################ END OF RED SHELF 14 DATA #################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+###############################################################################################################################################################################
+############## Left side cold shelf 1 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Root Beer,1.50,-41.5,0.8,16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,12,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,10,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,8,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,6,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,4,GEO_CAN_ROOTBEER
+## Top Layer T2
+Root Beer,1.50,-42.5,0.8,16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,12,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,10,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,8,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,6,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,4,GEO_CAN_ROOTBEER
+# Top Layer T3
+Root Beer,1.50,-43.5,0.8,16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,12,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,10,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,8,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,6,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,4,GEO_CAN_ROOTBEER
+# Top Layer T4
+Root Beer,1.50,-44.5,0.8,16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,12,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,10,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,8,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,6,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,4,GEO_CAN_ROOTBEER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Coke Zero,1.00,-41.5,-1.05,16,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,14,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,12,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,10,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,8,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,6,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,4,GEO_CAN_COKE
+## Middle Layer T2
+Coke Zero,1.00,-42.5,-1.05,16,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,14,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,12,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,10,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,8,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,6,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,4,GEO_CAN_COKE
+## Middle Layer T3
+Coke Zero,1.00,-43.5,-1.05,16,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,14,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,12,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,10,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,8,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,6,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,4,GEO_CAN_COKE
+## Middle Layer T4
+Coke Zero,1.00,-44.5,-1.05,16,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,14,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,12,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,10,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,8,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,6,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,4,GEO_CAN_COKE
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mountain Dew,1.20,-41,-2.85,16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,12,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,10,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,8,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,6,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,4,GEO_CAN_MTNDEW
+## Bottom Layer T2
+Mountain Dew,1.20,-42,-2.85,16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,12,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,10,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,8,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,6,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,4,GEO_CAN_MTNDEW
+# Bottom Layer T3
+Mountain Dew,1.20,-43,-2.85,16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,12,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,10,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,8,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,6,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,4,GEO_CAN_MTNDEW
+# Bottom Layer T4
+Mountain Dew,1.20,-44,-2.85,16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,12,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,10,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,8,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,6,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,4,GEO_CAN_MTNDEW
+################ END OF COLD SHELF 1 DATA #################
+###############################################################################################################################################################################
+############## Left side cold shelf 2 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Root Beer,1.50,-41.5,0.8,1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-3,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-5,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-7,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-9,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-11,GEO_CAN_ROOTBEER
+## Top Layer T2
+Root Beer,1.50,-42.5,0.8,1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-3,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-5,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-7,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-9,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-11,GEO_CAN_ROOTBEER
+# Top Layer T3
+Root Beer,1.50,-43.5,0.8,1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-3,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-5,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-7,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-9,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-11,GEO_CAN_ROOTBEER
+# Top Layer T4
+Root Beer,1.50,-44.5,0.8,1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-1,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-3,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-5,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-7,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-9,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-11,GEO_CAN_ROOTBEER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Coke Zero,1.00,-41.5,-1.05,1,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-1,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-3,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-5,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-7,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-9,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-11,GEO_CAN_COKE
+## Middle Layer T2
+Coke Zero,1.00,-42.5,-1.05,1,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-1,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-3,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-5,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-7,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-9,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-11,GEO_CAN_COKE
+## Middle Layer T3
+Coke Zero,1.00,-43.5,-1.05,1,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-1,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-3,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-5,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-7,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-9,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-11,GEO_CAN_COKE
+## Middle Layer T4
+Coke Zero,1.00,-44.5,-1.05,1,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-1,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-3,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-5,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-7,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-9,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-11,GEO_CAN_COKE
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mountain Dew,1.20,-41,-2.85,1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-3,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-5,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-7,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-9,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-11,GEO_CAN_MTNDEW
+## Bottom Layer T2
+Mountain Dew,1.20,-42,-2.85,1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-3,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-5,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-7,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-9,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-11,GEO_CAN_MTNDEW
+# Bottom Layer T3
+Mountain Dew,1.20,-43,-2.85,1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-3,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-5,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-7,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-9,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-11,GEO_CAN_MTNDEW
+# Bottom Layer T4
+Mountain Dew,1.20,-44,-2.85,1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-1,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-3,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-5,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-7,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-9,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-11,GEO_CAN_MTNDEW
+################ END OF COLD SHELF 2 DATA #################
+###############################################################################################################################################################################
+############## Left side cold shelf 3 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Root Beer,1.50,-41.5,0.8,-14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-18,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-20,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-22,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-24,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-26,GEO_CAN_ROOTBEER
+## Top Layer T2
+Root Beer,1.50,-42.5,0.8,-14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-18,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-20,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-22,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-24,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-26,GEO_CAN_ROOTBEER
+# Top Layer T3
+Root Beer,1.50,-43.5,0.8,-14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-18,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-20,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-22,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-24,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-26,GEO_CAN_ROOTBEER
+# Top Layer T4
+Root Beer,1.50,-44.5,0.8,-14,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-16,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-18,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-20,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-22,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-24,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-26,GEO_CAN_ROOTBEER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Coke Zero,1.00,-41.5,-1.05,-14,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-16,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-18,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-20,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-22,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-24,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-26,GEO_CAN_COKE
+## Middle Layer T2
+Coke Zero,1.00,-42.5,-1.05,-14,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-16,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-18,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-20,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-22,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-24,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-26,GEO_CAN_COKE
+## Middle Layer T3
+Coke Zero,1.00,-43.5,-1.05,-14,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-16,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-18,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-20,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-22,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-24,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-26,GEO_CAN_COKE
+## Middle Layer T4
+Coke Zero,1.00,-44.5,-1.05,-14,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-16,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-18,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-20,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-22,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-24,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-26,GEO_CAN_COKE
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mountain Dew,1.20,-41,-2.85,-14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-18,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-20,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-22,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-24,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-26,GEO_CAN_MTNDEW
+## Bottom Layer T2
+Mountain Dew,1.20,-42,-2.85,-14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-18,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-20,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-22,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-24,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-26,GEO_CAN_MTNDEW
+# Bottom Layer T3
+Mountain Dew,1.20,-43,-2.85,-14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-18,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-20,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-22,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-24,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-26,GEO_CAN_MTNDEW
+# Bottom Layer T4
+Mountain Dew,1.20,-44,-2.85,-14,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-16,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-18,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-20,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-22,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-24,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-26,GEO_CAN_MTNDEW
+################ END OF COLD SHELF 3 DATA #################
+###############################################################################################################################################################################
+############## Left side cold shelf 4 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Root Beer,1.50,-41.5,0.8,-29,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-31,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-33,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-35,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-37,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-39,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-41,GEO_CAN_ROOTBEER
+## Top Layer T2
+Root Beer,1.50,-42.5,0.8,-29,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-31,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-33,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-35,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-37,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-39,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-41,GEO_CAN_ROOTBEER
+# Top Layer T3
+Root Beer,1.50,-43.5,0.8,-29,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-31,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-33,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-35,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-37,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-39,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-41,GEO_CAN_ROOTBEER
+# Top Layer T4
+Root Beer,1.50,-44.5,0.8,-29,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-31,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-33,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-35,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-37,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-39,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-41,GEO_CAN_ROOTBEER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Coke Zero,1.00,-41.5,-1.05,-29,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-31,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-33,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-35,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-37,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-39,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-41,GEO_CAN_COKE
+## Middle Layer T2
+Coke Zero,1.00,-42.5,-1.05,-29,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-31,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-33,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-35,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-37,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-39,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-42,GEO_CAN_COKE
+## Middle Layer T3
+Coke Zero,1.00,-43.5,-1.05,-29,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-31,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-33,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-35,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-37,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-39,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-43,GEO_CAN_COKE
+## Middle Layer T4
+Coke Zero,1.00,-44.5,-1.05,-29,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-31,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-33,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-35,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-37,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-39,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-44,GEO_CAN_COKE
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mountain Dew,1.20,-41,-2.85,-29,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-31,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-33,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-35,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-37,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-39,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-41,GEO_CAN_MTNDEW
+## Bottom Layer T2
+Mountain Dew,1.20,-42,-2.85,-29,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-31,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-33,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-35,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-37,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-39,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-41,GEO_CAN_MTNDEW
+# Bottom Layer T3
+Mountain Dew,1.20,-43,-2.85,-29,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-31,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-33,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-35,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-37,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-39,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-41,GEO_CAN_MTNDEW
+# Bottom Layer T4
+Mountain Dew,1.20,-44,-2.85,-29,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-31,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-33,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-35,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-37,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-39,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-41,GEO_CAN_MTNDEW
+################ END OF COLD SHELF 4 DATA #################
+###############################################################################################################################################################################
+############## Left side cold shelf 5 ####################
+#######TOP LAYER#######
+## Top Layer T1
+Root Beer,1.50,-41.5,0.8,-44,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-46,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-48,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-50,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-52,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-54,GEO_CAN_ROOTBEER
+Root Beer,1.50,-41.5,0.8,-56,GEO_CAN_ROOTBEER
+## Top Layer T2
+Root Beer,1.50,-42.5,0.8,-44,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-46,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-48,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-50,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-52,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-54,GEO_CAN_ROOTBEER
+Root Beer,1.50,-42.5,0.8,-56,GEO_CAN_ROOTBEER
+# Top Layer T3
+Root Beer,1.50,-43.5,0.8,-44,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-46,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-48,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-50,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-52,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-54,GEO_CAN_ROOTBEER
+Root Beer,1.50,-43.5,0.8,-56,GEO_CAN_ROOTBEER
+# Top Layer T4
+Root Beer,1.50,-44.5,0.8,-44,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-46,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-48,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-50,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-52,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-54,GEO_CAN_ROOTBEER
+Root Beer,1.50,-44.5,0.8,-56,GEO_CAN_ROOTBEER
+#######MIDDLE LAYER#######
+## Middle Layer T1
+Coke Zero,1.00,-41.5,-1.05,-44,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-46,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-48,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-50,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-52,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-54,GEO_CAN_COKE
+Coke Zero,1.00,-41.5,-1.05,-56,GEO_CAN_COKE
+## Middle Layer T2
+Coke Zero,1.00,-42.5,-1.05,-44,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-46,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-48,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-50,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-52,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-54,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-56,GEO_CAN_COKE
+## Middle Layer T3
+Coke Zero,1.00,-43.5,-1.05,-44,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-46,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-48,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-50,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-52,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-54,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-56,GEO_CAN_COKE
+## Middle Layer T4
+Coke Zero,1.00,-44.5,-1.05,-44,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-46,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-48,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-50,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-52,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-54,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-56,GEO_CAN_COKE
+#######BOTTOM LAYER#######
+## Bottom Layer T1
+Mountain Dew,1.20,-41,-2.85,-44,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-46,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-48,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-50,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-52,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-54,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-41,-2.85,-56,GEO_CAN_MTNDEW
+## Bottom Layer T2
+Mountain Dew,1.20,-42,-2.85,-44,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-46,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-48,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-50,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-52,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-54,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-42,-2.85,-56,GEO_CAN_MTNDEW
+# Bottom Layer T3
+Mountain Dew,1.20,-43,-2.85,-44,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-46,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-48,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-50,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-52,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-54,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-43,-2.85,-56,GEO_CAN_MTNDEW
+# Bottom Layer T4
+Mountain Dew,1.20,-44,-2.85,-44,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-46,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-48,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-50,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-52,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-54,GEO_CAN_MTNDEW
+Mountain Dew,1.20,-44,-2.85,-56,GEO_CAN_MTNDEW
+################ END OF COLD SHELF 5 DATA #################

@@ -22,12 +22,20 @@ SP2::~SP2()
 
 void SP2::Init()
 {
+	//Vars
 	fps = 0;
 	count = 0;
+	split_char = ',';
+	ItemLine = 0;
+	string TextOnScreen = " ";
+	UIIndex = 0;
+	Distance = 0;
+	MaxDistance = 3.5;
+	WorldOffset = 3.6f;
 
 	std::string data = " ";
 
-	//File reading
+	//File reading - Non-Monospacing
 	std::ifstream inFile;
 	inFile.open("Source//charWidth.txt");
 	if(inFile.good())
@@ -38,6 +46,38 @@ void SP2::Init()
 			count++;
 		}
 		inFile.close();
+	}
+
+	//Shelf Item details
+	std::ifstream inShelfItem;
+	inShelfItem.open("Source//ShelfInfo.txt");
+	if(inShelfItem.good())
+	{
+		while(getline(inShelfItem, ShelfData))
+		{
+			std::istringstream split(ShelfData);
+			if(ShelfData[0] == '#')
+			{
+				continue;
+			}
+			for(string each; std::getline(split, each, split_char);)
+			{
+				tokens.push_back(each);
+			}
+			//Create new objects
+			Item = new CItem;
+
+			Item->SetDetails((tokens.at(SP2::NAME + (ItemLine * SP2::NUM_INDEX)))
+				, stod(tokens.at(SP2::PRICE + (ItemLine * SP2::NUM_INDEX)))
+				, Vector3(stof(tokens.at(SP2::POSX + (ItemLine * SP2::NUM_INDEX)))
+				, stof(tokens.at(SP2::POSY + (ItemLine * SP2::NUM_INDEX)))
+				, stof(tokens.at(SP2::POSZ + (ItemLine * SP2::NUM_INDEX))))
+				, (tokens.at(SP2::GEO_TYPE + (ItemLine * SP2::NUM_INDEX))));
+
+			ItemLine++;
+			Container.Shelf.push_back(Item);
+		}
+		inShelfItem.close();
 	}
 
 	// Set background color to black
@@ -370,12 +410,12 @@ void SP2::Init()
 	meshList[GEO_CAN_BEANS]->material.kShininess = 5.f;
 
 	//Ice Cream
-	meshList[GEO_CAN_SARDINE] = MeshBuilder::GenerateOBJ("Can_Sardines", "OBJ//Can_Sardines.obj");
-	meshList[GEO_CAN_SARDINE]->textureID = LoadTGA("Image//Can_Sardines_Tex.tga");
-	meshList[GEO_CAN_SARDINE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	meshList[GEO_CAN_SARDINE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_SARDINE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CAN_SARDINE]->material.kShininess = 5.f;
+	meshList[GEO_CAN_SARDINES] = MeshBuilder::GenerateOBJ("Can_Sardines", "OBJ//Can_Sardines.obj");
+	meshList[GEO_CAN_SARDINES]->textureID = LoadTGA("Image//Can_Sardines_Tex.tga");
+	meshList[GEO_CAN_SARDINES]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_SARDINES]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_SARDINES]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_SARDINES]->material.kShininess = 5.f;
 
 	//Entry
 	meshList[GEO_ENTRY] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Entry.obj");
@@ -385,6 +425,49 @@ void SP2::Init()
 	meshList[GEO_ENTRY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_ENTRY]->material.kShininess = 5.f;
 
+	//Rootbeer
+	meshList[GEO_CAN_ROOTBEER] = MeshBuilder::GenerateOBJ("Can_Rootbeer", "OBJ//Can_Rootbeer.obj");
+	meshList[GEO_CAN_ROOTBEER]->textureID = LoadTGA("Image//Can_Rootbeer_Tex.tga");
+	meshList[GEO_CAN_ROOTBEER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_ROOTBEER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_ROOTBEER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_ROOTBEER]->material.kShininess = 5.f;
+
+	//Milo
+	meshList[GEO_CAN_MILO] = MeshBuilder::GenerateOBJ("Can_Milo", "OBJ//Can_Milo.obj");
+	meshList[GEO_CAN_MILO]->textureID = LoadTGA("Image//Can_Milo_Tex.tga");
+	meshList[GEO_CAN_MILO]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CAN_MILO]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CAN_MILO]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_MILO]->material.kShininess = 5.f;
+
+	//Noodle
+	meshList[GEO_PACK_NOODLE] = MeshBuilder::GenerateOBJ("Pack_Noodle", "OBJ//Packet_Noodle.obj");
+	meshList[GEO_PACK_NOODLE]->textureID = LoadTGA("Image//Packet_Noodle_Tex.tga");
+	meshList[GEO_PACK_NOODLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_PACK_NOODLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_PACK_NOODLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_NOODLE]->material.kShininess = 5.f;
+
+	//Toblerone
+	meshList[GEO_PACK_TOBLERONE] = MeshBuilder::GenerateOBJ("Pack_Toblerone", "OBJ//Packet_Toblerone.obj");
+	meshList[GEO_PACK_TOBLERONE]->textureID = LoadTGA("Image//Packet_Toblerone_Tex.tga");
+	meshList[GEO_PACK_TOBLERONE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_PACK_TOBLERONE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_PACK_TOBLERONE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_TOBLERONE]->material.kShininess = 5.f;
+
+	//Chocolate
+	meshList[GEO_BOX_CHOCO] = MeshBuilder::GenerateOBJ("Box_Choco", "OBJ//Box_Choco.obj");
+	meshList[GEO_BOX_CHOCO]->textureID = LoadTGA("Image//Box_Choco_Tex.tga");
+	meshList[GEO_BOX_CHOCO]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BOX_CHOCO]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BOX_CHOCO]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CHOCO]->material.kShininess = 5.f;
+
+	//Text
+	meshList[GEO_UI] = MeshBuilder::GenerateQuad("UI", Color(1, 1, 1), 1.f);
+	meshList[GEO_UI]->textureID = LoadTGA("Image//UI.tga");
 }
 
 static float ROT_LIMIT = 45.f;
@@ -468,6 +551,53 @@ void SP2::Update(double dt)
 				startScreen = false;
 				gameStart = false;
 				endScreen = true;
+			}
+			//Adding items
+			if(Application::IsKeyPressed('E'))
+			{
+				for(int i = 0; i < ItemLine; i++)
+				{
+					//Taking of items
+					if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+					{
+						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+						if(Distance <= 3.5f && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+						{
+							if(PlayerInvent.AddToInvent(Container.Shelf.at(i)))
+							{
+								Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+							}
+						}
+					}
+				}
+			}
+
+			//Removing items
+			if(Application::IsKeyPressed('G'))
+			{
+				for(int i = 0; i < ItemLine; i++)
+				{
+					//Taking of items
+					if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+					{
+						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+						if(Distance <= 3.5f && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+						{
+							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i));
+							Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
+						}
+					}
+				}
 			}
 		}
 
@@ -637,13 +767,19 @@ void SP2::Render()
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(0, -3, 0);
+		modelStack.Translate(0, -WorldOffset, 0);
 		RenderSkyBox();
 		RenderObject();
+		for(int i = 0; i < ItemLine; i++)
+		{
+			RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
+		}
 		modelStack.PopMatrix();
 
 		MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
+
 
 		//Text display for FPS
 		RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
@@ -661,6 +797,15 @@ void SP2::Render()
 		if (modeCustomer == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+
+			//UI Rendering
+			RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), 50.f, 40.f, 0.f, 1.f, 80.f, 80.f, 1.f);
+			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++)
+			{
+				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), 16.f + (UIIndex * 6.15f), 4.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+				UIIndex++;
+			}
+			UIIndex = 0;
 		}
 		else if (modeVillain == true)
 		{
@@ -847,7 +992,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-20, -1.8, 0);
+			modelStack.Translate(-20, -2.2, -2);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
 			modelStack.PopMatrix();
@@ -863,7 +1008,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(18, -1.8, -2);
+			modelStack.Translate(18, -2.2, -2);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_THIRDSHELF], true);
 			modelStack.PopMatrix();
@@ -895,11 +1040,6 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(20, -1.4, 20);
-	RenderMesh(meshList[GEO_CAN_SARDINE], false);
-	modelStack.PopMatrix();
 	for (int i = 0; i > -10; i -= 6)
 	{
 		modelStack.PushMatrix();
@@ -930,6 +1070,39 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
+}
+
+void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
+{
+	Mtx44 MVP;
+	int offsetY = WorldOffset;
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
+	modelStack.PushMatrix();
+	if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+	{
+		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
+		RenderMesh(meshList[ItemType], false);
+		
+	}
+	else if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+	{
+		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
+		modelStack.Scale(1.5f, 0.25f, 1.5f);
+		RenderMesh(meshList[ItemType], false);
+	}
+
+	//Text info of item
+	if(camera.target.x > Container.Shelf.at(ItemNumber)->MinWidth && camera.target.x < Container.Shelf.at(ItemNumber)->MaxWidth
+		&& camera.target.y > Container.Shelf.at(ItemNumber)->MinHeight && camera.target.y < Container.Shelf.at(ItemNumber)->MaxHeight
+		&& camera.target.z > Container.Shelf.at(ItemNumber)->MinLength && camera.target.z < Container.Shelf.at(ItemNumber)->MaxLength)
+	{
+		if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		RenderTextOnScreen(meshList[GEO_TEXT], "HERE", Color(0, 1, 0), 5.f, 5.5f, 3.5f);
+	}
+
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
@@ -1001,6 +1174,34 @@ void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float si
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+	//Add these code just before glEnable(GL_DEPTH_TEST);
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	glEnable(GL_DEPTH_TEST);
+}
+
+void SP2::RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ)
+{
+	if(!mesh || mesh->textureID <= 0) //Proper error check
+	return;
+
+	glDisable(GL_DEPTH_TEST);
+	//Add these code just after glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity(); //Reset modelStack
+	modelStack.Translate(TranslateX, TranslateY, 0);
+	modelStack.Rotate(degrees, 0.f, RotateY, 0.f);
+	modelStack.Scale(ScaleX, ScaleY, ScaleZ);
+
+	RenderMesh(mesh, false);
 	//Add these code just before glEnable(GL_DEPTH_TEST);
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
