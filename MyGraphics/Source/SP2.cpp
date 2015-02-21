@@ -465,6 +465,7 @@ void SP2::Update(double dt)
 		{
 			if(Application::IsKeyPressed('Q'))
 			{
+				startScreen = false;
 				gameStart = false;
 				endScreen = true;
 			}
@@ -561,16 +562,19 @@ void SP2::Update(double dt)
 void SP2::Render()
 {
 	//Start Screen
-	if (startScreen = true)
+	if (startScreen == true)
 	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "START GAME", Color (1, 1, 1), 4.f, 8.5f, 11.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "QUIT", Color (1, 1, 1), 4.f, 9.75f, 5.f);
 	}
 
 	//End Game Screen
-	if (endScreen = true)
+	if (endScreen == true)
 	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "QUIT", Color (1, 1, 1), 4.f, 9.75f, 5.f);
 	}
 
-	if (gameStart == true)
+	if (gameStart == true && endScreen == false)
 	{
 		float textSize = 3.f;
 		//clear depth and color buffer

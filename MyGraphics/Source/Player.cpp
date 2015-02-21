@@ -1,3 +1,4 @@
+#include <fstream>
 #include "Player.h"
 
 CPlayer::CPlayer()
@@ -34,7 +35,7 @@ double CPlayer::getTimeTaken(void)
 //Score
 void CPlayer::setShopperScoreSucceed(double dt, int moneyLeft)
 {
-	score = 0;
+	score = moneyLeft * 10 + 300 / dt * 200;
 }
 int CPlayer::getShopperScoreSucceed(void)
 {
@@ -44,7 +45,7 @@ int CPlayer::getShopperScoreSucceed(void)
 //if Mission fail
 void CPlayer::setShopperScoreFailed(double dt, int moneyNeeded)
 {
-	score = 0;
+	score = (500 - moneyNeeded + 300) / dt * 10;
 }
 int CPlayer::getShopperScoreFailed(void)
 {
