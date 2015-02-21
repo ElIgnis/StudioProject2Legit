@@ -1,5 +1,8 @@
+#include <iostream>
 #include <fstream>
+#include <string>
 #include "Player.h"
+
 
 CPlayer::CPlayer()
 {
@@ -55,6 +58,50 @@ int CPlayer::getShopperScoreFailed(void)
 //Highscore
 void setShopperHighScore(int score)
 {
+	int newScore, Highscore;
+	std::ifstream inData;
+	std::ofstream outData;
+	std::string data;
+
+	inData.open ("HighscoreShopper.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	Highscore = atoi(data.c_str()); //Converting data from string to int 
+	
+	if (score > Highscore)
+	{
+		outData << score;
+	}
+	else 
+	{
+		Highscore = Highscore;
+		outData << Highscore;
+	}
+
+	inData.close();
+	outData.close();
+}
+
+int CPlayer::getShopperHighScore(void)
+{
+	int highScore;
+	std::ifstream inData;
+	std::string data;
+
+	inData.open ("HighscoreShopper.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	highScore = atoi(data.c_str());
+
+	return highScore;
 }
 
 //GUARD FUNCTIONS
@@ -71,6 +118,50 @@ int CPlayer::getGuardScoreSucceed(void)
 //Highscore
 void setGuardHighScore(int score)
 {
+	int newScore, Highscore;
+	std::ifstream inData;
+	std::ofstream outData;
+	std::string data;
+
+	inData.open ("HighscoreGuard.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	Highscore = atoi(data.c_str()); //Converting data from string to int 
+	
+	if (score > Highscore)
+	{
+		outData << score;
+	}
+	else 
+	{
+		Highscore = Highscore;
+		outData << Highscore;
+	}
+
+	inData.close();
+	outData.close();
+}
+
+int CPlayer::getGuardHighScore(void)
+{
+	int highScore;
+	std::ifstream inData;
+	std::string data;
+
+	inData.open ("HighscoreGuard.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	highScore = atoi(data.c_str());
+
+	return highScore;
 }
 
 //VILLAIN FUNCTIONS
@@ -97,4 +188,48 @@ int CPlayer::getVillainScoreFailed(void)
 //Highscore
 void setVillainHighScore(int score)
 {
+	int newScore, Highscore;
+	std::ifstream inData;
+	std::ofstream outData;
+	std::string data;
+
+	inData.open ("HighscoreVillain.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	Highscore = atoi(data.c_str()); //Converting data from string to int 
+	
+	if (score > Highscore)
+	{
+		outData << score;
+	}
+	else 
+	{
+		Highscore = Highscore;
+		outData << Highscore;
+	}
+
+	inData.close();
+	outData.close();
+}
+
+int CPlayer::getVillainHighScore(void)
+{
+	int highScore;
+	std::ifstream inData;
+	std::string data;
+
+	inData.open ("HighscoreVillain.txt"); //Open text file
+	
+	while (!inData.eof()) //Reading from text file
+	{
+		getline (inData, data);
+	}
+
+	highScore = atoi(data.c_str());
+
+	return highScore;
 }

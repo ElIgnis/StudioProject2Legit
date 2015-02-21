@@ -31,12 +31,14 @@ public:
 	int getShopperScoreFailed(void);
 
 	void setShopperHighScore(int score);
+	int getShopperHighScore(void);
 
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
 
 	void setGuardHighScore(int score);
+	int getGuardHighScore(void);
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
@@ -46,6 +48,7 @@ public:
 	int getVillainScoreFailed(void);
 
 	void setVillainHighScore(int score);
+	int getVillainHighScore(void);
 
 private:
 

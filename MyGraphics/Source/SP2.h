@@ -169,6 +169,7 @@ private:
 	string countDownTime;
 	float countDown;
 
+	//Score
 	//Item
 	
 };

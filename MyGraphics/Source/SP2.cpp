@@ -496,7 +496,6 @@ void SP2::Update(double dt)
 			{
 				missionComplete = true;
 			}
-
 		}
 	}
 
@@ -564,14 +563,16 @@ void SP2::Render()
 	//Start Screen
 	if (startScreen == true)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "START GAME", Color (1, 1, 1), 4.f, 8.5f, 11.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "QUIT", Color (1, 1, 1), 4.f, 9.75f, 5.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color (1, 1, 1), 4.f, 8.5f, 7.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "High Score", Color (1, 1, 1), 4.f, 8.5f, 6.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color (1, 1, 1), 4.f, 9.3f, 4.f);
 	}
 
 	//End Game Screen
 	if (endScreen == true)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "QUIT", Color (1, 1, 1), 4.f, 9.75f, 5.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 4.f, 8.5f, 11.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 9.75f, 5.f);
 	}
 
 	if (gameStart == true && endScreen == false)
