@@ -63,7 +63,7 @@ void setShopperHighScore(int score)
 	std::ofstream outData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreShopper.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreShopper.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -92,7 +92,7 @@ int CPlayer::getShopperHighScore(void)
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreShopper.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreShopper.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -123,7 +123,7 @@ void setGuardHighScore(int score)
 	std::ofstream outData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreGuard.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreGuard.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -152,7 +152,7 @@ int CPlayer::getGuardHighScore(void)
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreGuard.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreGuard.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -193,7 +193,7 @@ void setVillainHighScore(int score)
 	std::ofstream outData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreVillain.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreVillain.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -222,7 +222,7 @@ int CPlayer::getVillainHighScore(void)
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\Source\HighscoreVillain.txt"); //Open text file
+	inData.open ("MyGraphics\\Source\\HighscoreVillain.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
