@@ -73,29 +73,29 @@ Snickers,1.20,42.1,-1.25,6,GEO_PACK_SNICKERS
 Snickers,1.20,42.1,-1.25,4,GEO_PACK_SNICKERS
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
-Toblerone,2.10,38.75,-3,15,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,12.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,10,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,5,GEO_PACK_TOBLERONE
 ## Bottom Layer T2
-Toblerone,2.10,39.75,-3,15,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,12.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,10,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,5,GEO_PACK_TOBLERONE
 ## Bottom Layer T3
-Toblerone,2.10,40.75,-3,15,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,12.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,10,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,5,GEO_PACK_TOBLERONE
 ## Bottom Layer T4
-Toblerone,2.10,41.75,-3,15,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,12.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,10,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,15,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,12.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,10,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,5,GEO_PACK_TOBLERONE
 ################ END OF COLD SHELF 1 DATA #################
 ###############################################################################################################################################################################
 ############## Right side cold shelf 2 ####################
@@ -167,29 +167,29 @@ Snickers,1.20,42.1,-1.25,-9,GEO_PACK_SNICKERS
 Snickers,1.20,42.1,-1.25,-11,GEO_PACK_SNICKERS
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
-Toblerone,2.10,38.75,-3,0,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-2.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-10,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-10,GEO_PACK_TOBLERONE
 ## Bottom Layer T2
-Toblerone,2.10,39.75,-3,0,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-2.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-10,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-10,GEO_PACK_TOBLERONE
 ## Bottom Layer T3
-Toblerone,2.10,40.75,-3,0,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-2.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-10,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-10,GEO_PACK_TOBLERONE
 ## Bottom Layer T4
-Toblerone,2.10,41.75,-3,0,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-2.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-7.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-10,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,0,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-2.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-7.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-10,GEO_PACK_TOBLERONE
 ################ END OF COLD SHELF 2 DATA #################
 ###############################################################################################################################################################################
 ############## Right side cold shelf 3 ####################
@@ -261,29 +261,29 @@ Snickers,1.20,42.1,-1.25,-24,GEO_PACK_SNICKERS
 Snickers,1.20,42.1,-1.25,-26,GEO_PACK_SNICKERS
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
-Toblerone,2.10,38.75,-3,-15,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-17.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-20,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-22.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-25,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-25,GEO_PACK_TOBLERONE
 ## Bottom Layer T2
-Toblerone,2.10,39.75,-3,-15,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-17.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-20,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-22.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-25,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-25,GEO_PACK_TOBLERONE
 ## Bottom Layer T3
-Toblerone,2.10,40.75,-3,-15,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-17.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-20,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-22.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-25,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-25,GEO_PACK_TOBLERONE
 ## Bottom Layer T4
-Toblerone,2.10,41.75,-3,-15,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-17.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-20,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-22.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-25,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-15,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-17.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-20,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-22.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-25,GEO_PACK_TOBLERONE
 ################ END OF COLD SHELF 3 DATA #################
 ###############################################################################################################################################################################
 ############## Right side cold shelf 4 ####################
@@ -355,29 +355,29 @@ Snickers,1.20,42.1,-1.25,-39,GEO_PACK_SNICKERS
 Snickers,1.20,42.1,-1.25,-41,GEO_PACK_SNICKERS
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
-Toblerone,2.10,38.75,-3,-30,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-32.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-35,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-37.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-40,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-40,GEO_PACK_TOBLERONE
 ## Bottom Layer T2
-Toblerone,2.10,39.75,-3,-30,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-32.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-35,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-37.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-40,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-40,GEO_PACK_TOBLERONE
 ## Bottom Layer T3
-Toblerone,2.10,40.75,-3,-30,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-32.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-35,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-37.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-40,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-40,GEO_PACK_TOBLERONE
 ## Bottom Layer T4
-Toblerone,2.10,41.75,-3,-30,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-32.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-35,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-37.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-40,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-30,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-32.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-35,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-37.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-40,GEO_PACK_TOBLERONE
 ################ END OF COLD SHELF 4 DATA #################
 ###############################################################################################################################################################################
 ############## Right side cold shelf 5 ####################
@@ -449,29 +449,29 @@ Snickers,1.20,42.1,-1.25,-54,GEO_PACK_SNICKERS
 Snickers,1.20,42.1,-1.25,-56,GEO_PACK_SNICKERS
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
-Toblerone,2.10,38.75,-3,-45,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-47.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-50,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-52.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,38.75,-3,-55,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,38.75,-2.9,-55,GEO_PACK_TOBLERONE
 ## Bottom Layer T2
-Toblerone,2.10,39.75,-3,-45,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-47.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-50,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-52.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,39.75,-3,-55,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,39.75,-2.9,-55,GEO_PACK_TOBLERONE
 ## Bottom Layer T3
-Toblerone,2.10,40.75,-3,-45,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-47.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-50,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-52.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,40.75,-3,-55,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,40.75,-2.9,-55,GEO_PACK_TOBLERONE
 ## Bottom Layer T4
-Toblerone,2.10,41.75,-3,-45,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-47.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-50,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-52.5,GEO_PACK_TOBLERONE
-Toblerone,2.10,41.75,-3,-55,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-45,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-47.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-50,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-52.5,GEO_PACK_TOBLERONE
+Toblerone,2.10,41.75,-2.9,-55,GEO_PACK_TOBLERONE
 ################ END OF COLD SHELF 5 DATA #################
 ###############################################################################################################################################################################
 ###############################################################################################################################################################################

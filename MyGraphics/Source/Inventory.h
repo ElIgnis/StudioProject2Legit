@@ -4,16 +4,19 @@
 class CInventory
 {
 public:
-
+	Vector3 TrolleyPosition;
 	vector<CItem*>Inventory;
+	vector<int>ItemIndexing;
 	unsigned int MaxInventorySize;
+	unsigned int MaxTrolleySize;
 
-	bool AddToInvent(CItem *Item);
-	bool RemoveFromInvent(CItem *Item);
+	bool AddToInvent(CItem *Item, int ItemIndex);
+	bool RemoveFromInvent(CItem *Item, int ItemIndex);
 	void PrintInvent(void);
+	bool AddToTrolley(CItem *Item);
+	bool RemoveFromTrolley(CItem *Item);
+	void SetDetails(Vector3 &NewPosition);
 
 	CInventory(void);
 	~CInventory(void);
 };
-
-//&& Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT
