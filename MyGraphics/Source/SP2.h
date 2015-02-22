@@ -111,6 +111,7 @@ private:
 		GEO_UI,
 		GEO_SENSOR,
 		GEO_LIGHTBULB,
+		GEO_TROLLEY,
 		NUM_GEOMETRY,
 	};
 

@@ -298,12 +298,12 @@ void SP2::Init()
 	meshList[GEO_DOORMAN]->material.kShininess = 5.f;
 
 	//Trolley
-	//meshList[Geo_TROLLEY] = MeshBuilder::GenerateOBJ("Trolley", "OBJ//Trolleys.obj");
-	//meshList[Geo_TROLLEY]->textureID = LoadTGA("Image//Shiny_Silver_Text.tga");
-	//meshList[Geo_TROLLEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	//meshList[Geo_TROLLEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	//meshList[Geo_TROLLEY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	//meshList[Geo_TROLLEY]->material.kShininess = 5.f;
+	meshList[GEO_TROLLEY] = MeshBuilder::GenerateOBJ("Trolley", "OBJ//Trolley.obj");
+	meshList[GEO_TROLLEY]->textureID = LoadTGA("Image//Trolley.tga");
+	meshList[GEO_TROLLEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_TROLLEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_TROLLEY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_TROLLEY]->material.kShininess = 5.f;
 
 	//Stander
 	meshList[GEO_STANDER] = MeshBuilder::GenerateOBJ("Stander", "OBJ//Stander.obj");
@@ -967,7 +967,7 @@ void SP2::RenderObject()
 	modelStack.PopMatrix();
 
 	//Coldshelve
-	for (int i = 0; i > -75; i-=15)
+	for (int i = 0; i > -75; i -= 15)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(0, 0, i);
@@ -1002,12 +1002,21 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
-	//modelStack.PushMatrix();
-	////scale, translate, rotate
-	//modelStack.Scale(1, 1, 1);
-	//modelStack.Translate(0, 0, 0);
-	//RenderMesh(meshList[Geo_TROLLEY], true);
-	//modelStack.PopMatrix();
+	for (int i = 0; i < 24; i +=4)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(10, -1.8, 30);
+			modelStack.Rotate(180, 0, 1, 0);
+			RenderMesh(meshList[GEO_TROLLEY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
 
 	//Promoter
 	modelStack.PushMatrix();
