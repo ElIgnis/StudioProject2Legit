@@ -24,6 +24,7 @@ public:
 	float MaxLength;
 	float MinHeight;
 	float MaxHeight;
+	int ItemIndex;
 
 	//States
 	enum States
@@ -38,7 +39,7 @@ public:
 	int ItemState[NUM_STATE];
 
 	//Methods
-	void SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType);
+	void SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType, int SetIndex);
 	void SetShape(Vector3 &NewShape);
 	void SetPosition(Vector3 &NewPosition);
 	string GetName(void);

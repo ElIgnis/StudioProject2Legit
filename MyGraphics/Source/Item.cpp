@@ -9,13 +9,14 @@ CItem::~CItem(void)
 {
 }
 
-void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType)
+void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType, int SetIndex)
 {
 	ItemName = SetName;
 	ItemPrice = SetPrice;
 	ItemPosition.x = SetPosition.x;
 	ItemPosition.y = SetPosition.y;
 	ItemPosition.z = SetPosition.z;
+	ItemIndex = SetIndex;
 	
 	if(SetType == "GEO_CAN_COKE")
 	{
@@ -78,6 +79,7 @@ void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, st
 		GEO_TYPE = 34;
 	}
 
+	//Invisible box range defined based on item position
 	MinWidth = (ItemPosition.x - 1.5f);
 	MaxWidth = (ItemPosition.x + 1.5f);
 

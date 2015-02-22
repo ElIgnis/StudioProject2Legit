@@ -13,6 +13,7 @@
 #include "Item.h"
 #include "Shelf.h"
 #include "Inventory.h"
+#include "Cashier.h"
 
 //Marcus
 #include "Player.h"
@@ -145,7 +146,7 @@ private:
 
 	//Shelf Loading properties
 	string ShelfData;
-	std::vector<string>tokens;
+	std::vector<string>ItemTokens;
 	char split_char;
 	int ItemLine;
 
@@ -168,6 +169,12 @@ private:
 	//Item taking
 	float Distance;
 	float MaxDistance;
+
+	//Cashier loading properties
+	string CashierData;
+
+
+	//AI loading properties
 
 	//UI
 	int UIIndex;

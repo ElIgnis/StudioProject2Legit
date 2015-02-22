@@ -62,23 +62,29 @@ void SP2::Init()
 			}
 			for(string each; std::getline(split, each, split_char);)
 			{
-				tokens.push_back(each);
+				ItemTokens.push_back(each);
 			}
 			//Create new objects
 			Item = new CItem;
 
-			Item->SetDetails((tokens.at(SP2::NAME + (ItemLine * SP2::NUM_INDEX)))
-				, stod(tokens.at(SP2::PRICE + (ItemLine * SP2::NUM_INDEX)))
-				, Vector3(stof(tokens.at(SP2::POSX + (ItemLine * SP2::NUM_INDEX)))
-				, stof(tokens.at(SP2::POSY + (ItemLine * SP2::NUM_INDEX)))
-				, stof(tokens.at(SP2::POSZ + (ItemLine * SP2::NUM_INDEX))))
-				, (tokens.at(SP2::GEO_TYPE + (ItemLine * SP2::NUM_INDEX))));
+			Item->SetDetails((ItemTokens.at(SP2::NAME + (ItemLine * SP2::NUM_INDEX)))
+				, stod(ItemTokens.at(SP2::PRICE + (ItemLine * SP2::NUM_INDEX)))
+				, Vector3(stof(ItemTokens.at(SP2::POSX + (ItemLine * SP2::NUM_INDEX)))
+				, stof(ItemTokens.at(SP2::POSY + (ItemLine * SP2::NUM_INDEX)))
+				, stof(ItemTokens.at(SP2::POSZ + (ItemLine * SP2::NUM_INDEX))))
+				, (ItemTokens.at(SP2::GEO_TYPE + (ItemLine * SP2::NUM_INDEX)))
+				, ItemLine);
 
 			ItemLine++;
 			Container.Shelf.push_back(Item);
 		}
 		inShelfItem.close();
 	}
+
+	//Cashier details
+
+
+	//AI details
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -576,18 +582,20 @@ void SP2::Update(double dt)
 			{
 				for(int i = 0; i < ItemLine; i++)
 				{
-					//Taking of items
+					//Taking items from shelf(Check by invisible box around item)
 					if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
 						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
 						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 					{
+						//Distance is updated
 						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
 							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
 							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
-						if(Distance <= 3.5f && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+						//Only able to take items when within range and items that are on the shelf
+						if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
 						{
-							if(PlayerInvent.AddToInvent(Container.Shelf.at(i)))
+							if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
 							{
 								Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
 							}
@@ -596,7 +604,7 @@ void SP2::Update(double dt)
 				}
 			}
 
-			//Removing items
+			//Putting back items back on shelf
 			if(Application::IsKeyPressed('G'))
 			{
 				for(int i = 0; i < ItemLine; i++)
@@ -606,17 +614,25 @@ void SP2::Update(double dt)
 						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
 						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 					{
+						//Distance is updated
 						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
 							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
 							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
-						if(Distance <= 3.5f && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+						//Only able to put back taken items
+						if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
 						{
-							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i));
+							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
 							Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
 						}
 					}
 				}
+			}
+			//Checkout items
+			if(Application::IsKeyPressed(VK_RETURN))
+			{
+				//Checkout
+
 			}
 		}
 
@@ -824,7 +840,7 @@ void SP2::Render()
 			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 
 			//UI Rendering
-			RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), 50.f, 40.f, 0.f, 1.f, 80.f, 80.f, 1.f);
+			RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), 50.f, 40.25f, 0.f, 1.f, 80.f, 80.f, 1.f);
 			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++)
 			{
 				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), 16.f + (UIIndex * 6.15f), 4.f, 90.f, 1.f, 1.f, 3.f, 3.f);
@@ -1141,12 +1157,14 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
 	modelStack.PushMatrix();
+	//Render items as default state
 	if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
 		RenderMesh(meshList[ItemType], false);
 		
 	}
+	//Render items as destroyed state
 	else if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
