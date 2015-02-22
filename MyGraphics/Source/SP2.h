@@ -183,7 +183,10 @@ private:
 
 	//Player functions
 	bool startScreen;
+	bool chooseModeScreen;
+	bool highScoreScreen;
 	bool gameStart;
+	bool pauseScreen;
 	bool endScreen;
 
 	CPlayer player;

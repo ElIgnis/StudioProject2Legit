@@ -166,7 +166,10 @@ void SP2::Init()
 
 	//Marcus
 	startScreen = true;
+	chooseModeScreen = false;
+	highScoreScreen = false;
 	gameStart = false;
+	pauseScreen = false;
 	endScreen = false;
 
 	modeCustomer = false;
@@ -695,14 +698,19 @@ void SP2::Render()
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color (1, 1, 1), 4.f, 8.5f, 7.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], "High Score", Color (1, 1, 1), 4.f, 8.5f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color (1, 1, 1), 4.f, 9.3f, 4.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color (1, 1, 1), 4.f, 9.3f, 5.f);
 	}
 
 	//End Game Screen
 	if (endScreen == true)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 4.f, 8.5f, 11.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 9.75f, 5.f);
+		
+		RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 7.5f, 3.f);
+		//if (player.getShopperHighScore() < player.getShopperScoreFailed() || player.getShopperHighScore() < player.getShopperScoreSucceed() || player.getVillainHighScore() < player.getVillainScoreFailed() || player.getVillainHighScore() < player.getVillainScoreSucceed() || player.getGuardHighScore() < player.getGuardScoreSucceed()) 
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "NEW HIGHSCORE! ", Color (1, 1, 1), 6.f, 4.5f, 8.f);
+		}
 	}
 
 	if (gameStart == true && endScreen == false)
