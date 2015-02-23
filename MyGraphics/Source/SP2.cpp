@@ -493,6 +493,14 @@ void SP2::Init()
 	meshList[GEO_SENSOR]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_SENSOR]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_SENSOR]->material.kShininess = 5.f;
+
+	//Wall Partition
+	meshList[GEO_WALLPARTITION] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//Partition.obj");
+	meshList[GEO_WALLPARTITION]->textureID = LoadTGA("Image//Partition.tga");
+	meshList[GEO_WALLPARTITION]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_WALLPARTITION]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_WALLPARTITION]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_WALLPARTITION]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -1002,7 +1010,7 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
-	for (int i = 0; i < 24; i +=4)
+	for (int i = 0; i < 24; i += 4)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(i, 0, 0);
@@ -1090,7 +1098,7 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
-	for (int i = 0; i > -10; i -= 6)
+	for (float i = 0; i > -10; i -= 5.5)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(i, 0, 0);
@@ -1104,17 +1112,17 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
-	for (int i = 0; i > -10; i -= 6)
+	for (float i = 0; i > -10; i -= 5.5)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(i, 0, 0);
-		
+
 		{
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(38, -1.8, 38);
-			modelStack.Rotate(180,0,1,0);
+			modelStack.Rotate(180, 0, 1, 0);
 			RenderMesh(meshList[GEO_ENTRY], true);
 			modelStack.PopMatrix();
 		}
@@ -1155,7 +1163,56 @@ void SP2::RenderObject()
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
+		}
+	for (int i = 0; i > -18; i -= 2)
+	for (int j = 0; j > -4; j -= 2)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(j, 0, i);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-2.1, 1.3, -1.85);
+			RenderMesh(meshList[GEO_BOX_PIZZA], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
 	}
+	for (int i = 0; i > -14; i -= 1)
+	for (int j = 0; j > -4; j -= 2)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(j, 0, i);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-2.05, 1.3, -19.3);
+			RenderMesh(meshList[GEO_BOX_ICECREAM], false);
+		    modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+	for (float i = 0; i > -16; i -= 0.5)
+	for (float j = 0; j > -3.5; j -= 1.8)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(j, 0, i);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-1.9, 1., -33.06);
+			RenderMesh(meshList[GEO_BOX_CHOCO], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	modelStack.PushMatrix();
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(19,1,29);
+	RenderMesh(meshList[GEO_WALLPARTITION], false);
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
