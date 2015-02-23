@@ -1279,8 +1279,118 @@ Mac N Cheese Cereal,1.50,11.75,-4.15,-53,GEO_BOX_CEREAL
 ###############################################################################################################################################################################
 ############## Middle Fridge ####################
 ############## Pizza Compartment ####################
-Pizza,1.50,-1.7,-1,-1.7,GEO_BOX_PIZZA
-Pizza,1.50,-3.4,-1,-1.7,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-1.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-1.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-3.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-3.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-5.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-5.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-7.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-7.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-9.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-9.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-11.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-11.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-13.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-13.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-15.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-15.9,GEO_BOX_PIZZA
+Pizza,1.50,-2.1,-1.4,-17.9,GEO_BOX_PIZZA
+Pizza,1.50,-4,-1.4,-17.9,GEO_BOX_PIZZA
+###########Ice Cream Compartment#####################
+Ice Cream,1.50,-4,-1.4,-19.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-19.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-20.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-20.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-21.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-21.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-22.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-22.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-23.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-23.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-24.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-24.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-25.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-25.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-26.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-26.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-27.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-27.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-28.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-28.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-29.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-29.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-30.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-30.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-31.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-31.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-4,-1.4,-32.35,GEO_BOX_ICECREAM
+Ice Cream,1.50,-2.1,-1.4,-32.35,GEO_BOX_ICECREAM
+###########Chocolate Compartment#####################
+Chocolate Box,1.50,-2.1,-1.5,-33.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-33.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-33.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-33.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-34.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-34.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-34.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-34.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-35.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-35.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-35.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-35.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-36.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-36.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-36.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-36.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-37.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-37.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-37.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-37.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-38.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-38.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-38.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-38.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-39.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-39.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-39.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-39.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-40.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-40.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-40.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-40.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-41.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-41.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-41.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-41.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-42.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-42.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-42.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-42.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-43.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-43.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-43.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-43.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-44.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-44.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-44.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-44.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-45.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-45.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-45.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-45.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-46.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-46.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-46.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-46.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-47.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-47.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-47.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-47.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-48.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-48.1,GEO_BOX_CHOCO
+Chocolate Box,1.50,-2.1,-1.5,-48.6,GEO_BOX_CHOCO
+Chocolate Box,1.50,-3.8,-1.5,-48.6,GEO_BOX_CHOCO
 ###############################################################################################################################################################################
 ###############################################################################################################################################################################
 ###############################################################################################################################################################################
