@@ -1,8 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <string>
 #include "Player.h"
-
 
 CPlayer::CPlayer()
 {
@@ -24,21 +22,11 @@ Vector3 CPlayer::getPos(void)
 	return position;
 }
 
-//Time Taken
-void CPlayer::setTimeTaken(double dt)
-{
-	timeTaken = dt;
-}
-double CPlayer::getTimeTaken(void)
-{
-	return timeTaken;
-}
-
 //CUSTOMER FUNCTIONS
 //Score
 void CPlayer::setShopperScoreSucceed(double dt, int moneyLeft)
 {
-	score = 500;//moneyLeft * 10 + 300 / dt * 200;
+	score = moneyLeft * 10 + 300 / dt * 200;
 }
 int CPlayer::getShopperScoreSucceed(void)
 {
@@ -56,15 +44,15 @@ int CPlayer::getShopperScoreFailed(void)
 }
 
 //Highscore
-void setShopperHighScore(int score)
+void CPlayer::setShopperHighScore(int score)
 {
-	int newScore, Highscore;
+	int Highscore;
 	std::ifstream inData;
 	std::ofstream outData;
-	std::string data;
+	std::string data, highScoreString;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreShopper.txt"); //Open text file
-	
+	inData.open ("Source//Highscore//HighscoreShopper.txt"); //Open text file
+
 	while (!inData.eof()) //Reading from text file
 	{
 		getline (inData, data);
@@ -72,26 +60,33 @@ void setShopperHighScore(int score)
 
 	Highscore = atoi(data.c_str()); //Converting data from string to int 
 	
-	if (score > Highscore)
+	if (Highscore > score)			//Compared score to highscore
 	{
-		outData << score;
+		Highscore = Highscore;
 	}
 	else 
 	{
-		Highscore = Highscore;
-		outData << Highscore;
+		Highscore = score;
 	}
+
+	std::stringstream highScoreSS;
+	highScoreSS << Highscore;
+	highScoreString = highScoreSS.str();
+
+	outData.open ("Source//Highscore//HighscoreShopper.txt");
+	outData << highScoreString;
 
 	inData.close();
 	outData.close();
 }
 
-std::string CPlayer::getShopperHighScore(void)
+int CPlayer::getShopperHighScore(void)
 {
+	int highScore;
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreShopper.txt"); //Open text file
+	inData.open ("Source//Highscore//HighscoreShopper.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -100,7 +95,9 @@ std::string CPlayer::getShopperHighScore(void)
 
 	inData.close();
 
-	return data;
+	highScore = std::stoi(data.c_str());
+
+	return highScore;
 }
 
 //GUARD FUNCTIONS
@@ -115,15 +112,15 @@ int CPlayer::getGuardScoreSucceed(void)
 }
 
 //Highscore
-void setGuardHighScore(int score)
+void CPlayer::setGuardHighScore(int score)
 {
-	int newScore, Highscore;
+	int Highscore;
 	std::ifstream inData;
 	std::ofstream outData;
-	std::string data;
+	std::string data, highScoreString;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreGuard.txt"); //Open text file
-	
+	inData.open ("Source//Highscore//HighscoreGuard.txt"); //Open text file
+
 	while (!inData.eof()) //Reading from text file
 	{
 		getline (inData, data);
@@ -131,26 +128,33 @@ void setGuardHighScore(int score)
 
 	Highscore = atoi(data.c_str()); //Converting data from string to int 
 	
-	if (score > Highscore)
+	if (Highscore > score)			//Compared score to highscore
 	{
-		outData << score;
+		Highscore = Highscore;
 	}
 	else 
 	{
-		Highscore = Highscore;
-		outData << Highscore;
+		Highscore = score;
 	}
+
+	std::stringstream highScoreSS;
+	highScoreSS << Highscore;
+	highScoreString = highScoreSS.str();
+
+	outData.open ("Source//Highscore//HighscoreGuard.txt");
+	outData << highScoreString;
 
 	inData.close();
 	outData.close();
 }
 
-std::string CPlayer::getGuardHighScore(void)
+int CPlayer::getGuardHighScore(void)
 {
+	int highScore;
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreGuard.txt"); //Open text file
+	inData.open ("Source//Highscore//HighscoreGuard.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -159,7 +163,9 @@ std::string CPlayer::getGuardHighScore(void)
 
 	inData.close();
 
-	return data;
+	highScore = std::stoi(data.c_str());
+
+	return highScore;
 }
 
 //VILLAIN FUNCTIONS
@@ -184,15 +190,15 @@ int CPlayer::getVillainScoreFailed(void)
 }
 
 //Highscore
-void setVillainHighScore(int score)
+void CPlayer::setVillainHighScore(int score)
 {
-	int newScore, Highscore;
+	int Highscore;
 	std::ifstream inData;
 	std::ofstream outData;
-	std::string data;
+	std::string data, highScoreString;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreVillain.txt"); //Open text file
-	
+	inData.open ("Source//Highscore//HighscoreVillain.txt"); //Open text file
+
 	while (!inData.eof()) //Reading from text file
 	{
 		getline (inData, data);
@@ -200,26 +206,33 @@ void setVillainHighScore(int score)
 
 	Highscore = atoi(data.c_str()); //Converting data from string to int 
 	
-	if (score > Highscore)
+	if (Highscore > score)			//Compared score to highscore
 	{
-		outData << score;
+		Highscore = Highscore;
 	}
 	else 
 	{
-		Highscore = Highscore;
-		outData << Highscore;
+		Highscore = score;
 	}
+
+	std::stringstream highScoreSS;
+	highScoreSS << Highscore;
+	highScoreString = highScoreSS.str();
+
+	outData.open ("Source//Highscore//HighscoreVillain.txt");
+	outData << highScoreString;
 
 	inData.close();
 	outData.close();
 }
 
-std::string CPlayer::getVillainHighScore(void)
+int CPlayer::getVillainHighScore(void)
 {
+	int highScore;
 	std::ifstream inData;
 	std::string data;
 
-	inData.open ("MyGraphics\\Source\\Highscore\\HighscoreVillain.txt"); //Open text file
+	inData.open ("Source//Highscore//HighscoreVillain.txt"); //Open text file
 	
 	while (!inData.eof()) //Reading from text file
 	{
@@ -228,5 +241,7 @@ std::string CPlayer::getVillainHighScore(void)
 
 	inData.close();
 
-	return data;
+	highScore = std::stoi(data.c_str());
+
+	return highScore;
 }

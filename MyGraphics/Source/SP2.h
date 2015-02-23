@@ -196,7 +196,6 @@ private:
 	bool chooseModeScreen;
 	bool highScoreScreen;
 	bool gameStart;
-	bool pauseScreen;
 	bool endScreen;
 
 	CPlayer player;
@@ -225,7 +224,16 @@ private:
 	string countDownTime;
 	float countDown;
 
-	//Score
+	//Highscore in Highscore screen
+	string customerHS;
+	string guardHS;
+	string villainHS;
+
+	string EGSShopper;
+	string EGSGuard;
+	string EGSVillain;
+
+	bool newHighScore;
 	//Item
 	
 };

@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include "Application.h"
 #include <string>
+#include <sstream>
 
 class CPlayer
 {
@@ -21,9 +22,6 @@ public:
 	void setPos(Vector3 Pos);
 	Vector3 getPos(void);
 
-	void setTimeTaken(double dt);
-	double getTimeTaken(void);
-
 	//SHOPPER FUNCTIONS
 	void setShopperScoreSucceed(double dt, int moneyLeft);
 	int getShopperScoreSucceed(void);
@@ -32,14 +30,14 @@ public:
 	int getShopperScoreFailed(void);
 
 	void setShopperHighScore(int score);
-	std::string getShopperHighScore(void);
+	int getShopperHighScore(void);;
 
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
 
 	void setGuardHighScore(int score);
-	std::string getGuardHighScore(void);
+	int getGuardHighScore(void);
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
@@ -49,10 +47,6 @@ public:
 	int getVillainScoreFailed(void);
 
 	void setVillainHighScore(int score);
-	std::string getVillainHighScore(void);
-
-private:
-
-
+	int getVillainHighScore(void);
 };
 

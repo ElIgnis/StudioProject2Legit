@@ -169,15 +169,16 @@ void SP2::Init()
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
-	 
+
 	//UI
 	//Screen
 	startScreen = true;
 	chooseModeScreen = false;
 	highScoreScreen = false;
 	gameStart = false;
-	pauseScreen = false;
 	endScreen = false;
+
+	newHighScore = false;
 
 	modeCustomer = false;
 	modeGuard = true;
@@ -507,12 +508,18 @@ void SP2::Update(double dt)
 		{
 			chooseModeScreen = true;
 			startScreen = false;
+			highScoreScreen = false;
+			gameStart = false;
+			endScreen = false;
 		}
 
 		if (Application::IsKeyPressed('2'))
 		{
-			highScoreScreen = true;
+			chooseModeScreen = false;
 			startScreen = false;
+			highScoreScreen = true;
+			gameStart = false;
+			endScreen = false;
 		}
 
 		if (Application::IsKeyPressed('3'))
@@ -527,19 +534,25 @@ void SP2::Update(double dt)
 		{
 			startScreen = false;
 			modeCustomer = true;
+			modeGuard = false;
+			modeVillain = false;
 			chooseModeScreen = false;
 			gameStart = true;
 		}
 		else if (Application::IsKeyPressed('2')) //Play as Security Guard
 		{
 			startScreen = false;
+			modeCustomer = false;
 			modeGuard = true;
+			modeVillain = false;
 			chooseModeScreen = false;
 			gameStart = true;
 		}
 		else if (Application::IsKeyPressed('3')) //Play as Villain
 		{
 			startScreen = false;
+			modeCustomer = false;
+			modeGuard = false;
 			modeVillain = true;
 			chooseModeScreen = false;
 			gameStart = true;
@@ -549,17 +562,27 @@ void SP2::Update(double dt)
 	//High score
 	else if (highScoreScreen == true)
 	{
+		//Highscore screen
+		std::stringstream customerHighScoreHSS;
+		customerHighScoreHSS << player.getShopperHighScore();
+		customerHS = customerHighScoreHSS.str();
+		
+		std::stringstream guardHighScoreHSS;
+		guardHighScoreHSS << player.getGuardHighScore();
+		guardHS = guardHighScoreHSS.str();
+
+		std::stringstream villainHighScoreHSS;
+		villainHighScoreHSS << player.getVillainHighScore();
+		villainHS = villainHighScoreHSS.str();
+
 		if (Application::IsKeyPressed('1'))
 		{
+			chooseModeScreen = false;
 			startScreen = true;
 			highScoreScreen = false;
+			gameStart = false;
+			endScreen = false;
 		}
-	}
-
-	//Pause Screen
-	else if (pauseScreen == true)
-	{
-
 	}
 
 	//Game start
@@ -610,7 +633,6 @@ void SP2::Update(double dt)
 		{
 			if(Application::IsKeyPressed('Q'))
 			{
-				startScreen = false;
 				gameStart = false;
 				endScreen = true;
 			}
@@ -678,11 +700,11 @@ void SP2::Update(double dt)
 		{
 			//if (score > 0 && playerposition == villain position && keypress)
 			{
-				missionComplete = true;
+				//missionComplete = true;
 			}
 			//else if (score <= 0)
 			{
-				missionFailed = true;
+				//missionFailed = true;
 			}
 		}
 
@@ -691,12 +713,12 @@ void SP2::Update(double dt)
 		{
 			//if (playerposition == item position && keypress)
 			{
-				objectsDestroyed++;
+				//objectsDestroyed++;
 			}
 
 			//if(objectsDestroyed == target && isCaught == false)
 			{
-				missionComplete = true;
+				//missionComplete = true;
 			}
 		}
 	}
@@ -704,36 +726,81 @@ void SP2::Update(double dt)
 	//Game end
 	else if (endScreen == true)
 	{
-		if (Application::IsKeyPressed('1'))
+		if (player.getShopperScoreFailed() > player.getShopperHighScore() || player.getShopperScoreSucceed() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScoreFailed() > player.getVillainHighScore() || player.getVillainScoreSucceed() > player.getVillainHighScore())
 		{
-			startScreen = true;
-			endScreen = false;
-		}
-		//Mission pass/fail for customer
-		if (amountSpent < startingAmount)
-		{
-			remaindingAmount = startingAmount - amountSpent;
-			missionComplete = true;
+			newHighScore = true;
 		}
 		else
 		{
-			amountOvershot = amountSpent - startingAmount;
-			missionFailed = true;
+			newHighScore = false;
 		}
-
-		//Calculate score 
-		if (missionComplete == true || missionFailed == true)
+		
+		//Shopper
+		std::stringstream customerEGS;
+		if (missionComplete == true)
 		{
-			player.setTimeTaken(elapsedTime);
+			customerEGS << player.getShopperScoreSucceed();
+		}
+		else
+		{
+			customerEGS << player.getShopperScoreFailed();
+		}
+		EGSShopper = customerEGS.str();
+
+		//Guard
+		std::stringstream guardEGS;
+		guardEGS << player.getGuardScoreSucceed();
+		EGSGuard = guardEGS.str();
+
+		//Villain
+		std::stringstream villainEGS;
+		if (missionComplete == true)
+		{
+			villainEGS << player.getVillainScoreSucceed();
+		}
+		else
+		{
+			villainEGS << player.getVillainScoreFailed();
+		}
+		EGSVillain = villainEGS.str();
+
+		if (Application::IsKeyPressed('1'))
+		{
+			chooseModeScreen = false;
+			startScreen = true;
+			highScoreScreen = false;
+			gameStart = false;
+			endScreen = false;
+		}
+		
+		//Score calculation
+		{
 			if (modeCustomer == true)
 			{
+				//Mission pass/fail for customer
+				if (amountSpent < startingAmount)
+				{
+					remaindingAmount = startingAmount - amountSpent;
+					missionComplete = true;
+				}
+				else
+				{
+					amountOvershot = amountSpent - startingAmount;
+					missionFailed = true;
+				}
+
+				//Calculate score & Set high score
 				if (missionComplete == true)
 				{
 					player.setShopperScoreSucceed(dt, remaindingAmount);
+					//Set high score
+					player.setShopperHighScore(player.getShopperScoreSucceed());
 				}
 				else
 				{
 					player.setShopperScoreFailed(dt, amountOvershot);
+					//Set high score
+					player.setShopperHighScore(player.getShopperScoreFailed());
 				}
 			}
 
@@ -742,11 +809,8 @@ void SP2::Update(double dt)
 				if (missionComplete == true)
 				{
 					player.setGuardScoreSucceed(dt);
-				}
-
-				if(missionFailed = true)
-				{
-					player.setGuardScoreSucceed(180);
+					//Set high score
+					player.setGuardHighScore(player.getGuardScoreSucceed());
 				}
 			}
 
@@ -755,10 +819,14 @@ void SP2::Update(double dt)
 				if (missionComplete == true)
 				{
 					player.setVillainScoreSucceed(dt);
+					//Set high score
+					player.setVillainHighScore(player.getVillainScoreSucceed());
 				}
 				else
 				{
 					player.setVillainScoreFailed(objectsDestroyed);
+					//Set high score
+					player.setVillainHighScore(player.getVillainScoreFailed());
 				}
 			}
 		}
@@ -785,16 +853,10 @@ void SP2::Render()
 	if (highScoreScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Customer: ", Color (1, 0, 0), 4.f, 8.f, 7.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Security Guard: ", Color (1, 0, 0), 4.f, 8.f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Villain: ", Color (1, 0, 0), 4.f, 8.f, 5.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Customer:"+customerHS, Color (1, 0, 0), 4.f, 8.f, 7.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Security Guard:"+guardHS, Color (1, 0, 0), 4.f, 8.f, 6.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Villain:"+villainHS, Color (1, 0, 0), 4.f, 8.f, 5.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Back to Main Menu ", Color (1, 1, 1), 4.f, 7.5f, 4.f);
-	}
-	if (pauseScreen== true)
-	{
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Back to Game", Color (1, 1, 1), 4.f, 8.f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Back to main menu", Color (1, 1, 1), 4.f, 7.5f, 5.f);
 	}
 
 	//End Game Screen
@@ -804,18 +866,21 @@ void SP2::Render()
 		if (modeCustomer == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (1, 0, 1), 5.f, 8.f, 7.f);
 		}
 		else if (modeGuard == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSGuard, Color (1, 1, 1), 5.f, 8.f, 7.f);
 		}
 		else if (modeVillain == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 5.f, 8.f, 7.f);
 		}
 
 		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 7.5f, 3.f);
-		//if (player.getShopperHighScore() < player.getShopperScoreFailed() || player.getShopperHighScore() < player.getShopperScoreSucceed() || player.getVillainHighScore() < player.getVillainScoreFailed() || player.getVillainHighScore() < player.getVillainScoreSucceed() || player.getGuardHighScore() < player.getGuardScoreSucceed()) 
+		if (newHighScore == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "NEW HIGHSCORE! ", Color (1, 1, 1), 6.f, 4.5f, 8.f);
 		}
