@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include "Application.h"
+#include <string>
 
 class CPlayer
 {
@@ -31,14 +32,14 @@ public:
 	int getShopperScoreFailed(void);
 
 	void setShopperHighScore(int score);
-	int getShopperHighScore(void);
+	std::string getShopperHighScore(void);
 
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
 
 	void setGuardHighScore(int score);
-	int getGuardHighScore(void);
+	std::string getGuardHighScore(void);
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
@@ -48,7 +49,7 @@ public:
 	int getVillainScoreFailed(void);
 
 	void setVillainHighScore(int score);
-	int getVillainHighScore(void);
+	std::string getVillainHighScore(void);
 
 private:
 

@@ -169,8 +169,9 @@ void SP2::Init()
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
-
-	//Marcus
+	 
+	//UI
+	//Screen
 	startScreen = true;
 	chooseModeScreen = false;
 	highScoreScreen = false;
@@ -510,29 +511,67 @@ void SP2::Update(double dt)
 {
 	if (startScreen == true)
 	{
-		//Choose mode
-		if (Application::IsKeyPressed('Z')) //Play as Customer
+		if (Application::IsKeyPressed('1'))
+		{
+			chooseModeScreen = true;
+			startScreen = false;
+		}
+
+		if (Application::IsKeyPressed('2'))
+		{
+			highScoreScreen = true;
+			startScreen = false;
+		}
+
+		if (Application::IsKeyPressed('3'))
+		{
+			exit(0);
+		}
+	}
+	//Choose Mode
+	else if (chooseModeScreen == true)
+	{
+		if (Application::IsKeyPressed('1')) //Play as Customer
 		{
 			startScreen = false;
 			modeCustomer = true;
+			chooseModeScreen = false;
 			gameStart = true;
 		}
-		else if (Application::IsKeyPressed('X')) //Play as Security Guard
+		else if (Application::IsKeyPressed('2')) //Play as Security Guard
 		{
 			startScreen = false;
 			modeGuard = true;
+			chooseModeScreen = false;
 			gameStart = true;
 		}
-		else if (Application::IsKeyPressed('C')) //Play as Villain
+		else if (Application::IsKeyPressed('3')) //Play as Villain
 		{
 			startScreen = false;
 			modeVillain = true;
+			chooseModeScreen = false;
 			gameStart = true;
 		}
 	}
 
+	//High score
+	else if (highScoreScreen == true)
+	{
+		if (Application::IsKeyPressed('1'))
+		{
+			startScreen = true;
+			highScoreScreen = false;
+		}
+	}
+
+	//Pause Screen
+	else if (pauseScreen == true)
+	{
+
+	}
+
 	//Game start
-	if (gameStart == true)
+	else if (gameStart == true)
 	{
 		if(Application::IsKeyPressed('1')) //enable back face culling
 			glEnable(GL_CULL_FACE);
@@ -573,8 +612,6 @@ void SP2::Update(double dt)
 		s_countDown << std::fixed << std::setprecision(2) << countDown;
 		countDownTime = s_countDown.str();
 
-
-		//Marcus
 		//Player functions
 		//Playing as Customer
 		if (modeCustomer == true)
@@ -673,8 +710,13 @@ void SP2::Update(double dt)
 	}
 
 	//Game end
-	if (endScreen == true)
+	else if (endScreen == true)
 	{
+		if (Application::IsKeyPressed('1'))
+		{
+			startScreen = true;
+			endScreen = false;
+		}
 		//Mission pass/fail for customer
 		if (amountSpent < startingAmount)
 		{
@@ -736,16 +778,50 @@ void SP2::Render()
 	//Start Screen
 	if (startScreen == true)
 	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color (1, 1, 1), 4.f, 8.5f, 7.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], "High Score", Color (1, 1, 1), 4.f, 8.5f, 6.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color (1, 1, 1), 4.f, 9.3f, 5.f);
+	}
+	if (chooseModeScreen == true)
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Customer", Color (1, 1, 1), 4.f, 8.f, 7.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Security Guard", Color (1, 1, 1), 4.f, 8.f, 6.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Villain", Color (1, 1, 1), 4.f, 8.f, 5.f);
+	}
+	if (highScoreScreen == true)
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Customer: ", Color (1, 0, 0), 4.f, 8.f, 7.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Security Guard: ", Color (1, 0, 0), 4.f, 8.f, 6.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Villain: ", Color (1, 0, 0), 4.f, 8.f, 5.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back to Main Menu ", Color (1, 1, 1), 4.f, 7.5f, 4.f);
+	}
+	if (pauseScreen== true)
+	{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back to Game", Color (1, 1, 1), 4.f, 8.f, 6.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back to main menu", Color (1, 1, 1), 4.f, 7.5f, 5.f);
 	}
 
 	//End Game Screen
 	if (endScreen == true)
 	{
-		
-		RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		if (modeCustomer == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+		}
+		else if (modeGuard == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+		}
+		else if (modeVillain == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+		}
+
 		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 7.5f, 3.f);
 		//if (player.getShopperHighScore() < player.getShopperScoreFailed() || player.getShopperHighScore() < player.getShopperScoreSucceed() || player.getVillainHighScore() < player.getVillainScoreFailed() || player.getVillainHighScore() < player.getVillainScoreSucceed() || player.getGuardHighScore() < player.getGuardScoreSucceed()) 
 		{
