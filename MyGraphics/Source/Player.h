@@ -24,11 +24,9 @@ public:
 
 	//SHOPPER FUNCTIONS
 	void setShopperScoreSucceed(double dt, int moneyLeft);
-	int getShopperScoreSucceed(void);
-
+	int getShopperScore(void);
 	void setShopperScoreFailed(double dt, int moneyNeeded);
-	int getShopperScoreFailed(void);
-
+	
 	void setShopperHighScore(int score);
 	int getShopperHighScore(void);;
 
@@ -41,10 +39,8 @@ public:
 
 	//VILLAIN FUNCTIONS
 	void setVillainScoreSucceed(double dt);
-	int getVillainScoreSucceed(void);
-
+	int getVillainScore(void);
 	void setVillainScoreFailed(int destroyedOBJ);
-	int getVillainScoreFailed(void);
 
 	void setVillainHighScore(int score);
 	int getVillainHighScore(void);
