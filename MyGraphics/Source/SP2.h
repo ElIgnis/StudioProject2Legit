@@ -168,6 +168,7 @@ private:
 	CItem *Item;
 	CShelf Container;
 	CInventory PlayerInvent;
+	CInventory Trolley;
 
 	//Item taking
 	float Distance;
@@ -191,6 +192,7 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
+	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 
 	//Player functions
@@ -198,7 +200,6 @@ private:
 	bool chooseModeScreen;
 	bool highScoreScreen;
 	bool gameStart;
-	bool pauseScreen;
 	bool endScreen;
 
 	CPlayer player;
@@ -227,7 +228,16 @@ private:
 	string countDownTime;
 	float countDown;
 
-	//Score
+	//Highscore in Highscore screen
+	string customerHS;
+	string guardHS;
+	string villainHS;
+
+	string EGSShopper;
+	string EGSGuard;
+	string EGSVillain;
+
+	bool newHighScore;
 	//Item
 	
 };
