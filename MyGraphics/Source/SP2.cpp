@@ -28,7 +28,6 @@ void SP2::Init()
 	split_char = ',';
 	ItemLine = 0;
 	string TextOnScreen = " ";
-	UIIndex = 0;
 	Distance = 0;
 	MaxDistance = 3.5;
 	WorldOffset = 3.6f;
@@ -195,7 +194,7 @@ void SP2::Init()
 
 	if (modeCustomer == true)
 	{
-		startingAmount = 150;
+		startingAmount = 100;
 	}
 	else
 	{
@@ -661,11 +660,6 @@ void SP2::Update(double dt)
 		//Playing as Customer
 		if (modeCustomer == true)
 		{
-			if(Application::IsKeyPressed('Q'))
-			{
-				gameStart = false;
-				endScreen = true;
-			}
 			//Adding items
 			if(Application::IsKeyPressed('E'))
 			{
@@ -720,8 +714,19 @@ void SP2::Update(double dt)
 			//Checkout items
 			if(Application::IsKeyPressed(VK_RETURN))
 			{
+				amountSpent = 0; //Value pass to endgame for calculation
 				//Checkout
+				for (int i = 0; i < PlayerInvent.Inventory.size();)
+				{
+					amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
+					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+				}
 
+				startScreen = false;
+				chooseModeScreen = false;
+				highScoreScreen = false;
+				gameStart = false;
+				endScreen = true;
 			}
 			//Equip Trolley
 			if(Application::IsKeyPressed('F'))
@@ -732,7 +737,7 @@ void SP2::Update(double dt)
 					//camera.target.x = 0;
 					Trolley.EquippedTrolley = true;
 				}
-				//TODO: Add trolley detection code
+				//TO DO: Add trolley detection code
 				//Remove items from invent and add to trolley
 				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
 				{
@@ -800,7 +805,7 @@ void SP2::Update(double dt)
 	//Game end
 	else if (endScreen == true)
 	{
-		if (player.getShopperScoreFailed() > player.getShopperHighScore() || player.getShopperScoreSucceed() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScoreFailed() > player.getVillainHighScore() || player.getVillainScoreSucceed() > player.getVillainHighScore())
+		if (player.getShopperScore() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScore() > player.getVillainHighScore())
 		{
 			newHighScore = true;
 		}
@@ -811,14 +816,7 @@ void SP2::Update(double dt)
 		
 		//Shopper
 		std::stringstream customerEGS;
-		if (missionComplete == true)
-		{
-			customerEGS << player.getShopperScoreSucceed();
-		}
-		else
-		{
-			customerEGS << player.getShopperScoreFailed();
-		}
+		customerEGS << player.getShopperScore();
 		EGSShopper = customerEGS.str();
 
 		//Guard
@@ -828,14 +826,7 @@ void SP2::Update(double dt)
 
 		//Villain
 		std::stringstream villainEGS;
-		if (missionComplete == true)
-		{
-			villainEGS << player.getVillainScoreSucceed();
-		}
-		else
-		{
-			villainEGS << player.getVillainScoreFailed();
-		}
+		villainEGS << player.getVillainScore();
 		EGSVillain = villainEGS.str();
 
 		if (Application::IsKeyPressed('1'))
@@ -868,13 +859,13 @@ void SP2::Update(double dt)
 				{
 					player.setShopperScoreSucceed(dt, remaindingAmount);
 					//Set high score
-					player.setShopperHighScore(player.getShopperScoreSucceed());
+					player.setShopperHighScore(player.getShopperScore());
 				}
-				else
+				else if(missionFailed == true)
 				{
 					player.setShopperScoreFailed(dt, amountOvershot);
 					//Set high score
-					player.setShopperHighScore(player.getShopperScoreFailed());
+					player.setShopperHighScore(player.getShopperScore());
 				}
 			}
 
@@ -894,13 +885,13 @@ void SP2::Update(double dt)
 				{
 					player.setVillainScoreSucceed(dt);
 					//Set high score
-					player.setVillainHighScore(player.getVillainScoreSucceed());
+					player.setVillainHighScore(player.getVillainScore());
 				}
 				else
 				{
 					player.setVillainScoreFailed(objectsDestroyed);
 					//Set high score
-					player.setVillainHighScore(player.getVillainScoreFailed());
+					player.setVillainHighScore(player.getVillainScore());
 				}
 			}
 		}
@@ -1075,13 +1066,38 @@ void SP2::Render()
 			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 
 			//UI Rendering
-			RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), 50.f, 40.25f, 0.f, 1.f, 80.f, 80.f, 1.f);
-			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++)
+			int UI_PlayerStart = 10;
+			int PlayerDifference = 12;
+			int PlayerIncrement  = PlayerDifference /2;
+			int UI_PlayerEnd = UI_PlayerStart + PlayerDifference;
+
+			int UI_TrolleyStart = 30;
+			int TrolleyDifference = 48;
+			int TrolleyIncrement = TrolleyDifference / 8;
+			int UI_TrolleyEnd = UI_TrolleyStart + TrolleyDifference;
+			
+			int UI_PlayerIndex = 0;
+			int UI_TrolleyIndex = 0;
+
+			//Inventory rendering
+			//Trolley rendering
+			for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
 			{
-				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), 16.f + (UIIndex * 6.15f), 4.f, 90.f, 1.f, 1.f, 3.f, 3.f);
-				UIIndex++;
+				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 			}
-			UIIndex = 0;
+			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++, UI_PlayerIndex++)
+			{
+				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+			}
+			//Trolley rendering
+			for(int i = UI_TrolleyStart; i < UI_TrolleyEnd; i+= TrolleyIncrement)
+			{
+				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+			}
+			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
+			{
+				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+			}
 		}
 		else if (modeVillain == true)
 		{

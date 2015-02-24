@@ -187,8 +187,6 @@ private:
 
 	//AI loading properties
 
-	//UI
-	int UIIndex;
 
 	bool toggleLight;
 
@@ -215,10 +213,10 @@ private:
 	bool modeVillain;
 
 	//Customer
-	int startingAmount;
-	int amountSpent;
-	int remaindingAmount;
-	int amountOvershot;
+	float startingAmount;
+	float amountSpent;
+	float remaindingAmount;
+	float amountOvershot;
 	//Villain
 	int objectsDestroyed;
 	bool isCaught;

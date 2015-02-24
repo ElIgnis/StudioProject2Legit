@@ -28,17 +28,14 @@ void CPlayer::setShopperScoreSucceed(double dt, int moneyLeft)
 {
 	score = moneyLeft * 10 + 300 / dt * 200;
 }
-int CPlayer::getShopperScoreSucceed(void)
-{
-	return score;
-}
 
 //if Mission fail
 void CPlayer::setShopperScoreFailed(double dt, int moneyNeeded)
 {
-	score = (500 - moneyNeeded + 300) / dt * 10;
+	score = (800 - moneyNeeded) / dt * 10;
 }
-int CPlayer::getShopperScoreFailed(void)
+
+int CPlayer::getShopperScore(void)
 {
 	return score;
 }
@@ -174,7 +171,7 @@ void CPlayer::setVillainScoreSucceed(double dt)
 {
 	score = 500 + 300 / dt * 200;
 }
-int CPlayer::getVillainScoreSucceed(void)
+int CPlayer::getVillainScore(void)
 {
 	return score;
 }
@@ -183,10 +180,6 @@ int CPlayer::getVillainScoreSucceed(void)
 void CPlayer::setVillainScoreFailed(int destroyedOBJ)
 {
 	score = destroyedOBJ * 10;
-}
-int CPlayer::getVillainScoreFailed(void)
-{
-	return score;
 }
 
 //Highscore
