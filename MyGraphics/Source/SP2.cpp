@@ -857,13 +857,13 @@ void SP2::Update(double dt)
 				//Calculate score & Set high score
 				if (missionComplete == true)
 				{
-					player.setShopperScoreSucceed(dt, remaindingAmount);
+					player.setShopperScoreSucceed(elapsedTime, remaindingAmount);
 					//Set high score
 					player.setShopperHighScore(player.getShopperScore());
 				}
 				else if(missionFailed == true)
 				{
-					player.setShopperScoreFailed(dt, amountOvershot);
+					player.setShopperScoreFailed(elapsedTime, amountOvershot);
 					//Set high score
 					player.setShopperHighScore(player.getShopperScore());
 				}
@@ -873,7 +873,7 @@ void SP2::Update(double dt)
 			{
 				if (missionComplete == true)
 				{
-					player.setGuardScoreSucceed(dt);
+					player.setGuardScoreSucceed(elapsedTime);
 					//Set high score
 					player.setGuardHighScore(player.getGuardScoreSucceed());
 				}
