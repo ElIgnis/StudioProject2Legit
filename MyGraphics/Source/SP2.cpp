@@ -315,7 +315,7 @@ void SP2::Init()
 	meshList[GEO_STANDER]->material.kShininess = 5.f;
 
 	//Refridge
-	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//LongRefridge.obj");
+	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//Refridge.obj");
 	meshList[GEO_REFRIDGE]->textureID = LoadTGA("Image//Refridge.tga");
 	meshList[GEO_REFRIDGE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_REFRIDGE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -502,6 +502,7 @@ void SP2::Init()
 	meshList[GEO_WALLPARTITION]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALLPARTITION]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_WALLPARTITION]->material.kShininess = 5.f;
+
 }
 
 static float ROT_LIMIT = 45.f;
@@ -1087,14 +1088,15 @@ void SP2::RenderObject()
 	modelStack.PopMatrix();
 
 	for (int i = 0; i < 24; i += 4)
+	for (int j = 0; j < 8; j+= 4)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(i, 0, 0);
+		modelStack.Translate(i, 0, j);
 		{
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(10, -1.8, 30);
+			modelStack.Translate(10, -1.8, 25);
 			modelStack.Rotate(180, 0, 1, 0);
 			RenderMesh(meshList[GEO_TROLLEY], true);
 			modelStack.PopMatrix();
