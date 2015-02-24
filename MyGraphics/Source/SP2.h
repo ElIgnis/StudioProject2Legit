@@ -113,6 +113,7 @@ private:
 		GEO_LIGHTBULB,
 		GEO_TROLLEY,
 		GEO_WALLPARTITION,
+		GEO_CART,
 		NUM_GEOMETRY,
 	};
 
@@ -179,8 +180,6 @@ private:
 
 	//AI loading properties
 
-	//UI
-	int UIIndex;
 
 	bool toggleLight;
 
