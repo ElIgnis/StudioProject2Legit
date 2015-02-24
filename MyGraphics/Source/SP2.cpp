@@ -325,7 +325,7 @@ void SP2::Init()
 
 	//CashierTable
 	meshList[GEO_CASHIERTABLE] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
-	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//Table.tga");
+	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//table.tga");
 	meshList[GEO_CASHIERTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CASHIERTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_CASHIERTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
