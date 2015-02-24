@@ -32,6 +32,9 @@ void SP2::Init()
 	Distance = 0;
 	MaxDistance = 3.5;
 	WorldOffset = 3.6f;
+	translateBack = false;
+	translateZ = 0;
+	translateY = 0;
 
 	std::string data = " ";
 
@@ -497,12 +500,28 @@ void SP2::Init()
 	meshList[GEO_SENSOR]->material.kShininess = 5.f;
 
 	//Wall Partition
-	meshList[GEO_WALLPARTITION] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//Partition.obj");
+	meshList[GEO_WALLPARTITION] = MeshBuilder::GenerateOBJ("Partition", "OBJ//Partition.obj");
 	meshList[GEO_WALLPARTITION]->textureID = LoadTGA("Image//Partition.tga");
 	meshList[GEO_WALLPARTITION]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALLPARTITION]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALLPARTITION]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_WALLPARTITION]->material.kShininess = 5.f;
+
+	//ConveyorTable
+	meshList[GEO_CONVEYORTABLE] = MeshBuilder::GenerateOBJ("ConveyorTable", "OBJ//Conveyortable.obj");
+	meshList[GEO_CONVEYORTABLE]->textureID = LoadTGA("Image//Conveyor.tga");
+	meshList[GEO_CONVEYORTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CONVEYORTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CONVEYORTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CONVEYORTABLE]->material.kShininess = 5.f;
+
+	//ConveyorBelt
+	meshList[GEO_CONVEYORBELT] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//Conveyorstrap.obj");
+	meshList[GEO_CONVEYORBELT]->textureID = LoadTGA("Image//Conveyor.tga");
+	meshList[GEO_CONVEYORBELT]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_CONVEYORBELT]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_CONVEYORBELT]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CONVEYORBELT]->material.kShininess = 5.f;
 
 }
 
@@ -537,6 +556,7 @@ void SP2::Update(double dt)
 			exit(0);
 		}
 	}
+	
 	//Choose Mode
 	else if (chooseModeScreen == true)
 	{
@@ -885,6 +905,26 @@ void SP2::Update(double dt)
 			}
 		}
 	}
+	//ConveyorBelt code
+	//white
+	if (translateBack == false)
+	{
+		translateZ += (float)(2 * dt);
+	}
+	else
+	{
+		translateZ = 0.1 ;
+	}
+	if (translateZ >= 8.75)
+	{
+		translateBack = true;
+		translateY = -0.1;
+	}
+	else if (translateZ <= 0.4)
+	{
+		translateBack = false;
+		translateY = 0;
+	}
 }
 
 void SP2::Render()
@@ -1207,7 +1247,6 @@ void SP2::RenderObject()
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(10, 0, 30);
-			//modelStack.Rotate(180, 0, 1, 0);
 			RenderMesh(meshList[GEO_TROLLEY], true);
 			modelStack.PopMatrix();
 		}
@@ -1263,7 +1302,7 @@ void SP2::RenderObject()
 	}
 
 
-	for (int i = 0; i > -40; i -= 17)
+	for (int i = 0; i > -32; i -= 15)
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(i, 0, 0);
@@ -1271,7 +1310,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(0, -2.20, 20);
+			modelStack.Translate(-0.02, -2.01, 19.86);
 			//modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_CASHIERTABLE], false);
 			modelStack.PopMatrix();
@@ -1279,7 +1318,7 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-1, 0.9, 18);
+			modelStack.Translate(-0.71, 0.9, 18);
 			//modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_CASHIER], false);
 			modelStack.PopMatrix();
@@ -1401,6 +1440,30 @@ void SP2::RenderObject()
 	modelStack.Translate(19,1,29);
 	RenderMesh(meshList[GEO_WALLPARTITION], false);
 	modelStack.PopMatrix();
+
+	for (int i = 0; i > -32; i -= 15)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-3.15, -2, 21.7);
+			RenderMesh(meshList[GEO_CONVEYORTABLE], false);
+			modelStack.PopMatrix();
+
+
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(0, translateY, translateZ);
+			modelStack.Translate(-3.14, 1.12, 17.33);
+			RenderMesh(meshList[GEO_CONVEYORBELT], false);
+			modelStack.PopMatrix();
+
+		}
+		modelStack.PopMatrix();
+	}
+
 
 	//Trolley
 	modelStack.PushMatrix();

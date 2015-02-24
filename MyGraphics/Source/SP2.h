@@ -114,6 +114,8 @@ private:
 		GEO_TROLLEY,
 		GEO_WALLPARTITION,
 		GEO_CART,
+		GEO_CONVEYORBELT,
+		GEO_CONVEYORTABLE,
 		NUM_GEOMETRY,
 	};
 
@@ -152,6 +154,11 @@ private:
 	std::vector<string>ItemTokens;
 	char split_char;
 	int ItemLine;
+
+	//Conveyor
+	bool translateBack;
+	float translateZ;
+	float translateY;
 
 	//tokens indexing
 	enum Index
