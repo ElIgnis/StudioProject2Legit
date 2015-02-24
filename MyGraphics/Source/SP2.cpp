@@ -192,26 +192,16 @@ void SP2::Init()
 	elapsedTime = 0;
 	countDown = 180;
 
-	if (modeCustomer == true)
-	{
-		startingAmount = 100;
-	}
-	else
-	{
-		startingAmount = 0;
-	}
+	startingAmount = 100;
+	amountOvershot = 0;
+	remaindingAmount = 0;
 
-	if (modeVillain == true)
-	{
-		isCaught = false;
-		objectsDestroyed = 0;
-	}
-	if (modeGuard == true)
-	{
-		villainEscaped = false;
-		villainCaught = false;
-	}
+	isCaught = false;
+	objectsDestroyed = 0;
 
+	villainEscaped = false;
+	villainCaught = false;
+	
 	lights[0].type = Light::LIGHT_POINT;
 	lights[0].position.Set(8.5f, 0.f, 260.f);
 	lights[0].color.Set(1, 1, 1);
@@ -805,6 +795,11 @@ void SP2::Update(double dt)
 	//Game end
 	else if (endScreen == true)
 	{
+		chooseModeScreen = false;
+		startScreen = false;
+		highScoreScreen = false;
+		gameStart = false;
+
 		if (player.getShopperScore() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScore() > player.getVillainHighScore())
 		{
 			newHighScore = true;
