@@ -510,6 +510,7 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
+	float RotationSpeed = 100.f;
 	if (startScreen == true)
 	{
 		if (Application::IsKeyPressed('1'))
@@ -700,6 +701,50 @@ void SP2::Update(double dt)
 			{
 				//Checkout
 
+			}
+			//Equip Trolley
+			if(Application::IsKeyPressed('F'))
+			{
+				//Equip trolley condition
+				if(Trolley.EquippedTrolley == false)
+				{
+					//camera.target.x = 0;
+					Trolley.EquippedTrolley = true;
+				}
+				//TODO: Add trolley detection code
+				//Remove items from invent and add to trolley
+				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+				{
+					if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i),PlayerInvent.Inventory.at(i)->ItemIndex))
+					{
+						cout << PlayerInvent.Inventory.size();
+						PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+					}
+				}
+
+				//TODO: Align is buggy(how to solve?)
+			}
+			if(Application::IsKeyPressed('R'))
+			{
+				cout << PlayerInvent.Inventory.size();
+			}
+			if(Application::IsKeyPressed('Y'))
+			{
+				Trolley.EquippedTrolley = false;
+			}
+
+			//Update trolley only when equipped
+			if(Trolley.EquippedTrolley == true)
+			{
+				if(Application::IsKeyPressed(VK_RIGHT))
+				{
+					Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
+				}
+				if(Application::IsKeyPressed(VK_LEFT))
+				{
+					Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
+				}
+				Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
 			}
 		}
 
@@ -1159,8 +1204,8 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(10, -1.8, 30);
-			modelStack.Rotate(180, 0, 1, 0);
+			modelStack.Translate(10, 0, 30);
+			//modelStack.Rotate(180, 0, 1, 0);
 			RenderMesh(meshList[GEO_TROLLEY], true);
 			modelStack.PopMatrix();
 		}
@@ -1354,6 +1399,21 @@ void SP2::RenderObject()
 	modelStack.Translate(19,1,29);
 	RenderMesh(meshList[GEO_WALLPARTITION], false);
 	modelStack.PopMatrix();
+
+	//Trolley
+	modelStack.PushMatrix();
+	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
+	modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f); //Rotate with camera
+	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
+	int i = 0;
+	//Rendering items on trolley
+	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+	{
+		(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
+		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+	}
+	RenderMesh(meshList[GEO_TROLLEY], true);
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
@@ -1388,6 +1448,34 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 		RenderTextOnScreen(meshList[GEO_TEXT], "HERE", Color(0, 1, 0), 5.f, 5.5f, 3.5f);
 	}
 
+	modelStack.PopMatrix();
+}
+
+void SP2::RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
+{
+	Mtx44 MVP;
+	float TrolleyOffsetX = 1.5f;
+	float TrolleyOffsetZ = 0.55f;
+	float Spacing = 0.8f;
+	float NewRow = 4.f;
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
+	modelStack.PushMatrix();
+
+	//Render items in 2x4
+	if(ItemNumber < 4)
+	{
+		modelStack.Translate(-TrolleyOffsetX + (ItemNumber * Spacing), 0.f, -TrolleyOffsetZ);
+	}
+	else
+	{
+		modelStack.Translate(-TrolleyOffsetX + ((ItemNumber - NewRow) * Spacing), 0.f, TrolleyOffsetZ);
+	}
+	//modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f);
+	//modelStack.Translate(-4.f, 0.f, 0.f);
+
+	RenderMesh(meshList[ItemType], false);
 	modelStack.PopMatrix();
 }
 
