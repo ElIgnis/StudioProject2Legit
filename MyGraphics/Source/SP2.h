@@ -180,8 +180,6 @@ private:
 
 	//AI loading properties
 
-	//UI
-	int UIIndex;
 
 	bool toggleLight;
 

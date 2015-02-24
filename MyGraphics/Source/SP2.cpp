@@ -28,7 +28,6 @@ void SP2::Init()
 	split_char = ',';
 	ItemLine = 0;
 	string TextOnScreen = " ";
-	UIIndex = 0;
 	Distance = 0;
 	MaxDistance = 3.5;
 	WorldOffset = 3.6f;
@@ -1035,13 +1034,38 @@ void SP2::Render()
 			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 
 			//UI Rendering
-			RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), 50.f, 40.25f, 0.f, 1.f, 80.f, 80.f, 1.f);
-			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++)
+			int UI_PlayerStart = 10;
+			int PlayerDifference = 12;
+			int PlayerIncrement  = PlayerDifference /2;
+			int UI_PlayerEnd = UI_PlayerStart + PlayerDifference;
+
+			int UI_TrolleyStart = 30;
+			int TrolleyDifference = 48;
+			int TrolleyIncrement = TrolleyDifference / 8;
+			int UI_TrolleyEnd = UI_TrolleyStart + TrolleyDifference;
+			
+			int UI_PlayerIndex = 0;
+			int UI_TrolleyIndex = 0;
+
+			//Inventory rendering
+			//Trolley rendering
+			for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
 			{
-				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), 16.f + (UIIndex * 6.15f), 4.f, 90.f, 1.f, 1.f, 3.f, 3.f);
-				UIIndex++;
+				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 			}
-			UIIndex = 0;
+			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++, UI_PlayerIndex++)
+			{
+				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+			}
+			//Trolley rendering
+			for(int i = UI_TrolleyStart; i < UI_TrolleyEnd; i+= TrolleyIncrement)
+			{
+				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+			}
+			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
+			{
+				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+			}
 		}
 		else if (modeVillain == true)
 		{
