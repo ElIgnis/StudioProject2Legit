@@ -1528,7 +1528,7 @@ void SP2::RenderObject()
 		modelStack.Translate(0, 0, movingOnBelt);
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
-			(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x , Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
+			(*iter)->SetPosition(Vector3(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3));
 			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 		}
 
