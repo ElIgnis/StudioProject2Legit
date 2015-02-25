@@ -243,6 +243,13 @@ private:
 	string EGSVillain;
 
 	bool newHighScore;
+
+	bool renderItemOnTrolley;
+	bool renderItemOnBelt;
+	bool beltMovement;
+	Vector3 beltPos;
+	Vector3 cTablePos;
+	float movingOnBelt;
 	//Item
 	
 };

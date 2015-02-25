@@ -32,7 +32,7 @@ void SP2::Init()
 	MaxDistance = 3.5;
 	WorldOffset = 3.6f;
 	translateBack = false;
-	translateZ = 0;
+	translateZ = 3;
 	translateY = 0;
 
 	std::string data = " ";
@@ -202,6 +202,16 @@ void SP2::Init()
 	villainEscaped = false;
 	villainCaught = false;
 	
+	renderItemOnTrolley = true;
+	beltMovement = false;
+	beltPos.x = -3.14; 
+	beltPos.y = 1.12;
+	beltPos.z = 17.33;
+	cTablePos.x = -3.15;
+	cTablePos.y = -2;
+	cTablePos.z = 21.7;
+	movingOnBelt = 0.f;
+
 	lights[0].type = Light::LIGHT_POINT;
 	lights[0].position.Set(8.5f, 0.f, 260.f);
 	lights[0].color.Set(1, 1, 1);
@@ -650,6 +660,14 @@ void SP2::Update(double dt)
 		//Playing as Customer
 		if (modeCustomer == true)
 		{
+			if (Application::IsKeyPressed('Q'))
+			{
+				startScreen = false;
+				chooseModeScreen = false;
+				highScoreScreen = false;
+				gameStart = false;
+				endScreen = true;
+			}
 			//Adding items
 			if(Application::IsKeyPressed('E'))
 			{
@@ -712,11 +730,8 @@ void SP2::Update(double dt)
 					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
 				}
 
-				startScreen = false;
-				chooseModeScreen = false;
-				highScoreScreen = false;
-				gameStart = false;
-				endScreen = true;
+				beltMovement = true;
+				renderItemOnTrolley = false;
 			}
 			//Equip Trolley
 			if(Application::IsKeyPressed('F'))
@@ -891,25 +906,34 @@ void SP2::Update(double dt)
 			}
 		}
 	}
-	//ConveyorBelt code
-	//white
-	if (translateBack == false)
+
+	if (beltMovement == true)
 	{
-		translateZ += (float)(2 * dt);
-	}
-	else
-	{
-		translateZ = 0.1 ;
-	}
-	if (translateZ >= 8.75)
-	{
-		translateBack = true;
-		translateY = -0.1;
-	}
-	else if (translateZ <= 0.4)
-	{
-		translateBack = false;
-		translateY = 0;
+		//ConveyorBelt code
+		//white
+		if (translateBack == false)
+		{
+			translateZ += (float)(1 * dt);
+			movingOnBelt += (float)(1 * dt);
+			if(movingOnBelt > 5)
+			{
+				renderItemOnBelt = false;
+			}
+		}
+		else
+		{
+			translateZ = 0.1 ;
+		}
+		if (translateZ >= 8.75)
+		{
+			translateBack = true;
+			translateY = -0.1;
+		}
+		else if (translateZ <= 0.4)
+		{
+			translateBack = false;
+			translateY = 0;
+		}
 	}
 }
 
@@ -966,7 +990,7 @@ void SP2::Render()
 		}
 	}
 
-	if (gameStart == true && endScreen == false)
+	if (gameStart == true)
 	{
 		float textSize = 3.f;
 		//clear depth and color buffer
@@ -1089,9 +1113,12 @@ void SP2::Render()
 			{
 				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 			}
-			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
+			if (renderItemOnTrolley == true)
 			{
-				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
+				{
+					RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+				}
 			}
 		}
 		else if (modeVillain == true)
@@ -1452,14 +1479,14 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_WALLPARTITION], false);
 	modelStack.PopMatrix();
 
-	for (int i = 0; i > -32; i -= 15)
+	//for (int i = 0; i > -32; i -= 15)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(i, 0, 0);
+		//modelStack.Translate(i, 0, 0);
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-3.15, -2, 21.7);
+			modelStack.Translate(cTablePos.x, cTablePos.y, cTablePos.z);
 			RenderMesh(meshList[GEO_CONVEYORTABLE], false);
 			modelStack.PopMatrix();
 
@@ -1467,12 +1494,12 @@ void SP2::RenderObject()
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(0, translateY, translateZ);
-			modelStack.Translate(-3.14, 1.12, 17.33);
+			modelStack.Translate(beltPos.x, beltPos.y, beltPos.z);
 			RenderMesh(meshList[GEO_CONVEYORBELT], false);
 			modelStack.PopMatrix();
 
 		}
-		modelStack.PopMatrix();
+		//modelStack.PopMatrix();
 	}
 
 
@@ -1483,13 +1510,30 @@ void SP2::RenderObject()
 	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
 	int i = 0;
 	//Rendering items on trolley
-	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+	if (renderItemOnTrolley == true)
 	{
-		(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
-		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+		{
+			(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
+			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+		}
 	}
 	RenderMesh(meshList[GEO_TROLLEY], true);
 	modelStack.PopMatrix();
+
+	if (renderItemOnTrolley == false)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3);
+		modelStack.Translate(0, 0, movingOnBelt);
+		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+		{
+			(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x , Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
+			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+		}
+
+		modelStack.PopMatrix();
+	}
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
