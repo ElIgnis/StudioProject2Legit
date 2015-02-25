@@ -205,6 +205,7 @@ void SP2::Init()
 	villainCaught = false;
 	
 	renderItemOnTrolley = true;
+	renderItemOnBelt = false;
 	beltMovement = false;
 	beltPos.x = -3.14; 
 	beltPos.y = 1.12;
@@ -734,6 +735,14 @@ void SP2::Update(double dt)
 
 				beltMovement = true;
 				renderItemOnTrolley = false;
+				renderItemOnBelt = true;
+
+				int i = 0;
+				
+				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+				{
+					RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				}
 			}
 			//Equip Trolley
 			if(Application::IsKeyPressed('F'))
@@ -1010,6 +1019,7 @@ void SP2::Update(double dt)
 			movingOnBelt += (float)(1 * dt);
 			if(movingOnBelt > 5)
 			{
+				//beltMovement = false;
 				renderItemOnBelt = false;
 			}
 		}
@@ -1594,7 +1604,6 @@ void SP2::RenderObject()
 		//modelStack.PopMatrix();
 	}
 
-
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
@@ -1621,7 +1630,10 @@ void SP2::RenderObject()
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
 			(*iter)->SetPosition(Vector3(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3));
-			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			if (renderItemOnBelt == true)
+			{
+				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			}
 		}
 
 		modelStack.PopMatrix();
