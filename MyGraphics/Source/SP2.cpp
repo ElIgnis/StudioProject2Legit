@@ -662,11 +662,8 @@ void SP2::Update(double dt)
 		//Playing as Customer
 		if (modeCustomer == true)
 		{
-			if (Application::IsKeyPressed('Q'))
+			if(Application::IsKeyPressed('Q'))
 			{
-				startScreen = false;
-				chooseModeScreen = false;
-				highScoreScreen = false;
 				gameStart = false;
 				endScreen = true;
 			}
@@ -691,6 +688,7 @@ void SP2::Update(double dt)
 							if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
 							{
 								Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+								break;
 							}
 						}
 					}
@@ -717,6 +715,7 @@ void SP2::Update(double dt)
 						{
 							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
 							Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
+							break;
 						}
 					}
 				}
@@ -724,25 +723,14 @@ void SP2::Update(double dt)
 			//Checkout items
 			if(Application::IsKeyPressed(VK_RETURN))
 			{
-				amountSpent = 0; //Value pass to endgame for calculation
 				//Checkout
-				for (int i = 0; i < PlayerInvent.Inventory.size();)
-				{
-					amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-				}
-
-				beltMovement = true;
-				renderItemOnTrolley = false;
 			}
+			
 			//Equip Trolley
 			if(Application::IsKeyPressed('F'))
 			{
 				//Equip trolley condition
-				if(Trolley.EquippedTrolley == false)
-				{
-					//Trolley detection range
-					if(camera.position.x > Trolley.RotationMinWidth
+				if(camera.position.x > Trolley.RotationMinWidth
 						&& camera.position.x < Trolley.RotationMaxWidth
 						&& camera.position.z > Trolley.RotationMinLength
 						&& camera.position.z < Trolley.RotationMaxLength
@@ -751,19 +739,20 @@ void SP2::Update(double dt)
 					{
 						Trolley.EquippedTrolley = true;
 					}
-				}
-				//Remove items from invent and add to trolley
-				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+				if(Trolley.EquippedTrolley)
 				{
-					if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+					//Remove items from invent and add to trolley
+					for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
 					{
-						PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
-						PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-						break;
+						if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+						{
+							PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+							PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+							break;
+						}
 					}
 				}
 			}
-
 			if(Application::IsKeyPressed('Y'))
 			{
 				if(Trolley.EquippedTrolley)
@@ -795,7 +784,7 @@ void SP2::Update(double dt)
 						Trolley.TrolleyDirection.y = -180.f;
 					}
 				}
-
+				
 				//Update position
 				Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
 
@@ -808,7 +797,7 @@ void SP2::Update(double dt)
 				//Item removal from trolley by keypress
 				//TODO: UI for removal
 				int input;
-
+				
 				if(Application::IsKeyPressed('1'))
 				{
 					input = 0;
@@ -854,11 +843,9 @@ void SP2::Update(double dt)
 			//Debug print
 			if(Application::IsKeyPressed('R'))
 			{
-
 				if(temp <= 1)
 				{
 					temp+=dt;
-
 				}
 				if(temp >= 1)
 				{
@@ -1606,7 +1593,6 @@ void SP2::RenderObject()
 	{
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
-			(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
 			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 		}
 	}
