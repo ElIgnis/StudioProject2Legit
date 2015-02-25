@@ -207,6 +207,7 @@ void SP2::Init()
 	villainCaught = false;
 	
 	renderItemOnTrolley = true;
+	renderItemOnBelt = false;
 	beltMovement = false;
 	beltPos.x = -3.14; 
 	beltPos.y = 1.12;
@@ -664,11 +665,8 @@ void SP2::Update(double dt)
 		//Playing as Customer
 		if (modeCustomer == true)
 		{
-			if (Application::IsKeyPressed('Q'))
+			if(Application::IsKeyPressed('Q'))
 			{
-				startScreen = false;
-				chooseModeScreen = false;
-				highScoreScreen = false;
 				gameStart = false;
 				endScreen = true;
 			}
@@ -693,6 +691,7 @@ void SP2::Update(double dt)
 							if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
 							{
 								Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+								break;
 							}
 						}
 					}
@@ -719,6 +718,7 @@ void SP2::Update(double dt)
 						{
 							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
 							Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
+							break;
 						}
 					}
 				}
@@ -726,7 +726,6 @@ void SP2::Update(double dt)
 			//Checkout items
 			if(Application::IsKeyPressed(VK_RETURN))
 			{
-				amountSpent = 0; //Value pass to endgame for calculation
 				//Checkout
 				for (int i = 0; i < PlayerInvent.Inventory.size();)
 				{
@@ -736,15 +735,21 @@ void SP2::Update(double dt)
 
 				beltMovement = true;
 				renderItemOnTrolley = false;
+				renderItemOnBelt = true;
+
+				int i = 0;
+				
+				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+				{
+					RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				}
 			}
+			
 			//Equip Trolley
 			if(Application::IsKeyPressed('F'))
 			{
 				//Equip trolley condition
-				if(Trolley.EquippedTrolley == false)
-				{
-					//Trolley detection range
-					if(camera.position.x > Trolley.RotationMinWidth
+				if(camera.position.x > Trolley.RotationMinWidth
 						&& camera.position.x < Trolley.RotationMaxWidth
 						&& camera.position.z > Trolley.RotationMinLength
 						&& camera.position.z < Trolley.RotationMaxLength
@@ -753,19 +758,20 @@ void SP2::Update(double dt)
 					{
 						Trolley.EquippedTrolley = true;
 					}
-				}
-				//Remove items from invent and add to trolley
-				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+				if(Trolley.EquippedTrolley)
 				{
-					if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+					//Remove items from invent and add to trolley
+					for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
 					{
-						PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
-						PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-						break;
+						if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+						{
+							PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+							PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+							break;
+						}
 					}
 				}
 			}
-
 			if(Application::IsKeyPressed('Y'))
 			{
 				if(Trolley.EquippedTrolley)
@@ -797,7 +803,7 @@ void SP2::Update(double dt)
 						Trolley.TrolleyDirection.y = -180.f;
 					}
 				}
-
+				
 				//Update position
 				Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
 
@@ -810,7 +816,7 @@ void SP2::Update(double dt)
 				//Item removal from trolley by keypress
 				//TODO: UI for removal
 				int input;
-
+				
 				if(Application::IsKeyPressed('1'))
 				{
 					input = 0;
@@ -856,11 +862,9 @@ void SP2::Update(double dt)
 			//Debug print
 			if(Application::IsKeyPressed('R'))
 			{
-
 				if(temp <= 1)
 				{
 					temp+=dt;
-
 				}
 				if(temp >= 1)
 				{
@@ -1012,6 +1016,7 @@ void SP2::Update(double dt)
 			movingOnBelt += (float)(1 * dt);
 			if(movingOnBelt > 5)
 			{
+				//beltMovement = false;
 				renderItemOnBelt = false;
 			}
 		}
@@ -1370,21 +1375,21 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
-	for (int i = 0; i < 24; i += 4)
-	for (int j = 0; j < 8; j+= 4)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(i, 0, j);
-		{
-			modelStack.PushMatrix();
-			//scale, translate, rotate
-			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(10, 0, 30);
-			RenderMesh(meshList[GEO_TROLLEY], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-	}
+	//for (int i = 0; i < 16; i += 4)
+	//for (int j = 0; j < 8; j+= 4)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(i, 0, j);
+	//	{
+	//		modelStack.PushMatrix();
+	//		//scale, translate, rotate
+	//		modelStack.Scale(1, 1, 1);
+	//		modelStack.Translate(10, 0, 30);
+	//		RenderMesh(meshList[GEO_TROLLEY], true);
+	//		modelStack.PopMatrix();
+	//	}
+	//	modelStack.PopMatrix();
+	//}
 
 	//Promoter
 	modelStack.PushMatrix();
@@ -1618,7 +1623,6 @@ void SP2::RenderObject()
 		//modelStack.PopMatrix();
 	}
 
-
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
@@ -1630,7 +1634,6 @@ void SP2::RenderObject()
 	{
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
-			(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
 			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 		}
 	}
@@ -1645,7 +1648,10 @@ void SP2::RenderObject()
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
 			(*iter)->SetPosition(Vector3(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3));
-			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			if (renderItemOnBelt == true)
+			{
+				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			}
 		}
 
 		modelStack.PopMatrix();
