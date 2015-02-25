@@ -89,8 +89,8 @@ void CInventory::SetPosition(Vector3 &NewPosition)
 	TrolleyPosition.y = NewPosition.y;
 	TrolleyPosition.z = NewPosition.z;
 
-	RotationMinWidth = TrolleyPosition.x + 3;
-	RotationMaxWidth = TrolleyPosition.x + 5;
+	RotationMinWidth = TrolleyPosition.x;
+	RotationMaxWidth = TrolleyPosition.x + 2;
 	RotationMinLength = TrolleyPosition.z - 0.5f;
 	RotationMaxLength = TrolleyPosition.z + 0.5f;
 }

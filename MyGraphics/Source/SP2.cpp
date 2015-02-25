@@ -1373,21 +1373,21 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
-	for (int i = 0; i < 24; i += 4)
-	for (int j = 0; j < 8; j+= 4)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(i, 0, j);
-		{
-			modelStack.PushMatrix();
-			//scale, translate, rotate
-			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(10, 0, 30);
-			RenderMesh(meshList[GEO_TROLLEY], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-	}
+	//for (int i = 0; i < 16; i += 4)
+	//for (int j = 0; j < 8; j+= 4)
+	//{
+	//	modelStack.PushMatrix();
+	//	modelStack.Translate(i, 0, j);
+	//	{
+	//		modelStack.PushMatrix();
+	//		//scale, translate, rotate
+	//		modelStack.Scale(1, 1, 1);
+	//		modelStack.Translate(10, 0, 30);
+	//		RenderMesh(meshList[GEO_TROLLEY], true);
+	//		modelStack.PopMatrix();
+	//	}
+	//	modelStack.PopMatrix();
+	//}
 
 	//Promoter
 	modelStack.PushMatrix();
