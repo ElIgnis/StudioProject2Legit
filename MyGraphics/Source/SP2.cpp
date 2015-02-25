@@ -37,6 +37,8 @@ void SP2::Init()
 	temp = 0;
 	std::string data = " ";
 	RangeOfOne = 1.f;
+	rotationofdoor = 0;
+	rotateback = false;
 
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
@@ -1456,6 +1458,25 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
+	//ENTRANCE chehckbox
+	if ((camera.position.x > 32 && camera.position.x < 42) && (camera.position.z >39 && camera.position.z < 46))
+	{
+		rotateback = true;
+	}
+	else
+	{
+		rotateback = false;
+	}
+
+	if (rotateback == true && rotationofdoor < 70)
+	{
+		rotationofdoor++;
+	}
+	else if (rotateback == false && rotationofdoor > 0)
+	{
+		rotationofdoor--;
+	}
+	//Render Entrance
 	for (float i = 0; i > -10; i -= 5.5)
 	{
 		modelStack.PushMatrix();
@@ -1465,6 +1486,7 @@ void SP2::RenderObject()
 			//scale, translate, rotate
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(43, -1.8, 38);
+			modelStack.Rotate(rotationofdoor, 0, -1, 0);
 			RenderMesh(meshList[GEO_ENTRY], true);
 			modelStack.PopMatrix();
 		}
@@ -1481,11 +1503,13 @@ void SP2::RenderObject()
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(38, -1.8, 38);
 			modelStack.Rotate(180, 0, 1, 0);
+			modelStack.Rotate(rotationofdoor, 0, 1, 0);
 			RenderMesh(meshList[GEO_ENTRY], true);
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
 	}
+
 
 	//LightBulb
 	for (int j = -20; j < 40; j += 20)

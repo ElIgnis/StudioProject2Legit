@@ -160,6 +160,10 @@ private:
 	float translateZ;
 	float translateY;
 
+	//entrance
+	float rotationofdoor;
+	bool rotateback;
+
 	//tokens indexing
 	enum Index
 	{
