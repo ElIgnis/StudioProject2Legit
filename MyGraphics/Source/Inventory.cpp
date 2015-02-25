@@ -4,6 +4,7 @@ CInventory::CInventory(void)
 {
 	MaxInventorySize = 2;
 	MaxTrolleySize = 8;
+	CurrentSize = 0;
 	EquippedTrolley = false;
 
 	TrolleyDirection.x = 0;
@@ -26,7 +27,7 @@ bool CInventory::AddToInvent(CItem *Item, int ItemIndex)
 		//	return false;
 		//}
 		//Add items
-		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT || Item->ItemState[CItem::NUM_STATE] == CItem::IN_TROLLEY)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
@@ -87,6 +88,11 @@ void CInventory::SetPosition(Vector3 &NewPosition)
 	TrolleyPosition.x = NewPosition.x;
 	TrolleyPosition.y = NewPosition.y;
 	TrolleyPosition.z = NewPosition.z;
+
+	RotationMinWidth = TrolleyPosition.x + 3;
+	RotationMaxWidth = TrolleyPosition.x + 5;
+	RotationMinLength = TrolleyPosition.z - 0.5f;
+	RotationMaxLength = TrolleyPosition.z + 0.5f;
 }
 
 void CInventory::SetDirection(Vector3 &NewDirection)
@@ -107,9 +113,6 @@ bool CInventory::AddToTrolley(CItem *Item, int ItemIndex)
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
 			InventoryIndexing.push_back(ItemIndex);
-			Item->ItemPosition.x = TrolleyPosition.x;
-			Item->ItemPosition.y = TrolleyPosition.y;
-			Item->ItemPosition.z = TrolleyPosition.z;
 			return true;
 		}
 	}

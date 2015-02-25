@@ -176,17 +176,18 @@ private:
 	CShelf Container;
 	CInventory PlayerInvent;
 	CInventory Trolley;
-
+	float temp;
 	//Item taking
 	float Distance;
 	float MaxDistance;
 
+	//Trolley
+	float RangeOfOne;
+
 	//Cashier loading properties
 	string CashierData;
 
-
 	//AI loading properties
-
 
 	bool toggleLight;
 

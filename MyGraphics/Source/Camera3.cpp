@@ -6,6 +6,7 @@ Camera3::Camera3()
 {
 	worldScale = 4004.f;
 	angle = 0;
+	RotationYAxis = -90.f;
 }
 
 Camera3::~Camera3()
@@ -38,6 +39,13 @@ void Camera3::Update(double dt)
 		up = rotation * up;
 		target = view + position;
 		
+		RotationYAxis += (float)(CAMERA_SPEED * dt);
+		//Reset angle for calculation
+		if(RotationYAxis >= 180.f)
+		{
+			RotationYAxis = -180.f;
+		}
+
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();
@@ -60,6 +68,12 @@ void Camera3::Update(double dt)
 		up = rotation * up;
 		target = view + position;
 
+		RotationYAxis -= (float)(CAMERA_SPEED * dt);
+		//Reset angle for calculation
+		if(RotationYAxis <= -180.f)
+		{
+			RotationYAxis = 180.f;
+		}
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();

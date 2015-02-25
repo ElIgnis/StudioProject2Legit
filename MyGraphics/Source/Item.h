@@ -31,6 +31,7 @@ public:
 	{
 		DEFAULT,
 		TAKEN,
+		IN_TROLLEY,
 		DESTROYED,
 		CHECKED_OUT,
 		NUM_STATE,

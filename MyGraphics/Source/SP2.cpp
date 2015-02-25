@@ -34,8 +34,9 @@ void SP2::Init()
 	translateBack = false;
 	translateZ = 3;
 	translateY = 0;
-
+	temp = 0;
 	std::string data = " ";
+	RangeOfOne = 1.f;
 
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
@@ -82,9 +83,10 @@ void SP2::Init()
 		}
 		inShelfItem.close();
 	}
+	//Initialize trolley position
+	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
 
 	//Cashier details
-
 
 	//AI details
 
@@ -739,46 +741,137 @@ void SP2::Update(double dt)
 				//Equip trolley condition
 				if(Trolley.EquippedTrolley == false)
 				{
-					//camera.target.x = 0;
-					Trolley.EquippedTrolley = true;
+					//Trolley detection range
+					if(camera.position.x > Trolley.RotationMinWidth
+						&& camera.position.x < Trolley.RotationMaxWidth
+						&& camera.position.z > Trolley.RotationMinLength
+						&& camera.position.z < Trolley.RotationMaxLength
+						&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
+						&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
+					{
+						Trolley.EquippedTrolley = true;
+					}
 				}
-				//TO DO: Add trolley detection code
 				//Remove items from invent and add to trolley
 				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
 				{
-					if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i),PlayerInvent.Inventory.at(i)->ItemIndex))
+					if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
 					{
-						cout << PlayerInvent.Inventory.size();
+						PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
 						PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+						break;
 					}
 				}
+			}
 
-				//TODO: Align is buggy(how to solve?)
-			}
-			if(Application::IsKeyPressed('R'))
-			{
-				cout << PlayerInvent.Inventory.size();
-			}
 			if(Application::IsKeyPressed('Y'))
 			{
-				Trolley.EquippedTrolley = false;
+				if(Trolley.EquippedTrolley)
+				{
+					Trolley.EquippedTrolley = false;
+				}
 			}
 
 			//Update trolley only when equipped
-			if(Trolley.EquippedTrolley == true)
+			if(Trolley.EquippedTrolley)
 			{
+				//CW Rotation
 				if(Application::IsKeyPressed(VK_RIGHT))
 				{
 					Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
+					//Reset angle for calculation
+					if(Trolley.TrolleyDirection.y <= -180.f)
+					{
+						Trolley.TrolleyDirection.y = 180.f;
+					}
 				}
+				//CCW Rotation
 				if(Application::IsKeyPressed(VK_LEFT))
 				{
+					//Reset angle for calculation
 					Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
+					if(Trolley.TrolleyDirection.y >= 180.f)
+					{
+						Trolley.TrolleyDirection.y = -180.f;
+					}
 				}
+
+				//Update position
 				Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
+
+				//Update range able to take trolley(+- 1.f range)
+				Trolley.RotationMinWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x - RangeOfOne;
+				Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
+				Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
+				Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
+
+				//Item removal from trolley by keypress
+				//TODO: UI for removal
+				int input;
+
+				if(Application::IsKeyPressed('1'))
+				{
+					input = 0;
+				}
+				if(Application::IsKeyPressed('2'))
+				{
+					input = 1;
+				}
+				if(Application::IsKeyPressed('3'))
+				{
+					input = 2;
+				}
+				if(Application::IsKeyPressed('4'))
+				{
+					input = 3;
+				}
+				if(Application::IsKeyPressed('5'))
+				{
+					input = 4;
+				}
+				if(Application::IsKeyPressed('6'))
+				{
+					input = 5;
+				}
+				if(Application::IsKeyPressed('7'))
+				{
+					input = 6;
+				}
+				if(Application::IsKeyPressed('8'))
+				{
+					input = 7;
+				}
+
+				if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
+				{
+					if(PlayerInvent.AddToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
+					{
+						PlayerInvent.Inventory.at(PlayerInvent.Inventory.size() - 1)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+						Trolley.RemoveFromInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
+					}
+				}
+			}
+			//Debug print
+			if(Application::IsKeyPressed('R'))
+			{
+
+				if(temp <= 1)
+				{
+					temp+=dt;
+
+				}
+				if(temp >= 1)
+				{
+					cout << "Angle: " << Trolley.TrolleyDirection.y << endl;
+					cout << "Min Width: " << Trolley.RotationMinWidth << endl;
+					cout << "Max Width: " << Trolley.RotationMaxWidth << endl;
+					cout << "Min Length: " << Trolley.RotationMinLength << endl;
+					cout << "Max Length: " << Trolley.RotationMaxLength << endl;
+					cout << "Camera Rotation: " << camera.RotationYAxis << endl;
+					temp = 0;
+				}
 			}
 		}
-
 		//Playing as Security Guard
 		else if (modeGuard == true)
 		{
@@ -1497,7 +1590,6 @@ void SP2::RenderObject()
 			modelStack.Translate(beltPos.x, beltPos.y, beltPos.z);
 			RenderMesh(meshList[GEO_CONVEYORBELT], false);
 			modelStack.PopMatrix();
-
 		}
 		//modelStack.PopMatrix();
 	}

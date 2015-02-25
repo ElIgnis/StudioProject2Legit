@@ -12,6 +12,7 @@ public:
 	//Vector3 up;
 	float worldScale;
 	float angle;
+	float RotationYAxis;
 	float CAMERA_SPEED;
 	float CAMERA_SPEED2;
 

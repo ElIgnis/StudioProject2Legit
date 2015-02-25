@@ -10,7 +10,19 @@ public:
 	vector<int>InventoryIndexing;
 	unsigned int MaxInventorySize;
 	unsigned int MaxTrolleySize;
+	unsigned int CurrentSize;
 	bool EquippedTrolley;
+
+	float RotationMinWidth;
+	float RotationMaxWidth;
+	float RotationMinLength;
+	float RotationMaxLength;
+
+	//For collision
+	float MinWidth;
+	float MaxWidth;
+	float MinLength;
+	float MaxLength;
 
 	bool AddToInvent(CItem *Item, int ItemIndex);
 	bool RemoveFromInvent(CItem *Item, int ItemIndex);
