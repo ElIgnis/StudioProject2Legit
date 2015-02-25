@@ -34,7 +34,7 @@ void SP2::Init()
 	translateBack = false;
 	translateZ = 3;
 	translateY = 0;
-	temp = 0;
+	Delay = 0.f;
 	std::string data = " ";
 	RangeOfOne = 1.f;
 	rotationofdoor = 0;
@@ -572,7 +572,7 @@ void SP2::Update(double dt)
 			chooseModeScreen = false;
 			gameStart = true;
 		}
-		else if (Application::IsKeyPressed('2')) //Play as Security Guard
+		 if (Application::IsKeyPressed('2')) //Play as Security Guard
 		{
 			startScreen = false;
 			modeCustomer = false;
@@ -697,218 +697,258 @@ void SP2::UpdateGame(double dt)
 void SP2::Scenario_Shopper(double dt)
 {
 	float RotationSpeed = 100.f;
-
-	if(Application::IsKeyPressed('Q'))
+	float DelayInterval = 0.25f;
+	if(Delay < DelayInterval)
 	{
-		gameStart = false;
-		endScreen = true;
+		Delay += dt;
 	}
-	//Adding items
-	if(Application::IsKeyPressed('E'))
+	if(Delay > DelayInterval)
 	{
-		for(int i = 0; i < ItemLine; i++)
+		if(Application::IsKeyPressed('Q'))
 		{
-			//Taking items from shelf(Check by invisible box around item)
-			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			gameStart = false;
+			endScreen = true;
+		}
+		//Adding items
+		if(Application::IsKeyPressed('E'))
+		{
+			for(int i = 0; i < ItemLine; i++)
 			{
-				//Distance is updated
-				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-				//Only able to take items when within range and items that are on the shelf
-				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+				//Taking items from shelf(Check by invisible box around item)
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
-					if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to take items when within range and items that are on the shelf
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
 					{
-						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
+						{
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		//Putting back items back on shelf
+		if(Application::IsKeyPressed('G'))
+		{
+			for(int i = 0; i < ItemLine; i++)
+			{
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+				{
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to put back taken items
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+					{
+						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
 					}
 				}
 			}
 		}
-	}
-
-	//Putting back items back on shelf
-	if(Application::IsKeyPressed('G'))
-	{
-		for(int i = 0; i < ItemLine; i++)
+		//Swapping items
+		if(Application::IsKeyPressed('T'))
 		{
-			//Taking of items
-			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			for(int i = 0; i < ItemLine; i++)
 			{
-				//Distance is updated
-				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-				//Only able to put back taken items
-				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
-					PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
-					Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
-					break;
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to swap with default item
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					{
+						PlayerInvent.SwapFromInvent(Container.Shelf.at(i), i);
+						break;
+					}
 				}
 			}
 		}
-	}
-	//Checkout items
-	if(Application::IsKeyPressed(VK_RETURN))
-	{
-		//Checkout
-		for (int i = 0; i < PlayerInvent.Inventory.size();)
-		{
-			amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-			PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-		}
 
-		beltMovement = true;
-		renderItemOnTrolley = false;
-		renderItemOnBelt = true;
-
-		int i = 0;
-
-		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+		//Destroying items
+		if(Application::IsKeyPressed('U'))
 		{
-			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-		}
-	}
-
-	//Equip Trolley
-	if(Application::IsKeyPressed('F'))
-	{
-		//Equip trolley condition
-		if(camera.position.x > Trolley.RotationMinWidth
-			&& camera.position.x < Trolley.RotationMaxWidth
-			&& camera.position.z > Trolley.RotationMinLength
-			&& camera.position.z < Trolley.RotationMaxLength
-			&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
-			&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
-		{
-			Trolley.EquippedTrolley = true;
-		}
-		if(Trolley.EquippedTrolley)
-		{
-			//Remove items from invent and add to trolley
-			for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+			for(int i = 0; i < ItemLine; i++)
 			{
-				if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
-					PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
-					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-					break;
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to destroy default items
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					{
+						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+						break;
+					}
 				}
 			}
 		}
-	}
-	if(Application::IsKeyPressed('Y'))
-	{
+
+		//Checkout items
+		if(Application::IsKeyPressed(VK_RETURN))
+		{
+			//Checkout
+			for (int i = 0; i < PlayerInvent.Inventory.size();)
+			{
+				amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
+				PlayerInvent.Minus_InventToShelf(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+			}
+
+			beltMovement = true;
+			renderItemOnTrolley = false;
+			renderItemOnBelt = true;
+
+			int i = 0;
+
+			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+			{
+				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			}
+		}
+
+		//Equip Trolley
+		if(Application::IsKeyPressed('F'))
+		{
+			//Equip trolley condition
+			if(camera.position.x > Trolley.RotationMinWidth
+				&& camera.position.x < Trolley.RotationMaxWidth
+				&& camera.position.z > Trolley.RotationMinLength
+				&& camera.position.z < Trolley.RotationMaxLength
+				&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
+				&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
+			{
+				Trolley.EquippedTrolley = true;
+			}
+			if(Trolley.EquippedTrolley)
+			{
+				//Remove items from invent and add to trolley
+				for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+				{
+					if(Trolley.Add_InventToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+					{
+						PlayerInvent.Minus_InventToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+						break;
+					}
+				}
+			}
+		}
+		if(Application::IsKeyPressed('Y'))
+		{
+			if(Trolley.EquippedTrolley)
+			{
+				Trolley.EquippedTrolley = false;
+			}
+		}
+
+		//Update trolley only when equipped
 		if(Trolley.EquippedTrolley)
 		{
-			Trolley.EquippedTrolley = false;
-		}
-	}
-
-	//Update trolley only when equipped
-	if(Trolley.EquippedTrolley)
-	{
-		//CW Rotation
-		if(Application::IsKeyPressed(VK_RIGHT))
-		{
-			Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
-			//Reset angle for calculation
-			if(Trolley.TrolleyDirection.y <= -180.f)
+			//CW Rotation
+			if(Application::IsKeyPressed(VK_RIGHT))
 			{
-				Trolley.TrolleyDirection.y = 180.f;
+				Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
+				//Reset angle for calculation
+				if(Trolley.TrolleyDirection.y <= -180.f)
+				{
+					Trolley.TrolleyDirection.y = 180.f;
+				}
+			}
+			//CCW Rotation
+			if(Application::IsKeyPressed(VK_LEFT))
+			{
+				//Reset angle for calculation
+				Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
+				if(Trolley.TrolleyDirection.y >= 180.f)
+				{
+					Trolley.TrolleyDirection.y = -180.f;
+				}
+			}
+
+			//Update position
+			Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
+
+			//Update range able to take trolley(+- 1.f range)
+			Trolley.RotationMinWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x - RangeOfOne;
+			Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
+			Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
+			Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
+
+			//Item removal from trolley by keypress
+			//TODO: UI for removal
+			int input;
+
+			if(Application::IsKeyPressed('1'))
+			{
+				input = 0;
+			}
+			if(Application::IsKeyPressed('2'))
+			{
+				input = 1;
+			}
+			if(Application::IsKeyPressed('3'))
+			{
+				input = 2;
+			}
+			if(Application::IsKeyPressed('4'))
+			{
+				input = 3;
+			}
+			if(Application::IsKeyPressed('5'))
+			{
+				input = 4;
+			}
+			if(Application::IsKeyPressed('6'))
+			{
+				input = 5;
+			}
+			if(Application::IsKeyPressed('7'))
+			{
+				input = 6;
+			}
+			if(Application::IsKeyPressed('8'))
+			{
+				input = 7;
+			}
+
+			if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
+			{
+				if(PlayerInvent.Add_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
+				{
+					Trolley.Minus_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
+				}
 			}
 		}
-		//CCW Rotation
-		if(Application::IsKeyPressed(VK_LEFT))
+		//Debug print
+		if(Application::IsKeyPressed('R'))
 		{
-			//Reset angle for calculation
-			Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
-			if(Trolley.TrolleyDirection.y >= 180.f)
-			{
-				Trolley.TrolleyDirection.y = -180.f;
-			}
 		}
-
-		//Update position
-		Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
-
-		//Update range able to take trolley(+- 1.f range)
-		Trolley.RotationMinWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x - RangeOfOne;
-		Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
-		Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
-		Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
-
-		//Item removal from trolley by keypress
-		//TODO: UI for removal
-		int input;
-
-		if(Application::IsKeyPressed('1'))
-		{
-			input = 0;
-		}
-		if(Application::IsKeyPressed('2'))
-		{
-			input = 1;
-		}
-		if(Application::IsKeyPressed('3'))
-		{
-			input = 2;
-		}
-		if(Application::IsKeyPressed('4'))
-		{
-			input = 3;
-		}
-		if(Application::IsKeyPressed('5'))
-		{
-			input = 4;
-		}
-		if(Application::IsKeyPressed('6'))
-		{
-			input = 5;
-		}
-		if(Application::IsKeyPressed('7'))
-		{
-			input = 6;
-		}
-		if(Application::IsKeyPressed('8'))
-		{
-			input = 7;
-		}
-
-		if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
-		{
-			if(PlayerInvent.AddToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
-			{
-				PlayerInvent.Inventory.at(PlayerInvent.Inventory.size() - 1)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
-				Trolley.RemoveFromInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
-			}
-		}
-	}
-	//Debug print
-	if(Application::IsKeyPressed('R'))
-	{
-		if(temp <= 1)
-		{
-			temp+=dt;
-		}
-		if(temp >= 1)
-		{
-			cout << "Angle: " << Trolley.TrolleyDirection.y << endl;
-			cout << "Min Width: " << Trolley.RotationMinWidth << endl;
-			cout << "Max Width: " << Trolley.RotationMaxWidth << endl;
-			cout << "Min Length: " << Trolley.RotationMinLength << endl;
-			cout << "Max Length: " << Trolley.RotationMaxLength << endl;
-			cout << "Camera Rotation: " << camera.RotationYAxis << endl;
-			temp = 0;
-		}
+		Delay = 0;
 	}
 }
 
@@ -1715,6 +1755,7 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 {
 	Mtx44 MVP;
 	int offsetY = WorldOffset;
+	float Align = 0.15f;
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -1730,7 +1771,16 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 	else if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
-		modelStack.Scale(1.5f, 0.25f, 1.5f);
+		//Translate flattened items downwards
+		if(ItemType != SP2::GEO_PACK_KINDER && ItemType != SP2::GEO_PACK_SNICKER)
+		{
+			modelStack.Translate(0.f, -Align, 0.f);
+		}
+		else //Translate lesser Y due to obj size
+		{
+			modelStack.Translate(0.f, -(Align / 6), 0.f);
+		}
+		modelStack.Scale(1.25f, 0.25f, 1.25f);
 		RenderMesh(meshList[ItemType], false);
 	}
 

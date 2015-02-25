@@ -180,7 +180,7 @@ private:
 	CShelf Container;
 	CInventory PlayerInvent;
 	CInventory Trolley;
-	float temp;
+	float Delay;
 	//Item taking
 	float Distance;
 	float MaxDistance;
