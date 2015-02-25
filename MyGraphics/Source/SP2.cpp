@@ -534,7 +534,6 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
-	float RotationSpeed = 100.f;
 	if (startScreen == true)
 	{
 		if (Application::IsKeyPressed('1'))
@@ -560,7 +559,7 @@ void SP2::Update(double dt)
 			exit(0);
 		}
 	}
-	
+
 	//Choose Mode
 	else if (chooseModeScreen == true)
 	{
@@ -600,7 +599,7 @@ void SP2::Update(double dt)
 		std::stringstream customerHighScoreHSS;
 		customerHighScoreHSS << player.getShopperHighScore();
 		customerHS = customerHighScoreHSS.str();
-		
+
 		std::stringstream guardHighScoreHSS;
 		guardHighScoreHSS << player.getGuardHighScore();
 		guardHS = guardHighScoreHSS.str();
@@ -622,418 +621,446 @@ void SP2::Update(double dt)
 	//Game start
 	else if (gameStart == true)
 	{
-		if(Application::IsKeyPressed('1')) //enable back face culling
-			glEnable(GL_CULL_FACE);
-		if(Application::IsKeyPressed('2')) //disable back face culling
-			glDisable(GL_CULL_FACE);
-		if(Application::IsKeyPressed('3'))
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
-		if(Application::IsKeyPressed('4'))
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-
-		camera.Update(dt);
-		player.setPos(camera.position);
-
-		//FPS value
-		fps = 1 / dt;
-		std::stringstream ss;
-		ss << fps;
-		fpsText = ss.str();
-
-		//Pos checker
-		std::stringstream s_plX;
-		std::stringstream s_plZ;
-
-		s_plX << camera.position.x;
-		s_plZ << camera.position.z;
-
-		plXCoord = s_plX.str();
-		plZCoord = s_plZ.str();
-
-		//Time Taken
-		elapsedTime += (float)(1*dt);
-		std::stringstream s_timeElapsed;
-		s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
-		timeElapsed = s_timeElapsed.str();
-		//Count down timer for Guard
-		countDown -= (float)(1 * dt);
-		std::stringstream s_countDown;
-		s_countDown << std::fixed << std::setprecision(2) << countDown;
-		countDownTime = s_countDown.str();
-
-		//Player functions
-		//Playing as Customer
-		if (modeCustomer == true)
-		{
-			if(Application::IsKeyPressed('Q'))
-			{
-				gameStart = false;
-				endScreen = true;
-			}
-			//Adding items
-			if(Application::IsKeyPressed('E'))
-			{
-				for(int i = 0; i < ItemLine; i++)
-				{
-					//Taking items from shelf(Check by invisible box around item)
-					if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
-					{
-						//Distance is updated
-						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-						//Only able to take items when within range and items that are on the shelf
-						if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
-						{
-							if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
-							{
-								Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
-								break;
-							}
-						}
-					}
-				}
-			}
-
-			//Putting back items back on shelf
-			if(Application::IsKeyPressed('G'))
-			{
-				for(int i = 0; i < ItemLine; i++)
-				{
-					//Taking of items
-					if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-						&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-						&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
-					{
-						//Distance is updated
-						Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-							+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-							+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-						//Only able to put back taken items
-						if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
-						{
-							PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
-							Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
-							break;
-						}
-					}
-				}
-			}
-			//Checkout items
-			if(Application::IsKeyPressed(VK_RETURN))
-			{
-				//Checkout
-				for (int i = 0; i < PlayerInvent.Inventory.size();)
-				{
-					amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-				}
-
-				beltMovement = true;
-				renderItemOnTrolley = false;
-				renderItemOnBelt = true;
-
-				int i = 0;
-				
-				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-				{
-					RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-				}
-			}
-			
-			//Equip Trolley
-			if(Application::IsKeyPressed('F'))
-			{
-				//Equip trolley condition
-				if(camera.position.x > Trolley.RotationMinWidth
-						&& camera.position.x < Trolley.RotationMaxWidth
-						&& camera.position.z > Trolley.RotationMinLength
-						&& camera.position.z < Trolley.RotationMaxLength
-						&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
-						&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
-					{
-						Trolley.EquippedTrolley = true;
-					}
-				if(Trolley.EquippedTrolley)
-				{
-					//Remove items from invent and add to trolley
-					for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
-					{
-						if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
-						{
-							PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
-							PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-							break;
-						}
-					}
-				}
-			}
-			if(Application::IsKeyPressed('Y'))
-			{
-				if(Trolley.EquippedTrolley)
-				{
-					Trolley.EquippedTrolley = false;
-				}
-			}
-
-			//Update trolley only when equipped
-			if(Trolley.EquippedTrolley)
-			{
-				//CW Rotation
-				if(Application::IsKeyPressed(VK_RIGHT))
-				{
-					Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
-					//Reset angle for calculation
-					if(Trolley.TrolleyDirection.y <= -180.f)
-					{
-						Trolley.TrolleyDirection.y = 180.f;
-					}
-				}
-				//CCW Rotation
-				if(Application::IsKeyPressed(VK_LEFT))
-				{
-					//Reset angle for calculation
-					Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
-					if(Trolley.TrolleyDirection.y >= 180.f)
-					{
-						Trolley.TrolleyDirection.y = -180.f;
-					}
-				}
-				
-				//Update position
-				Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
-
-				//Update range able to take trolley(+- 1.f range)
-				Trolley.RotationMinWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x - RangeOfOne;
-				Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
-				Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
-				Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
-
-				//Item removal from trolley by keypress
-				//TODO: UI for removal
-				int input;
-				
-				if(Application::IsKeyPressed('1'))
-				{
-					input = 0;
-				}
-				if(Application::IsKeyPressed('2'))
-				{
-					input = 1;
-				}
-				if(Application::IsKeyPressed('3'))
-				{
-					input = 2;
-				}
-				if(Application::IsKeyPressed('4'))
-				{
-					input = 3;
-				}
-				if(Application::IsKeyPressed('5'))
-				{
-					input = 4;
-				}
-				if(Application::IsKeyPressed('6'))
-				{
-					input = 5;
-				}
-				if(Application::IsKeyPressed('7'))
-				{
-					input = 6;
-				}
-				if(Application::IsKeyPressed('8'))
-				{
-					input = 7;
-				}
-
-				if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
-				{
-					if(PlayerInvent.AddToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
-					{
-						PlayerInvent.Inventory.at(PlayerInvent.Inventory.size() - 1)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
-						Trolley.RemoveFromInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
-					}
-				}
-			}
-			//Debug print
-			if(Application::IsKeyPressed('R'))
-			{
-				if(temp <= 1)
-				{
-					temp+=dt;
-				}
-				if(temp >= 1)
-				{
-					cout << "Angle: " << Trolley.TrolleyDirection.y << endl;
-					cout << "Min Width: " << Trolley.RotationMinWidth << endl;
-					cout << "Max Width: " << Trolley.RotationMaxWidth << endl;
-					cout << "Min Length: " << Trolley.RotationMinLength << endl;
-					cout << "Max Length: " << Trolley.RotationMaxLength << endl;
-					cout << "Camera Rotation: " << camera.RotationYAxis << endl;
-					temp = 0;
-				}
-			}
-		}
-		//Playing as Security Guard
-		else if (modeGuard == true)
-		{
-			//if (score > 0 && playerposition == villain position && keypress)
-			{
-				//missionComplete = true;
-			}
-			//else if (score <= 0)
-			{
-				//missionFailed = true;
-			}
-		}
-
-		//Playing as Villain
-		else if (modeVillain == true)
-		{
-			//if (playerposition == item position && keypress)
-			{
-				//objectsDestroyed++;
-			}
-
-			//if(objectsDestroyed == target && isCaught == false)
-			{
-				//missionComplete = true;
-			}
-		}
+		UpdateGame(dt);
 	}
-
 	//Game end
 	else if (endScreen == true)
 	{
-		chooseModeScreen = false;
-		startScreen = false;
-		highScoreScreen = false;
-		gameStart = false;
-
-		if (player.getShopperScore() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScore() > player.getVillainHighScore())
-		{
-			newHighScore = true;
-		}
-		else
-		{
-			newHighScore = false;
-		}
-		
-		//Shopper
-		std::stringstream customerEGS;
-		customerEGS << player.getShopperScore();
-		EGSShopper = customerEGS.str();
-
-		//Guard
-		std::stringstream guardEGS;
-		guardEGS << player.getGuardScoreSucceed();
-		EGSGuard = guardEGS.str();
-
-		//Villain
-		std::stringstream villainEGS;
-		villainEGS << player.getVillainScore();
-		EGSVillain = villainEGS.str();
-
-		if (Application::IsKeyPressed('1'))
-		{
-			chooseModeScreen = false;
-			startScreen = true;
-			highScoreScreen = false;
-			gameStart = false;
-			endScreen = false;
-		}
-		
-		//Score calculation
-		{
-			if (modeCustomer == true)
-			{
-				//Mission pass/fail for customer
-				if (amountSpent < startingAmount)
-				{
-					remaindingAmount = startingAmount - amountSpent;
-					missionComplete = true;
-				}
-				else
-				{
-					amountOvershot = amountSpent - startingAmount;
-					missionFailed = true;
-				}
-
-				//Calculate score & Set high score
-				if (missionComplete == true)
-				{
-					player.setShopperScoreSucceed(elapsedTime, remaindingAmount);
-					//Set high score
-					player.setShopperHighScore(player.getShopperScore());
-				}
-				else if(missionFailed == true)
-				{
-					player.setShopperScoreFailed(elapsedTime, amountOvershot);
-					//Set high score
-					player.setShopperHighScore(player.getShopperScore());
-				}
-			}
-
-			else if (modeGuard == true)
-			{
-				if (missionComplete == true)
-				{
-					player.setGuardScoreSucceed(elapsedTime);
-					//Set high score
-					player.setGuardHighScore(player.getGuardScoreSucceed());
-				}
-			}
-
-			else if (modeVillain == true)
-			{
-				if (missionComplete == true)
-				{
-					player.setVillainScoreSucceed(dt);
-					//Set high score
-					player.setVillainHighScore(player.getVillainScore());
-				}
-				else
-				{
-					player.setVillainScoreFailed(objectsDestroyed);
-					//Set high score
-					player.setVillainHighScore(player.getVillainScore());
-				}
-			}
-		}
+		ShowEndScreen(dt);
 	}
 
 	if (beltMovement == true)
 	{
-		//ConveyorBelt code
-		//white
-		if (translateBack == false)
+		UpdateConveyor(dt);
+	}
+}
+
+void SP2::UpdateGame(double dt)
+{
+	if(Application::IsKeyPressed('1')) //enable back face culling
+		glEnable(GL_CULL_FACE);
+	if(Application::IsKeyPressed('2')) //disable back face culling
+		glDisable(GL_CULL_FACE);
+	if(Application::IsKeyPressed('3'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
+	if(Application::IsKeyPressed('4'))
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
+
+	camera.Update(dt);
+	player.setPos(camera.position);
+
+	//FPS value
+	fps = 1 / dt;
+	std::stringstream ss;
+	ss << fps;
+	fpsText = ss.str();
+
+	//Pos checker
+	std::stringstream s_plX;
+	std::stringstream s_plZ;
+
+	s_plX << camera.position.x;
+	s_plZ << camera.position.z;
+
+	plXCoord = s_plX.str();
+	plZCoord = s_plZ.str();
+
+	//Time Taken
+	elapsedTime += (float)(1*dt);
+	std::stringstream s_timeElapsed;
+	s_timeElapsed << std::fixed << std::setprecision(2) << elapsedTime;
+	timeElapsed = s_timeElapsed.str();
+	//Count down timer for Guard
+	countDown -= (float)(1 * dt);
+	std::stringstream s_countDown;
+	s_countDown << std::fixed << std::setprecision(2) << countDown;
+	countDownTime = s_countDown.str();
+
+	//Player functions
+	//Playing as Customer
+	if (modeCustomer == true)
+	{
+		Scenario_Shopper(dt);
+	}
+	//Playing as Security Guard
+	else if (modeGuard == true)
+	{
+		Scenario_Guard(dt);
+	}
+	//Playing as Villain
+	else if (modeVillain == true)
+	{
+		Scenario_Villain(dt);
+	}
+}
+
+void SP2::Scenario_Shopper(double dt)
+{
+	float RotationSpeed = 100.f;
+
+	if(Application::IsKeyPressed('Q'))
+	{
+		gameStart = false;
+		endScreen = true;
+	}
+	//Adding items
+	if(Application::IsKeyPressed('E'))
+	{
+		for(int i = 0; i < ItemLine; i++)
 		{
-			translateZ += (float)(1 * dt);
-			movingOnBelt += (float)(1 * dt);
-			if(movingOnBelt > 5)
+			//Taking items from shelf(Check by invisible box around item)
+			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 			{
-				//beltMovement = false;
-				renderItemOnBelt = false;
+				//Distance is updated
+				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+				//Only able to take items when within range and items that are on the shelf
+				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+				{
+					if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
+					{
+						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+						break;
+					}
+				}
 			}
+		}
+	}
+
+	//Putting back items back on shelf
+	if(Application::IsKeyPressed('G'))
+	{
+		for(int i = 0; i < ItemLine; i++)
+		{
+			//Taking of items
+			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			{
+				//Distance is updated
+				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+				//Only able to put back taken items
+				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+				{
+					PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
+					Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
+					break;
+				}
+			}
+		}
+	}
+	//Checkout items
+	if(Application::IsKeyPressed(VK_RETURN))
+	{
+		//Checkout
+		for (int i = 0; i < PlayerInvent.Inventory.size();)
+		{
+			amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
+			PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+		}
+
+		beltMovement = true;
+		renderItemOnTrolley = false;
+		renderItemOnBelt = true;
+
+		int i = 0;
+
+		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+		{
+			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+		}
+	}
+
+	//Equip Trolley
+	if(Application::IsKeyPressed('F'))
+	{
+		//Equip trolley condition
+		if(camera.position.x > Trolley.RotationMinWidth
+			&& camera.position.x < Trolley.RotationMaxWidth
+			&& camera.position.z > Trolley.RotationMinLength
+			&& camera.position.z < Trolley.RotationMaxLength
+			&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
+			&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
+		{
+			Trolley.EquippedTrolley = true;
+		}
+		if(Trolley.EquippedTrolley)
+		{
+			//Remove items from invent and add to trolley
+			for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+			{
+				if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+				{
+					PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+					break;
+				}
+			}
+		}
+	}
+	if(Application::IsKeyPressed('Y'))
+	{
+		if(Trolley.EquippedTrolley)
+		{
+			Trolley.EquippedTrolley = false;
+		}
+	}
+
+	//Update trolley only when equipped
+	if(Trolley.EquippedTrolley)
+	{
+		//CW Rotation
+		if(Application::IsKeyPressed(VK_RIGHT))
+		{
+			Trolley.TrolleyDirection.y -= (float)(RotationSpeed * dt);
+			//Reset angle for calculation
+			if(Trolley.TrolleyDirection.y <= -180.f)
+			{
+				Trolley.TrolleyDirection.y = 180.f;
+			}
+		}
+		//CCW Rotation
+		if(Application::IsKeyPressed(VK_LEFT))
+		{
+			//Reset angle for calculation
+			Trolley.TrolleyDirection.y += (float)(RotationSpeed * dt);
+			if(Trolley.TrolleyDirection.y >= 180.f)
+			{
+				Trolley.TrolleyDirection.y = -180.f;
+			}
+		}
+
+		//Update position
+		Trolley.SetPosition(Vector3(camera.position.x, camera.position.y, camera.position.z));
+
+		//Update range able to take trolley(+- 1.f range)
+		Trolley.RotationMinWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x - RangeOfOne;
+		Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
+		Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
+		Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
+
+		//Item removal from trolley by keypress
+		//TODO: UI for removal
+		int input;
+
+		if(Application::IsKeyPressed('1'))
+		{
+			input = 0;
+		}
+		if(Application::IsKeyPressed('2'))
+		{
+			input = 1;
+		}
+		if(Application::IsKeyPressed('3'))
+		{
+			input = 2;
+		}
+		if(Application::IsKeyPressed('4'))
+		{
+			input = 3;
+		}
+		if(Application::IsKeyPressed('5'))
+		{
+			input = 4;
+		}
+		if(Application::IsKeyPressed('6'))
+		{
+			input = 5;
+		}
+		if(Application::IsKeyPressed('7'))
+		{
+			input = 6;
+		}
+		if(Application::IsKeyPressed('8'))
+		{
+			input = 7;
+		}
+
+		if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
+		{
+			if(PlayerInvent.AddToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
+			{
+				PlayerInvent.Inventory.at(PlayerInvent.Inventory.size() - 1)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+				Trolley.RemoveFromInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
+			}
+		}
+	}
+	//Debug print
+	if(Application::IsKeyPressed('R'))
+	{
+		if(temp <= 1)
+		{
+			temp+=dt;
+		}
+		if(temp >= 1)
+		{
+			cout << "Angle: " << Trolley.TrolleyDirection.y << endl;
+			cout << "Min Width: " << Trolley.RotationMinWidth << endl;
+			cout << "Max Width: " << Trolley.RotationMaxWidth << endl;
+			cout << "Min Length: " << Trolley.RotationMinLength << endl;
+			cout << "Max Length: " << Trolley.RotationMaxLength << endl;
+			cout << "Camera Rotation: " << camera.RotationYAxis << endl;
+			temp = 0;
+		}
+	}
+}
+
+void SP2::Scenario_Guard(double dt)
+{
+	//if (score > 0 && playerposition == villain position && keypress)
+	{
+		//missionComplete = true;
+	}
+	//else if (score <= 0)
+	{
+		//missionFailed = true;
+	}
+}
+
+void SP2::Scenario_Villain(double dt)
+{
+	//if (playerposition == item position && keypress)
+	{
+		//objectsDestroyed++;
+	}
+
+	//if(objectsDestroyed == target && isCaught == false)
+	{
+		//missionComplete = true;
+	}
+}
+
+void SP2::ShowEndScreen(double dt)
+{
+	chooseModeScreen = false;
+	startScreen = false;
+	highScoreScreen = false;
+	gameStart = false;
+
+	if (player.getShopperScore() > player.getShopperHighScore() || player.getGuardScoreSucceed() > player.getGuardHighScore() || player.getVillainScore() > player.getVillainHighScore())
+	{
+		newHighScore = true;
+	}
+	else
+	{
+		newHighScore = false;
+	}
+
+	//Shopper
+	std::stringstream customerEGS;
+	customerEGS << player.getShopperScore();
+	EGSShopper = customerEGS.str();
+
+	//Guard
+	std::stringstream guardEGS;
+	guardEGS << player.getGuardScoreSucceed();
+	EGSGuard = guardEGS.str();
+
+	//Villain
+	std::stringstream villainEGS;
+	villainEGS << player.getVillainScore();
+	EGSVillain = villainEGS.str();
+
+	if (Application::IsKeyPressed('1'))
+	{
+		chooseModeScreen = false;
+		startScreen = true;
+		highScoreScreen = false;
+		gameStart = false;
+		endScreen = false;
+	}
+
+	//Score calculation
+	if (modeCustomer == true)
+	{
+		//Mission pass/fail for customer
+		if (amountSpent < startingAmount)
+		{
+			remaindingAmount = startingAmount - amountSpent;
+			missionComplete = true;
 		}
 		else
 		{
-			translateZ = 0.1 ;
+			amountOvershot = amountSpent - startingAmount;
+			missionFailed = true;
 		}
-		if (translateZ >= 8.75)
+
+		//Calculate score & Set high score
+		if (missionComplete == true)
 		{
-			translateBack = true;
-			translateY = -0.1;
+			player.setShopperScoreSucceed(elapsedTime, remaindingAmount);
+			//Set high score
+			player.setShopperHighScore(player.getShopperScore());
 		}
-		else if (translateZ <= 0.4)
+		else if(missionFailed == true)
 		{
-			translateBack = false;
-			translateY = 0;
+			player.setShopperScoreFailed(elapsedTime, amountOvershot);
+			//Set high score
+			player.setShopperHighScore(player.getShopperScore());
 		}
+	}
+
+	else if (modeGuard == true)
+	{
+		if (missionComplete == true)
+		{
+			player.setGuardScoreSucceed(elapsedTime);
+			//Set high score
+			player.setGuardHighScore(player.getGuardScoreSucceed());
+		}
+	}
+
+	else if (modeVillain == true)
+	{
+		if (missionComplete == true)
+		{
+			player.setVillainScoreSucceed(dt);
+			//Set high score
+			player.setVillainHighScore(player.getVillainScore());
+		}
+		else
+		{
+			player.setVillainScoreFailed(objectsDestroyed);
+			//Set high score
+			player.setVillainHighScore(player.getVillainScore());
+		}
+	}
+}
+
+void SP2::UpdateConveyor(double dt)
+{
+	//ConveyorBelt code
+	//white
+	if (translateBack == false)
+	{
+		translateZ += (float)(1 * dt);
+		movingOnBelt += (float)(1 * dt);
+		if(movingOnBelt > 5)
+		{
+			//beltMovement = false;
+			renderItemOnBelt = false;
+		}
+	}
+	else
+	{
+		translateZ = 0.1 ;
+	}
+	if (translateZ >= 8.75)
+	{
+		translateBack = true;
+		translateY = -0.1;
+	}
+	else if (translateZ <= 0.4)
+	{
+		translateBack = false;
+		translateY = 0;
 	}
 }
 
@@ -1092,144 +1119,170 @@ void SP2::Render()
 
 	if (gameStart == true)
 	{
-		float textSize = 3.f;
-		//clear depth and color buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderGame();
+	}
+}
 
-		//Temp variables
-		Mtx44 MVP;
+void SP2::RenderGame(void)
+{
+	float textSize = 3.f;
 
-		viewStack.LoadIdentity();
-		viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z, camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y, camera.up.z);
-		modelStack.LoadIdentity();
+	RenderLights();
 
-		//Ceiling light
-		if(lights[0].type == Light::LIGHT_DIRECTIONAL)
+	modelStack.PushMatrix();
+	modelStack.Translate(-20.f, 0.f, -20.f);
+	modelStack.Scale(10.f, 10.f, 10.f);
+	float a = 0.1f;
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0, -WorldOffset, 0);
+	RenderSkyBox();
+	RenderObject();
+
+	//Render Items on shelf
+	for(int i = 0; i < ItemLine; i++)
+	{
+		RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
+	}
+	modelStack.PopMatrix();
+
+	//Text display for FPS(Remove X,Z before submission)
+	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
+	if (modeCustomer == true || modeVillain == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
+	}
+	else if (modeGuard == true)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], countDownTime, Color (1, 1, 1), 5.f, 8.f, 11.f);
+	}
+
+	if (modeCustomer == true)
+	{
+		RenderScenarioShopper();
+	}
+	else if (modeVillain == true)
+	{
+		RenderScenarioGuard();
+	}
+	else if (modeGuard == true)
+	{
+		RenderScenarioVillain();
+	}
+}
+
+void SP2::RenderLights(void)
+{
+	//clear depth and color buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	//Temp variables
+	Mtx44 MVP;
+
+	viewStack.LoadIdentity();
+	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z, camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y, camera.up.z);
+	modelStack.LoadIdentity();
+
+	//Ceiling light
+	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[0].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
+		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	//Exterior light
+	if(lights[1].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
+		Mtx44 rotation;
+		rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[1].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
+		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[1].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
+		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+}
+
+void SP2::RenderScenarioShopper(void)
+{
+	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+
+	//UI Rendering
+	int UI_PlayerStart = 10;
+	int PlayerDifference = 12;
+	int PlayerIncrement  = PlayerDifference /2;
+	int UI_PlayerEnd = UI_PlayerStart + PlayerDifference;
+
+	int UI_TrolleyStart = 30;
+	int TrolleyDifference = 48;
+	int TrolleyIncrement = TrolleyDifference / 8;
+	int UI_TrolleyEnd = UI_TrolleyStart + TrolleyDifference;
+
+	int UI_PlayerIndex = 0;
+	int UI_TrolleyIndex = 0;
+
+	//Inventory rendering
+	//Trolley rendering
+	for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
+	{
+		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+	}
+	for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++, UI_PlayerIndex++)
+	{
+		RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+	}
+	//Trolley rendering
+	for(int i = UI_TrolleyStart; i < UI_TrolleyEnd; i+= TrolleyIncrement)
+	{
+		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+	}
+	if (renderItemOnTrolley == true)
+	{
+		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
 		{
-			Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-			Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-		}
-		else if(lights[0].type == Light::LIGHT_SPOT)
-		{
-			Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-			Vector3 spotDirection_cameraspace = viewStack.Top() * lights[0].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-		}
-		else
-		{
-			Position lightPosition_cameraspace = viewStack.Top() * lights[0].position;
-			glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		}
-
-		//Exterior light
-		if(lights[1].type == Light::LIGHT_DIRECTIONAL)
-		{
-			Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-			Mtx44 rotation;
-			rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
-			Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
-		}
-		else if(lights[1].type == Light::LIGHT_SPOT)
-		{
-			Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
-
-			Vector3 spotDirection_cameraspace = viewStack.Top() * lights[1].spotDirection;
-			glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-		}
-		else
-		{
-			Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
-			glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
-		}
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-20.f, 0.f, -20.f);
-		modelStack.Scale(10.f, 10.f, 10.f);
-		float a = 0.1f;
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(0, -WorldOffset, 0);
-		RenderSkyBox();
-		RenderObject();
-		for(int i = 0; i < ItemLine; i++)
-		{
-			RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
-		}
-		modelStack.PopMatrix();
-
-		MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-
-
-		//Text display for FPS
-		RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
-		if (modeCustomer == true || modeVillain == true)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
-		}
-		else if (modeGuard == true)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], countDownTime, Color (1, 1, 1), 5.f, 8.f, 11.f);
-		}
-
-		if (modeCustomer == true)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-
-			//UI Rendering
-			int UI_PlayerStart = 10;
-			int PlayerDifference = 12;
-			int PlayerIncrement  = PlayerDifference /2;
-			int UI_PlayerEnd = UI_PlayerStart + PlayerDifference;
-
-			int UI_TrolleyStart = 30;
-			int TrolleyDifference = 48;
-			int TrolleyIncrement = TrolleyDifference / 8;
-			int UI_TrolleyEnd = UI_TrolleyStart + TrolleyDifference;
-			
-			int UI_PlayerIndex = 0;
-			int UI_TrolleyIndex = 0;
-
-			//Inventory rendering
-			//Trolley rendering
-			for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
-			{
-				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
-			}
-			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++, UI_PlayerIndex++)
-			{
-				RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
-			}
-			//Trolley rendering
-			for(int i = UI_TrolleyStart; i < UI_TrolleyEnd; i+= TrolleyIncrement)
-			{
-				RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
-			}
-			if (renderItemOnTrolley == true)
-			{
-				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
-				{
-					RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
-				}
-			}
-		}
-		else if (modeVillain == true)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-		}
-		else if (modeGuard == true)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+			RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
 		}
 	}
+}
+
+void SP2::RenderScenarioGuard(void)
+{
+	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+}
+
+void SP2::RenderScenarioVillain(void)
+{
+	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
@@ -1375,21 +1428,21 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_DOORMAN], true);
 	modelStack.PopMatrix();
 
-	//for (int i = 0; i < 16; i += 4)
-	//for (int j = 0; j < 8; j+= 4)
-	//{
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(i, 0, j);
-	//	{
-	//		modelStack.PushMatrix();
-	//		//scale, translate, rotate
-	//		modelStack.Scale(1, 1, 1);
-	//		modelStack.Translate(10, 0, 30);
-	//		RenderMesh(meshList[GEO_TROLLEY], true);
-	//		modelStack.PopMatrix();
-	//	}
-	//	modelStack.PopMatrix();
-	//}
+	for (int i = 0; i < 16; i += 4)
+	for (int j = 0; j < 8; j+= 4)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, j);
+		{
+			modelStack.PushMatrix();
+			//scale, translate, rotate
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(10, 0, 30);
+			RenderMesh(meshList[GEO_TROLLEY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
 
 	//Promoter
 	modelStack.PushMatrix();

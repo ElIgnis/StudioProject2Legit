@@ -196,6 +196,19 @@ private:
 	bool toggleLight;
 
 	//Methods
+	 //Updates
+	void UpdateGame(double dt);
+	void Scenario_Shopper(double dt);
+	void Scenario_Guard(double dt);
+	void Scenario_Villain(double dt);
+	void ShowEndScreen(double dt);
+	void UpdateConveyor(double dt);
+	 //Renders
+	void RenderGame(void);
+	void RenderScenarioShopper(void);
+	void RenderScenarioGuard(void);
+	void RenderScenarioVillain(void);
+	void RenderLights(void);
 	void RenderSkyBox();
 	void RenderObject();
 	void RenderMesh(Mesh *mesh, bool enableLight);
