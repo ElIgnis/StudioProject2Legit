@@ -831,7 +831,7 @@ void SP2::Scenario_Shopper(double dt)
 				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 			}
 		}
-
+		}
 		//Equip Trolley
 		if(Application::IsKeyPressed('F'))
 		{
@@ -865,7 +865,11 @@ void SP2::Scenario_Shopper(double dt)
 				Trolley.EquippedTrolley = false;
 			}
 		}
-
+		//Debug print
+		if(Application::IsKeyPressed('R'))
+		{
+		}
+		Delay = 0;
 		//Update trolley only when equipped
 		if(Trolley.EquippedTrolley)
 		{
@@ -944,12 +948,6 @@ void SP2::Scenario_Shopper(double dt)
 				}
 			}
 		}
-		//Debug print
-		if(Application::IsKeyPressed('R'))
-		{
-		}
-		Delay = 0;
-	}
 }
 
 void SP2::Scenario_Guard(double dt)
