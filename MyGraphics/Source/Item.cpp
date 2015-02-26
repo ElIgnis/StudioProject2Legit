@@ -95,6 +95,16 @@ void CItem::SetPosition(Vector3 &NewPosition)
 	ItemPosition.x = NewPosition.x;
 	ItemPosition.y = NewPosition.y;
 	ItemPosition.z = NewPosition.z;
+
+	//Invisible box range defined based on item position
+	MinWidth = (ItemPosition.x - 1.5f);
+	MaxWidth = (ItemPosition.x + 1.5f);
+
+	MinHeight = (ItemPosition.y - 1.f);
+	MaxHeight = (ItemPosition.y + 1.f);
+
+	MinLength = (ItemPosition.z - 1.25f);
+	MaxLength = (ItemPosition.z + 1.25f);
 }
 
 void CItem::SetShape(Vector3 &NewShape)

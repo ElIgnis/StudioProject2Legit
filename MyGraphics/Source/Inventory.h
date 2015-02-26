@@ -24,11 +24,14 @@ public:
 	float MinLength;
 	float MaxLength;
 
-	bool AddToInvent(CItem *Item, int ItemIndex);
-	bool RemoveFromInvent(CItem *Item, int ItemIndex);
+	bool Add_ShelfToInvent(CItem *Item, int ItemIndex);
+	bool Add_TrolleyToInvent(CItem *Item, int ItemIndex);
+	bool Minus_InventToShelf(CItem *Item, int ItemIndex);
+	bool Minus_InventToTrolley(CItem *Item, int ItemIndex);
+	bool SwapFromInvent(CItem *Item, int ItemIndex);
 	void PrintInvent(void);
-	bool AddToTrolley(CItem *Item, int ItemIndex);
-	bool RemoveFromTrolley(CItem *Item, int ItemIndex);
+	bool Add_InventToTrolley(CItem *Item, int ItemIndex);
+	bool Minus_TrolleyToInvent(CItem *Item, int ItemIndex);
 	void SetPosition(Vector3 &NewPosition);
 	void SetDirection(Vector3 &NewDirection);
 

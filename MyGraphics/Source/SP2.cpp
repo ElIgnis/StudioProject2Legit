@@ -34,7 +34,7 @@ void SP2::Init()
 	translateBack = false;
 	translateZ = 3;
 	translateY = 0;
-	temp = 0;
+	Delay = 0.f;
 	std::string data = " ";
 	RangeOfOne = 1.f;
 	rotationofdoor = 0;
@@ -142,6 +142,7 @@ void SP2::Init()
 	m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
 	m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
 	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
+
 	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
 	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
 	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
@@ -166,6 +167,66 @@ void SP2::Init()
 	m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[1].cosCutoff");
 	m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID,"lights[1].cosInner");
 	m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID,"lights[1].exponent");
+
+	m_parameters[U_LIGHT2_POSITION] = glGetUniformLocation(m_programID, "lights[2].position_cameraspace");
+	m_parameters[U_LIGHT2_TYPE] = glGetUniformLocation(m_programID, "lights[2].type");
+	m_parameters[U_LIGHT2_COLOR] = glGetUniformLocation(m_programID, "lights[2].color");
+	m_parameters[U_LIGHT2_POWER] = glGetUniformLocation(m_programID, "lights[2].power");
+	m_parameters[U_LIGHT2_KC] = glGetUniformLocation(m_programID, "lights[2].kC");
+	m_parameters[U_LIGHT2_KL] = glGetUniformLocation(m_programID, "lights[2].kL");
+	m_parameters[U_LIGHT2_KQ] = glGetUniformLocation(m_programID, "lights[2].kQ");
+	m_parameters[U_LIGHT2_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[2].spotDirection");
+	m_parameters[U_LIGHT2_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[2].cosCutoff");
+	m_parameters[U_LIGHT2_COSINNER] = glGetUniformLocation(m_programID,"lights[2].cosInner");
+	m_parameters[U_LIGHT2_EXPONENT] = glGetUniformLocation(m_programID,"lights[2].exponent");
+
+	m_parameters[U_LIGHT3_POSITION] = glGetUniformLocation(m_programID, "lights[3].position_cameraspace");
+	m_parameters[U_LIGHT3_TYPE] = glGetUniformLocation(m_programID, "lights[3].type");
+	m_parameters[U_LIGHT3_COLOR] = glGetUniformLocation(m_programID, "lights[3].color");
+	m_parameters[U_LIGHT3_POWER] = glGetUniformLocation(m_programID, "lights[3].power");
+	m_parameters[U_LIGHT3_KC] = glGetUniformLocation(m_programID, "lights[3].kC");
+	m_parameters[U_LIGHT3_KL] = glGetUniformLocation(m_programID, "lights[3].kL");
+	m_parameters[U_LIGHT3_KQ] = glGetUniformLocation(m_programID, "lights[3].kQ");
+	m_parameters[U_LIGHT3_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[3].spotDirection");
+	m_parameters[U_LIGHT3_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[3].cosCutoff");
+	m_parameters[U_LIGHT3_COSINNER] = glGetUniformLocation(m_programID,"lights[3].cosInner");
+	m_parameters[U_LIGHT3_EXPONENT] = glGetUniformLocation(m_programID,"lights[3].exponent");
+
+	m_parameters[U_LIGHT4_POSITION] = glGetUniformLocation(m_programID, "lights[4].position_cameraspace");
+	m_parameters[U_LIGHT4_TYPE] = glGetUniformLocation(m_programID, "lights[4].type");
+	m_parameters[U_LIGHT4_COLOR] = glGetUniformLocation(m_programID, "lights[4].color");
+	m_parameters[U_LIGHT4_POWER] = glGetUniformLocation(m_programID, "lights[4].power");
+	m_parameters[U_LIGHT4_KC] = glGetUniformLocation(m_programID, "lights[4].kC");
+	m_parameters[U_LIGHT4_KL] = glGetUniformLocation(m_programID, "lights[4].kL");
+	m_parameters[U_LIGHT4_KQ] = glGetUniformLocation(m_programID, "lights[4].kQ");
+	m_parameters[U_LIGHT4_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[4].spotDirection");
+	m_parameters[U_LIGHT4_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[4].cosCutoff");
+	m_parameters[U_LIGHT4_COSINNER] = glGetUniformLocation(m_programID,"lights[4].cosInner");
+	m_parameters[U_LIGHT4_EXPONENT] = glGetUniformLocation(m_programID,"lights[4].exponent");
+
+	m_parameters[U_LIGHT5_POSITION] = glGetUniformLocation(m_programID, "lights[5].position_cameraspace");
+	m_parameters[U_LIGHT5_TYPE] = glGetUniformLocation(m_programID, "lights[5].type");
+	m_parameters[U_LIGHT5_COLOR] = glGetUniformLocation(m_programID, "lights[5].color");
+	m_parameters[U_LIGHT5_POWER] = glGetUniformLocation(m_programID, "lights[5].power");
+	m_parameters[U_LIGHT5_KC] = glGetUniformLocation(m_programID, "lights[5].kC");
+	m_parameters[U_LIGHT5_KL] = glGetUniformLocation(m_programID, "lights[5].kL");
+	m_parameters[U_LIGHT5_KQ] = glGetUniformLocation(m_programID, "lights[5].kQ");
+	m_parameters[U_LIGHT5_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[5].spotDirection");
+	m_parameters[U_LIGHT5_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[5].cosCutoff");
+	m_parameters[U_LIGHT5_COSINNER] = glGetUniformLocation(m_programID,"lights[5].cosInner");
+	m_parameters[U_LIGHT5_EXPONENT] = glGetUniformLocation(m_programID,"lights[5].exponent");
+
+	m_parameters[U_LIGHT6_POSITION] = glGetUniformLocation(m_programID, "lights[6].position_cameraspace");
+	m_parameters[U_LIGHT6_TYPE] = glGetUniformLocation(m_programID, "lights[6].type");
+	m_parameters[U_LIGHT6_COLOR] = glGetUniformLocation(m_programID, "lights[6].color");
+	m_parameters[U_LIGHT6_POWER] = glGetUniformLocation(m_programID, "lights[6].power");
+	m_parameters[U_LIGHT6_KC] = glGetUniformLocation(m_programID, "lights[6].kC");
+	m_parameters[U_LIGHT6_KL] = glGetUniformLocation(m_programID, "lights[6].kL");
+	m_parameters[U_LIGHT6_KQ] = glGetUniformLocation(m_programID, "lights[6].kQ");
+	m_parameters[U_LIGHT6_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[6].spotDirection");
+	m_parameters[U_LIGHT6_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[6].cosCutoff");
+	m_parameters[U_LIGHT6_COSINNER] = glGetUniformLocation(m_programID,"lights[6].cosInner");
+	m_parameters[U_LIGHT6_EXPONENT] = glGetUniformLocation(m_programID,"lights[6].exponent");
 
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID,"numLights");
 	glUseProgram(m_programID);
@@ -219,22 +280,22 @@ void SP2::Init()
 	armRotation = 0.f;
 	armMoving = false;
 
-	lights[0].type = Light::LIGHT_POINT;
-	lights[0].position.Set(8.5f, 0.f, 260.f);
+	lights[0].type = Light::LIGHT_DIRECTIONAL;
+	lights[0].position.Set(0.f, 0.f, 100.f);
 	lights[0].color.Set(1, 1, 1);
-	lights[0].power = 0;
+	lights[0].power = 0.25f;
 	lights[0].kC = 1.0f;
-	lights[0].kL = 0.0001f;
-	lights[0].kQ = 0.00001f;
+	lights[0].kL = 0.01f;
+	lights[0].kQ = 0.001f;
 	lights[0].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[0].cosInner = cos(Math::DegreeToRadian(30));
 	lights[0].exponent = 3.f;
 	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	lights[1].type = Light::LIGHT_DIRECTIONAL;
-	lights[1].position.Set(-40.f, 50.f, 550.f);
+	lights[1].type = Light::LIGHT_POINT;
+	lights[1].position.Set(-20.f, 4.f, -30.f);
 	lights[1].color.Set(1, 1, 1);
-	lights[1].power = 1;
+	lights[1].power = 0.5f;
 	lights[1].kC = 1.f;
 	lights[1].kL = 0.01f;
 	lights[1].kQ = 0.001f;
@@ -242,6 +303,66 @@ void SP2::Init()
 	lights[1].cosInner = cos(Math::DegreeToRadian(30));
 	lights[1].exponent = 3.f;
 	lights[1].spotDirection.Set(0.f, 1.f, 0.f);
+
+	lights[2].type = Light::LIGHT_POINT;
+	lights[2].position.Set(0.f, 4.f, -30.f);
+	lights[2].color.Set(1, 1, 1);
+	lights[2].power = 0.5f;
+	lights[2].kC = 1.f;
+	lights[2].kL = 0.01f;
+	lights[2].kQ = 0.001f;
+	lights[2].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[2].cosInner = cos(Math::DegreeToRadian(30));
+	lights[2].exponent = 3.f;
+	lights[2].spotDirection.Set(0.f, 1.f, 0.f);
+
+	lights[3].type = Light::LIGHT_POINT;
+	lights[3].position.Set(20.f, 4.f, -30.f);
+	lights[3].color.Set(1, 1, 1);
+	lights[3].power = 0.5f;
+	lights[3].kC = 1.f;
+	lights[3].kL = 0.01f;
+	lights[3].kQ = 0.001f;
+	lights[3].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[3].cosInner = cos(Math::DegreeToRadian(30));
+	lights[3].exponent = 3.f;
+	lights[3].spotDirection.Set(0.f, 1.f, 0.f);
+
+	lights[4].type = Light::LIGHT_POINT;
+	lights[4].position.Set(-20.f, 4.f, 0.f);
+	lights[4].color.Set(1, 1, 1);
+	lights[4].power = 0.5f;
+	lights[4].kC = 1.f;
+	lights[4].kL = 0.01f;
+	lights[4].kQ = 0.001f;
+	lights[4].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[4].cosInner = cos(Math::DegreeToRadian(30));
+	lights[4].exponent = 3.f;
+	lights[4].spotDirection.Set(0.f, 1.f, 0.f);
+
+	lights[5].type = Light::LIGHT_POINT;
+	lights[5].position.Set(0.f, 4.f, 0.f);
+	lights[5].color.Set(1, 1, 1);
+	lights[5].power = 0.5f;
+	lights[5].kC = 1.f;
+	lights[5].kL = 0.01f;
+	lights[5].kQ = 0.001f;
+	lights[5].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[5].cosInner = cos(Math::DegreeToRadian(30));
+	lights[5].exponent = 3.f;
+	lights[5].spotDirection.Set(0.f, 1.f, 0.f);
+
+	lights[6].type = Light::LIGHT_POINT;
+	lights[6].position.Set(20.f, 4.f, 0.f);
+	lights[6].color.Set(1, 1, 1);
+	lights[6].power = 0.5f;
+	lights[6].kC = 1.f;
+	lights[6].kL = 0.01f;
+	lights[6].kQ = 0.001f;
+	lights[6].cosCutoff = cos(Math::DegreeToRadian(45));
+	lights[6].cosInner = cos(Math::DegreeToRadian(30));
+	lights[6].exponent = 3.f;
+	lights[6].spotDirection.Set(0.f, 1.f, 0.f);
 
 	// Make sure you pass uniform parameters after glUseProgram()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
@@ -266,6 +387,61 @@ void SP2::Init()
 	glUniform1f(m_parameters[U_LIGHT1_COSINNER], lights[1].cosInner);
 	glUniform1f(m_parameters[U_LIGHT1_EXPONENT], lights[1].exponent);
 
+	glUniform1i(m_parameters[U_NUMLIGHTS], 3);
+	glUniform1i(m_parameters[U_LIGHT2_TYPE], lights[2].type);
+	glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &lights[2].color.r);
+	glUniform1f(m_parameters[U_LIGHT2_POWER], lights[2].power);
+	glUniform1f(m_parameters[U_LIGHT2_KC], lights[2].kC);
+	glUniform1f(m_parameters[U_LIGHT2_KL], lights[2].kL);
+	glUniform1f(m_parameters[U_LIGHT2_KQ], lights[2].kQ);
+	glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], lights[2].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT2_COSINNER], lights[2].cosInner);
+	glUniform1f(m_parameters[U_LIGHT2_EXPONENT], lights[2].exponent);
+
+	glUniform1i(m_parameters[U_NUMLIGHTS], 4);
+	glUniform1i(m_parameters[U_LIGHT3_TYPE], lights[3].type);
+	glUniform3fv(m_parameters[U_LIGHT3_COLOR], 1, &lights[3].color.r);
+	glUniform1f(m_parameters[U_LIGHT3_POWER], lights[3].power);
+	glUniform1f(m_parameters[U_LIGHT3_KC], lights[3].kC);
+	glUniform1f(m_parameters[U_LIGHT3_KL], lights[3].kL);
+	glUniform1f(m_parameters[U_LIGHT3_KQ], lights[3].kQ);
+	glUniform1f(m_parameters[U_LIGHT3_COSCUTOFF], lights[3].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT3_COSINNER], lights[3].cosInner);
+	glUniform1f(m_parameters[U_LIGHT3_EXPONENT], lights[3].exponent);
+
+	glUniform1i(m_parameters[U_NUMLIGHTS], 5);
+	glUniform1i(m_parameters[U_LIGHT4_TYPE], lights[4].type);
+	glUniform3fv(m_parameters[U_LIGHT4_COLOR], 1, &lights[4].color.r);
+	glUniform1f(m_parameters[U_LIGHT4_POWER], lights[4].power);
+	glUniform1f(m_parameters[U_LIGHT4_KC], lights[4].kC);
+	glUniform1f(m_parameters[U_LIGHT4_KL], lights[4].kL);
+	glUniform1f(m_parameters[U_LIGHT4_KQ], lights[4].kQ);
+	glUniform1f(m_parameters[U_LIGHT4_COSCUTOFF], lights[4].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT4_COSINNER], lights[4].cosInner);
+	glUniform1f(m_parameters[U_LIGHT4_EXPONENT], lights[4].exponent);
+
+	glUniform1i(m_parameters[U_NUMLIGHTS], 6);
+	glUniform1i(m_parameters[U_LIGHT5_TYPE], lights[5].type);
+	glUniform3fv(m_parameters[U_LIGHT5_COLOR], 1, &lights[5].color.r);
+	glUniform1f(m_parameters[U_LIGHT5_POWER], lights[5].power);
+	glUniform1f(m_parameters[U_LIGHT5_KC], lights[5].kC);
+	glUniform1f(m_parameters[U_LIGHT5_KL], lights[5].kL);
+	glUniform1f(m_parameters[U_LIGHT5_KQ], lights[5].kQ);
+	glUniform1f(m_parameters[U_LIGHT5_COSCUTOFF], lights[5].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT5_COSINNER], lights[5].cosInner);
+	glUniform1f(m_parameters[U_LIGHT5_EXPONENT], lights[5].exponent);
+
+	glUniform1i(m_parameters[U_NUMLIGHTS], 7);
+	glUniform1i(m_parameters[U_LIGHT6_TYPE], lights[6].type);
+	glUniform3fv(m_parameters[U_LIGHT6_COLOR], 1, &lights[6].color.r);
+	glUniform1f(m_parameters[U_LIGHT6_POWER], lights[6].power);
+	glUniform1f(m_parameters[U_LIGHT6_KC], lights[6].kC);
+	glUniform1f(m_parameters[U_LIGHT6_KL], lights[6].kL);
+	glUniform1f(m_parameters[U_LIGHT6_KQ], lights[6].kQ);
+	glUniform1f(m_parameters[U_LIGHT6_COSCUTOFF], lights[6].cosCutoff);
+	glUniform1f(m_parameters[U_LIGHT6_COSINNER], lights[6].cosInner);
+	glUniform1f(m_parameters[U_LIGHT6_EXPONENT], lights[6].exponent);
+
 	//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//HelveticaLTStd-Cond.tga");
@@ -289,72 +465,72 @@ void SP2::Init()
 	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall2.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_WALL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_WALL]->material.kShininess = 5.f;
+	meshList[GEO_WALL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_WALL]->material.kShininess = 1.f;
 
 	//ColdShelves
 	meshList[GEO_COLDSHELVE] = MeshBuilder::GenerateOBJ("ColdShelve", "OBJ//ColdShelves.obj");
 	meshList[GEO_COLDSHELVE]->textureID = LoadTGA("Image//ColdShelve.tga");
 	meshList[GEO_COLDSHELVE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_COLDSHELVE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_COLDSHELVE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_COLDSHELVE]->material.kShininess = 5.f;
+	meshList[GEO_COLDSHELVE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_COLDSHELVE]->material.kShininess = 1.f;
 
 	//Doorman
 	meshList[GEO_DOORMAN] = MeshBuilder::GenerateOBJ("Doorman", "OBJ//doorman.obj");
 	meshList[GEO_DOORMAN]->textureID = LoadTGA("Image//doorman.tga");
 	meshList[GEO_DOORMAN]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_DOORMAN]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_DOORMAN]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_DOORMAN]->material.kShininess = 5.f;
+	meshList[GEO_DOORMAN]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_DOORMAN]->material.kShininess = 1.f;
 
 	//Trolley
 	meshList[GEO_TROLLEY] = MeshBuilder::GenerateOBJ("Trolley", "OBJ//Trolley.obj");
 	meshList[GEO_TROLLEY]->textureID = LoadTGA("Image//Trolley.tga");
 	meshList[GEO_TROLLEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_TROLLEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_TROLLEY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_TROLLEY]->material.kShininess = 5.f;
+	meshList[GEO_TROLLEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_TROLLEY]->material.kShininess = 1.f;
 
 	//Stander
 	meshList[GEO_STANDER] = MeshBuilder::GenerateOBJ("Stander", "OBJ//Stander.obj");
 	meshList[GEO_STANDER]->textureID = LoadTGA("Image//Stander.tga");
 	meshList[GEO_STANDER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_STANDER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_STANDER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_STANDER]->material.kShininess = 5.f;
+	meshList[GEO_STANDER]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_STANDER]->material.kShininess = 1.f;
 
 	//Refridge
 	meshList[GEO_REFRIDGE] = MeshBuilder::GenerateOBJ("Refridge", "OBJ//Refridge.obj");
 	meshList[GEO_REFRIDGE]->textureID = LoadTGA("Image//Refridge.tga");
 	meshList[GEO_REFRIDGE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_REFRIDGE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_REFRIDGE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_REFRIDGE]->material.kShininess = 5.f;
+	meshList[GEO_REFRIDGE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_REFRIDGE]->material.kShininess = 1.f;
 
 	//Shelf
 	meshList[GEO_THIRDSHELF] = MeshBuilder::GenerateOBJ("ThirdShelf", "OBJ//thirdShelf.obj");
 	meshList[GEO_THIRDSHELF]->textureID = LoadTGA("Image//thirdShelf.tga");
 	meshList[GEO_THIRDSHELF]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_THIRDSHELF]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_THIRDSHELF]->material.kShininess = 5.f;
+	meshList[GEO_THIRDSHELF]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_THIRDSHELF]->material.kShininess = 1.f;
 
 	//CashierTable
 	meshList[GEO_CASHIERTABLE] = MeshBuilder::GenerateOBJ("SideShelf", "OBJ//CashierTable.obj");
 	meshList[GEO_CASHIERTABLE]->textureID = LoadTGA("Image//table.tga");
 	meshList[GEO_CASHIERTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CASHIERTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CASHIERTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CASHIERTABLE]->material.kShininess = 5.f;
+	meshList[GEO_CASHIERTABLE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_CASHIERTABLE]->material.kShininess = 1.f;
 
 	//CashierRegister
 	meshList[GEO_CASHIER] = MeshBuilder::GenerateOBJ("Cashier", "OBJ//Cashiers.obj");
 	meshList[GEO_CASHIER]->textureID = LoadTGA("Image//Cashiers.tga");
 	meshList[GEO_CASHIER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CASHIER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CASHIER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CASHIER]->material.kShininess = 5.f;
+	meshList[GEO_CASHIER]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_CASHIER]->material.kShininess = 1.f;
 
 	//Shelf Items
 	//Coke
@@ -362,31 +538,31 @@ void SP2::Init()
 	meshList[GEO_CAN_COKE]->textureID = LoadTGA("Image//Can_Coke_Tex.tga");
 	meshList[GEO_CAN_COKE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_COKE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_COKE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CAN_COKE]->material.kShininess = 5.f;
+	meshList[GEO_CAN_COKE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_CAN_COKE]->material.kShininess = 1.f;
 
 	//Mountain Dew
 	meshList[GEO_CAN_MTNDEW] = MeshBuilder::GenerateOBJ("Can_MtnDew", "OBJ//Can_MtnDew.obj");
 	meshList[GEO_CAN_MTNDEW]->textureID = LoadTGA("Image//Can_MtnDew_Tex.tga");
 	meshList[GEO_CAN_MTNDEW]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_MTNDEW]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_MTNDEW]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_CAN_MTNDEW]->material.kShininess = 5.f;
+	meshList[GEO_CAN_MTNDEW]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_CAN_MTNDEW]->material.kShininess = 1.f;
 
 	//Kinder Bueno
 	meshList[GEO_PACK_KINDER] = MeshBuilder::GenerateOBJ("Packet_KinderBueno", "OBJ//Packet_KinderBueno.obj");
 	meshList[GEO_PACK_KINDER]->textureID = LoadTGA("Image//Packet_KinderBueno_Tex.tga");
 	meshList[GEO_PACK_KINDER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_KINDER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_PACK_KINDER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
-	meshList[GEO_PACK_KINDER]->material.kShininess = 5.f;
+	meshList[GEO_PACK_KINDER]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_PACK_KINDER]->material.kShininess = 1.f;
 
 	//Snicker
 	meshList[GEO_PACK_SNICKER] = MeshBuilder::GenerateOBJ("Packet_Snickers", "OBJ//Packet_Snickers.obj");
 	meshList[GEO_PACK_SNICKER]->textureID = LoadTGA("Image//Packet_Snickers_Tex.tga");
 	meshList[GEO_PACK_SNICKER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_SNICKER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_PACK_SNICKER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_SNICKER]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_PACK_SNICKER]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -394,7 +570,7 @@ void SP2::Init()
 	meshList[GEO_BOX_ICECREAM]->textureID = LoadTGA("Image//Box_IceCream_Tex.tga");
 	meshList[GEO_BOX_ICECREAM]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_ICECREAM]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_BOX_ICECREAM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_ICECREAM]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BOX_ICECREAM]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -402,7 +578,7 @@ void SP2::Init()
 	meshList[GEO_BOX_PIZZA]->textureID = LoadTGA("Image//Box_Pizza_Tex.tga");
 	meshList[GEO_BOX_PIZZA]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_PIZZA]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_BOX_PIZZA]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_PIZZA]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BOX_PIZZA]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -410,7 +586,7 @@ void SP2::Init()
 	meshList[GEO_BOX_CHOC_CEREAL]->textureID = LoadTGA("Image//Box_ChocolateC_Tex.tga");
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_BOX_CHOC_CEREAL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CHOC_CEREAL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BOX_CHOC_CEREAL]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -418,7 +594,7 @@ void SP2::Init()
 	meshList[GEO_BOX_CEREAL]->textureID = LoadTGA("Image//Box_Cereal_Tex.tga");
 	meshList[GEO_BOX_CEREAL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_CEREAL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_BOX_CEREAL]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CEREAL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BOX_CEREAL]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -426,7 +602,7 @@ void SP2::Init()
 	meshList[GEO_CAN_BEANS]->textureID = LoadTGA("Image//Can_Beans_Tex.tga");
 	meshList[GEO_CAN_BEANS]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_BEANS]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_BEANS]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_BEANS]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CAN_BEANS]->material.kShininess = 5.f;
 
 	//Ice Cream
@@ -434,7 +610,7 @@ void SP2::Init()
 	meshList[GEO_CAN_SARDINES]->textureID = LoadTGA("Image//Can_Sardines_Tex.tga");
 	meshList[GEO_CAN_SARDINES]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_SARDINES]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_SARDINES]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_SARDINES]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CAN_SARDINES]->material.kShininess = 5.f;
 
 	//Entry
@@ -442,7 +618,7 @@ void SP2::Init()
 	meshList[GEO_ENTRY]->textureID = LoadTGA("Image//Entry.tga");
 	meshList[GEO_ENTRY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_ENTRY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_ENTRY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_ENTRY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_ENTRY]->material.kShininess = 5.f;
 
 	//Rootbeer
@@ -450,7 +626,7 @@ void SP2::Init()
 	meshList[GEO_CAN_ROOTBEER]->textureID = LoadTGA("Image//Can_Rootbeer_Tex.tga");
 	meshList[GEO_CAN_ROOTBEER]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_ROOTBEER]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_ROOTBEER]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_ROOTBEER]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CAN_ROOTBEER]->material.kShininess = 5.f;
 
 	//Milo
@@ -458,7 +634,7 @@ void SP2::Init()
 	meshList[GEO_CAN_MILO]->textureID = LoadTGA("Image//Can_Milo_Tex.tga");
 	meshList[GEO_CAN_MILO]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CAN_MILO]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CAN_MILO]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CAN_MILO]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CAN_MILO]->material.kShininess = 5.f;
 
 	//Noodle
@@ -466,7 +642,7 @@ void SP2::Init()
 	meshList[GEO_PACK_NOODLE]->textureID = LoadTGA("Image//Packet_Noodle_Tex.tga");
 	meshList[GEO_PACK_NOODLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_NOODLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_PACK_NOODLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_NOODLE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_PACK_NOODLE]->material.kShininess = 5.f;
 
 	//Toblerone
@@ -474,7 +650,7 @@ void SP2::Init()
 	meshList[GEO_PACK_TOBLERONE]->textureID = LoadTGA("Image//Packet_Toblerone_Tex.tga");
 	meshList[GEO_PACK_TOBLERONE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_PACK_TOBLERONE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_PACK_TOBLERONE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_PACK_TOBLERONE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_PACK_TOBLERONE]->material.kShininess = 5.f;
 
 	//Chocolate
@@ -482,7 +658,7 @@ void SP2::Init()
 	meshList[GEO_BOX_CHOCO]->textureID = LoadTGA("Image//Box_Choco_Tex.tga");
 	meshList[GEO_BOX_CHOCO]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_BOX_CHOCO]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_BOX_CHOCO]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_BOX_CHOCO]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BOX_CHOCO]->material.kShininess = 5.f;
 
 	//Text
@@ -494,7 +670,7 @@ void SP2::Init()
 	meshList[GEO_LIGHTBULB]->textureID = LoadTGA("Image//Lightbulb.tga");
 	meshList[GEO_LIGHTBULB]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_LIGHTBULB]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_LIGHTBULB]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_LIGHTBULB]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_LIGHTBULB]->material.kShininess = 5.f;
 
 	//Sensor
@@ -502,7 +678,7 @@ void SP2::Init()
 	meshList[GEO_SENSOR]->textureID = LoadTGA("Image//Sensor.tga");
 	meshList[GEO_SENSOR]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_SENSOR]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_SENSOR]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_SENSOR]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_SENSOR]->material.kShininess = 5.f;
 
 	//Wall Partition
@@ -510,7 +686,7 @@ void SP2::Init()
 	meshList[GEO_WALLPARTITION]->textureID = LoadTGA("Image//Partition.tga");
 	meshList[GEO_WALLPARTITION]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALLPARTITION]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_WALLPARTITION]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_WALLPARTITION]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_WALLPARTITION]->material.kShininess = 5.f;
 
 	//ConveyorTable
@@ -518,7 +694,7 @@ void SP2::Init()
 	meshList[GEO_CONVEYORTABLE]->textureID = LoadTGA("Image//Conveyor.tga");
 	meshList[GEO_CONVEYORTABLE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CONVEYORTABLE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CONVEYORTABLE]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CONVEYORTABLE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CONVEYORTABLE]->material.kShininess = 5.f;
 
 	//ConveyorBelt
@@ -526,7 +702,7 @@ void SP2::Init()
 	meshList[GEO_CONVEYORBELT]->textureID = LoadTGA("Image//Conveyor.tga");
 	meshList[GEO_CONVEYORBELT]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CONVEYORBELT]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_CONVEYORBELT]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_CONVEYORBELT]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CONVEYORBELT]->material.kShininess = 5.f;
 
 	//HUMAN
@@ -558,6 +734,22 @@ void SP2::Init()
 	meshList[GEO_HUMAN_LEG]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_HUMAN_LEG]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_HUMAN_LEG]->material.kShininess = 5.f;
+
+	//Human Model
+	meshList[GEO_HUMAN_MODEL] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//HumanModel.obj");
+	//meshList[GEO_HUMAN_MODEL]->textureID = LoadTGA("Image//Conveyor.tga");
+	meshList[GEO_HUMAN_MODEL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_MODEL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_MODEL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_HUMAN_MODEL]->material.kShininess = 5.f;
+
+	meshList[GEO_LIGHTBALL1] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+	meshList[GEO_LIGHTBALL2] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+	meshList[GEO_LIGHTBALL4] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+	meshList[GEO_LIGHTBALL5] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+
 }
 
 static float ROT_LIMIT = 45.f;
@@ -603,7 +795,7 @@ void SP2::Update(double dt)
 			chooseModeScreen = false;
 			gameStart = true;
 		}
-		else if (Application::IsKeyPressed('2')) //Play as Security Guard
+		 if (Application::IsKeyPressed('2')) //Play as Security Guard
 		{
 			startScreen = false;
 			modeCustomer = false;
@@ -723,6 +915,9 @@ void SP2::UpdateGame(double dt)
 	{
 		Scenario_Villain(dt);
 	}
+
+	//Update AI
+	UpdateAI(dt);
 }
 
 void SP2::Scenario_Shopper(double dt)
@@ -758,61 +953,66 @@ void SP2::Scenario_Shopper(double dt)
 	}
 
 	float RotationSpeed = 100.f;
-
-	if(Application::IsKeyPressed('Q'))
+	float DelayInterval = 0.25f;
+	if(Delay < DelayInterval)
 	{
-		gameStart = false;
-		endScreen = true;
+		Delay += dt;
 	}
-	//Adding items
-	if(Application::IsKeyPressed('E'))
+	if(Delay > DelayInterval)
 	{
-		for(int i = 0; i < ItemLine; i++)
+		if(Application::IsKeyPressed('Q'))
 		{
-			//Taking items from shelf(Check by invisible box around item)
-			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			gameStart = false;
+			endScreen = true;
+		}
+		//Adding items
+		if(Application::IsKeyPressed('E'))
+		{
+			for(int i = 0; i < ItemLine; i++)
 			{
-				//Distance is updated
-				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-				//Only able to take items when within range and items that are on the shelf
-				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+				//Taking items from shelf(Check by invisible box around item)
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
-					if(PlayerInvent.AddToInvent(Container.Shelf.at(i),i))
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to take items when within range and items that are on the shelf
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
 					{
-						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
-						break;
+						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
+						{
+							break;
+						}
 					}
 				}
 			}
 		}
-	}
 
-	//Putting back items back on shelf
-	if(Application::IsKeyPressed('G'))
-	{
-		for(int i = 0; i < ItemLine; i++)
+		//Putting back items back on shelf
+		if(Application::IsKeyPressed('G'))
 		{
-			//Taking of items
-			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			for(int i = 0; i < ItemLine; i++)
 			{
-				//Distance is updated
-				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-				//Only able to put back taken items
-				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
-					PlayerInvent.RemoveFromInvent(Container.Shelf.at(i),i);
-					Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
-					break;
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to put back taken items
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+					{
+						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
+						break;
+					}
 				}
 			}
 		}
@@ -831,8 +1031,78 @@ void SP2::Scenario_Shopper(double dt)
 		beltMovement = true;
 		renderItemOnTrolley = false;
 		armRotation = -90.f;
-	}
+		//Swapping items
+		if(Application::IsKeyPressed('T'))
+		{
+			for(int i = 0; i < ItemLine; i++)
+			{
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+				{
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
+					//Only able to swap with default item
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					{
+						PlayerInvent.SwapFromInvent(Container.Shelf.at(i), i);
+						break;
+					}
+				}
+			}
+		}
+
+		//Destroying items
+		if(Application::IsKeyPressed('U'))
+		{
+			for(int i = 0; i < ItemLine; i++)
+			{
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+				{
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to destroy default items
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					{
+						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+						break;
+					}
+				}
+			}
+		}
+
+		//Checkout items
+		if(Application::IsKeyPressed(VK_RETURN))
+		{
+			//Checkout
+			for (int i = 0; i < PlayerInvent.Inventory.size();)
+			{
+				amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
+				PlayerInvent.Minus_InventToShelf(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+			}
+
+			beltMovement = true;
+			renderItemOnTrolley = false;
+
+			int i = 0;
+
+			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+			{
+				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+			}
+		}
+		Delay = 0;
+	}
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
 	{
@@ -841,8 +1111,8 @@ void SP2::Scenario_Shopper(double dt)
 			&& camera.position.x < Trolley.RotationMaxWidth
 			&& camera.position.z > Trolley.RotationMinLength
 			&& camera.position.z < Trolley.RotationMaxLength
-			&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 2)
-			&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 2))
+			&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 3)
+			&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 3))
 		{
 			Trolley.EquippedTrolley = true;
 		}
@@ -851,10 +1121,9 @@ void SP2::Scenario_Shopper(double dt)
 			//Remove items from invent and add to trolley
 			for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
 			{
-				if(Trolley.AddToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
+				if(Trolley.Add_InventToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex))
 				{
-					PlayerInvent.Inventory.at(i)->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
-					PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+					PlayerInvent.Minus_InventToTrolley(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
 					break;
 				}
 			}
@@ -867,7 +1136,11 @@ void SP2::Scenario_Shopper(double dt)
 			Trolley.EquippedTrolley = false;
 		}
 	}
-
+	//Debug print
+	if(Application::IsKeyPressed('R'))
+	{
+	}
+	
 	//Update trolley only when equipped
 	if(Trolley.EquippedTrolley)
 	{
@@ -940,29 +1213,10 @@ void SP2::Scenario_Shopper(double dt)
 
 		if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
 		{
-			if(PlayerInvent.AddToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
+			if(PlayerInvent.Add_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
 			{
-				PlayerInvent.Inventory.at(PlayerInvent.Inventory.size() - 1)->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
-				Trolley.RemoveFromInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
+				Trolley.Minus_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
 			}
-		}
-	}
-	//Debug print
-	if(Application::IsKeyPressed('R'))
-	{
-		if(temp <= 1)
-		{
-			temp+=dt;
-		}
-		if(temp >= 1)
-		{
-			cout << "Angle: " << Trolley.TrolleyDirection.y << endl;
-			cout << "Min Width: " << Trolley.RotationMinWidth << endl;
-			cout << "Max Width: " << Trolley.RotationMaxWidth << endl;
-			cout << "Min Length: " << Trolley.RotationMinLength << endl;
-			cout << "Max Length: " << Trolley.RotationMaxLength << endl;
-			cout << "Camera Rotation: " << camera.RotationYAxis << endl;
-			temp = 0;
 		}
 	}
 }
@@ -990,6 +1244,11 @@ void SP2::Scenario_Villain(double dt)
 	{
 		//missionComplete = true;
 	}
+}
+
+void SP2::UpdateAI(double dt)
+{
+	Villain.UpdateAI(dt, camera.position);
 }
 
 void SP2::ShowEndScreen(double dt)
@@ -1119,7 +1378,7 @@ void SP2::UpdateConveyor(double dt)
 	{
 		if(armMovement == true)
 		{
-			armRotation += (float)(45 * dt);
+			armRotation += (float)(80 * dt);
 			if(armRotation > 0)
 			{
 				armMovement = false;
@@ -1127,7 +1386,7 @@ void SP2::UpdateConveyor(double dt)
 		}
 		else
 		{
-			armRotation -= (float)(90 * dt);
+			armRotation -= (float)(30 * dt);
 			if(armRotation < -90)
 			{
 				armMovement = true;
@@ -1202,6 +1461,8 @@ void SP2::RenderGame(void)
 
 	RenderLights();
 
+	
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-20.f, 0.f, -20.f);
 	modelStack.Scale(10.f, 10.f, 10.f);
@@ -1218,6 +1479,9 @@ void SP2::RenderGame(void)
 	{
 		RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
 	}
+
+	//Render AI models
+	RenderAI();
 	modelStack.PopMatrix();
 
 	//Text display for FPS(Remove X,Z before submission)
@@ -1258,8 +1522,12 @@ void SP2::RenderLights(void)
 	viewStack.LoadIdentity();
 	viewStack.LookAt(camera.position.x, camera.position.y, camera.position.z, camera.target.x, camera.target.y, camera.target.z, camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
+	//Light arrangement
+	// 1  2  3
+	// 4  5  6
+	//       x - Entrance
 
-	//Ceiling light
+	//Directional Light
 	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
 	{
 		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
@@ -1279,7 +1547,7 @@ void SP2::RenderLights(void)
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	//Exterior light
+	//Light 1
 	if(lights[1].type == Light::LIGHT_DIRECTIONAL)
 	{
 		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
@@ -1301,6 +1569,141 @@ void SP2::RenderLights(void)
 		Position lightPosition_cameraspace = viewStack.Top() * lights[1].position;
 		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
 	}
+
+	//Light 2
+	if(lights[2].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[2].position.x, lights[2].position.y, lights[2].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[2].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[2].position;
+		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[2].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[2].position;
+		glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	//Light 3
+	if(lights[3].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[3].position.x, lights[3].position.y, lights[3].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[3].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[3].position;
+		glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[3].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT3_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[3].position;
+		glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	//Light 4
+	if(lights[4].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[4].position.x, lights[4].position.y, lights[4].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT4_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[4].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[4].position;
+		glUniform3fv(m_parameters[U_LIGHT4_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[4].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT4_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[4].position;
+		glUniform3fv(m_parameters[U_LIGHT4_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	//Light 5
+	if(lights[5].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[5].position.x, lights[5].position.y, lights[5].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT5_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[5].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[5].position;
+		glUniform3fv(m_parameters[U_LIGHT5_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[5].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT5_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[5].position;
+		glUniform3fv(m_parameters[U_LIGHT5_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	//Light 6
+	if(lights[6].type == Light::LIGHT_DIRECTIONAL)
+	{
+		Vector3 lightDir(lights[6].position.x, lights[6].position.y, lights[6].position.z);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightDirection_cameraspace.x);
+	}
+	else if(lights[6].type == Light::LIGHT_SPOT)
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[6].position;
+		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightPosition_cameraspace.x);
+
+		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[6].spotDirection;
+		glUniform3fv(m_parameters[U_LIGHT6_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+	}
+	else
+	{
+		Position lightPosition_cameraspace = viewStack.Top() * lights[6].position;
+		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightPosition_cameraspace.x);
+	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[1].position.x, lights[1].position.y, lights[1].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL1], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[2].position.x, lights[2].position.y, lights[2].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL2], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[3].position.x, lights[3].position.y, lights[3].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL3], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[4].position.x, lights[4].position.y, lights[4].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL4], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[5].position.x, lights[5].position.y, lights[5].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL5], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(lights[6].position.x, lights[6].position.y, lights[6].position.z);
+	RenderMesh(meshList[GEO_LIGHTBALL6], false);
+	modelStack.PopMatrix();
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
@@ -1356,6 +1759,15 @@ void SP2::RenderScenarioGuard(void)
 void SP2::RenderScenarioVillain(void)
 {
 	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+}
+
+void SP2::RenderAI(void)
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
+	modelStack.Rotate(90.f * (float)(Villain.RotateLeft), 0.f, 1.f, 0.f);
+	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
@@ -1455,7 +1867,7 @@ void SP2::RenderSkyBox()
 
 void SP2::RenderObject()
 {
-	Mtx44 MVP;
+	//Mtx44 MVP;
 
 	//wall
 	modelStack.PushMatrix();
@@ -1644,7 +2056,7 @@ void SP2::RenderObject()
 	//LightBulb
 	for (int j = -20; j < 40; j += 20)
 	{
-		for (int i = 0; i > -40; i -= 20)
+		for (int i = 0; i > -40; i -= 30)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(j, 0, i);
@@ -1818,6 +2230,7 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 {
 	Mtx44 MVP;
 	int offsetY = WorldOffset;
+	float Align = 0.15f;
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 
@@ -1833,7 +2246,16 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 	else if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
-		modelStack.Scale(1.5f, 0.25f, 1.5f);
+		//Translate flattened items downwards
+		if(ItemType != SP2::GEO_PACK_KINDER && ItemType != SP2::GEO_PACK_SNICKER)
+		{
+			modelStack.Translate(0.f, -Align, 0.f);
+		}
+		else //Translate lesser Y due to obj size
+		{
+			modelStack.Translate(0.f, -(Align / 6), 0.f);
+		}
+		modelStack.Scale(1.25f, 0.25f, 1.25f);
 		RenderMesh(meshList[ItemType], false);
 	}
 

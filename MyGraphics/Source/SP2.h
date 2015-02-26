@@ -14,6 +14,7 @@
 #include "Shelf.h"
 #include "Inventory.h"
 #include "Cashier.h"
+#include "VillainAI.h"
 
 //Marcus
 #include "Player.h"
@@ -39,7 +40,7 @@ private:
 		U_MATERIAL_DIFFUSE,
 		U_MATERIAL_SPECULAR,
 		U_MATERIAL_SHININESS,
-		U_LIGHT0_POSITION, //Ceiling light
+		U_LIGHT0_POSITION, //Light 1
 		U_LIGHT0_TYPE,
 		U_LIGHT0_COLOR,
 		U_LIGHT0_POWER,
@@ -52,7 +53,7 @@ private:
 		U_LIGHT0_COSINNER,
 		U_LIGHT0_EXPONENT,
 
-		U_LIGHT1_POSITION, //Exterior light
+		U_LIGHT1_POSITION, //Light 2
 		U_LIGHT1_TYPE,
 		U_LIGHT1_COLOR,
 		U_LIGHT1_POWER,
@@ -63,6 +64,67 @@ private:
 		U_LIGHT1_COSCUTOFF,
 		U_LIGHT1_COSINNER,
 		U_LIGHT1_EXPONENT,
+
+		U_LIGHT2_POSITION, //Light 3
+		U_LIGHT2_TYPE,
+		U_LIGHT2_COLOR,
+		U_LIGHT2_POWER,
+		U_LIGHT2_KC,
+		U_LIGHT2_KL,
+		U_LIGHT2_KQ,
+		U_LIGHT2_SPOTDIRECTION,
+		U_LIGHT2_COSCUTOFF,
+		U_LIGHT2_COSINNER,
+		U_LIGHT2_EXPONENT,
+
+		U_LIGHT3_POSITION, //Light 4
+		U_LIGHT3_TYPE,
+		U_LIGHT3_COLOR,
+		U_LIGHT3_POWER,
+		U_LIGHT3_KC,
+		U_LIGHT3_KL,
+		U_LIGHT3_KQ,
+		U_LIGHT3_SPOTDIRECTION,
+		U_LIGHT3_COSCUTOFF,
+		U_LIGHT3_COSINNER,
+		U_LIGHT3_EXPONENT,
+
+		U_LIGHT4_POSITION, //Light 5
+		U_LIGHT4_TYPE,
+		U_LIGHT4_COLOR,
+		U_LIGHT4_POWER,
+		U_LIGHT4_KC,
+		U_LIGHT4_KL,
+		U_LIGHT4_KQ,
+		U_LIGHT4_SPOTDIRECTION,
+		U_LIGHT4_COSCUTOFF,
+		U_LIGHT4_COSINNER,
+		U_LIGHT4_EXPONENT,
+
+		U_LIGHT5_POSITION, //Light 6
+		U_LIGHT5_TYPE,
+		U_LIGHT5_COLOR,
+		U_LIGHT5_POWER,
+		U_LIGHT5_KC,
+		U_LIGHT5_KL,
+		U_LIGHT5_KQ,
+		U_LIGHT5_SPOTDIRECTION,
+		U_LIGHT5_COSCUTOFF,
+		U_LIGHT5_COSINNER,
+		U_LIGHT5_EXPONENT,
+
+		U_LIGHT6_POSITION, //Light 7
+		U_LIGHT6_TYPE,
+		U_LIGHT6_COLOR,
+		U_LIGHT6_POWER,
+		U_LIGHT6_KC,
+		U_LIGHT6_KL,
+		U_LIGHT6_KQ,
+		U_LIGHT6_SPOTDIRECTION,
+		U_LIGHT6_COSCUTOFF,
+		U_LIGHT6_COSINNER,
+		U_LIGHT6_EXPONENT,
+
 		U_NUMLIGHTS,
 		U_COLOR_TEXTURE_ENABLED,
 		U_COLOR_TEXTURE,
@@ -121,6 +183,14 @@ private:
 		GEO_HUMAN_BODY,
 		GEO_HUMAN_ARM,
 		GEO_HUMAN_LEG,
+
+		GEO_LIGHTBALL1,
+		GEO_LIGHTBALL2,
+		GEO_LIGHTBALL3,
+		GEO_LIGHTBALL4,
+		GEO_LIGHTBALL5,
+		GEO_LIGHTBALL6,
+		GEO_HUMAN_MODEL,
 		NUM_GEOMETRY,
 	};
 
@@ -142,7 +212,7 @@ private:
 
 	MS modelStack, viewStack, projectionStack;
 
-	Light lights[2];
+	Light lights[7];
 
 	double fps;
 	float WorldOffset;
@@ -185,7 +255,7 @@ private:
 	CShelf Container;
 	CInventory PlayerInvent;
 	CInventory Trolley;
-	float temp;
+	float Delay;
 	//Item taking
 	float Distance;
 	float MaxDistance;
@@ -197,6 +267,7 @@ private:
 	string CashierData;
 
 	//AI loading properties
+	CVillainAI Villain;
 
 	bool toggleLight;
 
@@ -206,6 +277,7 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
+	void UpdateAI(double dt);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
 	 //Renders
@@ -213,6 +285,7 @@ private:
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
+	void RenderAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
 	void RenderObject();
