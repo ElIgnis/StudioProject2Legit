@@ -8,7 +8,6 @@ class CVillainAI
 private:
 	Vector3 Position;
 	Vector3 Direction;
-	//bool Path[10];
 
 	enum States
 	{
@@ -23,9 +22,11 @@ public:
 	CVillainAI(void);
 	~CVillainAI(void);
 
+	int RotateLeft;
+
 	void SetPosition(Vector3 &NewPosition);
 	void UpdateAI(double dt, Vector3 &PlayerPosition);
-	void UpdatePath(double dt, int NewState);
+	bool UpdatePath(double dt, int NewState);
 	void UpdateGoal(CItem *Item);
 	void SetDirection(Vector3 &NewDirection);
 	void MoveZPlus(double StopPoint, int NewState, double Speed, double dt);

@@ -703,6 +703,14 @@ void SP2::Init()
 	meshList[GEO_CONVEYORBELT]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_CONVEYORBELT]->material.kShininess = 5.f;
 
+	//Human Model
+	meshList[GEO_HUMAN_MODEL] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//HumanModel.obj");
+	//meshList[GEO_HUMAN_MODEL]->textureID = LoadTGA("Image//Conveyor.tga");
+	meshList[GEO_HUMAN_MODEL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_MODEL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_MODEL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_HUMAN_MODEL]->material.kShininess = 5.f;
+
 	meshList[GEO_LIGHTBALL1] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL2] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
@@ -1663,7 +1671,8 @@ void SP2::RenderAI(void)
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
-	RenderMesh(meshList[GEO_DOORMAN], true);
+	modelStack.Rotate(90.f * (float)(Villain.RotateLeft), 0.f, 1.f, 0.f);
+	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	modelStack.PopMatrix();
 }
 
