@@ -875,6 +875,9 @@ void SP2::UpdateGame(double dt)
 	{
 		Scenario_Villain(dt);
 	}
+
+	//Update AI
+	UpdateAI(dt);
 }
 
 void SP2::Scenario_Shopper(double dt)
@@ -1159,6 +1162,11 @@ void SP2::Scenario_Villain(double dt)
 	}
 }
 
+void SP2::UpdateAI(double dt)
+{
+	Villain.UpdateAI(dt, camera.position);
+}
+
 void SP2::ShowEndScreen(double dt)
 {
 	chooseModeScreen = false;
@@ -1351,6 +1359,8 @@ void SP2::RenderGame(void)
 
 	RenderLights();
 
+	
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-20.f, 0.f, -20.f);
 	modelStack.Scale(10.f, 10.f, 10.f);
@@ -1367,6 +1377,9 @@ void SP2::RenderGame(void)
 	{
 		RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
 	}
+
+	//Render AI models
+	RenderAI();
 	modelStack.PopMatrix();
 
 	//Text display for FPS(Remove X,Z before submission)
@@ -1646,6 +1659,14 @@ void SP2::RenderScenarioVillain(void)
 	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 }
 
+void SP2::RenderAI(void)
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
+	RenderMesh(meshList[GEO_DOORMAN], true);
+	modelStack.PopMatrix();
+}
+
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
@@ -1743,7 +1764,7 @@ void SP2::RenderSkyBox()
 
 void SP2::RenderObject()
 {
-	Mtx44 MVP;
+	//Mtx44 MVP;
 
 	//wall
 	modelStack.PushMatrix();

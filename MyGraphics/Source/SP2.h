@@ -14,6 +14,7 @@
 #include "Shelf.h"
 #include "Inventory.h"
 #include "Cashier.h"
+#include "VillainAI.h"
 
 //Marcus
 #include "Player.h"
@@ -259,6 +260,7 @@ private:
 	string CashierData;
 
 	//AI loading properties
+	CVillainAI Villain;
 
 	bool toggleLight;
 
@@ -268,6 +270,7 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
+	void UpdateAI(double dt);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
 	 //Renders
@@ -275,6 +278,7 @@ private:
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
+	void RenderAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
 	void RenderObject();

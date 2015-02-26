@@ -34,7 +34,6 @@ bool CInventory::Add_ShelfToInvent(CItem *Item, int ItemIndex)
 			return true;
 		}
 	}
-	else
 	return false;
 }
 
@@ -56,7 +55,6 @@ bool CInventory::Add_TrolleyToInvent(CItem *Item, int ItemIndex)
 			return true;
 		}
 	}
-	else
 	return false;
 }
 
@@ -157,7 +155,6 @@ bool CInventory::SwapFromInvent(CItem *Item, int ItemIndex)
 		Minus_InventToShelf(Inventory.at(0), Inventory.at(0)->ItemIndex);
 		return true;
 	}
-	else
 	return false;
 }
 
@@ -209,7 +206,6 @@ bool CInventory::Add_InventToTrolley(CItem *Item, int ItemIndex)
 			return true;
 		}
 	}
-	else
 	return false;
 }
 
