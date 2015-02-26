@@ -207,7 +207,6 @@ void SP2::Init()
 	villainCaught = false;
 	
 	renderItemOnTrolley = true;
-	renderItemOnBelt = false;
 	beltMovement = false;
 	beltPos.x = -3.14; 
 	beltPos.y = 1.12;
@@ -215,7 +214,10 @@ void SP2::Init()
 	cTablePos.x = -3.15;
 	cTablePos.y = -2;
 	cTablePos.z = 21.7;
-	movingOnBelt = 0.f;
+
+	//Cashier
+	armRotation = 0.f;
+	armMoving = false;
 
 	lights[0].type = Light::LIGHT_POINT;
 	lights[0].position.Set(8.5f, 0.f, 260.f);
@@ -527,6 +529,35 @@ void SP2::Init()
 	meshList[GEO_CONVEYORBELT]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_CONVEYORBELT]->material.kShininess = 5.f;
 
+	//HUMAN
+	//head
+	meshList[GEO_HUMAN_HEAD] = MeshBuilder::GenerateOBJ("Head", "OBJ//Human_Head.obj");
+	meshList[GEO_HUMAN_HEAD]->textureID = LoadTGA("Image//Villain.tga");
+	meshList[GEO_HUMAN_HEAD]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_HEAD]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_HEAD]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_HUMAN_HEAD]->material.kShininess = 5.f;
+	//Body
+	meshList[GEO_HUMAN_BODY] = MeshBuilder::GenerateOBJ("Body", "OBJ//Human_Body.obj");
+	meshList[GEO_HUMAN_BODY]->textureID = LoadTGA("Image//Villain.tga");
+	meshList[GEO_HUMAN_BODY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_BODY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_BODY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_HUMAN_BODY]->material.kShininess = 5.f;
+	//Arm
+	meshList[GEO_HUMAN_ARM] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Arm.obj");
+	meshList[GEO_HUMAN_ARM]->textureID = LoadTGA("Image//Villain.tga");
+	meshList[GEO_HUMAN_ARM]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_ARM]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_ARM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_HUMAN_ARM]->material.kShininess = 5.f;
+	//Leg
+	meshList[GEO_HUMAN_LEG] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Leg.obj");
+	meshList[GEO_HUMAN_LEG]->textureID = LoadTGA("Image//Villain.tga");
+	meshList[GEO_HUMAN_LEG]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_HUMAN_LEG]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_HUMAN_LEG]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_HUMAN_LEG]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -696,6 +727,36 @@ void SP2::UpdateGame(double dt)
 
 void SP2::Scenario_Shopper(double dt)
 {
+	movingOnBelt += (float)(0.5 * dt);
+	for(int i = 0; i < Trolley.Inventory.size(); i++)
+	{
+		//Setting of position of Items on conveyor Belt
+		Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+
+		//Render when item is on the conveyor belt
+		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
+		{
+			Trolley.Inventory.at(i)->render = true;
+		}
+		else
+		{
+			Trolley.Inventory.at(i)->render = false;
+		}
+		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
+		{
+			Trolley.Inventory.at(i)->render = false;
+			if (Trolley.Inventory.at(0)->render == false)
+			{
+				armMoving = true;
+			}
+			if(i == Trolley.Inventory.size() - 1)
+			{
+				beltMovement = false;
+			}
+
+		}
+	}
+
 	float RotationSpeed = 100.f;
 
 	if(Application::IsKeyPressed('Q'))
@@ -759,23 +820,17 @@ void SP2::Scenario_Shopper(double dt)
 	//Checkout items
 	if(Application::IsKeyPressed(VK_RETURN))
 	{
+		movingOnBelt = 0.f;
 		//Checkout
-		for (int i = 0; i < PlayerInvent.Inventory.size();)
+		/*for (int i = 0; i < Trolley.Inventory.size();)
 		{
-			amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-			PlayerInvent.RemoveFromInvent(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-		}
+			amountSpent += Trolley.Inventory.at(i)->GetPrice();
+			Trolley.RemoveFromInvent(Trolley.Inventory.at(i), Trolley.Inventory.at(i)->ItemIndex);
+		}*/
 
 		beltMovement = true;
 		renderItemOnTrolley = false;
-		renderItemOnBelt = true;
-
-		int i = 0;
-
-		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-		{
-			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-		}
+		armRotation = -90.f;
 	}
 
 	//Equip Trolley
@@ -1040,12 +1095,9 @@ void SP2::UpdateConveyor(double dt)
 	//white
 	if (translateBack == false)
 	{
-		translateZ += (float)(1 * dt);
-		movingOnBelt += (float)(1 * dt);
-		if(movingOnBelt > 5)
+		if (beltMovement == true)
 		{
-			//beltMovement = false;
-			renderItemOnBelt = false;
+			translateZ += (float)(0.5 * dt);
 		}
 	}
 	else
@@ -1062,6 +1114,27 @@ void SP2::UpdateConveyor(double dt)
 		translateBack = false;
 		translateY = 0;
 	}
+
+	if (armMoving == true)
+	{
+		if(armMovement == true)
+		{
+			armRotation += (float)(45 * dt);
+			if(armRotation > 0)
+			{
+				armMovement = false;
+			}
+		}
+		else
+		{
+			armRotation -= (float)(90 * dt);
+			if(armRotation < -90)
+			{
+				armMovement = true;
+			}
+		}
+	}
+
 }
 
 void SP2::Render()
@@ -1554,7 +1627,6 @@ void SP2::RenderObject()
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(i, 0, 0);
-
 		{
 			modelStack.PushMatrix();
 			//scale, translate, rotate
@@ -1654,7 +1726,7 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_WALLPARTITION], false);
 	modelStack.PopMatrix();
 
-	//for (int i = 0; i > -32; i -= 15)
+	for (int i = 0; i > -32; i -= 15)
 	{
 		modelStack.PushMatrix();
 		//modelStack.Translate(i, 0, 0);
@@ -1696,19 +1768,50 @@ void SP2::RenderObject()
 	if (renderItemOnTrolley == false)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3);
 		modelStack.Translate(0, 0, movingOnBelt);
 		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 		{
-			(*iter)->SetPosition(Vector3(cTablePos.x + 1.15, cTablePos.y + 3.5, cTablePos.z - 3));
-			if (renderItemOnBelt == true)
+			if (Trolley.Inventory.at(i)->render == true)
 			{
-				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				RenderBeltItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 			}
 		}
-
-		modelStack.PopMatrix();
 	}
+	modelStack.PopMatrix();
+
+	//Render Cashier
+	modelStack.PushMatrix(); //Push body
+		modelStack.Translate(cTablePos.x, cTablePos.y, cTablePos.z);
+		modelStack.Translate(3, 2.5, 0);
+		modelStack.Rotate(270, 0, 1, 0);
+		RenderMesh(meshList[GEO_HUMAN_BODY], true);
+			modelStack.PushMatrix(); //Push head
+			modelStack.Translate(0, 1.95, 0);
+			RenderMesh(meshList[GEO_HUMAN_HEAD], true);
+			modelStack.PopMatrix(); //Pop head
+				modelStack.PushMatrix(); //Push pivot
+				modelStack.Translate(0, 2, 0);
+				modelStack.Rotate(armRotation, 1, 0, 0);
+					modelStack.PushMatrix(); //Push right arm
+					modelStack.Translate(1, 0, 0);
+					modelStack.Rotate(180, 1, 0, 0);
+					RenderMesh(meshList[GEO_HUMAN_ARM], true);
+					modelStack.PopMatrix(); //Pop right arm
+				modelStack.PopMatrix(); //Pop pivot
+						modelStack.PushMatrix(); //Push left arm
+						modelStack.Translate(-1, 2, 0);
+						modelStack.Rotate(180, 1, 0, 0);
+						RenderMesh(meshList[GEO_HUMAN_ARM], true);
+						modelStack.PopMatrix(); //Pop left arm
+							modelStack.PushMatrix(); //Push right leg
+							modelStack.Translate(-0.4, -0.9, 0);
+							RenderMesh(meshList[GEO_HUMAN_LEG], true);
+							modelStack.PopMatrix(); //Pop right leg
+								modelStack.PushMatrix(); //Push left leg
+								modelStack.Translate(0.4, -0.9, 0);
+								RenderMesh(meshList[GEO_HUMAN_LEG], true);
+								modelStack.PopMatrix(); //Pop left leg
+	modelStack.PopMatrix(); //Pop body
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
@@ -1774,6 +1877,20 @@ void SP2::RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPos
 	modelStack.PopMatrix();
 }
 
+void SP2::RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
+{
+	float offSetZ = 2.f;
+	Mtx44 MVP;
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+
+	modelStack.PushMatrix();
+
+	modelStack.Translate(ItemPosition.x, ItemPosition.y, ItemPosition.z);
+
+	RenderMesh(meshList[ItemType], false);
+	modelStack.PopMatrix();
+}
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check

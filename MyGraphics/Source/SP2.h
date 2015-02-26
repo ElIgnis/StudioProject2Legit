@@ -17,6 +17,7 @@
 
 //Marcus
 #include "Player.h"
+#include "GuardAI.h"
 
 #include <sstream>
 #include <fstream>
@@ -116,6 +117,10 @@ private:
 		GEO_CART,
 		GEO_CONVEYORBELT,
 		GEO_CONVEYORTABLE,
+		GEO_HUMAN_HEAD,
+		GEO_HUMAN_BODY,
+		GEO_HUMAN_ARM,
+		GEO_HUMAN_LEG,
 		NUM_GEOMETRY,
 	};
 
@@ -216,6 +221,7 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
+	void RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 
 	//Player functions
@@ -263,11 +269,16 @@ private:
 	bool newHighScore;
 
 	bool renderItemOnTrolley;
-	bool renderItemOnBelt;
 	bool beltMovement;
 	Vector3 beltPos;
 	Vector3 cTablePos;
 	float movingOnBelt;
+
+	//Cashier
+	bool armMoving;
+	bool armMovement;
+	float armRotation;
+
 	//Item
 	
 };

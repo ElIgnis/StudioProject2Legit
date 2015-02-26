@@ -26,6 +26,8 @@ public:
 	float MaxHeight;
 	int ItemIndex;
 
+	bool render;
+
 	//States
 	enum States
 	{
@@ -45,7 +47,6 @@ public:
 	void SetPosition(Vector3 &NewPosition);
 	string GetName(void);
 	double GetPrice(void);
-	
 
 	CItem(void);
 	~CItem(void);

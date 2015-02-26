@@ -10,8 +10,19 @@ public:
 	CGuardAI(void);
 	~CGuardAI(void);
 
-	void setPositionX(int x);
-	void setPositionZ(int z);
+	enum States
+	{
+		IDLE,
+		PATROL,
+		CHASE,
+		NUM_STATE
+	};
+	
+	int guardState[NUM_STATE];
+
+	void setPositionX(float x, float z);
 	Vector3 getPosition(void);
+	void distToPlayer(Vector3 playerPos);
+
 };
 
