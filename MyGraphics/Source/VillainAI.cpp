@@ -9,8 +9,9 @@ CVillainAI::CVillainAI(void)
 	Position.y = 1.f;
 	Position.z = 45.f;
 	RotateLeft = 0;
+	Anim_Wreck = false;
+	Anim_Rotate = false;
 }
-
 
 CVillainAI::~CVillainAI(void)
 {
@@ -20,6 +21,7 @@ void CVillainAI::SetPosition(Vector3 &NewPosition)
 {
 	Position = NewPosition;
 }
+
 void CVillainAI::SetDirection(Vector3 &NewDirection)
 {
 
@@ -32,11 +34,43 @@ Vector3 CVillainAI::GetPosition(void)
 
 void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
-	//TODO: Update path till if reach item
-	//TODO: if reach item, destroy item
-	//TODO: generate item from list
-	UpdatePath(dt, CVillainAI::DEFAULT);
+	//TODO:: Check against player position
+	//else
+	//{
+		UpdatePath(dt, CVillainAI::DEFAULT);
+	//}
+	//TODO: run from player
+	
 }
+
+bool CVillainAI::DestroyItem(CItem *Item)
+{
+	//Calculate distance from villain to item
+	float Distance = (Position.z - Item->ItemPosition.z);
+
+	//Negative distance fix
+	if(Distance < 0)
+	{
+		Distance *= -1;
+	}
+
+	//Update for animation
+
+	if(Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT 
+		||Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+	{
+		
+		if(Position.x > Item->ItemPosition.x -1 && Position.x < Item->ItemPosition.x + 1)
+		{
+			cout << Distance << endl;
+		Item->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+		Anim_Wreck = true;
+		return true;
+		}
+	}
+	return false;
+}
+
 bool CVillainAI::UpdatePath(double dt, int NewState)
 {
 	float Speed = 10.f;
@@ -312,6 +346,7 @@ void CVillainAI::MoveZPlus(double StopPoint, int NewState, double Speed, double 
 		Position.z += (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveZMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -333,6 +368,7 @@ void CVillainAI::MoveZMinus(double StopPoint, int NewState, double Speed, double
 		Position.z -= (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveXPlus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -354,6 +390,7 @@ void CVillainAI::MoveXPlus(double StopPoint, int NewState, double Speed, double 
 		Position.x += (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveXMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state

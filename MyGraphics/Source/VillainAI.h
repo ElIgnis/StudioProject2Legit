@@ -23,10 +23,15 @@ public:
 	~CVillainAI(void);
 
 	int RotateLeft;
+	bool Anim_Wreck;
+	bool Anim_Rotate;
 
 	void SetPosition(Vector3 &NewPosition);
 	void UpdateAI(double dt, Vector3 &PlayerPosition);
+	//void UpdateAI(double dt, Vector3 &PlayerPosition, CItem *Item);
 	bool UpdatePath(double dt, int NewState);
+	bool DestroyItem(CItem *Item);
+	bool NearItem(CItem *Item);
 	void UpdateGoal(CItem *Item);
 	void SetDirection(Vector3 &NewDirection);
 	void MoveZPlus(double StopPoint, int NewState, double Speed, double dt);
