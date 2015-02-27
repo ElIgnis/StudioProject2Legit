@@ -1,7 +1,7 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
-mtllib HumanHead.mtl
-g default4
+mtllib Human_Head.mtl
+g Human_Head:default4
 v -0.722187 -0.544519 0.724220
 v 0.726253 -0.544519 0.724220
 v -0.722187 0.662515 0.724220
@@ -10,10 +10,10 @@ v -0.746064 0.682413 -0.724220
 v 0.750129 0.682413 -0.724220
 v -0.746064 -0.564415 -0.724220
 v 0.750129 -0.564415 -0.724220
-vt 0.001842 0.499611
-vt 0.496050 0.496468
-vt 0.499107 0.992809
-vt 0.004899 0.995952
+vt 0.001842 0.503640
+vt 0.496050 0.500482
+vt 0.499107 0.999067
+vt 0.004899 1.002225
 vt 0.256770 0.918789
 vt 0.403603 0.918789
 vt 0.406023 0.989612
@@ -59,7 +59,8 @@ vn -0.999864 0.000000 0.016482
 vn -0.999864 0.000000 0.016482
 vn -0.999864 0.000000 0.016482
 s off
-g initialShadingGroup initialShadingGroup1 polySurface3 polySurface21 polySurface22 polySurface26 polySurface27 polySurface1
+g Human_Head:initialShadingGroup Human_Head:initialShadingGroup1 Human_Head:polySurface3 Human_Head:polySurface21 Human_Head:polySurface22 Human_Head:polySurface26 Human_Head:polySurface27 Human_Head:polySurface28 Human_Head:polySurface1 group
+usemtl lambert2SG
 f 1/1/1 2/2/2 4/3/3 3/4/4
 f 3/5/5 4/6/6 6/7/7 5/8/8
 f 5/9/9 6/10/10 8/11/11 7/12/12

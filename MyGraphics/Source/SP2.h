@@ -238,6 +238,18 @@ private:
 	float translateZ;
 	float translateY;
 
+	//Shopper AI Movement
+	bool Rotate_Leg_Left_Back;
+	bool Rotate_Leg_Right_Back;
+	bool Rotate_Hand_Left_Back;
+	bool Rotate_Hand_Right_Back;
+
+	float Rotation_Left_Leg;
+	float Rotation_Right_Leg;
+	float Rotation_Left_Hand;
+	float Rotation_Right_Hand;
+
+
 	//entrance
 	float rotationofdoor;
 	bool rotateback;
@@ -276,6 +288,8 @@ private:
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
+
+
 
 	bool toggleLight;
 
