@@ -1225,6 +1225,7 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 }
+
 void SP2::updateShopperAI(double dt)
 {
 	ShopperAI.UpdatePath(dt, camera.position);
@@ -1900,13 +1901,51 @@ void SP2::RenderAI(void)
 	{
 
 	}
-	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+		//Render Cashier
+	modelStack.PushMatrix(); //Push body
+	modelStack.Translate(0.f, 0.7f, 0.f);
+	RenderMesh(meshList[GEO_HUMAN_BODY], true);
+
+	modelStack.PushMatrix(); //Push head
+	modelStack.Translate(0, 2.f, 0);
+	RenderMesh(meshList[GEO_HUMAN_HEAD], true);
+	modelStack.PopMatrix(); //Pop head
+	modelStack.PopMatrix(); //Pop body
+
+	modelStack.PushMatrix(); //Push pivot
+	//modelStack.Translate(0, -1, 0);
+	//modelStack.Rotate(90, 1, 0, 0);
+
+	modelStack.PushMatrix(); //Push right arm
+	modelStack.Translate(1, 0, 0);
+	//modelStack.Rotate(180, 1, 0, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], true);
+	modelStack.PopMatrix(); //Pop right arm
+
+	modelStack.PopMatrix(); //Pop pivot
+	modelStack.PushMatrix(); //Push left arm
+	modelStack.Translate(-1, -1.5, 0);
+	//modelStack.Rotate(180, 1, 0, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], true);
+	modelStack.PopMatrix(); //Pop left arm
+
+	modelStack.PushMatrix(); //Push right leg
+	modelStack.Translate(-0.4, -1.2f, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], true);
+	modelStack.PopMatrix(); //Pop right leg
+
+	modelStack.PushMatrix(); //Push left leg
+	modelStack.Translate(0.4, -1.2f, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], true);
+	modelStack.PopMatrix(); //Pop left leg
+	
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
 	modelStack.Translate(Guard.getPosition().x, Guard.getPosition().y, Guard.getPosition().z);
 	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	modelStack.PopMatrix();
 }
+
 void SP2::RenderShopperAI()
 {
 	modelStack.PushMatrix();

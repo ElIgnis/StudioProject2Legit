@@ -1,14 +1,19 @@
 #include "VillainAI.h"
 
-bool Path[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+bool Path[16] = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
 CVillainAI::CVillainAI(void)
 {
 	//Villain starts outside of mall
-	Position.x = 37.f;
+	//Position.x = 37.f;
+	//Position.y = 1.f;
+	//Position.z = 45.f;
+	Position.x = 35.f;
 	Position.y = 1.f;
-	Position.z = 45.f;
+	Position.z = 0.f;
+	Direction.x = 0.f;
 	Direction.y = 0.f;
+	Direction.z = 0.f;
 	RotateLeft = 0;
 	Anim_Wreck = false;
 	Anim_Rotate = false;
