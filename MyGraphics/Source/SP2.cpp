@@ -918,6 +918,7 @@ void SP2::UpdateGame(double dt)
 
 	//Update AI
 	UpdateAI(dt);
+	updateShopperAI(dt);
 }
 
 void SP2::Scenario_Shopper(double dt)
@@ -1220,6 +1221,10 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 }
+void SP2::updateShopperAI(double dt)
+{
+	ShopperAI.UpdatePath(dt, camera.position);
+}
 
 void SP2::Scenario_Guard(double dt)
 {
@@ -1483,6 +1488,9 @@ void SP2::RenderGame(void)
 	//Render AI models
 	RenderAI();
 	modelStack.PopMatrix();
+
+	//Render Shopper AI Models
+	RenderShopperAI();
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
@@ -1769,6 +1777,15 @@ void SP2::RenderAI(void)
 	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	modelStack.PopMatrix();
 }
+void SP2::RenderShopperAI()
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(ShopperAI.getPositionX(), 0, ShopperAI.getPositionZ());
+	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
+	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+	modelStack.PopMatrix();
+}
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
 {
@@ -1905,13 +1922,6 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
-
-	modelStack.PushMatrix();
-	//scale, translate, rotate
-	modelStack.Scale(1, 1, 1);
-	modelStack.Translate(35, -1.8, 0);
-	RenderMesh(meshList[GEO_DOORMAN], true);
-	modelStack.PopMatrix();
 
 	for (int i = 0; i < 16; i += 4)
 	for (int j = 0; j < 8; j+= 4)

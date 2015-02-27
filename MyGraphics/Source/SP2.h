@@ -20,6 +20,9 @@
 #include "Player.h"
 #include "GuardAI.h"
 
+//kel
+#include"ShopperAI.h"
+
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -269,6 +272,9 @@ private:
 	//AI loading properties
 	CVillainAI Villain;
 
+	//AI Shopper Loading Properties
+	CShopperAI ShopperAI;
+
 	bool toggleLight;
 
 	//Methods
@@ -280,12 +286,15 @@ private:
 	void UpdateAI(double dt);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
+	void updateShopperAI(double dt);
+
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderAI(void);
+	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
 	void RenderObject();
