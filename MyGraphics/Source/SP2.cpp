@@ -40,6 +40,45 @@ void SP2::Init()
 	rotationofdoor = 0;
 	rotateback = false;
 
+	//UI
+	//Screen
+	startScreen = true;
+	chooseModeScreen = false;
+	highScoreScreen = false;
+	gameStart = false;
+	endScreen = false;
+
+	newHighScore = false;
+
+	modeCustomer = false;
+	modeGuard = true;
+	modeVillain = false;
+
+	missionComplete = false;
+	missionFailed = false;
+
+	elapsedTime = 0;
+	countDown = 180;
+
+	startingAmount = 100;
+	amountOvershot = 0;
+	remaindingAmount = 0;
+
+	isCaught = false;
+	objectsDestroyed = 0;
+
+	villainEscaped = false;
+	villainCaught = false;
+	
+	renderItemOnTrolley = true;
+	beltMovement = false;
+	beltPos.x = -3.14; 
+	beltPos.y = 1.12;
+	beltPos.z = 17.33;
+	cTablePos.x = -3.15;
+	cTablePos.y = -2;
+	cTablePos.z = 21.7;
+
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
 	inFile.open("Source//charWidth.txt");
@@ -89,8 +128,11 @@ void SP2::Init()
 	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
 
 	//Cashier details
+	armRotation = 0.f;
+	armMoving = false;
 
 	//AI details
+	Guard.setPosition(-32 , 13);
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -236,49 +278,6 @@ void SP2::Init()
 	// Get a handle for our "textColor" uniform
 	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
 	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
-
-	//UI
-	//Screen
-	startScreen = true;
-	chooseModeScreen = false;
-	highScoreScreen = false;
-	gameStart = false;
-	endScreen = false;
-
-	newHighScore = false;
-
-	modeCustomer = false;
-	modeGuard = true;
-	modeVillain = false;
-
-	missionComplete = false;
-	missionFailed = false;
-
-	elapsedTime = 0;
-	countDown = 180;
-
-	startingAmount = 100;
-	amountOvershot = 0;
-	remaindingAmount = 0;
-
-	isCaught = false;
-	objectsDestroyed = 0;
-
-	villainEscaped = false;
-	villainCaught = false;
-	
-	renderItemOnTrolley = true;
-	beltMovement = false;
-	beltPos.x = -3.14; 
-	beltPos.y = 1.12;
-	beltPos.z = 17.33;
-	cTablePos.x = -3.15;
-	cTablePos.y = -2;
-	cTablePos.z = 21.7;
-
-	//Cashier
-	armRotation = 0.f;
-	armMoving = false;
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(0.f, 0.f, 100.f);
@@ -1017,21 +1016,6 @@ void SP2::Scenario_Shopper(double dt)
 				}
 			}
 		}
-	}
-	//Checkout items
-	if(Application::IsKeyPressed(VK_RETURN))
-	{
-		movingOnBelt = 0.f;
-		//Checkout
-		/*for (int i = 0; i < Trolley.Inventory.size();)
-		{
-			amountSpent += Trolley.Inventory.at(i)->GetPrice();
-			Trolley.RemoveFromInvent(Trolley.Inventory.at(i), Trolley.Inventory.at(i)->ItemIndex);
-		}*/
-
-		beltMovement = true;
-		renderItemOnTrolley = false;
-		armRotation = -90.f;
 		//Swapping items
 		if(Application::IsKeyPressed('T'))
 		{
@@ -1085,21 +1069,27 @@ void SP2::Scenario_Shopper(double dt)
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
-			//Checkout
-			for (int i = 0; i < PlayerInvent.Inventory.size();)
+			if (camera.position.x > cTablePos.x - 5
+				&& camera.position.x < cTablePos.x - 2
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z - 5)
 			{
-				amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-				PlayerInvent.Minus_InventToShelf(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
-			}
+				movingOnBelt = 0.f;
+				beltMovement = true;
+				renderItemOnTrolley = false;
+				armRotation = -90.f;
+				//Checkout
+				for (int i = 0; i < PlayerInvent.Inventory.size();)
+				{
+					amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
+					PlayerInvent.Minus_InventToShelf(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+				}
 
-			beltMovement = true;
-			renderItemOnTrolley = false;
-
-			int i = 0;
-
-			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-			{
-				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				int i = 0;
+				for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+				{
+					RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				}
 			}
 		}
 		Delay = 0;
@@ -1254,6 +1244,7 @@ void SP2::Scenario_Villain(double dt)
 void SP2::UpdateAI(double dt)
 {
 	Villain.UpdateAI(dt, camera.position);
+	Guard.UpdateGuard(dt, camera.position);
 }
 
 void SP2::ShowEndScreen(double dt)
@@ -1466,8 +1457,6 @@ void SP2::RenderGame(void)
 
 	RenderLights();
 
-	
-
 	modelStack.PushMatrix();
 	modelStack.Translate(-20.f, 0.f, -20.f);
 	modelStack.Scale(10.f, 10.f, 10.f);
@@ -1494,8 +1483,8 @@ void SP2::RenderGame(void)
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
+	//RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
+	//RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
 	if (modeCustomer == true || modeVillain == true)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
@@ -1719,8 +1708,33 @@ void SP2::RenderLights(void)
 
 void SP2::RenderScenarioShopper(void)
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping Cart:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0, 1, 0), 3.f, 2.8f, 3.f);
 
+	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
+
+	if (camera.position.x > cTablePos.x - 5
+				&& camera.position.x < cTablePos.x - 2
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z - 5)
+	{
+		if(Trolley.EquippedTrolley == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'Enter' to check out", Color (0, 1, 0), 2.5f, 7.f, 5.5f);
+		}
+	}
+	if(camera.position.x > Trolley.RotationMinWidth
+			&& camera.position.x < Trolley.RotationMaxWidth
+			&& camera.position.z > Trolley.RotationMinLength
+			&& camera.position.z < Trolley.RotationMaxLength
+			&& camera.RotationYAxis > Trolley.TrolleyDirection.y - (RangeOfOne * 3)
+			&& camera.RotationYAxis < Trolley.TrolleyDirection.y + (RangeOfOne * 3))
+	{
+		if(Trolley.EquippedTrolley == false)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'F' to take Trolley", Color (0, 1, 0), 2.5f, 7.f, 4.5f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'Y' to let go of Trolley", Color (0, 1, 0), 2.5f, 7.f, 4.5f);
+	}
 	//UI Rendering
 	int UI_PlayerStart = 10;
 	int PlayerDifference = 12;
@@ -1774,6 +1788,11 @@ void SP2::RenderAI(void)
 	modelStack.PushMatrix();
 	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
 	modelStack.Rotate(90.f * (float)(Villain.RotateLeft), 0.f, 1.f, 0.f);
+	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(Guard.getPosition().x, Guard.getPosition().y, Guard.getPosition().z);
 	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	modelStack.PopMatrix();
 }
@@ -2274,8 +2293,29 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 		&& camera.target.y > Container.Shelf.at(ItemNumber)->MinHeight && camera.target.y < Container.Shelf.at(ItemNumber)->MaxHeight
 		&& camera.target.z > Container.Shelf.at(ItemNumber)->MinLength && camera.target.z < Container.Shelf.at(ItemNumber)->MaxLength)
 	{
+		string itemName, itemPrice;
+		std::stringstream nameOfItemOnShelf, priceOfItemOnShelf;
+
+		nameOfItemOnShelf << Container.Shelf.at(ItemNumber)->GetName();
+		itemName = nameOfItemOnShelf.str();
+
+		priceOfItemOnShelf << std::fixed << std::setprecision(2) << Container.Shelf.at(ItemNumber)->ItemPrice;
+		itemPrice = priceOfItemOnShelf.str();
+
 		if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
-		RenderTextOnScreen(meshList[GEO_TEXT], "HERE", Color(0, 1, 0), 5.f, 5.5f, 3.5f);
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Name:"+itemName, Color(0, 1, 0), 2.5f, 7.f, 8.5f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Price: $"+itemPrice, Color(0, 1, 0), 2.5f, 7.f, 7.5f);
+			if (PlayerInvent.Inventory.size() < 2)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press 'E' to take", Color(0, 1, 0), 2.5f, 7.f, 6.5f);
+			}
+
+		}
+		if (PlayerInvent.Inventory.size() > 0 && Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'G' to return", Color(0, 1, 0), 2.5f, 7.f, 5.5f);
+		}
 	}
 
 	modelStack.PopMatrix();
@@ -2352,7 +2392,6 @@ void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
-
 void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check

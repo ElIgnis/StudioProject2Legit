@@ -28,7 +28,10 @@ public:
 	void setShopperScoreFailed(double dt, int moneyNeeded);
 	
 	void setShopperHighScore(int score);
-	int getShopperHighScore(void);;
+	int getShopperHighScore(void);
+
+	void setShopperObjective(void);
+	std::string getShopperObjective(void);
 
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);

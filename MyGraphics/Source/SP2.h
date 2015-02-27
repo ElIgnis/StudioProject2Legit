@@ -271,6 +271,7 @@ private:
 
 	//AI loading properties
 	CVillainAI Villain;
+	CGuardAI Guard;
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
