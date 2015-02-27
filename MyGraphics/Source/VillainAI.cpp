@@ -8,9 +8,12 @@ CVillainAI::CVillainAI(void)
 	Position.x = 37.f;
 	Position.y = 1.f;
 	Position.z = 45.f;
+	Direction.y = 0.f;
 	RotateLeft = 0;
+	Anim_Wreck = false;
+	Anim_Rotate = false;
+	RotationSpeed = 100.f;
 }
-
 
 CVillainAI::~CVillainAI(void)
 {
@@ -20,9 +23,26 @@ void CVillainAI::SetPosition(Vector3 &NewPosition)
 {
 	Position = NewPosition;
 }
-void CVillainAI::SetDirection(Vector3 &NewDirection)
-{
 
+void CVillainAI::SetDirection(Vector3 &NewDirection, double dt)
+{
+	if(Direction.y < NewDirection.y)
+	{
+		Direction.y += (float)(dt * RotationSpeed);
+		if(Direction.y >= NewDirection.y)
+		{
+			Anim_Rotate = false;
+		}
+	}
+	else if(Direction.y > NewDirection.y)
+	{
+		Direction.y -= (float)(dt * RotationSpeed);
+		if(Direction.y <= NewDirection.y)
+		{
+			Anim_Rotate = false;
+		}
+	}
+	
 }
 
 Vector3 CVillainAI::GetPosition(void)
@@ -30,13 +50,48 @@ Vector3 CVillainAI::GetPosition(void)
 	return Position;
 }
 
+Vector3 CVillainAI::GetDirection(void)
+{
+	return Direction;
+}
+
 void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
-	//TODO: Update path till if reach item
-	//TODO: if reach item, destroy item
-	//TODO: generate item from list
+	//TODO:: Check against player position
+
 	UpdatePath(dt, CVillainAI::DEFAULT);
+	//TODO: run from player
+	
 }
+
+bool CVillainAI::DestroyItem(CItem *Item)
+{
+	//Calculate distance from villain to item
+	float Distance = (Position.z - Item->ItemPosition.z);
+
+	//Negative distance fix
+	if(Distance < 0)
+	{
+		Distance *= -1;
+	}
+
+	//Update for animation
+
+	if(Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT 
+		||Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+	{
+		
+		if(Position.x > Item->ItemPosition.x -5 && Position.x < Item->ItemPosition.x + 5)
+		{
+			cout << Distance << endl;
+			Item->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+			Anim_Wreck = true;
+			return true;
+		}
+	}
+	return false;
+}
+
 bool CVillainAI::UpdatePath(double dt, int NewState)
 {
 	float Speed = 10.f;
@@ -70,6 +125,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[0] = false;
 			Path[1] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -84,6 +140,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[1] = false;
 			Path[2] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -98,6 +155,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[2] = false;
 			Path[3] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -112,6 +170,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[3] = false;
 			Path[4] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -126,6 +185,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[4] = false;
 			Path[5] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -140,6 +200,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[5] = false;
 			Path[6] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -155,6 +216,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[6] = false;
 			Path[7] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -169,6 +231,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[7] = false;
 			Path[8] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -184,6 +247,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[8] = false;
 			Path[9] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -198,6 +262,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[9] = false;
 			Path[10] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -213,6 +278,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[10] = false;
 			Path[11] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -227,6 +293,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[11] = false;
 			Path[12] = true;
 			RotateLeft--;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -242,6 +309,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[12] = false;
 			Path[13] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -256,21 +324,23 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[13] = false;
 			Path[14] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
 	if(Path[14] == true)
 	{
-		if(Position.z < ColdFridgeFront)
+		if(Position.z < RedShelfFront)
 
 		{
-			MoveZPlus(ColdFridgeFront, NewState, Speed, dt);
+			MoveZPlus(RedShelfFront, NewState, Speed, dt);
 		}
 		else
 		{
 			Path[14] = false;
 			Path[15] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -285,6 +355,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Path[15] = false;
 			Path[0] = true;
 			RotateLeft++;
+			Anim_Rotate = true;
 			return true;
 		}
 	}
@@ -312,6 +383,7 @@ void CVillainAI::MoveZPlus(double StopPoint, int NewState, double Speed, double 
 		Position.z += (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveZMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -333,6 +405,7 @@ void CVillainAI::MoveZMinus(double StopPoint, int NewState, double Speed, double
 		Position.z -= (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveXPlus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -354,6 +427,7 @@ void CVillainAI::MoveXPlus(double StopPoint, int NewState, double Speed, double 
 		Position.x += (float)(dt * Speed);
 	}
 }
+
 void CVillainAI::MoveXMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state

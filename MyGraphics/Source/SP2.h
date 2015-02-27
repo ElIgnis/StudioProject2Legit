@@ -271,6 +271,7 @@ private:
 
 	//AI loading properties
 	CVillainAI Villain;
+	int RandomNumber;
 	CGuardAI Guard;
 
 	//AI Shopper Loading Properties
@@ -289,6 +290,7 @@ private:
 	void UpdateConveyor(double dt);
 	void updateShopperAI(double dt);
 
+	int RollDice(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
