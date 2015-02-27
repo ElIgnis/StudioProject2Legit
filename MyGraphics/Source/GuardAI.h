@@ -15,13 +15,19 @@ public:
 		IDLE,
 		PATROL,
 		CHASE,
-		NUM_STATE
+		NUM_STATE,
 	};
 	
 	int guardState[NUM_STATE];
 
-	void setPositionX(float x, float z);
+	void setPosition(float x, float z);
 	Vector3 getPosition(void);
+	void UpdateGuard(double dt, Vector3 playerPos);
+	void patrolPath(double dt, int guardState);
+	void moveZPositive(int guardState, double moveSpeed, double dt, double checkPoint);
+	void moveZNegative(int guardState, double moveSpeed, double dt, double checkPoint);
+	void moveXPositive(int guardState, double moveSpeed, double dt, double checkPoint);
+	void moveXNegative(int guardState, double moveSpeed, double dt, double checkPoint);
 	void distToPlayer(Vector3 playerPos);
 
 };

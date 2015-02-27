@@ -268,6 +268,7 @@ private:
 
 	//AI loading properties
 	CVillainAI Villain;
+	CGuardAI Guard;
 
 	bool toggleLight;
 
