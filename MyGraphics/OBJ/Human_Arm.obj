@@ -1,15 +1,15 @@
 # This file uses centimeters as units for non-parametric coordinates.
 
 mtllib Human_Arm.mtl
-g default1
-v -0.296933 0.039755 0.283890
-v 0.303067 0.039755 0.283890
-v -0.296933 2.039754 0.283890
-v 0.303067 2.039754 0.283890
-v -0.296933 2.039754 -0.316110
-v 0.303067 2.039754 -0.316110
-v -0.296933 0.039755 -0.316110
-v 0.303067 0.039755 -0.316110
+g default2
+v -0.395348 -2.430370 0.342665
+v 0.328872 -2.430370 0.342665
+v -0.395348 -0.016305 0.342665
+v 0.328872 -0.016305 0.342665
+v -0.395348 -0.016305 -0.381555
+v 0.328872 -0.016305 -0.381555
+v -0.395348 -2.430370 -0.381555
+v 0.328872 -2.430370 -0.381555
 vt 0.134437 0.438379
 vt 0.010968 0.438838
 vt 0.009359 0.006352
@@ -59,8 +59,7 @@ vn -1.000000 0.000000 0.000000
 vn -1.000000 0.000000 0.000000
 vn -1.000000 0.000000 0.000000
 s off
-g initialShadingGroup1 polySurface7 polySurface16 polySurface17 polySurface1
-usemtl lambert2SG
+g initialShadingGroup initialShadingGroup1 initialShadingGroup2 initialShadingGroup3 polySurface3 polySurface16 polySurface17 polySurface18 polySurface19 polySurface24 polySurface28 polySurface34 polySurface35 polySurface1
 f 1/1/1 2/2/2 4/3/3 3/4/4
 f 3/5/5 4/6/6 6/7/7 5/8/8
 f 5/9/9 6/10/10 8/11/11 7/12/12

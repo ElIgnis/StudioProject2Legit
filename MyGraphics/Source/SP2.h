@@ -268,6 +268,7 @@ private:
 
 	//AI loading properties
 	CVillainAI Villain;
+	int RandomNumber;
 	CGuardAI Guard;
 
 	bool toggleLight;
@@ -281,6 +282,7 @@ private:
 	void UpdateAI(double dt);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
+	int RollDice(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);

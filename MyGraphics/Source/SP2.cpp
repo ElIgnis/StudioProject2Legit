@@ -132,6 +132,9 @@ void SP2::Init()
 	armMoving = false;
 
 	//AI details
+	//AI details
+	srand(time(NULL));
+	RollDice();
 	Guard.setPosition(-32 , 13);
 
 	// Set background color to black
@@ -1238,8 +1241,31 @@ void SP2::Scenario_Villain(double dt)
 
 void SP2::UpdateAI(double dt)
 {
-	Villain.UpdateAI(dt, camera.position);
+	//Reroll random number when item is destroyed
+	if(Villain.DestroyItem(Container.Shelf.at(RandomNumber)))
+	{
+		//cout << RandomNumber << endl;
+		cout << "\nIx: " << Container.Shelf.at(RandomNumber)->ItemPosition.x << endl;
+		cout << "Iz: " << Container.Shelf.at(RandomNumber)->ItemPosition.z << endl;
+		cout << Villain.GetPosition() << endl;
+		RandomNumber = RollDice();
+	}
+	if(Villain.Anim_Rotate)
+	{
+		Villain.SetDirection(Vector3(0, 90.f * (float)(Villain.RotateLeft), 0), dt);
+	}
+	else
+	{
+		Villain.UpdateAI(dt, camera.position);
+	}
 	Guard.UpdateGuard(dt, camera.position);
+}
+
+int SP2::RollDice(void)
+{
+	RandomNumber = rand() % ItemLine;
+	//RandomNumber = srand(ItemLine);
+	return RandomNumber;
 }
 
 void SP2::ShowEndScreen(double dt)
@@ -1475,8 +1501,8 @@ void SP2::RenderGame(void)
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 1.5f);
-	//RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 2.5f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 4.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 3.f);
 	if (modeCustomer == true || modeVillain == true)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
@@ -1779,7 +1805,12 @@ void SP2::RenderAI(void)
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
-	modelStack.Rotate(90.f * (float)(Villain.RotateLeft), 0.f, 1.f, 0.f);
+	modelStack.Rotate(Villain.GetDirection().y, 0.f, 1.f, 0.f);
+	//Wrecking animation
+	if(Villain.Anim_Wreck)
+	{
+
+	}
 	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	modelStack.PopMatrix();
 
@@ -2353,6 +2384,7 @@ void SP2::RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPositi
 	RenderMesh(meshList[ItemType], false);
 	modelStack.PopMatrix();
 }
+
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
@@ -2382,6 +2414,7 @@ void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
+
 void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
