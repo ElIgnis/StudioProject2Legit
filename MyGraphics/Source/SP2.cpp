@@ -39,7 +39,6 @@ void SP2::Init()
 	RangeOfOne = 1.f;
 	rotationofdoor = 0;
 	rotateback = false;
-	test = false;
 
 	//ShopperAI Init
 	Rotate_Leg_Left_Back = false;
@@ -930,7 +929,7 @@ void SP2::UpdateGame(double dt)
 	}
 
 	//Update AI
-	UpdateAI(dt);
+	UpdateVillainAI(dt);
 	updateShopperAI(dt);
 }
 
@@ -1141,10 +1140,6 @@ void SP2::Scenario_Shopper(double dt)
 			Trolley.EquippedTrolley = false;
 		}
 	}
-	//Debug print
-	if(Application::IsKeyPressed('R'))
-	{
-	}
 	
 	//Update trolley only when equipped
 	if(Trolley.EquippedTrolley)
@@ -1224,6 +1219,46 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 	}
+	//Catch Villain
+	if(Application::IsKeyPressed('X'))
+	{
+		float DistanceToPlayer = sqrt((Villain.GetPosition().x - camera.position.x) * (Villain.GetPosition().x - camera.position.x) + (Villain.GetPosition().z - camera.position.z) * (Villain.GetPosition().z - camera.position.z));
+
+		if(DistanceToPlayer < 0.f)
+		{
+			DistanceToPlayer *= -1;
+		}
+
+		if(DistanceToPlayer < 3.f && Villain.RecentlyDestroyed == true)
+		{
+			Villain.SetState(CVillainAI::CAUGHT);
+		}
+	}
+}
+
+void SP2::Scenario_Guard(double dt)
+{
+	//if (score > 0 && playerposition == villain position && keypress)
+	{
+		//missionComplete = true;
+	}
+	//else if (score <= 0)
+	{
+		//missionFailed = true;
+	}
+}
+
+void SP2::Scenario_Villain(double dt)
+{
+	//if (playerposition == item position && keypress)
+	{
+		//objectsDestroyed++;
+	}
+
+	//if(objectsDestroyed == target && isCaught == false)
+	{
+		//missionComplete = true;
+	}
 }
 
 void SP2::updateShopperAI(double dt)
@@ -1301,32 +1336,7 @@ void SP2::updateShopperAI(double dt)
 	}
 }
 
-void SP2::Scenario_Guard(double dt)
-{
-	//if (score > 0 && playerposition == villain position && keypress)
-	{
-		//missionComplete = true;
-	}
-	//else if (score <= 0)
-	{
-		//missionFailed = true;
-	}
-}
-
-void SP2::Scenario_Villain(double dt)
-{
-	//if (playerposition == item position && keypress)
-	{
-		//objectsDestroyed++;
-	}
-
-	//if(objectsDestroyed == target && isCaught == false)
-	{
-		//missionComplete = true;
-	}
-}
-
-void SP2::UpdateAI(double dt)
+void SP2::UpdateVillainAI(double dt)
 {
 	//Reroll random number when item is destroyed
 	if(Villain.DestroyItem(Container.Shelf.at(1), dt))

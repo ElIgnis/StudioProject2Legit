@@ -8,27 +8,32 @@ class CVillainAI
 private:
 	Vector3 Position;
 	Vector3 Direction;
+	int CurrentState;
 
+public:
 	enum States
 	{
 		DEFAULT,
-		MOVING,
 		CAUGHT,
 		DETECTED,
-		DESTROYING,
 		NUM_STATES,
 	};
-public:
+	
 	CVillainAI(void);
 	~CVillainAI(void);
 
 	float RotationSpeed;
+	float MovementSpeed;
 	int RotateLeft;
 	bool Anim_Wreck;
 	bool Anim_Rotate;
 	bool Anim_Revert;
 	bool ItemAtLeft;
 	bool ItemAtRight;
+
+	float DetectionTimer;
+	float ResetTimer;
+	bool RecentlyDestroyed;
 
 	//Shopper AI Movement
 	bool Rotate_Leg_Left_Back;
@@ -45,14 +50,16 @@ public:
 	void SetDirection(Vector3 &NewDirection, double dt);
 	void UpdateAI(double dt, Vector3 &PlayerPosition);
 	//void UpdateAI(double dt, Vector3 &PlayerPosition, CItem *Item);
-	bool UpdatePath(double dt, int NewState);
+	bool UpdatePath(double dt);
 	bool DestroyItem(CItem *Item, double dt);
 	void UpdateGoal(CItem *Item);
-	void MoveZPlus(double StopPoint, int NewState, double Speed, double dt);
-	void MoveZMinus(double StopPoint, int NewState, double Speed, double dt);
-	void MoveXPlus(double StopPoint, int NewState, double Speed, double dt);
-	void MoveXMinus(double StopPoint, int NewState, double Speed, double dt);
+	void MoveZPlus(double StopPoint, double dt);
+	void MoveZMinus(double StopPoint, double dt);
+	void MoveXPlus(double StopPoint, double dt);
+	void MoveXMinus(double StopPoint, double dt);
 	Vector3 GetPosition(void);
 	Vector3 GetDirection(void);
+	int GetState(void);
+	void SetState(int NewState);
 };
 

@@ -298,11 +298,10 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
-	void UpdateAI(double dt);
+	void updateShopperAI(double dt);
+	void UpdateVillainAI(double dt);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
-	void updateShopperAI(double dt);
-
 	int RollDice(void);
 	 //Renders
 	void RenderGame(void);

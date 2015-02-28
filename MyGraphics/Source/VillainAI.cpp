@@ -1,6 +1,6 @@
 #include "VillainAI.h"
 
-bool Path[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+bool PathOneChecker[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
 CVillainAI::CVillainAI(void)
 {
@@ -31,6 +31,14 @@ CVillainAI::CVillainAI(void)
 	Rotation_Left_Hand = 0.f;
 	Rotation_Right_Hand = 0.f;
 
+	//State
+	MovementSpeed = 10.f;
+	CurrentState = CVillainAI::DEFAULT;
+
+	//Detection
+	ResetTimer = 20.f;
+	DetectionTimer = 0.f;
+	RecentlyDestroyed = false;
 }
 
 CVillainAI::~CVillainAI(void)
@@ -60,7 +68,6 @@ void CVillainAI::SetDirection(Vector3 &NewDirection, double dt)
 			Anim_Rotate = false;
 		}
 	}
-	
 }
 
 Vector3 CVillainAI::GetPosition(void)
@@ -75,11 +82,37 @@ Vector3 CVillainAI::GetDirection(void)
 
 void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
-	//TODO:: Check against player position
+	cout << CurrentState << endl;
 
-	UpdatePath(dt, CVillainAI::DEFAULT);
-	//TODO: run from player
-	
+	if(RecentlyDestroyed && CurrentState != CVillainAI::CAUGHT)
+	{
+		DetectionTimer += dt;
+	}
+	if(DetectionTimer >= ResetTimer)
+	{
+		DetectionTimer = 0.f;
+		RecentlyDestroyed = false;
+	}
+
+	float DistanceToPlayer = sqrt((Position.x - PlayerPosition.x) * (Position.x - PlayerPosition.x) + (Position.z - PlayerPosition.z) * (Position.z - PlayerPosition.z));
+
+	//Stops updating AI when caught
+	if(CurrentState != CVillainAI::CAUGHT)
+	{
+		if(DistanceToPlayer < 0.f)
+		{
+			DistanceToPlayer *= -1;
+		}
+		else if(DistanceToPlayer < 8.f && RecentlyDestroyed == true)
+		{
+			CurrentState = CVillainAI::DETECTED;
+		}
+		else
+		{
+			CurrentState = CVillainAI::DEFAULT;
+		}
+		UpdatePathOneChecker(dt);
+	}
 }
 
 bool CVillainAI::DestroyItem(CItem *Item, double dt)
@@ -104,13 +137,11 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 		//Update for animation
 		if(Position.x < Item->ItemPosition.x + 3.9f && Position.x > Item->ItemPosition.x)
 		{
-			cout << "Item at left" << endl;
 			ItemAtLeft = true;
 			Anim_Wreck = true;
 		}
 		else if(Position.x > Item->ItemPosition.x -3.9f && Position.x < Item->ItemPosition.x)
 		{
-			cout << "Item at right" << endl;
 			ItemAtRight = true;
 			Anim_Wreck = true;
 		}
@@ -139,6 +170,7 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 			{
 				Anim_Wreck = false;
 				Anim_Revert = true;
+				RecentlyDestroyed = true;
 			}
 			
 		}
@@ -146,17 +178,7 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	if(Anim_Revert)
 	{
 		SetDirection(Vector3(0, 0.f, 0), dt);
-		//if(Direction.y > 0)
-		//{
-		//	
-		//	Direction.y -= (float)(dt * RotationSpeed);
-		//}
-		//if(Direction.y < 0)
-		//{
-		//	Direction.y += (float)(dt * RotationSpeed);
-		//	//SetDirection(Vector3(0, 0.f, 0), dt);
-		//	//Direction.y = 0;
-		//}
+
 		if(Direction.y <= 0.1 && Direction.y >= -0.1f)
 		{
 			ItemAtLeft = false;
@@ -173,9 +195,8 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	return false;
 }
 
-bool CVillainAI::UpdatePath(double dt, int NewState)
+bool CVillainAI::UpdatePathOneChecker(double dt)
 {
-	float Speed = 10.f;
 	//Red shelf coords
 	float RedShelfBack = 55.f;
 	float RedShelfFront = 5.f;
@@ -196,7 +217,7 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 	float ColdFridgeFront = 15.f;
 
 	//Perform walking
-	//if(Anim_Wreck == false)
+	if(Anim_Wreck == false)
 	{
 		//Left Arm
 		if (Rotate_Hand_Left_Back == false)
@@ -267,246 +288,246 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 			Rotate_Leg_Right_Back = false;
 		}
 	}
-	if(Path[0] == true)
+	if(PathOneChecker[0] == true)
 	{
 		if(Position.z > -RedShelfBack)
 		{
-			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, dt);
 		}
 		else
 		{
-			Path[0] = false;
-			Path[1] = true;
+			PathOneChecker[0] = false;
+			PathOneChecker[1] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[1] == true)
+	if(PathOneChecker[1] == true)
 	{
 		if(Position.x > Right_RedShelfRight)
 		{
-			MoveXMinus(Right_RedShelfRight, NewState, Speed, dt);
+			MoveXMinus(Right_RedShelfRight, dt);
 		}
 		else
 		{
-			Path[1] = false;
-			Path[2] = true;
+			PathOneChecker[1] = false;
+			PathOneChecker[2] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[2] == true)
+	if(PathOneChecker[2] == true)
 	{
 		if(Position.z < RedShelfFront)
 		{
-			MoveZPlus(RedShelfFront, NewState, Speed, dt);
+			MoveZPlus(RedShelfFront, dt);
 		}
 		else
 		{
-			Path[2] = false;
-			Path[3] = true;
+			PathOneChecker[2] = false;
+			PathOneChecker[3] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[3] == true)
+	if(PathOneChecker[3] == true)
 	{
 		if(Position.x > Right_RedShelfLeft)
 		{
-			MoveXMinus(Right_RedShelfLeft, NewState, Speed, dt);
+			MoveXMinus(Right_RedShelfLeft, dt);
 		}
 		else
 		{
-			Path[3] = false;
-			Path[4] = true;
+			PathOneChecker[3] = false;
+			PathOneChecker[4] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[4] == true)
+	if(PathOneChecker[4] == true)
 	{
 		if(Position.z > -RedShelfBack)
 		{
-			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, dt);
 		}
 		else
 		{
-			Path[4] = false;
-			Path[5] = true;
+			PathOneChecker[4] = false;
+			PathOneChecker[5] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[5] == true)
+	if(PathOneChecker[5] == true)
 	{
 		if(Position.x > FridgeRight)
 		{
-			MoveXMinus(FridgeRight, NewState, Speed, dt);
+			MoveXMinus(FridgeRight, dt);
 		}
 		else
 		{
-			Path[5] = false;
-			Path[6] = true;
+			PathOneChecker[5] = false;
+			PathOneChecker[6] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[6] == true)
+	if(PathOneChecker[6] == true)
 	{
 		if(Position.z < FridgeFront)
 
 		{
-			MoveZPlus(FridgeFront, NewState, Speed, dt);
+			MoveZPlus(FridgeFront, dt);
 		}
 		else
 		{
-			Path[6] = false;
-			Path[7] = true;
+			PathOneChecker[6] = false;
+			PathOneChecker[7] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[7] == true)
+	if(PathOneChecker[7] == true)
 	{
 		if(Position.x > -FridgeLeft)
 		{
-			MoveXMinus(-FridgeLeft, NewState, Speed, dt);
+			MoveXMinus(-FridgeLeft, dt);
 		}
 		else
 		{
-			Path[7] = false;
-			Path[8] = true;
+			PathOneChecker[7] = false;
+			PathOneChecker[8] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[8] == true)
+	if(PathOneChecker[8] == true)
 	{
 		if(Position.z > -RedShelfBack)
 
 		{
-			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, dt);
 		}
 		else
 		{
-			Path[8] = false;
-			Path[9] = true;
+			PathOneChecker[8] = false;
+			PathOneChecker[9] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[9] == true)
+	if(PathOneChecker[9] == true)
 	{
 		if(Position.x > -Left_RedShelfRight)
 		{
-			MoveXMinus(-Left_RedShelfRight, NewState, Speed, dt);
+			MoveXMinus(-Left_RedShelfRight, dt);
 		}
 		else
 		{
-			Path[9] = false;
-			Path[10] = true;
+			PathOneChecker[9] = false;
+			PathOneChecker[10] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[10] == true)
+	if(PathOneChecker[10] == true)
 	{
 		if(Position.z < RedShelfFront)
 
 		{
-			MoveZPlus(RedShelfFront, NewState, Speed, dt);
+			MoveZPlus(RedShelfFront, dt);
 		}
 		else
 		{
-			Path[10] = false;
-			Path[11] = true;
+			PathOneChecker[10] = false;
+			PathOneChecker[11] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[11] == true)
+	if(PathOneChecker[11] == true)
 	{
 		if(Position.x > -Left_RedShelfLeft)
 		{
-			MoveXMinus(-Left_RedShelfLeft, NewState, Speed, dt);
+			MoveXMinus(-Left_RedShelfLeft, dt);
 		}
 		else
 		{
-			Path[11] = false;
-			Path[12] = true;
+			PathOneChecker[11] = false;
+			PathOneChecker[12] = true;
 			RotateLeft--;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[12] == true)
+	if(PathOneChecker[12] == true)
 	{
 		if(Position.z > -RedShelfBack)
 
 		{
-			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, dt);
 		}
 		else
 		{
-			Path[12] = false;
-			Path[13] = true;
+			PathOneChecker[12] = false;
+			PathOneChecker[13] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[13] == true)
+	if(PathOneChecker[13] == true)
 	{
 		if(Position.x > -Left_ColdFridge)
 		{
-			MoveXMinus(-Left_ColdFridge, NewState, Speed, dt);
+			MoveXMinus(-Left_ColdFridge, dt);
 		}
 		else
 		{
-			Path[13] = false;
-			Path[14] = true;
+			PathOneChecker[13] = false;
+			PathOneChecker[14] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[14] == true)
+	if(PathOneChecker[14] == true)
 	{
 		if(Position.z < ColdFridgeFront)
 
 		{
-			MoveZPlus(ColdFridgeFront, NewState, Speed, dt);
+			MoveZPlus(ColdFridgeFront, dt);
 		}
 		else
 		{
-			Path[14] = false;
-			Path[15] = true;
+			PathOneChecker[14] = false;
+			PathOneChecker[15] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
 		}
 	}
-	if(Path[15] == true)
+	if(PathOneChecker[15] == true)
 	{
 		if(Position.x < Right_ColdFridge)
 		{
-			MoveXPlus(Right_ColdFridge, NewState, Speed, dt);
+			MoveXPlus(Right_ColdFridge, dt);
 		}
 		else
 		{
-			Path[15] = false;
-			Path[0] = true;
+			PathOneChecker[15] = false;
+			PathOneChecker[0] = true;
 			RotateLeft++;
 			Anim_Rotate = true;
 			return true;
@@ -515,91 +536,100 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 	return false;
 }
 
-void CVillainAI::MoveZPlus(double StopPoint, int NewState, double Speed, double dt)
+void CVillainAI::MoveZPlus(double StopPoint, double dt)
 {
-	//Speed based on state
-	if(NewState == CVillainAI::DEFAULT)
+	//MovementSpeed based on state
+	if(CurrentState == CVillainAI::DEFAULT)
 	{
-		Speed = 10.f;
+		MovementSpeed = 10.f;
 	}
-	else if(NewState == CVillainAI::DETECTED)
+	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		Speed = 12.f;
+		MovementSpeed = 16.f;
 	}
-	else if(NewState == CVillainAI::CAUGHT)
+	else if(CurrentState == CVillainAI::CAUGHT)
 	{
-		Speed = 0.f;
+		MovementSpeed = 0.f;
 	}
 	//Move till stop point
 	if(Position.z < StopPoint)
 	{
-		Position.z += (float)(dt * Speed);
+		Position.z += (float)(dt * MovementSpeed);
 	}
 }
 
-void CVillainAI::MoveZMinus(double StopPoint, int NewState, double Speed, double dt)
+void CVillainAI::MoveZMinus(double StopPoint, double dt)
 {
-	//Speed based on state
-	if(NewState == CVillainAI::DEFAULT)
+	//MovementSpeed based on state
+	if(CurrentState == CVillainAI::DEFAULT)
 	{
-		Speed = 10.f;
+		MovementSpeed = 10.f;
 	}
-	else if(NewState == CVillainAI::DETECTED)
+	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		Speed = 12.f;
+		MovementSpeed = 16.f;
 	}
-	else if(NewState == CVillainAI::CAUGHT)
+	else if(CurrentState == CVillainAI::CAUGHT)
 	{
-		Speed = 0.f;
+		MovementSpeed = 0.f;
 	}
 	//Move till stop point
 	if(Position.z > StopPoint)
 	{
-		Position.z -= (float)(dt * Speed);
+		Position.z -= (float)(dt * MovementSpeed);
 	}
 }
 
-void CVillainAI::MoveXPlus(double StopPoint, int NewState, double Speed, double dt)
+void CVillainAI::MoveXPlus(double StopPoint, double dt)
 {
-	//Speed based on state
-	if(NewState == CVillainAI::DEFAULT)
+	//MovementSpeed based on state
+	if(CurrentState == CVillainAI::DEFAULT)
 	{
-		Speed = 10.f;
+		MovementSpeed = 10.f;
 	}
-	else if(NewState == CVillainAI::DETECTED)
+	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		Speed = 12.f;
+		MovementSpeed = 16.f;
 	}
-	else if(NewState == CVillainAI::CAUGHT)
+	else if(CurrentState == CVillainAI::CAUGHT)
 	{
-		Speed = 0.f;
+		MovementSpeed = 0.f;
 	}
 	//Move till stop point
 	if(Position.x < StopPoint)
 	{
-		Position.x += (float)(dt * Speed);
+		Position.x += (float)(dt * MovementSpeed);
 	}
 }
 
-void CVillainAI::MoveXMinus(double StopPoint, int NewState, double Speed, double dt)
+void CVillainAI::MoveXMinus(double StopPoint, double dt)
 {
-	//Speed based on state
-	if(NewState == CVillainAI::DEFAULT)
+	//MovementSpeed based on state
+	if(CurrentState == CVillainAI::DEFAULT)
 	{
-		Speed = 10.f;
+		MovementSpeed = 10.f;
 	}
-	else if(NewState == CVillainAI::DETECTED)
+	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		Speed = 12.f;
+		MovementSpeed = 16.f;
 	}
-	else if(NewState == CVillainAI::CAUGHT)
+	else if(CurrentState == CVillainAI::CAUGHT)
 	{
-		Speed = 0.f;
+		MovementSpeed = 0.f;
 	}
 	//Move till stop point
 	if(Position.x > StopPoint)
 	{
-		Position.x -= (float)(dt * Speed);
+		Position.x -= (float)(dt * MovementSpeed);
 	}
 }
 
+void CVillainAI::SetState(int NewState)
+{
+	CurrentState = NewState;
+}
+
+int CVillainAI::GetState(void)
+{
+	return CurrentState;
+}
