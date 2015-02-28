@@ -249,7 +249,6 @@ private:
 	float Rotation_Left_Hand;
 	float Rotation_Right_Hand;
 
-
 	//entrance
 	float rotationofdoor;
 	bool rotateback;
@@ -281,15 +280,15 @@ private:
 	//Cashier loading properties
 	string CashierData;
 
-	//AI loading properties
+	//AI Villain loading properties
 	CVillainAI Villain;
 	int RandomNumber;
+
+	//AI Guard loading properties
 	CGuardAI Guard;
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
-
-
 
 	bool toggleLight;
 

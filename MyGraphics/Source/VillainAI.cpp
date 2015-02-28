@@ -1,23 +1,36 @@
 #include "VillainAI.h"
 
-bool Path[16] = {false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+bool Path[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 
 CVillainAI::CVillainAI(void)
 {
 	//Villain starts outside of mall
-	//Position.x = 37.f;
-	//Position.y = 1.f;
-	//Position.z = 45.f;
-	Position.x = 35.f;
+	Position.x = 37.f;
 	Position.y = 1.f;
-	Position.z = 0.f;
+	Position.z = 45.f;
 	Direction.x = 0.f;
 	Direction.y = 0.f;
 	Direction.z = 0.f;
+
+	//Animation
 	RotateLeft = 0;
 	Anim_Wreck = false;
 	Anim_Rotate = false;
+	Anim_Revert = false;
 	RotationSpeed = 100.f;
+	ItemAtLeft = false;
+	ItemAtRight = false;
+
+	Rotate_Leg_Left_Back = false;
+	Rotate_Leg_Right_Back = false;
+	Rotate_Hand_Left_Back = false;
+	Rotate_Hand_Right_Back = false;
+
+	Rotation_Left_Leg = 0.f;
+	Rotation_Right_Leg = 0.f;
+	Rotation_Left_Hand = 0.f;
+	Rotation_Right_Hand = 0.f;
+
 }
 
 CVillainAI::~CVillainAI(void)
@@ -69,30 +82,93 @@ void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 	
 }
 
-bool CVillainAI::DestroyItem(CItem *Item)
+bool CVillainAI::DestroyItem(CItem *Item, double dt)
 {
 	//Calculate distance from villain to item
-	float Distance = (Position.z - Item->ItemPosition.z);
+	float DistanceZ = (Position.z - Item->ItemPosition.z);
 
 	//Negative distance fix
-	if(Distance < 0)
+	if(DistanceZ < 0)
 	{
-		Distance *= -1;
+		DistanceZ *= -1;
 	}
 
-	//Update for animation
-
-	if(Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT 
-		||Distance <= 1.f && Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+	//Check distance
+	if(DistanceZ <= 0.2f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
 	{
-		
-		if(Position.x > Item->ItemPosition.x -5 && Position.x < Item->ItemPosition.x + 5)
+		//cout << "Plx: " << Position.x << endl;
+		//cout << "Plz: " << Position.z << endl;
+		//cout << "Ix: " << Item->ItemPosition.x << endl;
+		//cout << "Iz: " << Item->ItemPosition.z << endl;
+
+		//Update for animation
+		if(Position.x < Item->ItemPosition.x + 3.9f && Position.x > Item->ItemPosition.x)
 		{
-			cout << Distance << endl;
-			Item->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+			cout << "Item at left" << endl;
+			ItemAtLeft = true;
 			Anim_Wreck = true;
+		}
+		else if(Position.x > Item->ItemPosition.x -3.9f && Position.x < Item->ItemPosition.x)
+		{
+			cout << "Item at right" << endl;
+			ItemAtRight = true;
+			Anim_Wreck = true;
+		}
+	}
+	if(Anim_Wreck)
+	{
+		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		{
+			if(Rotation_Right_Hand <= 90.f)
+				Rotation_Right_Hand += (float)(RotationSpeed * dt);
+			if(Rotation_Left_Hand >= -90.f)
+				Rotation_Left_Hand -= (float)(RotationSpeed * dt);
+		}
+		if(Rotation_Right_Hand >= 90.f && Rotation_Left_Hand <= -90.f)
+		{
+			Item->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+		}
+		if(Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+		{
+			if(Rotation_Right_Hand >= 0.f && Rotation_Left_Hand <= 0.f)
+			{
+				Rotation_Right_Hand -= (float)(RotationSpeed * dt);
+				Rotation_Left_Hand += (float)(RotationSpeed * dt);
+			}
+			else
+			{
+				Anim_Wreck = false;
+				Anim_Revert = true;
+			}
+			
+		}
+	}
+	if(Anim_Revert)
+	{
+		SetDirection(Vector3(0, 0.f, 0), dt);
+		//if(Direction.y > 0)
+		//{
+		//	
+		//	Direction.y -= (float)(dt * RotationSpeed);
+		//}
+		//if(Direction.y < 0)
+		//{
+		//	Direction.y += (float)(dt * RotationSpeed);
+		//	//SetDirection(Vector3(0, 0.f, 0), dt);
+		//	//Direction.y = 0;
+		//}
+		if(Direction.y <= 0.1 && Direction.y >= -0.1f)
+		{
+			ItemAtLeft = false;
+			ItemAtRight = false;
+			Anim_Revert = false;
+			Anim_Wreck = false;
 			return true;
 		}
+	}
+	if(Item->ItemState[CItem::NUM_STATE] != CItem::DEFAULT)
+	{
+		return true;
 	}
 	return false;
 }
@@ -118,7 +194,79 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 	float Left_ColdFridge = 39.f;
 	float Right_ColdFridge = 37.f;
 	float ColdFridgeFront = 15.f;
-	
+
+	//Perform walking
+	//if(Anim_Wreck == false)
+	{
+		//Left Arm
+		if (Rotate_Hand_Left_Back == false)
+		{
+			Rotation_Left_Hand += (float)(RotationSpeed * dt);
+		}
+		if (Rotate_Hand_Left_Back == true)
+		{
+			Rotation_Left_Hand -= (float)(RotationSpeed * dt);
+		}
+		if (Rotation_Left_Hand >= 30)
+		{
+			Rotate_Hand_Left_Back = true;
+		}
+		if (Rotation_Left_Hand <= -30)
+		{
+			Rotate_Hand_Left_Back = false;
+		}
+		//Right Arm
+		if (Rotate_Hand_Right_Back == false)
+		{
+			Rotation_Right_Hand += (float)(RotationSpeed * dt);
+		}
+		if (Rotate_Hand_Right_Back == true)
+		{
+			Rotation_Right_Hand -= (float)(RotationSpeed * dt);
+		}
+		if (Rotation_Right_Hand >= 30)
+		{
+			Rotate_Hand_Right_Back = true;
+		}
+		if (Rotation_Right_Hand <= -30)
+		{
+			Rotate_Hand_Right_Back = false;
+		}
+		//Left Leg
+		if (Rotate_Leg_Left_Back == false)
+		{
+			Rotation_Left_Leg += (float)(RotationSpeed * dt);
+		}
+		if (Rotate_Leg_Left_Back == true)
+		{
+			Rotation_Left_Leg -= (float)(RotationSpeed * dt);
+		}
+		if (Rotation_Left_Leg >= 30)
+		{
+			Rotate_Leg_Left_Back = true;
+		}
+		if (Rotation_Left_Leg <= -30)
+		{
+			Rotate_Leg_Left_Back = false;
+		}
+		//Right Leg
+		if (Rotate_Leg_Right_Back == false)
+		{
+			Rotation_Right_Leg += (float)(RotationSpeed * dt);
+		}
+		if (Rotate_Leg_Right_Back == true)
+		{
+			Rotation_Right_Leg -= (float)(RotationSpeed * dt);
+		}
+		if (Rotation_Right_Leg >= 30)
+		{
+			Rotate_Leg_Right_Back = true;
+		}
+		if (Rotation_Right_Leg <= -30)
+		{
+			Rotate_Leg_Right_Back = false;
+		}
+	}
 	if(Path[0] == true)
 	{
 		if(Position.z > -RedShelfBack)
@@ -273,10 +421,10 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 	}
 	if(Path[10] == true)
 	{
-		if(Position.z < FridgeFront)
+		if(Position.z < RedShelfFront)
 
 		{
-			MoveZPlus(FridgeFront, NewState, Speed, dt);
+			MoveZPlus(RedShelfFront, NewState, Speed, dt);
 		}
 		else
 		{
@@ -335,10 +483,10 @@ bool CVillainAI::UpdatePath(double dt, int NewState)
 	}
 	if(Path[14] == true)
 	{
-		if(Position.z < RedShelfFront)
+		if(Position.z < ColdFridgeFront)
 
 		{
-			MoveZPlus(RedShelfFront, NewState, Speed, dt);
+			MoveZPlus(ColdFridgeFront, NewState, Speed, dt);
 		}
 		else
 		{
