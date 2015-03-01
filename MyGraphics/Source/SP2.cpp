@@ -1233,11 +1233,11 @@ void SP2::updateShopperAI(double dt)
 	//Left Arm
 	if (Rotate_Hand_Left_Back == false)
 	{
-		Rotation_Left_Hand += (float)(10 * dt);
+		Rotation_Left_Hand += (float)(40 * dt);
 	}
 	if (Rotate_Hand_Left_Back == true)
 	{
-		Rotation_Left_Hand -= (float)(10 * dt);
+		Rotation_Left_Hand -= (float)(40 * dt);
 	}
 	if (Rotation_Left_Hand >= 30)
 	{
@@ -1250,11 +1250,11 @@ void SP2::updateShopperAI(double dt)
 	//Right Arm
 	if (Rotate_Hand_Right_Back == false)
 	{
-		Rotation_Right_Hand += (float)(10 * dt);
+		Rotation_Right_Hand += (float)(40 * dt);
 	}
 	if (Rotate_Hand_Right_Back == true)
 	{
-		Rotation_Right_Hand -= (float)(10 * dt);
+		Rotation_Right_Hand -= (float)(40 * dt);
 	}
 	if (Rotation_Right_Hand >= 30)
 	{
@@ -1267,11 +1267,11 @@ void SP2::updateShopperAI(double dt)
 	//Left Leg
 	if (Rotate_Leg_Left_Back == false)
 	{
-		Rotation_Left_Leg += (float)(10 * dt);
+		Rotation_Left_Leg += (float)(40 * dt);
 	}
 	if (Rotate_Leg_Left_Back == true)
 	{
-		Rotation_Left_Leg -= (float)(10 * dt);
+		Rotation_Left_Leg -= (float)(40 * dt);
 	}
 	if (Rotation_Left_Leg >= 30)
 	{
@@ -1284,11 +1284,11 @@ void SP2::updateShopperAI(double dt)
 	//Right Leg
 	if (Rotate_Leg_Right_Back == false)
 	{
-		Rotation_Right_Leg += (float)(10 * dt);
+		Rotation_Right_Leg += (float)(40 * dt);
 	}
 	if (Rotate_Leg_Right_Back == true)
 	{
-		Rotation_Right_Leg -= (float)(10 * dt);
+		Rotation_Right_Leg -= (float)(40 * dt);
 	}
 	if (Rotation_Right_Leg >= 30)
 	{
@@ -1909,43 +1909,87 @@ void SP2::RenderAI(void)
 }
 void SP2::RenderShopperAI()
 {
-	modelStack.PushMatrix();
-	modelStack.Translate(ShopperAI.getPositionX(), 0, ShopperAI.getPositionZ());
-	modelStack.Rotate(180, 0, 1, 0);
-	modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
-	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(ShopperAI.getPositionX(), 0, ShopperAI.getPositionZ());
+	//modelStack.Rotate(180, 0, 1, 0);
+	//modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
+	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+	//modelStack.PopMatrix();
 
-
+	//WithShopperCart
 	modelStack.PushMatrix();
-	modelStack.Translate(3, 3.95, 0);
+	modelStack.Translate(0, 3.95, 0);
 	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(3, 1.05, 0);
+	modelStack.Translate(0, 1.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_BODY], false);
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(4.05, 3.3, 0);
-	modelStack.Rotate(Rotation_Left_Hand,1,0,0);
+	modelStack.Translate(1.04, 3.3, 0);
+	modelStack.Rotate(45, -1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(2.03, 3.3, 0);
-	modelStack.Rotate(Rotation_Right_Hand, -1, 0, 0);
+	modelStack.Translate(-0.97, 3.3, 0);
+	modelStack.Rotate(45, -1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
-	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(3.4, 1, 0);
-	modelStack.Rotate(Rotation_Left_Leg, -1, 0,0);
+	modelStack.Translate(0.4, 1, 0);
+	modelStack.Rotate(Rotation_Left_Leg, -1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(2.64, 1, 0);
+	modelStack.Translate(-0.38, 1, 0);
 	modelStack.Rotate(Rotation_Right_Leg, 1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 0, 4);
+	modelStack.Rotate(90,0,1,0);
+	RenderMesh(meshList[GEO_TROLLEY], false);
+	modelStack.PopMatrix();
+
+	//without Shopping Cart
+	if (ShopperAI.RENDERINGAI == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(ShopperAI.getPositionX(), -0.6, ShopperAI.getPositionZ());
+		modelStack.Rotate(180, 0, 1, 0);
+		modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 3.95, 0);
+			RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 1.05, 0);
+			RenderMesh(meshList[GEO_HUMAN_BODY], false);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(1.04, 3.3, 0);
+			modelStack.Rotate(Rotation_Left_Hand, 1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(-0.97, 3.3, 0);
+			modelStack.Rotate(Rotation_Right_Hand, -1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(0.4, 1, 0);
+			modelStack.Rotate(Rotation_Left_Leg, -1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(-0.38, 1, 0);
+			modelStack.Rotate(Rotation_Right_Leg, 1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
 }
 
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)

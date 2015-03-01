@@ -14,6 +14,12 @@ CShopperAI::CShopperAI()
 	timer = 0;
 	//walkFront = true;
 	//walkBack = false;
+	SetDirection = false;
+	Animate_ON = true;
+	Directions = false;
+	RENDERINGAI = true;
+
+
 
 }
 
@@ -72,23 +78,123 @@ void CShopperAI::UpdatePath(double dt, Vector3 &Playerposition)
 void CShopperAI::WalkingPath(double dt, int NewState)
 {
 	//Rotation of Shoppers
-	if (direction == 1)
+	if (SetDirection == true)
 	{
-		Rotangle = 90;
+		//turn Left's
+		if (direction == 0)
+		{
+			if (Rotangle != 0)
+			{
+				Rotangle += (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 1)
+		{
+			if (Rotangle != 90)
+			{
+				Rotangle += (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 2)
+		{
+			if (Rotangle != 180)
+			{
+				Rotangle += (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 3)
+		{
+			if (Rotangle != 270)
+			{
+				Rotangle += (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		//Turn Right's
+		else if (direction == 4)
+		{
+			if (Rotangle != 0)
+			{
+				Rotangle -= (float)(90 * dt);
+			}
+			else
+			{
+
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 5)
+		{
+			if (Rotangle != -90)
+			{
+				Rotangle -= (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 6)
+		{
+			if (Rotangle != -180)
+			{
+				Rotangle -= (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+		else if (direction == 7)
+		{
+			if (Rotangle != -270)
+			{
+				Rotangle -= (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
+
+		else if (direction == 8)
+		{
+			if (Rotangle != -90)
+			{
+				Rotangle += (float)(90 * dt);
+			}
+			else
+			{
+				Animate_ON = false;
+				SetDirection = false;
+			}
+		}
 	}
-	else if (direction == 2)
-	{
-		Rotangle = 180;
-	}
-	else if (direction == 4)
-	{
-		Rotangle = 270;
-	}
-	else
-	{
-		Rotangle = 0;
-	}
-	////Walking
+
+	////Walking ( Last week Coding)
 	//if (walkFront = true)
 	//{
 	//	if (position.z > -56)
@@ -126,321 +232,418 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 	float Shopper2_5 = 17.f;
 	float Shopper2_6 = 9.f;
 	float Shopper2_7 = 20.f;
-	float Shopper2_EXIT = 34.f;
+	float Shopper2_EXIT = 36.f;
 
-
-	if (ShopperPath2[0] == true)
+//Paths 1
+	if (ShopperPath[0] == true)
 	{
-		if (position.z > Shopper2)
+		if (position.z > -RedShelfBack)
 		{
-			MoveZMinus(Shopper2, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[0] = false;
-			ShopperPath2[1] = true;
+			ShopperPath[0] = false;
+			ShopperPath[1] = true;
+
+		}
+	}
+	if (ShopperPath[1] == true)
+	{
+		if (position.x > 9.f)
+		{
+			MoveXMinus(9.f, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[1] = false;
+			ShopperPath[2] = true;
+		}
+	}
+	if (ShopperPath[2] == true)
+	{
+		if (position.z < RedShelfFront)
+		{
+			MoveZPlus(RedShelfFront, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[2] = false;
+			ShopperPath[3] = true;
+		}
+	}
+	if (ShopperPath[3] == true)
+	{
+		if (position.x > 2.f)
+		{
+			MoveXMinus(2.f, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[3] = false;
+			ShopperPath[4] = true;
+		}
+	}
+	if (ShopperPath[4] == true)
+	{
+		if (position.z > -RedShelfBack)
+		{
+			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[4] = false;
+			ShopperPath[5] = true;
+		}
+	}
+	if (ShopperPath[5] == true)
+	{
+		if (position.x > -8.f)
+		{
+			MoveXMinus(-8.f, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[5] = false;
+			ShopperPath[6] = true;
+			direction = 2;
+		}
+	}
+	if (ShopperPath[6] == true)
+	{
+		if (position.z < RedShelfFront)
+
+		{
+			MoveZPlus(RedShelfFront, NewState, Speed, dt);
+		}
+		else
+		{
+			ShopperPath[6] = false;
+			ShopperPath[7] = true;
 			direction = 1;
 		}
 	}
-	if (ShopperPath2[1] == true)
+	if (ShopperPath[7] == true)
 	{
-		if (position.x > -Shopper2_1)
+		if (position.x > -18.f)
 		{
-			MoveXMinus(-Shopper2_1, NewState, Speed, dt);
+			MoveXMinus(-18.f, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[1] = false;
-			ShopperPath2[2] = true;
+			ShopperPath[7] = false;
+			ShopperPath[8] = true;
 			direction = 3;
 		}
 	}
-	if (ShopperPath2[2] == true)
+	if (ShopperPath[8] == true)
 	{
-		if (position.z > -Shopper2_2)
+		if (position.z > -RedShelfBack)
+
 		{
-			MoveZMinus(-Shopper2_2, NewState, Speed, dt);
+			MoveZMinus(-RedShelfBack, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[2] = false;
-			ShopperPath2[3] = true;
-			direction = 4;
+			ShopperPath[8] = false;
+			ShopperPath[9] = true;
+			direction = 1;
 		}
 	}
-	if (ShopperPath2[3] == true)
+	if (ShopperPath[9] == true)
 	{
-		if (position.x < -Shopper2_3)
+		if (position.x > -29.f)
 		{
-			MoveXPlus(-Shopper2_3, NewState, Speed, dt);
+			MoveXMinus(-29.f, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[3] = false;
-			ShopperPath2[4] = true;
+			ShopperPath[9] = false;
+			ShopperPath[10] = true;
 			direction = 2;
 		}
 	}
-	if (ShopperPath2[4] == true)
+	if (ShopperPath[10] == true)
 	{
-		if (position.z < Shopper2_4)
+		if (position.z < RedShelfFront)
+
 		{
-			MoveZPlus(Shopper2_4, NewState, Speed, dt);
+			MoveZPlus(RedShelfFront, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[4] = false;
-			ShopperPath2[5] = true;
+			ShopperPath[10] = false;
+			ShopperPath[11] = true;
 			direction = 4;
 		}
 	}
-	if (ShopperPath2[5] == true)
+	if (ShopperPath[11] == true)
 	{
-		if (position.x < -Shopper2_5)
+		if (position.x < 29.f)
 		{
-			MoveXPlus(-Shopper2_5, NewState, Speed, dt);
+			MoveXPlus(29.f, NewState, Speed, dt);
 		}
 		else
 		{
-			ShopperPath2[5] = false;
-			ShopperPath2[6] = true;
+			ShopperPath[11] = false;
+			ShopperPath[0] = true;
 			direction = 3;
 		}
 	}
+	//Path 2
+	//if (ShopperPath2[0] == true)
+	//{
+	//	
+	//	if (position.z > Shopper2)
+	//	{
+	//		MoveZMinus(Shopper2, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 1;
+	//		SetDirection = true;
 
-	if (ShopperPath2[6] == true)
-	{
-		if (position.z > -Shopper2_2)
-		{
-			MoveZMinus(-Shopper2_2, NewState, Speed, dt);
-		}
-		else
-		{
-			ShopperPath2[6] = false;
-			ShopperPath2[7] = true;
-			direction = 4;
-		}
-	}
-	if (ShopperPath2[7] == true)
-	{
-		if (position.x < -Shopper2_6)
-		{
-			MoveXPlus(Shopper2_6, NewState, Speed, dt);
-		}
-		else
-		{
-			ShopperPath2[7] = false;
-			ShopperPath2[8] = true;
-			direction = 2;
-		}
-	}
-	if (ShopperPath2[8] == true)
-	{
-		if (position.z < Shopper2_7)
-		{
-			MoveZPlus(Shopper2_7, NewState, Speed, dt);
-		}
-		else
-		{
-			ShopperPath2[8] = false;
-			ShopperPath2[9] = true;
-			direction = 4;
-		}
-	}
-	if (ShopperPath2[9] == true)
-	{
-		if (position.z >= Shopper2_7)
-		{
-			NewState = CShopperAI::Pay;
-		}
-		if (NewState == CShopperAI::Pay)
-		{
-			timer++;
-		}
-		if (timer == 40)
-		{
-			NewState = CShopperAI::EXIT;
-		}
-		if (NewState == CShopperAI::EXIT)
-		{
-			direction = 2;
-			timer = 0;
-			ShopperPath2[9] = false;
-			NewState = CShopperAI::WALK;
-		}
-		if (NewState == CShopperAI::WALK)
-		{
-			ShopperPath2[10] = true;
-		}
-	}		
-	if (ShopperPath2[10] == true)
-	{
-		if (position.z < Shopper2_EXIT)
-		{
-			MoveZPlus(Shopper2_EXIT, NewState, Speed, dt);
-		}
-		else
-		{
-			ShopperPath2[10] = false;
-		}
-	}
-	//if (ShopperPath[0] == true)
-	//{
-	//	if (position.z > -RedShelfBack)
-	//	{
-	//		MoveZMinus(-RedShelfBack, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[0] = false;
-	//		ShopperPath[1] = true;
-	//		direction = 1;
-	//	}
-	//}
-	//if (ShopperPath[1] == true)
-	//{
-	//	if (position.x > 9.f)
-	//	{
-	//		MoveXMinus(9.f, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[1] = false;
-	//		ShopperPath[2] = true;
-	//		direction = 2;
-	//	}
-	//}
-	//if (ShopperPath[2] == true)
-	//{
-	//	if (position.z < RedShelfFront)
-	//	{
-	//		MoveZPlus(RedShelfFront, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[2] = false;
-	//		ShopperPath[3] = true;
-	//		direction = 1;
-	//	}
-	//}
-	//if (ShopperPath[3] == true)
-	//{
-	//	if (position.x > 2.f)
-	//	{
-	//		MoveXMinus(2.f, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[3] = false;
-	//		ShopperPath[4] = true;
-	//		direction = 3;
-	//	}
-	//}
-	//if (ShopperPath[4] == true)
-	//{
-	//	if (position.z > -RedShelfBack)
-	//	{
-	//		MoveZMinus(-RedShelfBack, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[4] = false;
-	//		ShopperPath[5] = true;
-	//		direction = 1;
-	//	}
-	//}
-	//if (ShopperPath[5] == true)
-	//{
-	//	if (position.x > -8.f)
-	//	{
-	//		MoveXMinus(-8.f, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[5] = false;
-	//		ShopperPath[6] = true;
-	//		direction = 2;
-	//	}
-	//}
-	//if (ShopperPath[6] == true)
-	//{
-	//	if (position.z < RedShelfFront)
+	//		if (SetDirection == true)
+	//		{
+	//			
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[0] = false;
+	//				ShopperPath2[1] = true;
+	//			}
+	//		}
 
-	//	{
-	//		MoveZPlus(RedShelfFront, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[6] = false;
-	//		ShopperPath[7] = true;
-	//		direction = 1;
 	//	}
 	//}
-	//if (ShopperPath[7] == true)
+	//if (ShopperPath2[1] == true)
 	//{
-	//	if (position.x > -18.f)
+	//	
+	//	if (position.x > -Shopper2_1)
 	//	{
-	//		MoveXMinus(-18.f, NewState, Speed, dt);
+	//		MoveXMinus(-Shopper2_1, NewState, Speed, dt);
+	//		Animate_ON = true;
 	//	}
 	//	else
 	//	{
-	//		ShopperPath[7] = false;
-	//		ShopperPath[8] = true;
-	//		direction = 3;
-	//	}
-	//}
-	//if (ShopperPath[8] == true)
-	//{
-	//	if (position.z > -RedShelfBack)
-
-	//	{
-	//		MoveZMinus(-RedShelfBack, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[8] = false;
-	//		ShopperPath[9] = true;
-	//		direction = 1;
-	//	}
-	//}
-	//if (ShopperPath[9] == true)
-	//{
-	//	if (position.x > -29.f)
-	//	{
-	//		MoveXMinus(-29.f, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[9] = false;
-	//		ShopperPath[10] = true;
-	//		direction = 2;
-	//	}
-	//}
-	//if (ShopperPath[10] == true)
-	//{
-	//	if (position.z < RedShelfFront)
-
-	//	{
-	//		MoveZPlus(RedShelfFront, NewState, Speed, dt);
-	//	}
-	//	else
-	//	{
-	//		ShopperPath[10] = false;
-	//		ShopperPath[11] = true;
 	//		direction = 4;
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[1] = false;
+	//				ShopperPath2[2] = true;
+	//			}
+	//		}
 	//	}
 	//}
-	//if (ShopperPath[11] == true)
+	//if (ShopperPath2[2] == true)
 	//{
-	//	if (position.x < 29.f)
+	//	if (position.z > -Shopper2_2)
 	//	{
-	//		MoveXPlus(29.f, NewState, Speed, dt);
+	//		MoveZMinus(-Shopper2_2, NewState, Speed, dt);
+	//		Animate_ON = true;
 	//	}
 	//	else
 	//	{
-	//		ShopperPath[11] = false;
-	//		ShopperPath[0] = true;
-	//		direction = 3;
+	//		direction = 5;
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[2] = false;
+	//				ShopperPath2[3] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[3] == true)
+	//{
+	//	if (position.x < -Shopper2_3)
+	//	{
+	//		MoveXPlus(-Shopper2_3, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 6;
+
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[3] = false;
+	//				ShopperPath2[4] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[4] == true)
+	//{
+	//	if (position.z < Shopper2_4)
+	//	{
+	//		MoveZPlus(Shopper2_4, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 8;
+
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[4] = false;
+	//				ShopperPath2[5] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[5] == true)
+	//{
+	//	if (position.x < -Shopper2_5)
+	//	{
+	//		MoveXPlus(-Shopper2_5, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 0;
+
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[5] = false;
+	//				ShopperPath2[6] = true;
+	//			}
+	//		}
+	//	}
+	//}
+
+	//if (ShopperPath2[6] == true)
+	//{
+	//	if (position.z > -Shopper2_2)
+	//	{
+	//		MoveZMinus(-Shopper2_2, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 5;
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[6] = false;
+	//				ShopperPath2[7] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[7] == true)
+	//{
+	//	if (position.x < -Shopper2_6)
+	//	{
+	//		MoveXPlus(Shopper2_6, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 6;
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[7] = false;
+	//				ShopperPath2[8] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[8] == true)
+	//{
+	//	if (position.z < Shopper2_7)
+	//	{
+	//		MoveZPlus(Shopper2_7, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		direction = 8;
+	//		SetDirection = true;
+
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				ShopperPath2[8] = false;
+	//				ShopperPath2[9] = true;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (ShopperPath2[9] == true)
+	//{
+	//	if (position.z >= Shopper2_7)
+	//	{
+	//		NewState = CShopperAI::Pay;
+	//	}
+	//	if (NewState == CShopperAI::Pay)
+	//	{
+	//		timer++;
+	//	}
+	//	if (timer == 40)
+	//	{
+	//		NewState = CShopperAI::EXIT;
+	//		Animate_ON = true;
+	//	}
+	//	if (NewState == CShopperAI::EXIT)
+	//	{
+	//		direction = 6;
+	//		SetDirection = true;
+	//		NewState = CShopperAI::WALK;
+	//		if (SetDirection == true)
+	//		{
+	//			if (Animate_ON == false)
+	//			{
+	//				timer = 0;
+	//				ShopperPath2[9] = false;
+	//				//NewState = CShopperAI::WALK;
+	//			}
+	//		}
+	//	}
+	//	if (NewState == CShopperAI::WALK)
+	//	{
+	//		ShopperPath2[10] = true;
+	//	}
+	//}		
+	//if (ShopperPath2[10] == true)
+	//{
+	//	if (position.z < Shopper2_EXIT)
+	//	{
+	//		MoveZPlus(Shopper2_EXIT, NewState, Speed, dt);
+	//		Animate_ON = true;
+	//	}
+	//	else
+	//	{
+	//		ShopperPath2[10] = false;
+	//		RENDERINGAI = false;
 	//	}
 	//}
 }
@@ -465,7 +668,7 @@ void CShopperAI::MoveZPlus(double StopPoint, int NewState, double Speed, double 
 	//Speed based on state
 	if (NewState == CShopperAI::WALK)
 	{
-		Speed = 30.f;
+		Speed = 10.f;
 	}
 	else if (NewState == CShopperAI::ShopperSTATE)
 	{
@@ -482,7 +685,7 @@ void CShopperAI::MoveZMinus(double StopPoint, int NewState, double Speed, double
 	//Speed based on state
 	if (NewState == CShopperAI::WALK)
 	{
-		Speed = 30.f;
+		Speed = 10.f;
 	}
 	//Move till stop point
 	if (position.z > StopPoint)
@@ -495,7 +698,7 @@ void CShopperAI::MoveXPlus(double StopPoint, int NewState, double Speed, double 
 	//Speed based on state
 	if (NewState == CShopperAI::WALK)
 	{
-		Speed = 30.f;
+		Speed = 10.f;
 	}
 	//Move till stop point
 	if (position.x < StopPoint)
@@ -508,7 +711,7 @@ void CShopperAI::MoveXMinus(double StopPoint, int NewState, double Speed, double
 	//Speed based on state
 	if (NewState == CShopperAI::WALK)
 	{
-		Speed = 30.f;
+		Speed = 10.f;
 	}
 	//Move till stop point
 	if (position.x > StopPoint)

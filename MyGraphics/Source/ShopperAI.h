@@ -4,6 +4,7 @@
 #include <Vector3.h>
 
 
+using namespace std;
 class CShopperAI
 {
 private:
@@ -12,6 +13,9 @@ private:
 	int direction;
 	int Rotangle;
 	float timer;
+	bool SetDirection;
+	bool Animate_ON;
+	bool Directions;
 
 
 	enum ShopperState
@@ -34,6 +38,10 @@ public:
 	//Direction of turning
 	void setShopperDirection(int r);
 	int getShopperDirection(void);
+	
+	//Render Shopper AI
+	bool RENDERINGAI;
+
 
 	//Init
 	void ShopperInitialize();
