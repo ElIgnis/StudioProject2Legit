@@ -13,6 +13,7 @@ public:
 	float worldScale;
 	float angle;
 	float RotationYAxis;
+	float playerArmRotation;
 	float CAMERA_SPEED;
 	float CAMERA_SPEED2;
 

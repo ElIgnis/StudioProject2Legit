@@ -320,6 +320,8 @@ private:
 	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
+	void RenderCashier(void);
+	void RenderPlayerArm(void);
 
 	//Player functions
 	bool startScreen;
@@ -376,7 +378,9 @@ private:
 	bool armMovement;
 	float armRotation;
 
-	//Item
+	//Player Animation
+	float playerArmSwipe;
+	bool playerArmSwipeAni;
 	
 };
 

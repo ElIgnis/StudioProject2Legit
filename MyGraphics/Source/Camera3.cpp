@@ -45,7 +45,7 @@ void Camera3::Update(double dt)
 		{
 			RotationYAxis = -180.f;
 		}
-
+		playerArmRotation += (float)(CAMERA_SPEED * dt);
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();
@@ -74,6 +74,8 @@ void Camera3::Update(double dt)
 		{
 			RotationYAxis = 180.f;
 		}
+		playerArmRotation -= (float)(CAMERA_SPEED * dt);
+
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();

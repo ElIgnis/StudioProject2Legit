@@ -1,6 +1,7 @@
 #include "VillainAI.h"
 
 bool PathOneChecker[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+//bool PathOneCoords[16]
 
 CVillainAI::CVillainAI(void)
 {
@@ -82,11 +83,9 @@ Vector3 CVillainAI::GetDirection(void)
 
 void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
-	cout << CurrentState << endl;
-
 	if(RecentlyDestroyed && CurrentState != CVillainAI::CAUGHT)
 	{
-		DetectionTimer += dt;
+		DetectionTimer += (float)(dt);
 	}
 	if(DetectionTimer >= ResetTimer)
 	{
@@ -111,7 +110,7 @@ void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 		{
 			CurrentState = CVillainAI::DEFAULT;
 		}
-		UpdatePathOneChecker(dt);
+		UpdatePath(dt);
 	}
 }
 
@@ -195,7 +194,7 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	return false;
 }
 
-bool CVillainAI::UpdatePathOneChecker(double dt)
+bool CVillainAI::UpdatePath(double dt)
 {
 	//Red shelf coords
 	float RedShelfBack = 55.f;
