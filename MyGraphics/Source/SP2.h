@@ -299,6 +299,7 @@ private:
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
+	CShopperAI *Shopper1;
 
 	bool toggleLight;
 
@@ -309,7 +310,7 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
-	void updateShopperAI(double dt);
+	void updateShopperAI(double dt,CShopperAI *Shopper1);
 	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
@@ -320,6 +321,7 @@ private:
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
+	void RenderShopperAI2(CShopperAI *Shopper1);
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();

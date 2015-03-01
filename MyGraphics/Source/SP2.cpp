@@ -938,7 +938,7 @@ void SP2::UpdateGame(double dt)
 
 	//Update AI
 	UpdateVillainAI(dt, VillainOne);
-	updateShopperAI(dt);
+	updateShopperAI(dt, Shopper1);
 }
 
 void SP2::CheckCollision(void)
@@ -1293,11 +1293,9 @@ void SP2::Scenario_Villain(double dt)
 	}
 }
 
-void SP2::updateShopperAI(double dt)
+void SP2::updateShopperAI(double dt,CShopperAI *Shopper1)
 {
-	ShopperAI.UpdatePath(dt, camera.position);
-
-	//#######Animation##########
+	//####ANIMATION#####
 	//Left Arm
 	if (Rotate_Hand_Left_Back == false)
 	{
@@ -1366,6 +1364,33 @@ void SP2::updateShopperAI(double dt)
 	{
 		Rotate_Leg_Right_Back = false;
 	}
+	//UpdateSHopperAI
+	ShopperAI.UpdatePath(dt, camera.position);
+
+	//Using Wl'sMethOd
+	//if (Shopper1->TakingItem(Container.Shelf.at(RandomNumber), dt) == true)
+	//{
+	//	RollDice();
+	//}
+	//else if (Shopper1->Anim_Wreck == true)
+	//{
+	//	if (Shopper1->ItemAtLeft)
+	//	{
+	//		Shopper1->SetDirections(Vector3(0.f, -90.f + 90.f * (float)(Shopper1->RotateLeft), 0.f), dt);
+	//	}
+	//	else if (Shopper1->ItemAtRight)
+	//	{
+	//		Shopper1->SetDirections(Vector3(0.f, -90.f + 90.f * (float)(Shopper1->RotateLeft), 0.f), dt);
+	//	}
+	//}
+	//else if (Shopper1->Anim_Rotate == true && Shopper1->Anim_Wreck == false)
+	//{
+	//	Shopper1->SetDirections(Vector3(0, 90.f * (float)(Shopper1->RotateLeft), 0), dt);
+	//}
+	//else
+	//{
+	//	Shopper1->UpdatePath(dt, camera.position);
+	//}
 }
 
 void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
@@ -1647,6 +1672,7 @@ void SP2::RenderGame(void)
 
 	//Render Shopper AI Models
 	RenderShopperAI();
+	//RenderShopperAI2(Shopper1);
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
@@ -2049,7 +2075,51 @@ void SP2::RenderVillainAI(CVillainAI *Villain)
 	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	//modelStack.PopMatrix();
 }
+//Using Wl'sMethOd
+void SP2::RenderShopperAI2(CShopperAI *Shopper1)
+{
+	//modelStack.PushMatrix();
 
+	//modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+	//modelStack.Rotate(Shopper1->GetDirections().y + 180.f, 0.f, 1.f, 0.f);
+
+	////Default walking animation
+	//modelStack.PushMatrix();
+	//RenderMesh(meshList[GEO_HUMAN_BODY], false);
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 2.95, 0);
+	//RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+	//modelStack.PopMatrix(); // Pop Head
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(1, 2.3, 0);
+	//modelStack.Rotate(Shopper1->Rotation_Left_Hand, 1, 0, 0);
+	//RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+	//modelStack.PopMatrix();
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(-1, 2.3, 0);
+	//modelStack.Rotate(Shopper1->Rotation_Right_Hand, -1, 0, 0);
+	//RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+	//modelStack.PopMatrix();
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0.3, -0.05, 0);
+	//modelStack.Rotate(Shopper1->Rotation_Left_Leg, -1, 0, 0);
+	//RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+	//modelStack.PopMatrix();
+
+	//modelStack.PushMatrix();
+	//modelStack.Translate(-0.3, -0.05, 0);
+	//modelStack.Rotate(Shopper1->Rotation_Right_Leg, 1, 0, 0);
+	//RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+	//modelStack.PopMatrix();
+
+	//modelStack.PopMatrix();
+
+	//modelStack.PopMatrix();
+}
 void SP2::RenderShopperAI()
 {
 	//modelStack.PushMatrix();
@@ -2060,40 +2130,100 @@ void SP2::RenderShopperAI()
 	//modelStack.PopMatrix();
 
 	//WithShopperCart
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 3.95, 0);
-	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 1.05, 0);
-	RenderMesh(meshList[GEO_HUMAN_BODY], false);
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(1.04, 3.3, 0);
-	modelStack.Rotate(45, -1, 0, 0);
-	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(-0.97, 3.3, 0);
-	modelStack.Rotate(45, -1, 0, 0);
-	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(0.4, 1, 0);
-	modelStack.Rotate(Rotation_Left_Leg, -1, 0, 0);
-	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(-0.38, 1, 0);
-	modelStack.Rotate(Rotation_Right_Leg, 1, 0, 0);
-	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, 4);
-	modelStack.Rotate(90,0,1,0);
-	RenderMesh(meshList[GEO_TROLLEY], false);
-	modelStack.PopMatrix();
-
+	if (ShopperAI.RENDERINGAI == false)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(ShopperAI.getPositionX(), -0.6, ShopperAI.getPositionZ());
+		modelStack.Rotate(180, 0, 1, 0);
+		modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 3.95, 0);
+			RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 1.05, 0);
+			RenderMesh(meshList[GEO_HUMAN_BODY], false);
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(1.04, 3.3, 0);
+			modelStack.Rotate(75, -1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(-0.97, 3.3, 0);
+			modelStack.Rotate(75, -1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(0.4, 1, 0);
+			modelStack.Rotate(Rotation_Left_Leg, -1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+			modelStack.PopMatrix();
+			modelStack.PushMatrix();
+			modelStack.Translate(-0.38, 1, 0);
+			modelStack.Rotate(Rotation_Right_Leg, 1, 0, 0);
+			RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+			modelStack.PopMatrix();
+			if (ShopperAI.item_milo == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(0.5, 1, 3);
+				modelStack.Rotate(90, 0, 1, 0);
+				RenderMesh(meshList[GEO_CAN_MILO], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item_sardine == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(-0.5, 0.9, 3);
+				modelStack.Rotate(90, 0, 1, 0);
+				RenderMesh(meshList[GEO_CAN_SARDINES], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item_maggie == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(0.5, 0.9, 4);
+				modelStack.Rotate(90, 0, 1, 0);
+				RenderMesh(meshList[GEO_PACK_NOODLE], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item_MnC == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(-0.6, 1.35, 4);
+				modelStack.Rotate(90, 0, 1, 0);
+				RenderMesh(meshList[GEO_BOX_CEREAL], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item_choco == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(-0.4, 0.7, 5);
+				modelStack.Rotate(180, 0, 1, 0);
+				RenderMesh(meshList[GEO_BOX_CHOCO], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item_iceCream == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(0.4, 1.5, 5);
+				modelStack.Rotate(180, 1, 1, 0);
+				RenderMesh(meshList[GEO_BOX_ICECREAM], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.RenderTrolley == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(0, 1, 4);
+				modelStack.Rotate(90, 0, 1, 0);		
+				RenderMesh(meshList[GEO_TROLLEY], false);
+				modelStack.PopMatrix();
+			}
+			modelStack.PopMatrix();
+		}
+	}
 	//without Shopping Cart
 	if (ShopperAI.RENDERINGAI == true)
 	{
@@ -2130,6 +2260,24 @@ void SP2::RenderShopperAI()
 			modelStack.Rotate(Rotation_Right_Leg, 1, 0, 0);
 			RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 			modelStack.PopMatrix();
+			if (ShopperAI.item1 == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(-1, 0.8, 0.3);
+				modelStack.Rotate(90, 1, 0, 0);
+				modelStack.Rotate(Rotation_Right_Hand, -1, 0, 0);
+				RenderMesh(meshList[GEO_CAN_COKE], false);
+				modelStack.PopMatrix();
+			}
+			if (ShopperAI.item2 == true)
+			{
+				modelStack.PushMatrix();
+				modelStack.Translate(1, 0.5, 0);
+				modelStack.Rotate(90, 1, 0, 0);
+				modelStack.Rotate(Rotation_Right_Hand, -1, 0, 0);
+				RenderMesh(meshList[GEO_BOX_CHOC_CEREAL], false);
+				modelStack.PopMatrix();
+			}
 		}
 		modelStack.PopMatrix();
 	}

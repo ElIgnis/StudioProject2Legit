@@ -47,7 +47,7 @@ CVillainAI::~CVillainAI(void)
 }
 
 void CVillainAI::SetPosition(Vector3 &NewPosition)
-{
+{	
 	Position = NewPosition;
 }
 
