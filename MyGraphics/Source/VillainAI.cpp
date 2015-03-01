@@ -116,7 +116,6 @@ void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 
 bool CVillainAI::DestroyItem(CItem *Item, double dt)
 {
-	cout << RotateLeft << endl;
 	//Calculate distance from villain to item
 	float DistanceZ = (Position.z - Item->ItemPosition.z);
 	//Negative distance fix
@@ -138,13 +137,11 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 		{
 			ItemAtLeft = true;
 			Anim_Wreck = true;
-			cout << "Item at left" << endl;
 		}
 		else if(Position.x > Item->ItemPosition.x -4.5f && Position.x < Item->ItemPosition.x)
 		{
 			ItemAtRight = true;
 			Anim_Wreck = true;
-			cout << "Item at right" << endl;
 		}
 	}
 	if(Anim_Wreck)
@@ -177,7 +174,6 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	}
 	if(Anim_Revert)
 	{
-		cout << Direction.y << "    Original direction: " << 90.f * (float)(RotateLeft) << endl;
 		SetDirection(Vector3(0, 90.f * (float)(RotateLeft), 0), dt);
 		if(Direction.y >= 90.f * (float)(RotateLeft))
 		{
