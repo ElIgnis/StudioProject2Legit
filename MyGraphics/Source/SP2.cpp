@@ -142,9 +142,9 @@ void SP2::Init()
 
 	//Initialize shelf position
 	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -45.f));
-	ColdShelf_Right.SetShelfCollision(6,80);
+	ColdShelf_Right.SetShelfCollision(6, 80);
 	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -45.f));
-	ColdShelf_Right.SetShelfCollision(6,80);
+	ColdShelf_Right.SetShelfCollision(6, 80);
 
 	//Cashier details
 	armRotation = 0.f;
@@ -939,6 +939,20 @@ void SP2::UpdateGame(double dt)
 	//Update AI
 	UpdateVillainAI(dt, VillainOne);
 	updateShopperAI(dt);
+}
+
+void SP2::CheckCollision(void)
+{
+	//Cold Shelf Right
+	if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
+		&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
+	{
+		camera.CAMERA_SPEED2 = 0;
+	}
+	else
+	{
+		camera.CAMERA_SPEED2 = 10.f;
+	}
 }
 
 void SP2::Scenario_Shopper(double dt)

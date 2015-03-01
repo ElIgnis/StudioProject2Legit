@@ -305,6 +305,7 @@ private:
 	//Methods
 	 //Updates
 	void UpdateGame(double dt);
+	void CheckCollision(void);
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
