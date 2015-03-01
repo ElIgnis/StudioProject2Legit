@@ -194,6 +194,9 @@ private:
 		GEO_LIGHTBALL5,
 		GEO_LIGHTBALL6,
 		GEO_HUMAN_MODEL,
+
+		GEO_WALLET,
+		GEO_MONEY,
 		NUM_GEOMETRY,
 	};
 
@@ -379,9 +382,24 @@ private:
 	float armRotation;
 
 	//Player Animation
-	float playerArmSwipe;
 	bool playerArmSwipeAni;
-	
+	float playerArmSwipe;
+	//Right Arm 
+	bool playerPayingAni;
+	bool playerArmPayingRightAni;
+	bool playerArmPayingRightAniDown;
+	bool playerArmPayingRightAniUp;
+	float playerArmPayingRight;
+	bool renderWallet;
+	//Left Arm
+	bool playerArmPayingLeftAni;
+	bool playerArmPayingLeftAniIn;
+	bool playerArmPayingLeftAniOut;
+	float playerArmPayingLeft;
+	bool renderMoney;
+
+	//NPC Interaction
+	bool NPCInteraction;
 };
 
 #endif

@@ -92,6 +92,11 @@ void SP2::Init()
 
 	playerArmSwipeAni = false;
 
+	playerArmPayingRightAniUp = false;
+	playerArmPayingRightAniDown = false;
+
+	NPCInteraction = false;
+
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
 	inFile.open("Source//charWidth.txt");
@@ -763,7 +768,22 @@ void SP2::Init()
 	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL4] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL5] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);	
+	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
+
+	//Wallet
+	meshList[GEO_WALLET] = MeshBuilder::GenerateOBJ("Wallet", "OBJ//Wallet.obj");
+	meshList[GEO_WALLET]->textureID = LoadTGA("Image//Wallet.tga");
+	meshList[GEO_WALLET]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_WALLET]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_WALLET]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_WALLET]->material.kShininess = 5.f;
+	//Money
+	meshList[GEO_MONEY] = MeshBuilder::GenerateOBJ("Money", "OBJ//Money.obj");
+	meshList[GEO_MONEY]->textureID = LoadTGA("Image//Money.tga");
+	meshList[GEO_MONEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_MONEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_MONEY]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -967,12 +987,68 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 
+	//Taking animation
 	playerArmSwipe -= (float)(45 * dt);
 	if (playerArmSwipe < -90)
 	{
 		playerArmSwipe = 0.f;
 		playerArmSwipeAni = false;
 	}
+	//Paying animation
+	if (playerPayingAni == true)
+	{
+		if (playerArmPayingRightAni == true)
+		{
+			if (playerArmPayingRight > 0)
+			{
+				playerArmPayingRightAni = false;
+			}
+			else if (playerArmPayingRight < -90)
+			{
+				renderWallet = true;
+				playerArmPayingRightAniUp = true;
+				playerArmPayingRightAniDown = false;
+			}
+
+			if (playerArmPayingRightAniDown == true)
+			{
+				playerArmPayingRight -= (float)(30 * dt);
+			}
+			if (playerArmPayingRightAniUp == true)
+			{
+				playerArmPayingRight += (float)(30 * dt);
+			}
+		}
+
+		if (playerArmPayingRightAni == false && playerArmPayingLeftAni == true)
+		{
+			if (playerArmPayingLeft > 0)
+			{
+				renderMoney = false;
+				playerArmPayingLeftAni = false;
+			}
+			else if (playerArmPayingLeft < -45)
+			{
+				renderMoney = true;
+				playerArmPayingLeftAniOut = true;
+				playerArmPayingLeftAniIn = false;
+			}
+
+			if (playerArmPayingLeftAniIn == true)
+			{
+				playerArmPayingLeft -= (float)(30 * dt);
+			}
+			if (playerArmPayingLeftAniOut == true)
+			{
+				playerArmPayingLeft += (float)(20 * dt);
+			}
+		}
+	}
+	if (renderMoney == false)
+	{
+		renderWallet = false;
+	}
+
 	float RotationSpeed = 100.f;
 	float DelayInterval = 0.25f;
 	if(Delay < DelayInterval)
@@ -989,8 +1065,6 @@ void SP2::Scenario_Shopper(double dt)
 		//Adding items
 		if(Application::IsKeyPressed('E'))
 		{
-			playerArmSwipeAni = true;
-
 			for(int i = 0; i < ItemLine; i++)
 			{
 				//Taking items from shelf(Check by invisible box around item)
@@ -998,6 +1072,7 @@ void SP2::Scenario_Shopper(double dt)
 					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
 					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
 				{
+					playerArmSwipeAni = true;
 					//Distance is updated
 					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
 						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
@@ -1092,6 +1167,16 @@ void SP2::Scenario_Shopper(double dt)
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
+			//Player paying animation
+			playerPayingAni = true;
+
+			playerArmPayingRightAni = true;
+			playerArmPayingRightAniDown = true;
+
+			playerArmPayingLeftAni = true;
+			playerArmPayingLeftAniIn = true;
+
+			//NPCInteraction = true;
 			if (camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
 				&& camera.position.z > cTablePos.z - 10
@@ -1101,6 +1186,7 @@ void SP2::Scenario_Shopper(double dt)
 				beltMovement = true;
 				renderItemOnTrolley = false;
 				armRotation = -90.f;
+
 				//Checkout
 				for (int i = 0; i < PlayerInvent.Inventory.size();)
 				{
@@ -1897,6 +1983,49 @@ void SP2::RenderScenarioShopper(void)
 
 		modelStack.PopMatrix();
 	}
+	else if (playerPayingAni == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(camera.position.x , camera.position.y, camera.position.z);
+		modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-1.5, 2, -1);
+		modelStack.Rotate(90, 1, 0, 0);
+		modelStack.Rotate(-playerArmPayingLeft, 0, 0, 1);
+		RenderMesh(meshList[GEO_HUMAN_ARM], true);
+		if(renderMoney == true)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0.5, -3, 0);
+			modelStack.Rotate(90, 0, 1, 0);
+			modelStack.Rotate(-90, 0, 0, 1);
+			modelStack.Rotate(45, 0, 1, 0);
+			modelStack.Rotate(-30, 0, 0, 1);
+			RenderMesh(meshList[GEO_MONEY], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(1.5, 2, -1);
+		modelStack.Rotate(90, 1, 0, 0);
+		modelStack.Rotate(playerArmPayingRight, 1, 0, 0);
+		RenderMesh(meshList[GEO_HUMAN_ARM], true);
+		if(renderWallet == true)
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(-0.5, -3, 0.5);
+			modelStack.Rotate(180, 0, 1, 0);
+			modelStack.Rotate(90, 1, 0, 0);
+			modelStack.Rotate(-45, 0, 1, 0);
+			RenderMesh(meshList[GEO_WALLET], true);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+
+		modelStack.PopMatrix();
+	}
 	else
 	{
 		RenderPlayerArm();
@@ -1965,6 +2094,13 @@ void SP2::RenderScenarioShopper(void)
 			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'F' to take Trolley", Color (0, 1, 0), 2.5f, 7.f, 4.5f);
 		else
 			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'Y' to let go of Trolley", Color (0, 1, 0), 2.5f, 7.f, 4.5f);
+	}
+	if (NPCInteraction == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 5, 0);
+		RenderText(meshList[GEO_TEXT], "HI !", Color(0, 1, 0));
+		modelStack.PopMatrix();
 	}
 }
 
