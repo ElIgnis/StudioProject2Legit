@@ -2,7 +2,6 @@
 
 CShelf::CShelf(void)
 {
-	MaxShelfSize = 76;
 }
 
 
@@ -10,9 +9,15 @@ CShelf::~CShelf(void)
 {
 }
 
-void CShelf::SetShelfPosition(Vector3 &Position)
+void CShelf::SetShelfPosition(Vector3 &NewPosition)
 {
-	ShelfPosition.x = Position.x;
-	ShelfPosition.y = Position.y;
-	ShelfPosition.z = Position.z;
+	Position = NewPosition;
+}
+
+void CShelf::SetShelfCollision(float Width, float Length)
+{
+	MinWidth = Position.x - (Width / 2);
+	MaxWidth = Position.x + (Width / 2);
+	MinLength = Position.z - (Length / 2);
+	MaxLength = Position.z + (Length / 2);
 }

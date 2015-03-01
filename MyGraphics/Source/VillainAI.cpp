@@ -116,9 +116,9 @@ void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 
 bool CVillainAI::DestroyItem(CItem *Item, double dt)
 {
+	cout << RotateLeft << endl;
 	//Calculate distance from villain to item
 	float DistanceZ = (Position.z - Item->ItemPosition.z);
-
 	//Negative distance fix
 	if(DistanceZ < 0)
 	{
@@ -130,19 +130,21 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	{
 		//cout << "Plx: " << Position.x << endl;
 		//cout << "Plz: " << Position.z << endl;
-		//cout << "Ix: " << Item->ItemPosition.x << endl;
-		//cout << "Iz: " << Item->ItemPosition.z << endl;
+		
+		//cout <<  << endl;
 
 		//Update for animation
-		if(Position.x < Item->ItemPosition.x + 3.9f && Position.x > Item->ItemPosition.x)
+		if(Position.x < Item->ItemPosition.x + 4.5f && Position.x > Item->ItemPosition.x)
 		{
 			ItemAtLeft = true;
 			Anim_Wreck = true;
+			cout << "Item at left" << endl;
 		}
-		else if(Position.x > Item->ItemPosition.x -3.9f && Position.x < Item->ItemPosition.x)
+		else if(Position.x > Item->ItemPosition.x -4.5f && Position.x < Item->ItemPosition.x)
 		{
 			ItemAtRight = true;
 			Anim_Wreck = true;
+			cout << "Item at right" << endl;
 		}
 	}
 	if(Anim_Wreck)
@@ -171,33 +173,28 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 				Anim_Revert = true;
 				RecentlyDestroyed = true;
 			}
-			
 		}
 	}
 	if(Anim_Revert)
 	{
-		SetDirection(Vector3(0, 0.f, 0), dt);
-
-		if(Direction.y <= 0.1 && Direction.y >= -0.1f)
+		cout << Direction.y << "    Original direction: " << 90.f * (float)(RotateLeft) << endl;
+		SetDirection(Vector3(0, 90.f * (float)(RotateLeft), 0), dt);
+		if(Direction.y >= 90.f * (float)(RotateLeft))
 		{
 			ItemAtLeft = false;
 			ItemAtRight = false;
 			Anim_Revert = false;
-			Anim_Wreck = false;
 			return true;
 		}
 	}
-	if(Item->ItemState[CItem::NUM_STATE] != CItem::DEFAULT)
-	{
-		return true;
-	}
+	else
 	return false;
 }
 
 bool CVillainAI::UpdatePath(double dt)
 {
 	//Red shelf coords
-	float RedShelfBack = 55.f;
+	float RedShelfBack = 56.f;
 	float RedShelfFront = 5.f;
 	float Right_RedShelfRight = 19.5f;
 	float Right_RedShelfLeft = 9.5f;
@@ -210,10 +207,10 @@ bool CVillainAI::UpdatePath(double dt)
 	float FridgeLeft = 7.5f;
 
 	//Cold fridge
-	float ColdFridgeBack = 53.f;
+	float ColdFridgeBack = 56.f;
 	float Left_ColdFridge = 39.f;
 	float Right_ColdFridge = 37.f;
-	float ColdFridgeFront = 15.f;
+	float ColdFridgeFront = 16.f;
 
 	//Perform walking
 	if(Anim_Wreck == false)

@@ -140,13 +140,19 @@ void SP2::Init()
 	//Initialize trolley position
 	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
 
+	//Initialize shelf position
+	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -45.f));
+	ColdShelf_Right.SetShelfCollision(6,80);
+	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -45.f));
+	ColdShelf_Right.SetShelfCollision(6,80);
+
 	//Cashier details
 	armRotation = 0.f;
 	armMoving = false;
 
 	//AI details
-	//AI details
 	srand(time(NULL));
+	VillainOne = new CVillainAI;
 	RollDice();
 	Guard.setPosition(-32 , 13);
 
@@ -931,7 +937,7 @@ void SP2::UpdateGame(double dt)
 	}
 
 	//Update AI
-	UpdateVillainAI(dt);
+	UpdateVillainAI(dt, VillainOne);
 	updateShopperAI(dt);
 }
 
@@ -1230,7 +1236,7 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 	//Catch Villain
-	if(Application::IsKeyPressed('X'))
+	/*if(Application::IsKeyPressed('X'))
 	{
 		float DistanceToPlayer = sqrt((Villain.GetPosition().x - camera.position.x) * (Villain.GetPosition().x - camera.position.x) + (Villain.GetPosition().z - camera.position.z) * (Villain.GetPosition().z - camera.position.z));
 
@@ -1245,7 +1251,7 @@ void SP2::Scenario_Shopper(double dt)
 			gameStart = false;
 			endScreen = true;
 		}
-	}
+	}*/
 }
 
 void SP2::Scenario_Guard(double dt)
@@ -1348,37 +1354,37 @@ void SP2::updateShopperAI(double dt)
 	}
 }
 
-void SP2::UpdateVillainAI(double dt)
+void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 {
+	/*cout << Villain.Anim_Rotate << "   Ix: " << Container.Shelf.at(RandomNumber)->ItemPosition.x << "   Iy: " << Container.Shelf.at(RandomNumber)->ItemPosition.y << "   Iz: " << Container.Shelf.at(RandomNumber)->ItemPosition.z << endl;*/
 	//Reroll random number when item is destroyed
-	if(Villain.DestroyItem(Container.Shelf.at(RandomNumber), dt))
+	if(Villain->DestroyItem(Container.Shelf.at(RandomNumber), dt) == true)
 	{
-		RandomNumber = RollDice();
+		RollDice();
 	}
 	//Villain wrecking with rotation
-	if(Villain.Anim_Wreck == true)
+	else if(Villain->Anim_Wreck == true)
 	{
-		if(Villain.ItemAtLeft)
+		if(Villain->ItemAtLeft)
 		{
-			Villain.SetDirection(Vector3(0.f, 90.f, 0.f), dt);
+			Villain->SetDirection(Vector3(0.f, -90.f + 90.f * (float)(Villain->RotateLeft), 0.f), dt);
 		}
-		else if(Villain.ItemAtRight)
+		else if(Villain->ItemAtRight)
 		{
-			Villain.SetDirection(Vector3(0.f, -90.f, 0.f), dt);
+			Villain->SetDirection(Vector3(0.f, -90.f + 90.f * (float)(Villain->RotateLeft), 0.f), dt);
 		}
-	}
-
+	}	
 	//Villain rotation ONLY
-	else if(Villain.Anim_Rotate == true && Villain.Anim_Wreck == false)
+	else if(Villain->Anim_Rotate == true && Villain->Anim_Wreck == false)
 	{
-		Villain.SetDirection(Vector3(0, 90.f * (float)(Villain.RotateLeft), 0), dt);
+		Villain->SetDirection(Vector3(0, 90.f * (float)(Villain->RotateLeft), 0), dt);
 	}	
 	else
 	{
-		Villain.UpdateAI(dt, camera.position);
+		Villain->UpdateAI(dt, camera.position);
 	}
 	
-	Guard.UpdateGuard(dt, camera.position);
+	//Guard.UpdateGuard(dt, camera.position);
 }
 
 int SP2::RollDice(void)
@@ -1386,8 +1392,8 @@ int SP2::RollDice(void)
 	RandomNumber = rand() % ItemLine;
 	//Filtering out items that are too far
 	while((Container.Shelf.at(RandomNumber)->ItemState[CItem::NUM_STATE] != CItem::DEFAULT 
-		|| Container.Shelf.at(RandomNumber)->ItemPosition.x > 40.1
-		|| Container.Shelf.at(RandomNumber)->ItemPosition.x < -42.8))
+		|| Container.Shelf.at(RandomNumber)->ItemPosition.x > 41.6f
+		|| Container.Shelf.at(RandomNumber)->ItemPosition.x < -43.5f))
 	{
 		RandomNumber = rand() % ItemLine;
 	}
@@ -1622,7 +1628,7 @@ void SP2::RenderGame(void)
 	}
 
 	//Render AI models
-	RenderAI();
+	RenderVillainAI(VillainOne);
 	modelStack.PopMatrix();
 
 	//Render Shopper AI Models
@@ -1980,54 +1986,12 @@ void SP2::RenderScenarioVillain(void)
 	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 }
 
-void SP2::RenderAI(void)
+void SP2::RenderVillainAI(CVillainAI *Villain)
 {
 	modelStack.PushMatrix();
-	//Wrecking animation
-	//if(Villain.Anim_Wreck)
-	//{
-	//	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
-	//	modelStack.Rotate(Villain.GetDirection().y + 180.f, 0.f, 1.f, 0.f);
 
-	//	//Default walking animation
-	//	modelStack.PushMatrix();
-	//	RenderMesh(meshList[GEO_HUMAN_BODY], false);
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(0, 2.95, 0);
-	//	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
-	//	modelStack.PopMatrix(); // Pop Head
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(1, 2.3, 0);
-	//	modelStack.Rotate(Villain.Rotation_Left_Hand,1,0,0);
-	//	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
-	//	modelStack.PopMatrix();
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(-1, 2.3, 0);
-	//	modelStack.Rotate(Villain.Rotation_Right_Hand, -1, 0, 0);
-	//	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
-	//	modelStack.PopMatrix();
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(0.3, -0.05, 0);
-	//	modelStack.Rotate(Villain.Rotation_Left_Leg, -1, 0,0);
-	//	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
-	//	modelStack.PopMatrix();
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(-0.3, -0.05, 0);
-	//	modelStack.Rotate(Villain.Rotation_Right_Leg, 1, 0, 0);
-	//	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
-	//	modelStack.PopMatrix();
-
-	//	modelStack.PopMatrix();
-	//}
-	//else
-	//{
-	modelStack.Translate(Villain.GetPosition().x, Villain.GetPosition().y, Villain.GetPosition().z);
-	modelStack.Rotate(Villain.GetDirection().y + 180.f, 0.f, 1.f, 0.f);
+	modelStack.Translate(Villain->GetPosition().x, Villain->GetPosition().y, Villain->GetPosition().z);
+	modelStack.Rotate(Villain->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
 
 	//Default walking animation
 	modelStack.PushMatrix();
@@ -2040,36 +2004,36 @@ void SP2::RenderAI(void)
 
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	modelStack.Rotate(Villain.Rotation_Left_Hand,1,0,0);
+	modelStack.Rotate(Villain->Rotation_Left_Hand,1,0,0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(-1, 2.3, 0);
-	modelStack.Rotate(Villain.Rotation_Right_Hand, -1, 0, 0);
+	modelStack.Rotate(Villain->Rotation_Right_Hand, -1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(0.3, -0.05, 0);
-	modelStack.Rotate(Villain.Rotation_Left_Leg, -1, 0,0);
+	modelStack.Rotate(Villain->Rotation_Left_Leg, -1, 0,0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.3, -0.05, 0);
-	modelStack.Rotate(Villain.Rotation_Right_Leg, 1, 0, 0);
+	modelStack.Rotate(Villain->Rotation_Right_Leg, 1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 	modelStack.PopMatrix();
 
 	modelStack.PopMatrix();
-	//}
+	
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(Guard.getPosition().x, Guard.getPosition().y, Guard.getPosition().z);
-	RenderMesh(meshList[GEO_HUMAN_MODEL], true);
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(Guard.getPosition().x, Guard.getPosition().y, Guard.getPosition().z);
+	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
+	//modelStack.PopMatrix();
 }
 
 void SP2::RenderShopperAI()

@@ -1127,7 +1127,6 @@ Mac N Cheese Cereal,1.50,11.75,-4.15,-29,GEO_BOX_CEREAL
 Instant Noodle,2.40,13.75,0.5,-31,GEO_PACK_NOODLE
 Instant Noodle,2.40,13.75,0.5,-33,GEO_PACK_NOODLE
 Instant Noodle,2.40,13.75,0.5,-35,GEO_PACK_NOODLE
-Instant Noodle,2.40,13.75,0.5,-36,GEO_PACK_NOODLE
 Instant Noodle,2.40,13.75,0.5,-37,GEO_PACK_NOODLE
 ## Top Layer T2
 Instant Noodle,2.40,12.75,0.5,-31,GEO_PACK_NOODLE
@@ -2551,7 +2550,7 @@ Coke Zero,1.00,-42.5,-1.05,-33,GEO_CAN_COKE
 Coke Zero,1.00,-42.5,-1.05,-35,GEO_CAN_COKE
 Coke Zero,1.00,-42.5,-1.05,-37,GEO_CAN_COKE
 Coke Zero,1.00,-42.5,-1.05,-39,GEO_CAN_COKE
-Coke Zero,1.00,-42.5,-1.05,-42,GEO_CAN_COKE
+Coke Zero,1.00,-42.5,-1.05,-41,GEO_CAN_COKE
 ## Middle Layer T3
 Coke Zero,1.00,-43.5,-1.05,-29,GEO_CAN_COKE
 Coke Zero,1.00,-43.5,-1.05,-31,GEO_CAN_COKE
@@ -2559,7 +2558,7 @@ Coke Zero,1.00,-43.5,-1.05,-33,GEO_CAN_COKE
 Coke Zero,1.00,-43.5,-1.05,-35,GEO_CAN_COKE
 Coke Zero,1.00,-43.5,-1.05,-37,GEO_CAN_COKE
 Coke Zero,1.00,-43.5,-1.05,-39,GEO_CAN_COKE
-Coke Zero,1.00,-43.5,-1.05,-43,GEO_CAN_COKE
+Coke Zero,1.00,-43.5,-1.05,-41,GEO_CAN_COKE
 ## Middle Layer T4
 Coke Zero,1.00,-44.5,-1.05,-29,GEO_CAN_COKE
 Coke Zero,1.00,-44.5,-1.05,-31,GEO_CAN_COKE
@@ -2567,7 +2566,7 @@ Coke Zero,1.00,-44.5,-1.05,-33,GEO_CAN_COKE
 Coke Zero,1.00,-44.5,-1.05,-35,GEO_CAN_COKE
 Coke Zero,1.00,-44.5,-1.05,-37,GEO_CAN_COKE
 Coke Zero,1.00,-44.5,-1.05,-39,GEO_CAN_COKE
-Coke Zero,1.00,-44.5,-1.05,-44,GEO_CAN_COKE
+Coke Zero,1.00,-44.5,-1.05,-41,GEO_CAN_COKE
 #######BOTTOM LAYER#######
 ## Bottom Layer T1
 Mountain Dew,1.20,-41,-2.85,-29,GEO_CAN_MTNDEW

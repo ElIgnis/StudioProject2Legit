@@ -264,12 +264,22 @@ private:
 		GEO_TYPE,
 		NUM_INDEX,
 	};
-
+	//Item Pointer
 	CItem *Item;
+
+	//Shelf
 	CShelf Container;
+	CShelf ColdShelf_Right;
+	CShelf ColdShelf_Left;
+	CShelf RedShelf_Right;
+	CShelf RedShelf_Left;
+	CShelf Fridge;
+
+	//Inventory
 	CInventory PlayerInvent;
 	CInventory Trolley;
 	float Delay;
+
 	//Item taking
 	float Distance;
 	float MaxDistance;
@@ -281,7 +291,7 @@ private:
 	string CashierData;
 
 	//AI Villain loading properties
-	CVillainAI Villain;
+	CVillainAI *VillainOne;
 	int RandomNumber;
 
 	//AI Guard loading properties
@@ -299,7 +309,7 @@ private:
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
 	void updateShopperAI(double dt);
-	void UpdateVillainAI(double dt);
+	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
 	int RollDice(void);
@@ -308,7 +318,7 @@ private:
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
-	void RenderAI(void);
+	void RenderVillainAI(CVillainAI *Villain);
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
