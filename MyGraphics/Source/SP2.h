@@ -249,7 +249,6 @@ private:
 	float Rotation_Left_Hand;
 	float Rotation_Right_Hand;
 
-
 	//entrance
 	float rotationofdoor;
 	bool rotateback;
@@ -265,12 +264,22 @@ private:
 		GEO_TYPE,
 		NUM_INDEX,
 	};
-
+	//Item Pointer
 	CItem *Item;
+
+	//Shelf
 	CShelf Container;
+	CShelf ColdShelf_Right;
+	CShelf ColdShelf_Left;
+	CShelf RedShelf_Right;
+	CShelf RedShelf_Left;
+	CShelf Fridge;
+
+	//Inventory
 	CInventory PlayerInvent;
 	CInventory Trolley;
 	float Delay;
+
 	//Item taking
 	float Distance;
 	float MaxDistance;
@@ -281,15 +290,15 @@ private:
 	//Cashier loading properties
 	string CashierData;
 
-	//AI loading properties
-	CVillainAI Villain;
+	//AI Villain loading properties
+	CVillainAI *VillainOne;
 	int RandomNumber;
+
+	//AI Guard loading properties
 	CGuardAI Guard;
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
-
-
 
 	bool toggleLight;
 
@@ -299,18 +308,17 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
-	void UpdateAI(double dt);
+	void updateShopperAI(double dt);
+	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
-	void updateShopperAI(double dt);
-
 	int RollDice(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
-	void RenderAI(void);
+	void RenderVillainAI(CVillainAI *Villain);
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
@@ -322,6 +330,8 @@ private:
 	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
+	void RenderCashier(void);
+	void RenderPlayerArm(void);
 
 	//Player functions
 	bool startScreen;
@@ -378,7 +388,9 @@ private:
 	bool armMovement;
 	float armRotation;
 
-	//Item
+	//Player Animation
+	float playerArmSwipe;
+	bool playerArmSwipeAni;
 	
 };
 

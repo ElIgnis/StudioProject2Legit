@@ -45,7 +45,7 @@ void Camera3::Update(double dt)
 		{
 			RotationYAxis = -180.f;
 		}
-
+		playerArmRotation += (float)(CAMERA_SPEED * dt);
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();
@@ -74,6 +74,8 @@ void Camera3::Update(double dt)
 		{
 			RotationYAxis = 180.f;
 		}
+		playerArmRotation -= (float)(CAMERA_SPEED * dt);
+
 		//Vector3 view = (target - position).Normalized();
 		//Vector3 right = view.Cross(up);
 		//right.Normalize();
@@ -183,6 +185,7 @@ void Camera3::Update(double dt)
 	//Crouching
 	if(Application::IsKeyPressed(VK_CONTROL))
 	{
+		IsCrouched = true;
 		if(position.y > -3.5 && target.y > -3.5)
 		{
 			position.y -= CAMERA_SPEED2 * dt;
@@ -196,6 +199,10 @@ void Camera3::Update(double dt)
 		{
 		position.y += CAMERA_SPEED2 * dt;
 		target.y += CAMERA_SPEED2 * dt;
+		}
+		else
+		{
+			IsCrouched = false;
 		}
 	}
 	//if(Application::IsKeyPressed('R'))
