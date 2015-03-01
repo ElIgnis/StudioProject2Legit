@@ -10,6 +10,7 @@ public:
 	//Vector3 position;
 	//Vector3 target;
 	//Vector3 up;
+	bool IsCrouched;
 	float worldScale;
 	float angle;
 	float RotationYAxis;
