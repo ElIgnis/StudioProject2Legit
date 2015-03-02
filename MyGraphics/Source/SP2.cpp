@@ -189,7 +189,7 @@ void SP2::Init()
 	srand(time(NULL));
 	VillainOne = new CVillainAI;
 	RollDice();
-	Guard.InitGuard(35.0f, -60.0f);
+	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

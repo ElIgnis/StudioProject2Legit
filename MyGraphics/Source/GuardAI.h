@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include <iostream>
+#include <math.h>
 using std::string;
 
 class CGuardAI
@@ -22,7 +23,7 @@ private:
 	float guard_next_direction;
 
 	//Guard Animation
-	float RotationSpeed;
+	float RotationSpeed, MovementSpeed;
 	bool Rotate_Leg_Left_Back;
 	bool Rotate_Leg_Right_Back;
 	bool Rotate_Hand_Left_Back;
@@ -51,11 +52,11 @@ public:
 	float Rotation_Left_Hand;
 	float Rotation_Right_Hand;
 	
-	void InitGuard(float x, float z);
-	void UpdateState(Vector3 player_position);
+	void InitGuard(float x, float z, float Movement_Speed, float Rotation_Speed);
+	void UpdateState(Vector3 player_position, double dt);
 	void UpdateGuard(Vector3 player_position, bool modeShopper, bool modeVillain, double dt);
-	void PatrolPath(void);  // Pathing for patrolling Supermarket
-	void ChasingPath(void); //Pathing for chasing shoplifters
+	void PatrolPath(double dt);  // Pathing for patrolling Supermarket
+	void ChasingPath(double dt); //Pathing for chasing shoplifters
 	void RotateLeft(float rotation);
 	void RotateRight(float rotation);
 	bool shoplifted, chase_path_completed;
