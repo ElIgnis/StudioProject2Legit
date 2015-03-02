@@ -6,7 +6,7 @@ CShopperAI2::CShopperAI2()
 {
 	//Villain starts outside of mall
 	Position.x = 37.f;
-	Position.y = 1.f;
+	Position.y = -3.f;
 	Position.z = 40.f;
 	Direction.x = 0.f;
 	Direction.y = 0.f;

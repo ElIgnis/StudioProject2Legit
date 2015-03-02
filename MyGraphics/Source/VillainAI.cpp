@@ -7,7 +7,7 @@ CVillainAI::CVillainAI(void)
 {
 	//Villain starts outside of mall
 	Position.x = 37.f;
-	Position.y = 1.f;
+	Position.y = 0.5f;
 	Position.z = 45.f;
 	Direction.x = 0.f;
 	Direction.y = 0.f;

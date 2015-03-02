@@ -26,8 +26,8 @@ public:
 	vector<float>MaxWidth;
 	vector<float>MinLength;
 	vector<float>MaxLength;
-	vector<Vector3>TrolleyMin;
-	vector<Vector3>TrolleyMax;
+	Vector3 TrolleyWidth;
+	Vector3 TrolleyLength;
 
 	Vector3 oldpos;
 	Vector3 oldtgt;
@@ -39,7 +39,7 @@ public:
 	~Camera3();
 
 	//Boundary checking
-	void TrolleyBounds(Vector3 &Minimum, Vector3 &Maximum);
+	void TrolleyBounds(Vector3 &TrolleyPosition, Vector3& TrolleyDirection);
 	void SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength, float NewMaxLength);
 	void BoundsCheck(void);
 	void Limiter(void);

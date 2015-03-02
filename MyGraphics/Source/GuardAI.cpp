@@ -12,10 +12,11 @@ CGuardAI::~CGuardAI(void)
 {
 }
 
-void CGuardAI::InitGuard(float x, float z)
+void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_Speed)
 {
 	//placeholder for shoplifter
 	shoplifted = false;
+	chase_path_completed = false;
 	shoplifter.Set(1000.0F,1000.0F,1000.0F);
 
 
@@ -51,7 +52,8 @@ void CGuardAI::InitGuard(float x, float z)
 	Rotate_Hand_Left_Back = false;
 	Rotate_Hand_Right_Back = false;
 
-	RotationSpeed = 100.f;
+	MovementSpeed = Movement_Speed;
+	RotationSpeed = Rotation_Speed;
 	Rotation_Left_Leg = 0.f;
 	Rotation_Right_Leg = 0.f;
 	Rotation_Left_Hand = 0.f;
@@ -60,7 +62,7 @@ void CGuardAI::InitGuard(float x, float z)
 
 
 
-void CGuardAI::UpdateState(Vector3 player_position)
+void CGuardAI::UpdateState(Vector3 player_position, double dt)
 {
 	//Guard moves or responds according to its state
 	switch (Guard_State)
@@ -70,11 +72,11 @@ void CGuardAI::UpdateState(Vector3 player_position)
 		break;
 	case PATROLLING:
 		//Guard patrols according to pathing
-		PatrolPath();
+		PatrolPath(dt);
 		break;
 	case CHASING:
 		//Guard chases after shoplifter
-		ChasingPath();
+		ChasingPath(dt);
 		break;
 	case CAUGHT:
 		//TODO : What happens when Guard has caught shoplifter/player
@@ -88,18 +90,11 @@ void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeV
 	distance_to_player = guard_position - player_position;
 	distance_to_shoplifter = guard_position - shoplifter;
 
-	//Shopper Scenario
-	//If the player or a shopper shoplifts, the guard will chase after them
-	//TODO: Shoplifter Detection
-	/*if (someone has shoplifted)
-	{
-	shoplifted = true;
-	}*/
-
 	//If they are within reach, the guard will catch them
 	if (distance_to_shoplifter.Length() < 5.0)
 	{
 		Guard_State = CAUGHT;
+		shoplifted = false;
 	}
 
 	//Villain Scenario
@@ -153,85 +148,85 @@ void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeV
 	*/
 
 	//Update Guard's State
-	UpdateState(player_position);
+	UpdateState(player_position, dt);
 
 	//Guard walking animation
 	//Left Arm
-		if (Rotate_Hand_Left_Back == false)
-		{
-			Rotation_Left_Hand += (float)(RotationSpeed * dt);
-		}
-		if (Rotate_Hand_Left_Back == true)
-		{
-			Rotation_Left_Hand -= (float)(RotationSpeed * dt);
-		}
-		if (Rotation_Left_Hand >= 30)
-		{
-			Rotate_Hand_Left_Back = true;
-		}
-		if (Rotation_Left_Hand <= -30)
-		{
-			Rotate_Hand_Left_Back = false;
-		}
-		//Right Arm
-		if (Rotate_Hand_Right_Back == false)
-		{
-			Rotation_Right_Hand += (float)(RotationSpeed * dt);
-		}
-		if (Rotate_Hand_Right_Back == true)
-		{
-			Rotation_Right_Hand -= (float)(RotationSpeed * dt);
-		}
-		if (Rotation_Right_Hand >= 30)
-		{
-			Rotate_Hand_Right_Back = true;
-		}
-		if (Rotation_Right_Hand <= -30)
-		{
-			Rotate_Hand_Right_Back = false;
-		}
-		//Left Leg
-		if (Rotate_Leg_Left_Back == false)
-		{
-			Rotation_Left_Leg += (float)(RotationSpeed * dt);
-		}
-		if (Rotate_Leg_Left_Back == true)
-		{
-			Rotation_Left_Leg -= (float)(RotationSpeed * dt);
-		}
-		if (Rotation_Left_Leg >= 30)
-		{
-			Rotate_Leg_Left_Back = true;
-		}
-		if (Rotation_Left_Leg <= -30)
-		{
-			Rotate_Leg_Left_Back = false;
-		}
-		//Right Leg
-		if (Rotate_Leg_Right_Back == false)
-		{
-			Rotation_Right_Leg += (float)(RotationSpeed * dt);
-		}
-		if (Rotate_Leg_Right_Back == true)
-		{
-			Rotation_Right_Leg -= (float)(RotationSpeed * dt);
-		}
-		if (Rotation_Right_Leg >= 30)
-		{
-			Rotate_Leg_Right_Back = true;
-		}
-		if (Rotation_Right_Leg <= -30)
-		{
-			Rotate_Leg_Right_Back = false;
-		}
+	if (Rotate_Hand_Left_Back == false)
+	{
+		Rotation_Left_Hand += (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotate_Hand_Left_Back == true)
+	{
+		Rotation_Left_Hand -= (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotation_Left_Hand >= 30)
+	{
+		Rotate_Hand_Left_Back = true;
+	}
+	if (Rotation_Left_Hand <= -30)
+	{
+		Rotate_Hand_Left_Back = false;
+	}
+	//Right Arm
+	if (Rotate_Hand_Right_Back == false)
+	{
+		Rotation_Right_Hand += (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotate_Hand_Right_Back == true)
+	{
+		Rotation_Right_Hand -= (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotation_Right_Hand >= 30)
+	{
+		Rotate_Hand_Right_Back = true;
+	}
+	if (Rotation_Right_Hand <= -30)
+	{
+		Rotate_Hand_Right_Back = false;
+	}
+	//Left Leg
+	if (Rotate_Leg_Left_Back == false)
+	{
+		Rotation_Left_Leg += (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotate_Leg_Left_Back == true)
+	{
+		Rotation_Left_Leg -= (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotation_Left_Leg >= 30)
+	{
+		Rotate_Leg_Left_Back = true;
+	}
+	if (Rotation_Left_Leg <= -30)
+	{
+		Rotate_Leg_Left_Back = false;
+	}
+	//Right Leg
+	if (Rotate_Leg_Right_Back == false)
+	{
+		Rotation_Right_Leg += (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotate_Leg_Right_Back == true)
+	{
+		Rotation_Right_Leg -= (float)(RotationSpeed * 5 * dt);
+	}
+	if (Rotation_Right_Leg >= 30)
+	{
+		Rotate_Leg_Right_Back = true;
+	}
+	if (Rotation_Right_Leg <= -30)
+	{
+		Rotate_Leg_Right_Back = false;
+	}
 }
 
-void CGuardAI::PatrolPath(void)
+void CGuardAI::PatrolPath(double dt)
 {
 	//If Guard is facing the correct direction, he will move towards closest point at a rate of 1 unit
 	if (rotation_complete == true)
 	{
-		guard_position += distance_to_point.Normalized();
+		guard_position += distance_to_point.Normalized() * dt * MovementSpeed;
 	}
 	//Else, he will turn to face the correct direction
 	else
@@ -239,9 +234,9 @@ void CGuardAI::PatrolPath(void)
 		//Update the difference of rotation
 		rotation_difference.y = guard_next_direction - guard_direction.y;
 		//Rotate guard if not fully rotated
-		if (guard_direction.y != guard_next_direction)
+		if (fabs(fabs(guard_direction.y) - fabs(guard_next_direction)) >= 2.0f)
 		{
-			guard_direction += rotation_difference.Normalized();
+			guard_direction += rotation_difference.Normalized() * dt * RotationSpeed;
 		}
 		//Else, rotation is complete
 		else
@@ -254,7 +249,7 @@ void CGuardAI::PatrolPath(void)
 	distance_to_point = PatrolPoint[current_patrol_point] - guard_position;
 
 	//Once the guard has reached the checkpoint, he will move to the next checkpoint
-	if (distance_to_point.Length() <= 3.0F)
+	if (distance_to_point.Length() <= 2.0F)
 	{
 		//However, if someone has shoplifted, he will begin to chase down the person
 		if (shoplifted == true)
@@ -305,30 +300,82 @@ void CGuardAI::PatrolPath(void)
 		{
 			patrol_direction = 1;
 		}
-		
+
 		//Next patrol points are assigned based on patrol direction
 		current_patrol_point += (1 * patrol_direction);
 		distance_to_point = guard_position - PatrolPoint[current_patrol_point];
 	}
 }
 
-void CGuardAI::ChasingPath(void)
+void CGuardAI::ChasingPath(double dt)
 {
-	//Guard will first move to Z-coordinates before the Cashier
-	if (guard_position.z != 12.0F)
+	if (rotation_complete == true)
 	{
-		Vector3 Z_Required(guard_position.x, guard_position.y, (guard_position.z - 12.0F));
-		guard_position -= Z_Required.Normalized();
+		Vector3 Z_Required, X_Required;
+		if (chase_path_completed == false)
+		{
+			Z_Required.Set(guard_position.x, guard_position.y, (12.0F - guard_position.z));
+			X_Required.Set((guard_position.x - shoplifter.x),guard_position.y,guard_position.z);
+		}
+		//Once in line, guard will chase down shoplifter
+		if (X_Required.x <= 2.0F && Z_Required.z <= 2.0F)
+		{	
+			Z_Required.z = X_Required.x = 0.0F;
+			chase_path_completed = true;
+			distance_to_shoplifter = guard_position - shoplifter;
+			guard_position -= distance_to_shoplifter.Normalized() * dt * MovementSpeed;
+
+			guard_next_direction = 0.0F;
+		}
+		//Guard will first move to Z-coordinates before the Cashier
+		if (Z_Required.z >= 2.0F)
+		{				
+			Z_Required.x = 0.0F;
+			guard_position += Z_Required.Normalized() * dt * MovementSpeed;
+
+			guard_next_direction = 0.0F;
+		}
+		//Guard will then move towards shoplifter's X-coordinates to be in line with the shoplifter
+		if (X_Required.x >= 2.0F && Z_Required.z <= 2.0F)
+		{	
+			X_Required.z = 0.0F;
+			
+			guard_position -= X_Required.Normalized() * dt * MovementSpeed;
+			if (guard_next_direction != 90.0F && guard_next_direction != -90.0F)
+			{
+				if (guard_position.x - shoplifter.x > 0.0F)
+				{
+					guard_next_direction = -90.0F;
+				}
+				else
+				{
+					guard_next_direction = 90.0F;
+				}
+			}
+		}
+
+		rotation_difference.y = guard_next_direction - guard_direction.y;
+		if (guard_direction.y != guard_next_direction)
+		{
+			rotation_complete = false;
+		}
 	}
-	//Guard will then move towards shoplifter's X-coordinates to be in line with the shoplifter
-	if (guard_position.x != shoplifter.x && guard_position.z == 12.0F)
+	else
 	{
-		Vector3 X_Required((guard_position.x - shoplifter.x),guard_position.y,guard_position.z);
-		guard_position -= X_Required.Normalized();
+		//Update the difference of rotation
+		rotation_difference.y = guard_next_direction - guard_direction.y;
+		//Rotate guard if not fully rotated
+		if (fabs(fabs(guard_direction.y) - fabs(guard_next_direction)) >= 2.0F)
+		{
+			guard_direction += rotation_difference.Normalized() * dt * RotationSpeed;
+		}
+		//Else, rotation is complete
+		else
+		{
+			rotation_complete = true;
+		}
 	}
-	//Once in line, guard will chase down shoplifter
-	distance_to_shoplifter = guard_position - shoplifter;
-	guard_position -= distance_to_shoplifter.Normalized();
+
 }
 
 void CGuardAI::RotateLeft(float rotation)
@@ -349,6 +396,11 @@ void CGuardAI::RotateRight(float rotation)
 		guard_next_direction = guard_direction.y - rotation;
 		rotation_complete = false;
 	}
+}
+
+void CGuardAI::setShoplifter(Vector3 shoplifter_position)
+{
+	shoplifter = shoplifter_position;
 }
 
 float CGuardAI::getX(void)

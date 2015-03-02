@@ -68,7 +68,7 @@ void SP2::Init()
 	missionComplete = false;
 	missionFailed = false;
 
-	elapsedTime = 0;
+	elapsedTime = 0.f;
 	countDown = 180;
 
 	startingAmount = 100;
@@ -157,20 +157,21 @@ void SP2::Init()
 	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
 	Fridge.SetShelfCollision(6.2, 54);
 
+	//Initialize Shelf collision
 	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
 	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
 	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
 	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
 	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
 
-	//Initialize Wall position
+	//Initialize Wall collision
 	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
 	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
 	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
 	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
-	camera.SetBounds(3.5f, 8.f, 16.f, 38.f); // | of L shape wall
+	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
 
-	//Initialize Exit Position(From Right to left, right is towards entrance)
+	//Initialize Exit collision(From Right to left, right is towards entrance)
 	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
 	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
 	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
@@ -180,6 +181,11 @@ void SP2::Init()
 	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
 	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
 	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
+
+	//Initialize Cashier collision
+	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
+	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
+	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
 
 	//Cashier details
 	armRotation = 0.f;
@@ -191,7 +197,8 @@ void SP2::Init()
 	RollDice();
 	
 	Shopper1 = new CShopperAI2;
-	Guard.InitGuard(-32.0f, 13.0f);
+
+	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -329,42 +336,6 @@ void SP2::Init()
 	m_parameters[U_LIGHT6_COSINNER] = glGetUniformLocation(m_programID,"lights[6].cosInner");
 	m_parameters[U_LIGHT6_EXPONENT] = glGetUniformLocation(m_programID,"lights[6].exponent");
 
-	m_parameters[U_LIGHT7_POSITION] = glGetUniformLocation(m_programID, "lights[7].position_cameraspace");
-	m_parameters[U_LIGHT7_TYPE] = glGetUniformLocation(m_programID, "lights[7].type");
-	m_parameters[U_LIGHT7_COLOR] = glGetUniformLocation(m_programID, "lights[7].color");
-	m_parameters[U_LIGHT7_POWER] = glGetUniformLocation(m_programID, "lights[7].power");
-	m_parameters[U_LIGHT7_KC] = glGetUniformLocation(m_programID, "lights[7].kC");
-	m_parameters[U_LIGHT7_KL] = glGetUniformLocation(m_programID, "lights[7].kL");
-	m_parameters[U_LIGHT7_KQ] = glGetUniformLocation(m_programID, "lights[7].kQ");
-	m_parameters[U_LIGHT7_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[7].spotDirection");
-	m_parameters[U_LIGHT7_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[7].cosCutoff");
-	m_parameters[U_LIGHT7_COSINNER] = glGetUniformLocation(m_programID,"lights[7].cosInner");
-	m_parameters[U_LIGHT7_EXPONENT] = glGetUniformLocation(m_programID,"lights[7].exponent");
-
-	m_parameters[U_LIGHT8_POSITION] = glGetUniformLocation(m_programID, "lights[8].position_cameraspace");
-	m_parameters[U_LIGHT8_TYPE] = glGetUniformLocation(m_programID, "lights[8].type");
-	m_parameters[U_LIGHT8_COLOR] = glGetUniformLocation(m_programID, "lights[8].color");
-	m_parameters[U_LIGHT8_POWER] = glGetUniformLocation(m_programID, "lights[8].power");
-	m_parameters[U_LIGHT8_KC] = glGetUniformLocation(m_programID, "lights[8].kC");
-	m_parameters[U_LIGHT8_KL] = glGetUniformLocation(m_programID, "lights[8].kL");
-	m_parameters[U_LIGHT8_KQ] = glGetUniformLocation(m_programID, "lights[8].kQ");
-	m_parameters[U_LIGHT8_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[8].spotDirection");
-	m_parameters[U_LIGHT8_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[8].cosCutoff");
-	m_parameters[U_LIGHT8_COSINNER] = glGetUniformLocation(m_programID,"lights[8].cosInner");
-	m_parameters[U_LIGHT8_EXPONENT] = glGetUniformLocation(m_programID,"lights[8].exponent");
-
-	m_parameters[U_LIGHT9_POSITION] = glGetUniformLocation(m_programID, "lights[9].position_cameraspace");
-	m_parameters[U_LIGHT9_TYPE] = glGetUniformLocation(m_programID, "lights[9].type");
-	m_parameters[U_LIGHT9_COLOR] = glGetUniformLocation(m_programID, "lights[9].color");
-	m_parameters[U_LIGHT9_POWER] = glGetUniformLocation(m_programID, "lights[9].power");
-	m_parameters[U_LIGHT9_KC] = glGetUniformLocation(m_programID, "lights[9].kC");
-	m_parameters[U_LIGHT9_KL] = glGetUniformLocation(m_programID, "lights[9].kL");
-	m_parameters[U_LIGHT9_KQ] = glGetUniformLocation(m_programID, "lights[9].kQ");
-	m_parameters[U_LIGHT9_SPOTDIRECTION] = glGetUniformLocation(m_programID,"lights[9].spotDirection");
-	m_parameters[U_LIGHT9_COSCUTOFF] = glGetUniformLocation(m_programID,"lights[9].cosCutoff");
-	m_parameters[U_LIGHT9_COSINNER] = glGetUniformLocation(m_programID,"lights[9].cosInner");
-	m_parameters[U_LIGHT9_EXPONENT] = glGetUniformLocation(m_programID,"lights[9].exponent");
-
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID,"numLights");
 	glUseProgram(m_programID);
 	// Get a handle for our "colorTexture" uniform
@@ -458,42 +429,6 @@ void SP2::Init()
 	lights[6].exponent = 3.f;
 	lights[6].spotDirection.Set(0.f, 1.f, 0.f);
 
-	lights[7].type = Light::LIGHT_POINT;
-	lights[7].position.Set(-20.f, 4.f, 30.f);
-	lights[7].color.Set(1, 1, 1);
-	lights[7].power = 0.5f;
-	lights[7].kC = 1.f;
-	lights[7].kL = 0.01f;
-	lights[7].kQ = 0.001f;
-	lights[7].cosCutoff = cos(Math::DegreeToRadian(45));
-	lights[7].cosInner = cos(Math::DegreeToRadian(30));
-	lights[7].exponent = 3.f;
-	lights[7].spotDirection.Set(0.f, 1.f, 0.f);
-
-	lights[8].type = Light::LIGHT_POINT;
-	lights[8].position.Set(0.f, 4.f, 30.f);
-	lights[8].color.Set(1, 1, 1);
-	lights[8].power = 1.f;
-	lights[8].kC = 1.f;
-	lights[8].kL = 0.01f;
-	lights[8].kQ = 0.001f;
-	lights[8].cosCutoff = cos(Math::DegreeToRadian(45));
-	lights[8].cosInner = cos(Math::DegreeToRadian(30));
-	lights[8].exponent = 3.f;
-	lights[8].spotDirection.Set(0.f, 1.f, 0.f);
-
-	lights[9].type = Light::LIGHT_POINT;
-	lights[9].position.Set(20.f, 4.f, 30.f);
-	lights[9].color.Set(1, 1, 1);
-	lights[9].power = 1.;
-	lights[9].kC = 1.f;
-	lights[9].kL = 0.01f;
-	lights[9].kQ = 0.001f;
-	lights[9].cosCutoff = cos(Math::DegreeToRadian(45));
-	lights[9].cosInner = cos(Math::DegreeToRadian(30));
-	lights[9].exponent = 3.f;
-	lights[9].spotDirection.Set(0.f, 1.f, 0.f);
-
 	// Make sure you pass uniform parameters after glUseProgram()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 	glUniform1i(m_parameters[U_LIGHT0_TYPE], lights[0].type);
@@ -571,39 +506,6 @@ void SP2::Init()
 	glUniform1f(m_parameters[U_LIGHT6_COSCUTOFF], lights[6].cosCutoff);
 	glUniform1f(m_parameters[U_LIGHT6_COSINNER], lights[6].cosInner);
 	glUniform1f(m_parameters[U_LIGHT6_EXPONENT], lights[6].exponent);
-
-	glUniform1i(m_parameters[U_NUMLIGHTS], 8);
-	glUniform1i(m_parameters[U_LIGHT7_TYPE], lights[7].type);
-	glUniform3fv(m_parameters[U_LIGHT7_COLOR], 1, &lights[7].color.r);
-	glUniform1f(m_parameters[U_LIGHT7_POWER], lights[7].power);
-	glUniform1f(m_parameters[U_LIGHT7_KC], lights[7].kC);
-	glUniform1f(m_parameters[U_LIGHT7_KL], lights[7].kL);
-	glUniform1f(m_parameters[U_LIGHT7_KQ], lights[7].kQ);
-	glUniform1f(m_parameters[U_LIGHT7_COSCUTOFF], lights[7].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT7_COSINNER], lights[7].cosInner);
-	glUniform1f(m_parameters[U_LIGHT7_EXPONENT], lights[7].exponent);
-
-	glUniform1i(m_parameters[U_NUMLIGHTS], 9);
-	glUniform1i(m_parameters[U_LIGHT8_TYPE], lights[8].type);
-	glUniform3fv(m_parameters[U_LIGHT8_COLOR], 1, &lights[8].color.r);
-	glUniform1f(m_parameters[U_LIGHT8_POWER], lights[8].power);
-	glUniform1f(m_parameters[U_LIGHT8_KC], lights[8].kC);
-	glUniform1f(m_parameters[U_LIGHT8_KL], lights[8].kL);
-	glUniform1f(m_parameters[U_LIGHT8_KQ], lights[8].kQ);
-	glUniform1f(m_parameters[U_LIGHT8_COSCUTOFF], lights[8].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT8_COSINNER], lights[8].cosInner);
-	glUniform1f(m_parameters[U_LIGHT8_EXPONENT], lights[8].exponent);
-
-	glUniform1i(m_parameters[U_NUMLIGHTS], 10);
-	glUniform1i(m_parameters[U_LIGHT9_TYPE], lights[9].type);
-	glUniform3fv(m_parameters[U_LIGHT9_COLOR], 1, &lights[9].color.r);
-	glUniform1f(m_parameters[U_LIGHT9_POWER], lights[9].power);
-	glUniform1f(m_parameters[U_LIGHT9_KC], lights[9].kC);
-	glUniform1f(m_parameters[U_LIGHT9_KL], lights[9].kL);
-	glUniform1f(m_parameters[U_LIGHT9_KQ], lights[9].kQ);
-	glUniform1f(m_parameters[U_LIGHT9_COSCUTOFF], lights[9].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT9_COSINNER], lights[9].cosInner);
-	glUniform1f(m_parameters[U_LIGHT9_EXPONENT], lights[9].exponent);
 
 	//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
@@ -942,9 +844,6 @@ void SP2::Init()
 	meshList[GEO_LIGHTBALL4] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL5] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL7] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL8] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL9] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
 
 	//Wallet
 	meshList[GEO_WALLET] = MeshBuilder::GenerateOBJ("Wallet", "OBJ//Wallet.obj");
@@ -960,6 +859,9 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
+
+	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 30);
+	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
 }
 
 static float ROT_LIMIT = 45.f;
@@ -1079,6 +981,7 @@ void SP2::UpdateGame(double dt)
 	if(Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	camera.Update(dt);
+
 	player.setPos(camera.position);
 
 	//FPS value
@@ -1137,15 +1040,15 @@ void SP2::UpdateGame(double dt)
 void SP2::CheckCollision(void)
 {
 	//Cold Shelf Right
-	if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
-		&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
-	{
-		camera.CAMERA_SPEED2 = 0;
-	}
-	else
-	{
-		camera.CAMERA_SPEED2 = 10.f;
-	}
+	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
+	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
+	//{
+	//	camera.CAMERA_SPEED2 = 0;
+	//}
+	//else
+	//{
+	//	camera.CAMERA_SPEED2 = 10.f;
+	//}
 }
 
 void SP2::Scenario_Shopper(double dt)
@@ -1154,7 +1057,18 @@ void SP2::Scenario_Shopper(double dt)
 	for(int i = 0; i < Trolley.Inventory.size(); i++)
 	{
 		//Setting of position of Items on conveyor Belt
-		Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+		if (camera.position.x > -5 && camera.position.x < -2)
+		{
+			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+		}
+		else if (camera.position.x > -20 && camera.position.x < -17)
+		{
+			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
+		}
+		else if (camera.position.x > -35 && camera.position.x < -32)
+		{
+			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+		}
 
 		//Render when item is on the conveyor belt
 		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
@@ -1220,7 +1134,7 @@ void SP2::Scenario_Shopper(double dt)
 				renderMoney = false;
 				playerArmPayingLeftAni = false;
 			}
-			else if (playerArmPayingLeft < -45)
+			else if (playerArmPayingLeft < -30)
 			{
 				renderMoney = true;
 				playerArmPayingLeftAniOut = true;
@@ -1240,6 +1154,7 @@ void SP2::Scenario_Shopper(double dt)
 	if (renderMoney == false)
 	{
 		renderWallet = false;
+		playerPayingAni = false;
 	}
 
 	float RotationSpeed = 100.f;
@@ -1250,11 +1165,6 @@ void SP2::Scenario_Shopper(double dt)
 	}
 	if(Delay > DelayInterval)
 	{
-		if(Application::IsKeyPressed('Q'))
-		{
-			gameStart = false;
-			endScreen = true;
-		}
 		//Adding items
 		if(Application::IsKeyPressed('E'))
 		{
@@ -1332,9 +1242,9 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 
-		//Destroying items
-		if(Application::IsKeyPressed('U'))
+		if(playerPayingAni == true)
 		{
+			Trolley.EquippedTrolley = false;
 			for(int i = 0; i < ItemLine; i++)
 			{
 				//Taking of items
@@ -1356,35 +1266,47 @@ void SP2::Scenario_Shopper(double dt)
 				}
 			}
 		}
+		/*if(renderMoney == false)
+		{
+			Trolley.EquippedTrolley = true;
+		}*/
 
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
-			//Player paying animation
-			playerPayingAni = true;
-
-			playerArmPayingRightAni = true;
-			playerArmPayingRightAniDown = true;
-
-			playerArmPayingLeftAni = true;
-			playerArmPayingLeftAniIn = true;
-
-			//NPCInteraction = true;
-			if (camera.position.x > cTablePos.x - 5
+			if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
 				&& camera.position.z > cTablePos.z - 10
 				&& camera.position.z < cTablePos.z - 5)
+				|| (camera.position.x > cTablePos.x - 20
+				&& camera.position.x < cTablePos.x - 17
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z -5)
+				|| (camera.position.x > cTablePos.x - 35
+				&& camera.position.x < cTablePos.x - 32
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z - 5 ))
 			{
+				customerCheckOut = true;
+				NPCInteraction = true;
+				//Paying animation
+				playerPayingAni = true;
+				playerArmPayingRightAni = true;
+				playerArmPayingRightAniDown = true;
+
+				playerArmPayingLeftAni = true;
+				playerArmPayingLeftAniIn = true;
+
 				movingOnBelt = 0.f;
 				beltMovement = true;
 				renderItemOnTrolley = false;
 				armRotation = -90.f;
 
 				//Checkout
-				for (int i = 0; i < PlayerInvent.Inventory.size();)
+				for (int i = 0; i < Trolley.Inventory.size(); i++)
 				{
-					amountSpent += PlayerInvent.Inventory.at(i)->GetPrice();
-					PlayerInvent.Minus_InventToShelf(PlayerInvent.Inventory.at(i), PlayerInvent.Inventory.at(i)->ItemIndex);
+					amountSpent += Trolley.Inventory.at(i)->GetPrice();
+					Trolley.Inventory.at(i)->CHECKED_OUT;
 				}
 
 				int i = 0;
@@ -1396,6 +1318,7 @@ void SP2::Scenario_Shopper(double dt)
 		}
 		Delay = 0;
 	}
+
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
 	{
@@ -1499,7 +1422,7 @@ void SP2::Scenario_Shopper(double dt)
 		{
 			input = 7;
 		}
-
+		
 		if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
 		{
 			if(PlayerInvent.Add_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
@@ -1508,47 +1431,105 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 	}
-	//Catch Villain
-	/*if(Application::IsKeyPressed('X'))
+	//if(!Trolley.EquippedTrolley)
+	//{
+	//	camera.TrolleyBounds(Trolley.TrolleyPosition);
+	//}
+	//If the player shoplifts, the guard will chase after the player
+	for (size_t i = 0; i < PlayerInvent.InventoryIndexing.size(); ++i)
 	{
-		float DistanceToPlayer = sqrt((Villain.GetPosition().x - camera.position.x) * (Villain.GetPosition().x - camera.position.x) + (Villain.GetPosition().z - camera.position.z) * (Villain.GetPosition().z - camera.position.z));
+		if (player.getPos().z >= 40.0f && Container.Shelf.at(PlayerInvent.InventoryIndexing[i])->ItemState != CItem::CHECKED_OUT)
+		{
+			Guard.shoplifted = true;
+			Guard.setShoplifter(player.getPos());
+		}
+	}
+
+	//If the guard catches the player for shoplifting, the game ends
+	if (Guard.returnState() == "CAUGHT")
+	{
+		gameStart = false;
+		endScreen = true;
+	}
+
+	if (customerCheckOut == true && player.getPos().z > 40.f)
+	{
+		gameStart = false;
+		endScreen = true;
+	}
+}
+
+void SP2::Scenario_Guard(double dt)
+{
+
+	//Catch Villain
+	if(Application::IsKeyPressed('X'))
+	{
+		float DistanceToPlayer = sqrt((VillainOne->GetPosition().x - camera.position.x) * (VillainOne->GetPosition().x - camera.position.x) + (VillainOne->GetPosition().z - camera.position.z) * (VillainOne->GetPosition().z - camera.position.z));
 
 		if(DistanceToPlayer < 0.f)
 		{
 			DistanceToPlayer *= -1;
 		}
 
-		if(DistanceToPlayer < 3.f && Villain.RecentlyDestroyed == true)
+		if(DistanceToPlayer < 3.f && VillainOne->RecentlyDestroyed == true)
 		{
-			Villain.SetState(CVillainAI::CAUGHT);
+			VillainOne->SetState(CVillainAI::CAUGHT);
 			gameStart = false;
 			endScreen = true;
+			missionComplete = true;
 		}
-	}*/
-}
-
-void SP2::Scenario_Guard(double dt)
-{
-	//if (score > 0 && playerposition == villain position && keypress)
-	{
-		//missionComplete = true;
-	}
-	//else if (score <= 0)
-	{
-		//missionFailed = true;
 	}
 }
 
 void SP2::Scenario_Villain(double dt)
 {
-	//if (playerposition == item position && keypress)
+	//Destroying items
+	if(Application::IsKeyPressed('E'))
 	{
-		//objectsDestroyed++;
-	}
+		for(int i = 0; i < ItemLine; i++)
+		{
+			//Taking of items
+			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			{
+				//Distance is updated
+				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
-	//if(objectsDestroyed == target && isCaught == false)
+				//Only able to destroy default items
+				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
+				{
+					Container.Shelf.at(i)->ItemState = CItem::DESTROYED;
+					objectsDestroyed++;
+					break;
+				}
+			}
+		}
+	}
+	std::stringstream objDesSS;
+	objDesSS << objectsDestroyed;
+	desObj = objDesSS.str();
+
+	//If the Guard has caught the player (Villain), the game ends
+	if(Guard.returnState() == "CAUGHT")
 	{
-		//missionComplete = true;
+		gameStart = false;
+		endScreen = true;
+		missionComplete = false;
+		
+	}
+	//Mission complete
+	if (objectsDestroyed >= 15)
+	{
+		if (player.getPos().z > 40)
+		{
+			gameStart = false;
+			endScreen = true;
+			missionComplete = true;
+		}
 	}
 }
 
@@ -1787,7 +1768,7 @@ void SP2::ShowEndScreen(double dt)
 	{
 		if (missionComplete == true)
 		{
-			player.setVillainScoreSucceed(dt);
+			player.setVillainScoreSucceed(elapsedTime);
 			//Set high score
 			player.setVillainHighScore(player.getVillainScore());
 		}
@@ -1880,6 +1861,15 @@ void SP2::Render()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (modeCustomer == true)
 		{
+			if (Guard.returnState() == "CAUGHT")
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0, -30, 0);
+			//modelStack.Rotate(-22.5, 1, 0, 0);
+			RenderMesh(meshList[GEO_POLICE], true);
+			modelStack.PopMatrix();
+			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
+		}
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (1, 0, 1), 5.f, 8.f, 7.f);
 		}
@@ -1890,6 +1880,10 @@ void SP2::Render()
 		}
 		else if (modeVillain == true)
 		{
+			if (Guard.returnState() == "CAUGHT")
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 1.5f, 11.f);
+			}
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 5.f, 8.f, 7.f);
 		}
@@ -1961,11 +1955,11 @@ void SP2::RenderGame(void)
 	}
 	else if (modeVillain == true)
 	{
-		RenderScenarioGuard();
+		RenderScenarioVillain();
 	}
 	else if (modeGuard == true)
 	{
-		RenderScenarioVillain();
+		RenderScenarioGuard();
 	}
 }
 
@@ -2133,69 +2127,6 @@ void SP2::RenderLights(void)
 		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightPosition_cameraspace.x);
 	}
 
-	//Light 7
-	if(lights[7].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(lights[7].position.x, lights[7].position.y, lights[7].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT7_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if(lights[7].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[7].position;
-		glUniform3fv(m_parameters[U_LIGHT7_POSITION], 1, &lightPosition_cameraspace.x);
-
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[7].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT7_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[7].position;
-		glUniform3fv(m_parameters[U_LIGHT7_POSITION], 1, &lightPosition_cameraspace.x);
-	}
-
-	//Light 8
-	if(lights[8].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(lights[8].position.x, lights[8].position.y, lights[8].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT8_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if(lights[8].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[8].position;
-		glUniform3fv(m_parameters[U_LIGHT8_POSITION], 1, &lightPosition_cameraspace.x);
-
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[8].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT8_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[8].position;
-		glUniform3fv(m_parameters[U_LIGHT8_POSITION], 1, &lightPosition_cameraspace.x);
-	}
-
-	//Light 9
-	if(lights[9].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(lights[9].position.x, lights[9].position.y, lights[9].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT9_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if(lights[9].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[9].position;
-		glUniform3fv(m_parameters[U_LIGHT9_POSITION], 1, &lightPosition_cameraspace.x);
-
-		Vector3 spotDirection_cameraspace = viewStack.Top() * lights[9].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT9_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * lights[9].position;
-		glUniform3fv(m_parameters[U_LIGHT9_POSITION], 1, &lightPosition_cameraspace.x);
-	}
-
 	modelStack.PushMatrix();
 	modelStack.Translate(lights[1].position.x, lights[1].position.y, lights[1].position.z);
 	RenderMesh(meshList[GEO_LIGHTBALL1], false);
@@ -2226,21 +2157,6 @@ void SP2::RenderLights(void)
 	RenderMesh(meshList[GEO_LIGHTBALL6], false);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[7].position.x, lights[7].position.y, lights[7].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL7], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[8].position.x, lights[8].position.y, lights[8].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL8], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[9].position.x, lights[9].position.y, lights[9].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL9], false);
-	modelStack.PopMatrix();
-
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 }
@@ -2254,13 +2170,13 @@ void SP2::RenderScenarioShopper(void)
 		modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
 
 		modelStack.PushMatrix();
-		modelStack.Translate(-1, 1, 0.25);
+		modelStack.Translate(-1, -2, 0.25);
 		modelStack.Rotate(90, 1, 0, 0);
 		RenderMesh(meshList[GEO_HUMAN_ARM], true);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(1, 1, 0.25);
+		modelStack.Translate(1, -2, 0.25);
 		modelStack.Rotate(90, 1, 0, 0);
 		RenderMesh(meshList[GEO_HUMAN_ARM], true);
 		modelStack.PopMatrix();
@@ -2274,7 +2190,7 @@ void SP2::RenderScenarioShopper(void)
 		modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
 
 		modelStack.PushMatrix();
-		modelStack.Translate(-1.5, 2, -1);
+		modelStack.Translate(-1.5, -1.5, -1);
 		modelStack.Rotate(90, 1, 0, 0);
 		modelStack.Translate(-1, 0, 0);
 		modelStack.Rotate(-playerArmSwipe, 0, 0, 1);
@@ -2282,7 +2198,7 @@ void SP2::RenderScenarioShopper(void)
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(1.5, 2, -1);
+		modelStack.Translate(1.5, -1.5, -1);
 		modelStack.Rotate(90, 1, 0, 0);
 		RenderMesh(meshList[GEO_HUMAN_ARM], true);
 		modelStack.PopMatrix();
@@ -2296,7 +2212,7 @@ void SP2::RenderScenarioShopper(void)
 		modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
 
 		modelStack.PushMatrix();
-		modelStack.Translate(-1.5, 2, -1);
+		modelStack.Translate(-1.5, -1.5, -1);
 		modelStack.Rotate(90, 1, 0, 0);
 		modelStack.Rotate(-playerArmPayingLeft, 0, 0, 1);
 		RenderMesh(meshList[GEO_HUMAN_ARM], true);
@@ -2306,15 +2222,15 @@ void SP2::RenderScenarioShopper(void)
 			modelStack.Translate(0.5, -3, 0);
 			modelStack.Rotate(90, 0, 1, 0);
 			modelStack.Rotate(-90, 0, 0, 1);
-			modelStack.Rotate(45, 0, 1, 0);
-			modelStack.Rotate(-30, 0, 0, 1);
+			modelStack.Rotate(60, 0, 1, 0);
+			//modelStack.Rotate(-20, 0, 0, 1);
 			RenderMesh(meshList[GEO_MONEY], true);
 			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
-		modelStack.Translate(1.5, 2, -1);
+		modelStack.Translate(1.5, -1.5, -1);
 		modelStack.Rotate(90, 1, 0, 0);
 		modelStack.Rotate(playerArmPayingRight, 1, 0, 0);
 		RenderMesh(meshList[GEO_HUMAN_ARM], true);
@@ -2374,15 +2290,23 @@ void SP2::RenderScenarioShopper(void)
 	}
 
 	//Rendering Text
-	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping Cart:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0, 1, 0), 3.f, 2.8f, 3.f);
 
 	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
 
-	if (camera.position.x > cTablePos.x - 5
+	if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
 				&& camera.position.z > cTablePos.z - 10
 				&& camera.position.z < cTablePos.z - 5)
+				|| (camera.position.x > cTablePos.x - 20
+				&& camera.position.x < cTablePos.x - 17
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z -5)
+				|| (camera.position.x > cTablePos.x - 35
+				&& camera.position.x < cTablePos.x - 32
+				&& camera.position.z > cTablePos.z - 10
+				&& camera.position.z < cTablePos.z - 5 ))
 	{
 		if(Trolley.EquippedTrolley == true)
 		{
@@ -2404,22 +2328,37 @@ void SP2::RenderScenarioShopper(void)
 	if (NPCInteraction == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(0, 5, 0);
+		modelStack.Translate(cTablePos.x, 5, cTablePos.z);
+		modelStack.Rotate(-90, 0, 1, 0);
 		RenderText(meshList[GEO_TEXT], "HI !", Color(0, 1, 0));
 		modelStack.PopMatrix();
+	}
+}
+
+void SP2::RenderScenarioVillain(void)
+{
+	RenderPlayerArm();
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	if (objectsDestroyed < 15)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 0, 0), 2.5f, 0.5f, 14.f);
+	}
+	if (objectsDestroyed >= 15)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(0, 1, 0), 2.5f, 0.5f, 14.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Escape from the supermarket", Color(1, 0, 0), 2.5f, 0.5f, 13.f);
 	}
 }
 
 void SP2::RenderScenarioGuard(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-}
-
-void SP2::RenderScenarioVillain(void)
-{
-	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Villain 0/1", Color(1, 0, 0), 2.5f, 0.5f, 13.5f);
+	if (VillainOne->GetState() == CVillainAI::CAUGHT)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Villain 1/1", Color(0, 1, 0), 2.5f, 0.5f, 14.f);
+	}
 }
 
 void SP2::RenderVillainAI(CVillainAI *Villain)
@@ -2475,7 +2414,7 @@ void SP2::RenderVillainAI(CVillainAI *Villain)
 void SP2::RenderGuardAI(void)
 {
 	modelStack.PushMatrix();
-	modelStack.Translate(Guard.getX(), 1.0f, Guard.getZ());
+	modelStack.Translate(Guard.getX(), -3.0f, Guard.getZ());
 	modelStack.Rotate(Guard.getY2(), 0.f, 1.f, 0.f);
 	modelStack.PushMatrix();
 	RenderMesh(meshList[GEO_GUARD_BODY], false);
@@ -2586,7 +2525,7 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 		{
 
 			modelStack.PushMatrix();
-			modelStack.Translate(0, -1, -6);
+			modelStack.Translate(0, -0.6, -3);
 			modelStack.Rotate(270, 0, 1, 0);
 			RenderMesh(meshList[GEO_TROLLEY], false);
 			modelStack.PopMatrix();
@@ -2604,7 +2543,7 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 		}
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(0, -1, 4);
+			modelStack.Translate(0, -0.6, 4);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_TROLLEY], false);
 			modelStack.PopMatrix();
@@ -2627,7 +2566,7 @@ void SP2::RenderShopperAI()
 	{
 
 		modelStack.PushMatrix();
-		modelStack.Translate(ShopperAI.getPositionX(), -0.6, ShopperAI.getPositionZ());
+		modelStack.Translate(ShopperAI.getPositionX(), -4, ShopperAI.getPositionZ());
 		modelStack.Rotate(180, 0, 1, 0);
 		modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
 		{
@@ -2641,12 +2580,12 @@ void SP2::RenderShopperAI()
 			modelStack.PopMatrix();
 			modelStack.PushMatrix();
 			modelStack.Translate(1.04, 3.3, 0);
-			modelStack.Rotate(75, -1, 0, 0);
+			modelStack.Rotate(70, -1, 0, 0);
 			RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 			modelStack.PopMatrix();
 			modelStack.PushMatrix();
 			modelStack.Translate(-0.97, 3.3, 0);
-			modelStack.Rotate(75, -1, 0, 0);
+			modelStack.Rotate(70, -1, 0, 0);
 			RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 			modelStack.PopMatrix();
 			modelStack.PushMatrix();
@@ -2710,7 +2649,7 @@ void SP2::RenderShopperAI()
 			if (ShopperAI.RenderTrolley == true)
 			{
 				modelStack.PushMatrix();
-				modelStack.Translate(0, 1, 4);
+				modelStack.Translate(0, 0.7, 4);
 				modelStack.Rotate(90, 0, 1, 0);		
 				RenderMesh(meshList[GEO_TROLLEY], false);
 				modelStack.PopMatrix();
@@ -2722,7 +2661,7 @@ void SP2::RenderShopperAI()
 	if (ShopperAI.RENDERINGAI == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(ShopperAI.getPositionX(), -0.6, ShopperAI.getPositionZ());
+		modelStack.Translate(ShopperAI.getPositionX(), -4.1, ShopperAI.getPositionZ());
 		modelStack.Rotate(180, 0, 1, 0);
 		modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
 		{
@@ -3141,14 +3080,13 @@ void SP2::RenderObject()
 	for (int i = 0; i > -32; i -= 15)
 	{
 		modelStack.PushMatrix();
-		//modelStack.Translate(i, 0, 0);
+		modelStack.Translate(i, 0, 0);
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
 			modelStack.Translate(cTablePos.x, cTablePos.y, cTablePos.z);
 			RenderMesh(meshList[GEO_CONVEYORTABLE], false);
 			modelStack.PopMatrix();
-
 
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
@@ -3161,7 +3099,7 @@ void SP2::RenderObject()
 			RenderCashier();
 			modelStack.PopMatrix();
 		}
-		//modelStack.PopMatrix();
+		modelStack.PopMatrix();
 	}
 
 	//Trolley
@@ -3428,7 +3366,7 @@ void SP2::RenderCashier(void)
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
-	modelStack.Translate(-1, 2.3, 0);
+	modelStack.Translate(-0.9, 2.3, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
 	modelStack.PushMatrix();
@@ -3449,13 +3387,13 @@ void SP2::RenderPlayerArm(void)
 	modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
 
 	modelStack.PushMatrix();
-	modelStack.Translate(-1.5, 2, -1);
+	modelStack.Translate(-1.5, -1.5, -1);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], true);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
-	modelStack.Translate(1.5, 2, -1);
+	modelStack.Translate(1.5, -1.5, -1);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], true);
 	modelStack.PopMatrix();
