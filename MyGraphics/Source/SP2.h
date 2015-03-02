@@ -128,6 +128,42 @@ private:
 		U_LIGHT6_COSINNER,
 		U_LIGHT6_EXPONENT,
 
+		U_LIGHT7_POSITION, //Light 8
+		U_LIGHT7_TYPE,
+		U_LIGHT7_COLOR,
+		U_LIGHT7_POWER,
+		U_LIGHT7_KC,
+		U_LIGHT7_KL,
+		U_LIGHT7_KQ,
+		U_LIGHT7_SPOTDIRECTION,
+		U_LIGHT7_COSCUTOFF,
+		U_LIGHT7_COSINNER,
+		U_LIGHT7_EXPONENT,
+
+		U_LIGHT8_POSITION, //Light 9
+		U_LIGHT8_TYPE,
+		U_LIGHT8_COLOR,
+		U_LIGHT8_POWER,
+		U_LIGHT8_KC,
+		U_LIGHT8_KL,
+		U_LIGHT8_KQ,
+		U_LIGHT8_SPOTDIRECTION,
+		U_LIGHT8_COSCUTOFF,
+		U_LIGHT8_COSINNER,
+		U_LIGHT8_EXPONENT,
+
+		U_LIGHT9_POSITION, //Light 10
+		U_LIGHT9_TYPE,
+		U_LIGHT9_COLOR,
+		U_LIGHT9_POWER,
+		U_LIGHT9_KC,
+		U_LIGHT9_KL,
+		U_LIGHT9_KQ,
+		U_LIGHT9_SPOTDIRECTION,
+		U_LIGHT9_COSCUTOFF,
+		U_LIGHT9_COSINNER,
+		U_LIGHT9_EXPONENT,
+
 		U_NUMLIGHTS,
 		U_COLOR_TEXTURE_ENABLED,
 		U_COLOR_TEXTURE,
@@ -187,12 +223,20 @@ private:
 		GEO_HUMAN_ARM,
 		GEO_HUMAN_LEG,
 
+		GEO_GUARD_HEAD,
+		GEO_GUARD_BODY,
+		GEO_GUARD_ARM,
+		GEO_GUARD_LEG,
+
 		GEO_LIGHTBALL1,
 		GEO_LIGHTBALL2,
 		GEO_LIGHTBALL3,
 		GEO_LIGHTBALL4,
 		GEO_LIGHTBALL5,
 		GEO_LIGHTBALL6,
+		GEO_LIGHTBALL7,
+		GEO_LIGHTBALL8,
+		GEO_LIGHTBALL9,
 		GEO_HUMAN_MODEL,
 
 		GEO_WALLET,
@@ -218,7 +262,7 @@ private:
 
 	MS modelStack, viewStack, projectionStack;
 
-	Light lights[7];
+	Light lights[10];
 
 	double fps;
 	float WorldOffset;
@@ -324,6 +368,7 @@ private:
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
+	void RenderGuardAI(void);
 	void RenderShopperAI2(CShopperAI *Shopper1);
 	void RenderShopperAI(void);
 	void RenderLights(void);
@@ -358,7 +403,7 @@ private:
 	float remaindingAmount;
 	float amountOvershot;
 	//Villain
-	int objectsDestroyed;
+	unsigned long long objectsDestroyed;
 	bool isCaught;
 	//Guard
 	bool villainCaught;

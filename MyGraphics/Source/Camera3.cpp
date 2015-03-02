@@ -7,6 +7,8 @@ Camera3::Camera3()
 	worldScale = 4004.f;
 	angle = 0;
 	RotationYAxis = -90.f;
+	CAMERA_SPEED = 100.f;
+	CAMERA_SPEED2 = 10.f;
 }
 
 Camera3::~Camera3()
@@ -28,64 +30,66 @@ void Camera3::Update(double dt)
 {
 	CAMERA_SPEED = 100.f;
 	CAMERA_SPEED2 = 10.f;
-
-	if(Application::IsKeyPressed(VK_LEFT))
+	if(CanRotate)
 	{
-		Vector3 view = (target - position).Normalized();
-		float yaw = (float)(CAMERA_SPEED * dt);
-		Mtx44 rotation;
-		rotation.SetToRotation(yaw, 0, 1, 0);
-		view = rotation * view;
-		up = rotation * up;
-		target = view + position;
-		
-		RotationYAxis += (float)(CAMERA_SPEED * dt);
-		//Reset angle for calculation
-		if(RotationYAxis >= 180.f)
+		if(Application::IsKeyPressed(VK_LEFT))
 		{
-			RotationYAxis = -180.f;
+			Vector3 view = (target - position).Normalized();
+			float yaw = (float)(CAMERA_SPEED * dt);
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			view = rotation * view;
+			up = rotation * up;
+			target = view + position;
+
+			RotationYAxis += (float)(CAMERA_SPEED * dt);
+			//Reset angle for calculation
+			if(RotationYAxis >= 180.f)
+			{
+				RotationYAxis = -180.f;
+			}
+			playerArmRotation += (float)(CAMERA_SPEED * dt);
+			//Vector3 view = (target - position).Normalized();
+			//Vector3 right = view.Cross(up);
+			//right.Normalize();
+			//right.y = 0;
+			//up = right.Cross(view).Normalized();
+
+			//float yaw = (float)(CAMERA_SPEED * dt);
+			//Mtx44 rotation;
+			//rotation.SetToRotation(yaw, up.x, up.y, up.z);
+			//view = rotation * view;
+			//target = view + position;
 		}
-		playerArmRotation += (float)(CAMERA_SPEED * dt);
-		//Vector3 view = (target - position).Normalized();
-		//Vector3 right = view.Cross(up);
-		//right.Normalize();
-		//right.y = 0;
-		//up = right.Cross(view).Normalized();
-
-		//float yaw = (float)(CAMERA_SPEED * dt);
-		//Mtx44 rotation;
-		//rotation.SetToRotation(yaw, up.x, up.y, up.z);
-		//view = rotation * view;
-		//target = view + position;
-	}
-	if(Application::IsKeyPressed(VK_RIGHT))
-	{
-		Vector3 view = (target - position).Normalized();
-		float yaw = (float)(-CAMERA_SPEED * dt);
-		Mtx44 rotation;
-		rotation.SetToRotation(yaw, 0, 1, 0);
-		view = rotation * view;
-		up = rotation * up;
-		target = view + position;
-
-		RotationYAxis -= (float)(CAMERA_SPEED * dt);
-		//Reset angle for calculation
-		if(RotationYAxis <= -180.f)
+		if(Application::IsKeyPressed(VK_RIGHT))
 		{
-			RotationYAxis = 180.f;
-		}
-		playerArmRotation -= (float)(CAMERA_SPEED * dt);
+			Vector3 view = (target - position).Normalized();
+			float yaw = (float)(-CAMERA_SPEED * dt);
+			Mtx44 rotation;
+			rotation.SetToRotation(yaw, 0, 1, 0);
+			view = rotation * view;
+			up = rotation * up;
+			target = view + position;
 
-		//Vector3 view = (target - position).Normalized();
-		//Vector3 right = view.Cross(up);
-		//right.Normalize();
-		//right.y = 0;
-		//up = right.Cross(view).Normalized();
-		//float yaw = (float)(-CAMERA_SPEED * dt);
-		//Mtx44 rotation;
-		//rotation.SetToRotation(yaw, up.x, up.y, up.z);
-		//view = rotation * view;
-		//target = view + position;
+			RotationYAxis -= (float)(CAMERA_SPEED * dt);
+			//Reset angle for calculation
+			if(RotationYAxis <= -180.f)
+			{
+				RotationYAxis = 180.f;
+			}
+			playerArmRotation -= (float)(CAMERA_SPEED * dt);
+
+			//Vector3 view = (target - position).Normalized();
+			//Vector3 right = view.Cross(up);
+			//right.Normalize();
+			//right.y = 0;
+			//up = right.Cross(view).Normalized();
+			//float yaw = (float)(-CAMERA_SPEED * dt);
+			//Mtx44 rotation;
+			//rotation.SetToRotation(yaw, up.x, up.y, up.z);
+			//view = rotation * view;
+			//target = view + position;
+		}
 	}
 	if(Application::IsKeyPressed(VK_UP))
 	{
@@ -218,9 +222,43 @@ void Camera3::Reset()
 	up = defaultUp;
 }
 
-void Camera3::BoundsCheck(void)
+void Camera3::SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength, float NewMaxLength)
+{
+	MinWidth.push_back(NewMinWidth);
+	MaxWidth.push_back(NewMaxWidth);
+	MinLength.push_back(NewMinLength);
+	MaxLength.push_back(NewMaxLength);
+
+}
+
+void Camera3::TrolleyBounds(Vector3 &Minimum, Vector3 &Maximum)
+{
+	TrolleyMin.push_back(Minimum);
+	TrolleyMax.push_back(Maximum);
+}
+
+void Camera3::BoundsCheck()
 {
 	//Fill in position here and check
+	for(int i = 0; i < MinWidth.size(); i++)
+	{
+		if(position.x > MinWidth.at(i) && position.x < MaxWidth.at(i)
+			&& position.z > MinLength.at(i) && position.z < MaxLength.at(i))
+		{
+			Limiter();
+		}
+		//if(position.x 
+	}
+	/*if(position.x > TrolleyMin.at(0).x - 8 && position.x < TrolleyMax.at(0).x
+		&& position.z > TrolleyMax.at(0).z - 8 && position.z < TrolleyMax.at(0).z)
+	{
+		Limiter();
+	}*/
+
+	//std::cout << "Min Width: " << MinWidth << std::endl;
+	//std::cout << "Max Width: " << MaxWidth << std::endl;
+	//std::cout << "Min Length: " << MinLength << std::endl;
+	//std::cout << "Max Length: " << MaxLength << std::endl << std::endl;
 }
 
 //Collision
