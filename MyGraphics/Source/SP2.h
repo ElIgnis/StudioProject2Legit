@@ -327,6 +327,7 @@ private:
 	CInventory PlayerInvent;
 	CInventory Trolley;
 	float Delay;
+	CInventory AITrolley;
 
 	//Item taking
 	float Distance;

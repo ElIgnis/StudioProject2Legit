@@ -1078,7 +1078,6 @@ void SP2::UpdateGame(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
 	if(Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-
 	camera.Update(dt);
 	player.setPos(camera.position);
 
@@ -1129,9 +1128,10 @@ void SP2::UpdateGame(double dt)
 	//Update AI
 	UpdateVillainAI(dt, VillainOne);
 
-	
+	updateShopperAI(dt);
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
+
 }
 
 void SP2::CheckCollision(void)
@@ -1631,6 +1631,7 @@ void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 {
 	if (Shopper1->TakingItem(Container.Shelf.at(RandomNumber), dt) == true)
 	{
+		AITrolley.Add_ShelfToTrolley(Container.Shelf.at(RandomNumber), RandomNumber);
 		RollDice();
 	}
 	//Shopper Taking with rotation
@@ -1937,8 +1938,9 @@ void SP2::RenderGame(void)
 	RenderGuardAI();
 
 	//Render Shopper AI Models
-	RenderShopperAI();
+	
 	RenderShopperAI2(Shopper1);
+	RenderShopperAI();
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
@@ -2511,8 +2513,6 @@ void SP2::RenderGuardAI(void)
 	
 	modelStack.PopMatrix();
 }
-
-//Using Wl'sMethOd
 void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 {
 	modelStack.PushMatrix();
@@ -2531,13 +2531,21 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	modelStack.Rotate(Shopper1->Rotation_Left_Hand, 1, 0, 0);
+	modelStack.Rotate(-55, 1, 0, 0); //Shopper1->Rotation_Left_Hand
+	if (Shopper1->Anime_Take == true)
+	{
+		modelStack.Rotate(Shopper1->Rotation_Left_Hand, 1, 0, 0);
+	}
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(-1, 2.3, 0);
-	modelStack.Rotate(Shopper1->Rotation_Right_Hand, -1, 0, 0);
+	modelStack.Rotate(55, -1, 0, 0);//Shopper1->Rotation_Right_Hand
+	if (Shopper1->Anime_Take == true)
+	{
+		modelStack.Rotate(Shopper1->Rotation_Right_Hand, -1, 0, 0);//Shopper1->Rotation_Right_Hand
+	}
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
 
@@ -2557,10 +2565,20 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 
 	modelStack.PopMatrix();
 
+	AITrolley.SetPosition(Shopper1->GetPosition());
+	std::cout << AITrolley.TrolleyPosition.x << endl;
+	int i = 0;
+
+	for (vector<CItem*>::iterator iter = AITrolley.Inventory.begin(); iter != AITrolley.Inventory.end(); ++iter, ++i)
+	{
+		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+	}
+
 	if (Shopper1->backwardtrolley == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		//modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		modelStack.Translate(AITrolley.TrolleyPosition.x, AITrolley.TrolleyPosition.y, AITrolley.TrolleyPosition.z);
 		if (Shopper1->DoNotTurn == false)
 		{
 			modelStack.Rotate(Shopper1->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
@@ -2578,7 +2596,8 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 	if (Shopper1->fowardtrolley == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		//modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		modelStack.Translate(AITrolley.TrolleyPosition.x, AITrolley.TrolleyPosition.y, AITrolley.TrolleyPosition.z);
 		if (Shopper1->DoNotTurn == false)
 		{
 			modelStack.Rotate(Shopper1->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
@@ -2606,6 +2625,7 @@ void SP2::RenderShopperAI()
 	//WithShopperCart
 	if (ShopperAI.RENDERINGAI == false)
 	{
+
 		modelStack.PushMatrix();
 		modelStack.Translate(ShopperAI.getPositionX(), -0.6, ShopperAI.getPositionZ());
 		modelStack.Rotate(180, 0, 1, 0);
@@ -2810,34 +2830,34 @@ void SP2::RenderSkyBox()
 
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1000, 1000);
-	modelStack.Translate(0, 0, -0.5);
+	modelStack.Translate(0, 0, -0.499);
 	RenderMesh(meshList[GEO_FRONT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1000, 1000);
-	modelStack.Translate(0, 0, 0.5);
+	modelStack.Translate(0, 0, 0.499);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(meshList[GEO_BACK], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1000, 1000);
-	modelStack.Translate(-0.5, 0, 0);
+	modelStack.Translate(-0.499, 0, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1000, 1000);
-	modelStack.Translate(0.5,0, 0);
+	modelStack.Translate(0.499,0, 0);
 	modelStack.Rotate(90, 0, -1, 0);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Scale(1000, 1000, 1000);
-	modelStack.Translate(0, 0.5, 0);
+	modelStack.Translate(0, 0.499, 0);
 	modelStack.Rotate(90, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_TOP], false);

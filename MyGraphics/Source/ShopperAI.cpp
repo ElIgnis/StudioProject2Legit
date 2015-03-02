@@ -6,9 +6,10 @@ bool ShopperPath3[15] = { true, false, false, false, false, false, false, false,
 CShopperAI::CShopperAI()
 {
 	//starting point
-	position.x = 36;
-	position.y = 1;
-	position.z = 37;
+	//position.x = 36;
+	//position.y = 1;
+	//position.z = 37;
+	position.Set(36, 1, 37);
 	direction = 0;
 	Rotangle = 0;
 	timer = 0;
@@ -77,7 +78,6 @@ void CShopperAI::UpdatePath(double dt, Vector3 &Playerposition)
 	//TODO: if reach item, take item
 	//TODO: generate item from list
 	
-	//WalkingPath2(dt); //Using Wl's Method
 	if (RENDERINGAI == true)
 	{
 		WalkingPath(dt, CShopperAI::WALK);
@@ -91,6 +91,7 @@ void CShopperAI::UpdatePath(double dt, Vector3 &Playerposition)
 void CShopperAI::WalkingPath(double dt, int NewState)
 {
 	//#######Rotation of Shoppers#############
+
 	if (SetDirection == true)
 	{
 		//turn Left's
@@ -98,7 +99,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != 0)
 			{
-				Rotangle += (float)(90 * dt);
+				Rotangle += (float)(30 * dt);
 			}
 			else
 			{
@@ -110,7 +111,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != 90)
 			{
-				Rotangle += (float)(90 * dt);
+				Rotangle += (float)(30 * dt);
 			}
 			else
 			{
@@ -122,7 +123,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != 180)
 			{
-				Rotangle += (float)(90 * dt);
+				Rotangle += (float)(30 * dt);
 			}
 			else
 			{
@@ -134,7 +135,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != 270)
 			{
-				Rotangle += (float)(90 * dt);
+				Rotangle += (float)(30 * dt);
 			}
 			else
 			{
@@ -147,7 +148,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != 0)
 			{
-				Rotangle -= (float)(90 * dt);
+				Rotangle -= (float)(30 * dt);
 			}
 			else
 			{
@@ -160,7 +161,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != -90)
 			{
-				Rotangle -= (float)(90 * dt);
+				Rotangle -= (float)(30 * dt);
 			}
 			else
 			{
@@ -172,7 +173,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != -180)
 			{
-				Rotangle -= (float)(90 * dt);
+				Rotangle -= (float)(30 * dt);
 			}
 			else
 			{
@@ -184,7 +185,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != -270)
 			{
-				Rotangle -= (float)(90 * dt);
+				Rotangle -= (float)(30 * dt);
 			}
 			else
 			{
@@ -197,7 +198,7 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		{
 			if (Rotangle != -90)
 			{
-				Rotangle += (float)(90 * dt);
+				Rotangle += (float)(30 * dt);
 			}
 			else
 			{
@@ -504,6 +505,8 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		else
 		{
 			ShopperPath2[10] = false;
+			position.Set(36, 1, 37);
+			Rotangle = 0;
 			RENDERINGAI = false;
 		}
 	}
@@ -990,6 +993,8 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 		else
 		{
 			ShopperPath3[12] = false;
+			position.Set(36, 1, 37);
+			Rotangle = 0;
 			RENDERINGAI = true;
 		}
 	}
@@ -1052,4 +1057,3 @@ void CShopperAI::MoveXMinus(double StopPoint, int NewState, double Speed, double
 		position.x -= (float)(dt * Speed);
 	}
 }
-//Using Wl'sMethOd

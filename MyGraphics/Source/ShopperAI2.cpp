@@ -7,7 +7,7 @@ CShopperAI2::CShopperAI2()
 	//Villain starts outside of mall
 	Position.x = 37.f;
 	Position.y = 1.f;
-	Position.z = 20.f;
+	Position.z = 40.f;
 	Direction.x = 0.f;
 	Direction.y = 0.f;
 	Direction.z = 0.f;
@@ -129,7 +129,7 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 	}
 
 	//Check distance
-	if (DistanceZ <= 0.2f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+	if (DistanceZ <= 0.2f && Item->ItemState == CItem::DEFAULT)
 	{
 		//cout << "Plx: " << Position.x << endl;
 		//cout << "Plz: " << Position.z << endl;
@@ -144,6 +144,7 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 			DoNotTurn = true;
 			fowardtrolley = true;
 			backwardtrolley = false;
+			
 		}
 		else if (Position.x > Item->ItemPosition.x - 4.5f && Position.x < Item->ItemPosition.x)
 		{
@@ -156,7 +157,7 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 	}
 	if (Anime_Take)
 	{
-		if (Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if (Item->ItemState == CItem::DEFAULT)
 		{
 			if (Rotation_Right_Hand <= 90.f)
 				Rotation_Right_Hand += (float)(RotationSpeed * dt);
@@ -165,10 +166,10 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 		}
 		if (Rotation_Right_Hand >= 90.f && Rotation_Left_Hand <= -90.f)
 		{
-			Item->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+			Item->ItemState = CItem::IN_TROLLEY;
 			
 		}
-		if (Item->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+		if (Item->ItemState == CItem::IN_TROLLEY)
 		{
 			if (Rotation_Right_Hand >= 0.f && Rotation_Left_Hand <= 0.f)
 			{
