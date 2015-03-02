@@ -856,6 +856,9 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
+
+	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 30);
+	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
 }
 
 static float ROT_LIMIT = 45.f;
@@ -1850,6 +1853,11 @@ void SP2::Render()
 		{
 			if (Guard.returnState() == "CAUGHT")
 		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0, -30, 0);
+			//modelStack.Rotate(-22.5, 1, 0, 0);
+			RenderMesh(meshList[GEO_POLICE], true);
+			modelStack.PopMatrix();
 			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
 		}
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
@@ -2271,7 +2279,7 @@ void SP2::RenderScenarioShopper(void)
 	}
 
 	//Rendering Text
-	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping Cart:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0, 1, 0), 3.f, 2.8f, 3.f);
 
 	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
@@ -2319,7 +2327,7 @@ void SP2::RenderScenarioShopper(void)
 void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 	if (objectsDestroyed < 15)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 0, 0), 2.5f, 0.5f, 14.f);
@@ -2334,7 +2342,7 @@ void SP2::RenderScenarioVillain(void)
 void SP2::RenderScenarioGuard(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Caught:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Villain 0/1", Color(1, 0, 0), 2.5f, 0.5f, 13.5f);
 	if (VillainOne->GetState() == CVillainAI::CAUGHT)
 	{
