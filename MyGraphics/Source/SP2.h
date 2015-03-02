@@ -414,8 +414,8 @@ private:
 
 	//NPC Interaction
 	bool NPCInteraction;
-
-	Application Application;
+	
+	string desObj;
 };
 
 #endif
