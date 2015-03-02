@@ -363,7 +363,7 @@ private:
 	float remaindingAmount;
 	float amountOvershot;
 	//Villain
-	int objectsDestroyed;
+	unsigned long long objectsDestroyed;
 	bool isCaught;
 	//Guard
 	bool villainCaught;

@@ -171,7 +171,7 @@ void SP2::Init()
 	srand(time(NULL));
 	VillainOne = new CVillainAI;
 	RollDice();
-	Guard.InitGuard(-32.0f, 13.0f);
+	Guard.InitGuard(35.0f, -60.0f);
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -1378,6 +1378,24 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 	}
+
+	//If the player shoplifts, the guard will chase after the player
+	for (size_t i = 0; i < PlayerInvent.InventoryIndexing.size(); ++i)
+	{
+		if (player.getPos().z >= 40.0f && Container.Shelf.at(PlayerInvent.InventoryIndexing[i])->ItemState[CItem::NUM_STATE] != CItem::CHECKED_OUT)
+	{
+		Guard.shoplifted = true;
+		Guard.setShoplifter(player.getPos());
+	}
+	}
+
+	//If the guard catches the player for shoplifting, the game ends
+	if (Guard.returnState() == "CAUGHT")
+	{
+		gameStart = false;
+		endScreen = true;
+	}
+
 	//Catch Villain
 	/*if(Application::IsKeyPressed('X'))
 	{
@@ -1411,6 +1429,40 @@ void SP2::Scenario_Guard(double dt)
 
 void SP2::Scenario_Villain(double dt)
 {
+	//Destroying items
+		if(Application::IsKeyPressed('U'))
+		{
+			for(int i = 0; i < ItemLine; i++)
+			{
+				//Taking of items
+				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+				{
+					//Distance is updated
+					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+					//Only able to destroy default items
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					{
+						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+					    ++objectsDestroyed;
+						break;
+					}
+				}
+			}
+		}
+
+		//If the Guard has caught the player (Villain), the game ends
+		if(Guard.returnState() == "CAUGHT")
+		{
+			gameStart = false;
+			endScreen = true;
+		}
+
+
 	//if (playerposition == item position && keypress)
 	{
 		//objectsDestroyed++;
@@ -1745,6 +1797,10 @@ void SP2::Render()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (modeCustomer == true)
 		{
+			if (Guard.returnState() == "CAUGHT")
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
+		}
 			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (1, 0, 1), 5.f, 8.f, 7.f);
 		}
@@ -1755,7 +1811,8 @@ void SP2::Render()
 		}
 		else if (modeVillain == true)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 1.5f, 11.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:" + std::to_string(objectsDestroyed), Color (1, 1, 1), 5.f, 7.5f, 8.f);
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 5.f, 8.f, 7.f);
 		}
 
@@ -2199,7 +2256,7 @@ void SP2::RenderScenarioShopper(void)
 void SP2::RenderScenarioGuard(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed: " + std::to_string(objectsDestroyed), Color(1, 1, 1), 3.f, 0.5f, 13.f);
 }
 
 void SP2::RenderScenarioVillain(void)

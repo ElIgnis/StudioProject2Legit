@@ -28,7 +28,7 @@ private:
 	bool Rotate_Hand_Left_Back;
 	bool Rotate_Hand_Right_Back;
 
-	bool shoplifted;
+	
 	bool rotation_complete;
 
 	enum STATE
@@ -58,7 +58,9 @@ public:
 	void ChasingPath(void); //Pathing for chasing shoplifters
 	void RotateLeft(float rotation);
 	void RotateRight(float rotation);
+	bool shoplifted, chase_path_completed;
 
+	void setShoplifter(Vector3 shoplifter_position);
 	float getX(void);
 	float getY(void); //Returns Position.Y
 	float getY2(void); //Returns Direction.Y
