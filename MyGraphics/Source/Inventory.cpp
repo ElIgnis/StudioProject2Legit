@@ -16,6 +16,23 @@ CInventory::~CInventory(void)
 {
 }
 
+bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
+{
+	if(Inventory.size() < MaxInventorySize)
+	{
+		//Only add default items
+		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		{
+			cout << "Pushing item no.: " << ItemIndex << endl;
+			Inventory.push_back(Item);
+			InventoryIndexing.push_back(ItemIndex);
+			Item->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+			return true;
+		}
+	}
+	return false;
+}
+
 bool CInventory::Add_ShelfToInvent(CItem *Item, int ItemIndex)
 {
 	//Adds Items from shelf to inventory
