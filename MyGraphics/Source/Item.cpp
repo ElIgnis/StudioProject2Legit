@@ -2,7 +2,7 @@
 
 CItem::CItem(void)
 {
-	ItemState[NUM_STATE] = DEFAULT;
+	ItemState = DEFAULT;
 }
 
 CItem::~CItem(void)

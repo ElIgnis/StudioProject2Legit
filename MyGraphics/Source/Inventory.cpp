@@ -21,12 +21,12 @@ bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 	if(Inventory.size() < MaxInventorySize)
 	{
 		//Only add default items
-		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if(Item->ItemState == CItem::DEFAULT)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
 			InventoryIndexing.push_back(ItemIndex);
-			Item->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+			Item->ItemState = CItem::IN_TROLLEY;
 			return true;
 		}
 	}
@@ -42,12 +42,12 @@ bool CInventory::Add_ShelfToInvent(CItem *Item, int ItemIndex)
 	if(Inventory.size() < MaxInventorySize)
 	{
 		//Only add default items
-		if(Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if(Item->ItemState == CItem::DEFAULT)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
 			InventoryIndexing.push_back(ItemIndex);
-			Item->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+			Item->ItemState = CItem::TAKEN;
 			return true;
 		}
 	}
@@ -63,12 +63,12 @@ bool CInventory::Add_TrolleyToInvent(CItem *Item, int ItemIndex)
 	if(Inventory.size() < MaxInventorySize)
 	{
 		//Only add items from trolley
-		if(Item->ItemState[CItem::NUM_STATE] == CItem::IN_TROLLEY)
+		if(Item->ItemState == CItem::IN_TROLLEY)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
 			InventoryIndexing.push_back(ItemIndex);
-			Item->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+			Item->ItemState = CItem::TAKEN;
 			return true;
 		}
 	}
@@ -103,7 +103,7 @@ bool CInventory::Minus_InventToShelf(CItem * Item, int ItemIndex)
 				{
 					cout << "Erasing item no.: " << InventoryIndexing.at(MatchingIndex) << endl;
 					InventoryIndexing.erase(iter);
-					Item->ItemState[CItem::NUM_STATE] = CItem::DEFAULT;
+					Item->ItemState = CItem::DEFAULT;
 					return true;
 				}
 			}
@@ -141,7 +141,7 @@ bool CInventory::Minus_InventToTrolley(CItem * Item, int ItemIndex)
 				{
 					cout << "Erasing item no.: " << InventoryIndexing.at(MatchingIndex) << endl;
 					InventoryIndexing.erase(iter);
-					Item->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+					Item->ItemState = CItem::IN_TROLLEY;
 					return true;
 				}
 			}
@@ -214,12 +214,12 @@ bool CInventory::Add_InventToTrolley(CItem *Item, int ItemIndex)
 	if(Inventory.size() < MaxTrolleySize)
 	{
 		//Add items
-		if(Item->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+		if(Item->ItemState == CItem::TAKEN)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
 			InventoryIndexing.push_back(ItemIndex);
-			Item->ItemState[CItem::NUM_STATE] = CItem::IN_TROLLEY;
+			Item->ItemState = CItem::IN_TROLLEY;
 			return true;
 		}
 	}
@@ -254,7 +254,7 @@ bool CInventory::Minus_TrolleyToInvent(CItem *Item, int ItemIndex)
 				{
 					cout << "Erasing item no.: " << InventoryIndexing.at(MatchingIndex) << endl;
 					InventoryIndexing.erase(iter);
-					Item->ItemState[CItem::NUM_STATE] = CItem::TAKEN;
+					Item->ItemState = CItem::TAKEN;
 					return true;
 				}
 			}
