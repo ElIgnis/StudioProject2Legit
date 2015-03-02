@@ -1265,12 +1265,6 @@ void SP2::Scenario_Shopper(double dt)
 	}
 	if(Delay > DelayInterval)
 	{
-		//Game end
-		if (camera.position.z > 39)
-		{
-			gameStart = false;
-			endScreen = true;
-		}
 		//Adding items
 		if(Application::IsKeyPressed('E'))
 		{
@@ -1539,10 +1533,10 @@ void SP2::Scenario_Shopper(double dt)
 	for (size_t i = 0; i < PlayerInvent.InventoryIndexing.size(); ++i)
 	{
 		if (player.getPos().z >= 40.0f && Container.Shelf.at(PlayerInvent.InventoryIndexing[i])->ItemState != CItem::CHECKED_OUT)
-	{
-		Guard.shoplifted = true;
-		Guard.setShoplifter(player.getPos());
-	}
+		{
+			Guard.shoplifted = true;
+			Guard.setShoplifter(player.getPos());
+		}
 	}
 
 	//If the guard catches the player for shoplifting, the game ends
@@ -1612,6 +1606,18 @@ void SP2::Scenario_Villain(double dt)
 	{
 		gameStart = false;
 		endScreen = true;
+		missionComplete = false;
+		
+	}
+	//Mission complete
+	if (objectsDestroyed >= 15)
+	{
+		if (player.getPos().z > 40)
+		{
+			gameStart = false;
+			endScreen = true;
+			missionComplete = true;
+		}
 	}
 }
 
@@ -1845,7 +1851,7 @@ void SP2::ShowEndScreen(double dt)
 	{
 		if (missionComplete == true)
 		{
-			player.setVillainScoreSucceed(dt);
+			player.setVillainScoreSucceed(elapsedTime);
 			//Set high score
 			player.setVillainHighScore(player.getVillainScore());
 		}
@@ -1952,8 +1958,11 @@ void SP2::Render()
 		}
 		else if (modeVillain == true)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 1.5f, 11.f);
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:" + std::to_string(objectsDestroyed), Color (1, 1, 1), 5.f, 7.5f, 8.f);
+			if (Guard.returnState() == "CAUGHT")
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 1.5f, 11.f);
+			}
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 5.f, 8.f, 7.f);
 		}
 
@@ -2485,7 +2494,7 @@ void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
 	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj, Color(1, 1, 1), 2.5f, 0.5f, 14.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 1, 1), 2.5f, 0.5f, 14.f);
 
 }
 
