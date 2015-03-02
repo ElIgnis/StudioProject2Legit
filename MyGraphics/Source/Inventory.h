@@ -24,6 +24,7 @@ public:
 	float MinLength;
 	float MaxLength;
 
+	bool Add_ShelfToTrolley(CItem * Item, int ItemIndex);
 	bool Add_ShelfToInvent(CItem *Item, int ItemIndex);
 	bool Add_TrolleyToInvent(CItem *Item, int ItemIndex);
 	bool Minus_InventToShelf(CItem *Item, int ItemIndex);
