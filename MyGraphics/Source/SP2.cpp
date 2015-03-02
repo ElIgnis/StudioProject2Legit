@@ -1083,6 +1083,7 @@ void SP2::UpdateGame(double dt)
 	if(Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 
+	camera.TrolleyBounds(Trolley.TrolleyPosition, Trolley.TrolleyDirection);
 	camera.Update(dt);
 	player.setPos(camera.position);
 

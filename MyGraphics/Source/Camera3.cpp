@@ -231,10 +231,15 @@ void Camera3::SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength
 
 }
 
-void Camera3::TrolleyBounds(Vector3 &Minimum, Vector3 &Maximum)
+void Camera3::TrolleyBounds(Vector3 &TrolleyPosition, Vector3 &TrolleyDirection)
 {
-	TrolleyMin.push_back(Minimum);
-	TrolleyMax.push_back(Maximum);
+	TrolleyLength = TrolleyPosition;
+	TrolleyWidth = TrolleyPosition;
+	if(position.x > TrolleyPosition.x - 8 && position.x < TrolleyPosition.x
+		&& position.z > TrolleyPosition.z - 2 && position.z < TrolleyPosition.z + 2)
+	{
+		Limiter();
+	}
 }
 
 void Camera3::BoundsCheck()
