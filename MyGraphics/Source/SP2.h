@@ -338,6 +338,7 @@ private:
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 	void RenderCashier(void);
 	void RenderPlayerArm(void);
+	void RestartGame(void);
 
 	//Player functions
 	bool startScreen;
@@ -413,6 +414,8 @@ private:
 
 	//NPC Interaction
 	bool NPCInteraction;
+
+	Application Application;
 };
 
 #endif
