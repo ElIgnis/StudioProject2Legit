@@ -1172,31 +1172,6 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 
-		//Destroying items
-		if(Application::IsKeyPressed('U'))
-		{
-			for(int i = 0; i < ItemLine; i++)
-			{
-				//Taking of items
-				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
-				{
-					//Distance is updated
-					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-					//Only able to destroy default items
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
-					{
-						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
-						break;
-					}
-				}
-			}
-		}
-
 		if(playerPayingAni == true)
 		{
 			Trolley.EquippedTrolley = false;
@@ -1390,15 +1365,38 @@ void SP2::Scenario_Guard(double dt)
 
 void SP2::Scenario_Villain(double dt)
 {
-	//if (playerposition == item position && keypress)
-	{
-		//objectsDestroyed++;
-	}
-
 	//if(objectsDestroyed == target && isCaught == false)
 	{
 		//missionComplete = true;
 	}
+	//Destroying items
+	if(Application::IsKeyPressed('E'))
+	{
+		for(int i = 0; i < ItemLine; i++)
+		{
+			//Taking of items
+			if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
+				&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
+				&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
+			{
+				//Distance is updated
+				Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
+					+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
+					+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
+
+				//Only able to destroy default items
+				if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+				{
+					Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+					objectsDestroyed++;
+					break;
+				}
+			}
+		}
+	}
+	std::stringstream objDesSS;
+	objDesSS << objectsDestroyed;
+	desObj = objDesSS.str();
 }
 
 void SP2::updateShopperAI(double dt,CShopperAI *Shopper1)
@@ -2185,6 +2183,7 @@ void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
 	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj, Color(1, 1, 1), 2.5f, 0.5f, 14.f);
 }
 
 void SP2::RenderScenarioGuard(void)
@@ -2194,7 +2193,7 @@ void SP2::RenderScenarioGuard(void)
 	RenderTextOnScreen(meshList[GEO_TEXT], "Villain 0/1", Color(1, 0, 0), 2.5f, 0.5f, 13.5f);
 	if (VillainOne->GetState() == CVillainAI::CAUGHT)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Villain 1/1", Color(0, 1, 0), 2.5f, 0.5f, 13.5f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Villain 1/1", Color(0, 1, 0), 2.5f, 0.5f, 14.f);
 	}
 }
 
