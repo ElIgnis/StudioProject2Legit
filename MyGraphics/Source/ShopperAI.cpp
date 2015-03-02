@@ -158,7 +158,7 @@ bool CShopperAI::TakingItem(CItem *Item, double dt)
 	}
 
 	//Check distance
-	if (DistanceZ <= 0.2f && Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+	if (DistanceZ <= 0.2f && Item->ItemState == CItem::DEFAULT)
 	{
 		//cout << "Plx: " << Position.x << endl;
 		//cout << "Plz: " << Position.z << endl;
@@ -179,7 +179,7 @@ bool CShopperAI::TakingItem(CItem *Item, double dt)
 	}
 	if (Anim_Wreck)
 	{
-		if (Item->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if (Item->ItemState == CItem::DEFAULT)
 		{
 			if (Rotation_Right_Hand <= 90.f)
 				Rotation_Right_Hand += (float)(RotationSpeed * dt);
@@ -188,9 +188,9 @@ bool CShopperAI::TakingItem(CItem *Item, double dt)
 		}
 		if (Rotation_Right_Hand >= 90.f && Rotation_Left_Hand <= -90.f)
 		{
-			Item->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+			Item->ItemState = CItem::DESTROYED;
 		}
-		if (Item->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+		if (Item->ItemState == CItem::DESTROYED)
 		{
 			if (Rotation_Right_Hand >= 0.f && Rotation_Left_Hand <= 0.f)
 			{

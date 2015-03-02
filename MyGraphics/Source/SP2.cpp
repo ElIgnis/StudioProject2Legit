@@ -1268,7 +1268,7 @@ void SP2::Scenario_Shopper(double dt)
 						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
 					//Only able to take items when within range and items that are on the shelf
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
@@ -1295,7 +1295,7 @@ void SP2::Scenario_Shopper(double dt)
 						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
 					//Only able to put back taken items
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::TAKEN)
 					{
 						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
@@ -1319,7 +1319,7 @@ void SP2::Scenario_Shopper(double dt)
 						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
 					//Only able to swap with default item
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
 					{
 						PlayerInvent.SwapFromInvent(Container.Shelf.at(i), i);
 						break;
@@ -1344,9 +1344,9 @@ void SP2::Scenario_Shopper(double dt)
 						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
 					//Only able to destroy default items
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
 					{
-						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+						Container.Shelf.at(i)->ItemState = CItem::DESTROYED;
 						break;
 					}
 				}
@@ -1685,7 +1685,7 @@ int SP2::RollDice(void)
 {
 	RandomNumber = rand() % ItemLine;
 	//Filtering out items that are too far
-	while((Container.Shelf.at(RandomNumber)->ItemState[CItem::NUM_STATE] != CItem::DEFAULT 
+	while((Container.Shelf.at(RandomNumber)->ItemState != CItem::DEFAULT 
 		|| Container.Shelf.at(RandomNumber)->ItemPosition.x > 41.6f
 		|| Container.Shelf.at(RandomNumber)->ItemPosition.x < -43.5f))
 	{
@@ -3142,14 +3142,14 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 
 	modelStack.PushMatrix();
 	//Render items as default state
-	if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+	if(Container.Shelf.at(ItemNumber)->ItemState == CItem::DEFAULT)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
 		RenderMesh(meshList[ItemType], false);
 		
 	}
 	//Render items as destroyed state
-	else if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DESTROYED)
+	else if(Container.Shelf.at(ItemNumber)->ItemState == CItem::DESTROYED)
 	{
 		modelStack.Translate(Container.Shelf.at(ItemNumber)->ItemPosition.x, Container.Shelf.at(ItemNumber)->ItemPosition.y + offsetY, Container.Shelf.at(ItemNumber)->ItemPosition.z);
 		//Translate flattened items downwards
@@ -3179,7 +3179,7 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 		priceOfItemOnShelf << std::fixed << std::setprecision(2) << Container.Shelf.at(ItemNumber)->ItemPrice;
 		itemPrice = priceOfItemOnShelf.str();
 
-		if(Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+		if(Container.Shelf.at(ItemNumber)->ItemState == CItem::DEFAULT)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Name:"+itemName, Color(0, 1, 0), 2.5f, 7.f, 8.5f);
 			RenderTextOnScreen(meshList[GEO_TEXT], "Price: $"+itemPrice, Color(0, 1, 0), 2.5f, 7.f, 7.5f);
@@ -3189,7 +3189,7 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 			}
 
 		}
-		if (PlayerInvent.Inventory.size() > 0 && Container.Shelf.at(ItemNumber)->ItemState[CItem::NUM_STATE] == CItem::TAKEN)
+		if (PlayerInvent.Inventory.size() > 0 && Container.Shelf.at(ItemNumber)->ItemState == CItem::TAKEN)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'G' to return", Color(0, 1, 0), 2.5f, 7.f, 5.5f);
 		}

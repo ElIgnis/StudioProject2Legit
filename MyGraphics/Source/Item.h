@@ -39,7 +39,7 @@ public:
 		NUM_STATE,
 	};
 
-	int ItemState[NUM_STATE];
+	int ItemState;
 
 	//Methods
 	void SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType, int SetIndex);
