@@ -461,6 +461,8 @@ private:
 	bool NPCInteraction;
 	
 	string desObj;
+
+	bool customerCheckOut;
 };
 
 #endif
