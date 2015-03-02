@@ -146,10 +146,22 @@ void SP2::Init()
 	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
 
 	//Initialize shelf position
-	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -45.f));
-	ColdShelf_Right.SetShelfCollision(6, 80);
-	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -45.f));
-	ColdShelf_Right.SetShelfCollision(6, 80);
+	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -20.f));
+	ColdShelf_Right.SetShelfCollision(6, 78);
+	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -20.f));
+	ColdShelf_Left.SetShelfCollision(6, 78);
+	RedShelf_Right.SetShelfPosition(Vector3(14.5f, 0.f, -26.f));
+	RedShelf_Right.SetShelfCollision(10, 60);
+	RedShelf_Left.SetShelfPosition(Vector3(-23.5f, 0.f, -26.f));
+	RedShelf_Left.SetShelfCollision(10, 60);
+	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
+	Fridge.SetShelfCollision(6.2, 54);
+
+	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
+	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
+	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
+	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
+	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
 
 	//Cashier details
 	armRotation = 0.f;
@@ -187,7 +199,7 @@ void SP2::Init()
 	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
 
 	//Initialize camera settings
-	camera.Init(Vector3(0, 0, 0.1), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	//cl check
 	double plX = camera.position.x;
