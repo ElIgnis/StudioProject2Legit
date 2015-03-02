@@ -1386,6 +1386,7 @@ void SP2::Scenario_Shopper(double dt)
 				&& camera.position.z > cTablePos.z - 10
 				&& camera.position.z < cTablePos.z - 5 ))
 			{
+				customerCheckOut = true;
 				NPCInteraction = true;
 				//Paying animation
 				playerPayingAni = true;
@@ -1416,6 +1417,7 @@ void SP2::Scenario_Shopper(double dt)
 		}
 		Delay = 0;
 	}
+
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
 	{
@@ -1540,6 +1542,12 @@ void SP2::Scenario_Shopper(double dt)
 
 	//If the guard catches the player for shoplifting, the game ends
 	if (Guard.returnState() == "CAUGHT")
+	{
+		gameStart = false;
+		endScreen = true;
+	}
+
+	if (customerCheckOut == true && player.getPos().z > 40.f)
 	{
 		gameStart = false;
 		endScreen = true;
@@ -2493,8 +2501,15 @@ void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
 	RenderTextOnScreen(meshList[GEO_TEXT], "Destroyed:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 1, 1), 2.5f, 0.5f, 14.f);
-
+	if (objectsDestroyed < 15)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 0, 0), 2.5f, 0.5f, 14.f);
+	}
+	if (objectsDestroyed >= 15)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(0, 1, 0), 2.5f, 0.5f, 14.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Escape from the supermarket", Color(1, 0, 0), 2.5f, 0.5f, 13.f);
+	}
 }
 
 void SP2::RenderScenarioGuard(void)
