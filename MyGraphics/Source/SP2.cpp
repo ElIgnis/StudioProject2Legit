@@ -1508,7 +1508,7 @@ void SP2::Scenario_Shopper(double dt)
 	//If the player shoplifts, the guard will chase after the player
 	for (size_t i = 0; i < PlayerInvent.InventoryIndexing.size(); ++i)
 	{
-		if (player.getPos().z >= 40.0f && Container.Shelf.at(PlayerInvent.InventoryIndexing[i])->ItemState[CItem::NUM_STATE] != CItem::CHECKED_OUT)
+		if (player.getPos().z >= 40.0f && Container.Shelf.at(PlayerInvent.InventoryIndexing[i])->ItemState != CItem::CHECKED_OUT)
 	{
 		Guard.shoplifted = true;
 		Guard.setShoplifter(player.getPos());
@@ -1571,9 +1571,9 @@ void SP2::Scenario_Villain(double dt)
 						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
 
 					//Only able to destroy default items
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] == CItem::DEFAULT)
+					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
 					{
-						Container.Shelf.at(i)->ItemState[CItem::NUM_STATE] = CItem::DESTROYED;
+						Container.Shelf.at(i)->ItemState = CItem::DESTROYED;
 					    ++objectsDestroyed;
 						break;
 					}
