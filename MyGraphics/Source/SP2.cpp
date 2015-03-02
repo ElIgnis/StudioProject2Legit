@@ -1959,7 +1959,7 @@ void SP2::Render()
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(0, -30, 0);
-			modelStack.Rotate(-22.5, 1, 0, 0);
+			//modelStack.Rotate(-22.5, 1, 0, 0);
 			RenderMesh(meshList[GEO_POLICE], true);
 			modelStack.PopMatrix();
 			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
