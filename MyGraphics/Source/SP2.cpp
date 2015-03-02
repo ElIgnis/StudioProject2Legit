@@ -2557,37 +2557,41 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
-	if (Shopper1->DoNotTurn == false)
+	if (Shopper1->backwardtrolley == true)
 	{
-		modelStack.Rotate(Shopper1->GetDirection().y, 0.f, 1.f, 0.f);
-	}
-	{
-
 		modelStack.PushMatrix();
-		modelStack.Translate(0, -1, 4);
-		modelStack.Rotate(90, 0, 1, 0);
-		RenderMesh(meshList[GEO_TROLLEY], false);
+		modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		if (Shopper1->DoNotTurn == false)
+		{
+			modelStack.Rotate(Shopper1->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
+		}
+		{
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, -1, -6);
+			modelStack.Rotate(270, 0, 1, 0);
+			RenderMesh(meshList[GEO_TROLLEY], false);
+			modelStack.PopMatrix();
+		}
 		modelStack.PopMatrix();
 	}
-	modelStack.PopMatrix();
-
-	//modelStack.PushMatrix();
-	//modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
-	//if (Shopper1->DoNotTurn == false)
-	//{
-	//	modelStack.Rotate(Shopper1->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
-	//}
-	//{
-
-	//	modelStack.PushMatrix();
-	//	modelStack.Translate(0, -1, 4);
-	//	modelStack.Rotate(90, 0, 1, 0);
-	//	RenderMesh(meshList[GEO_TROLLEY], false);
-	//	modelStack.PopMatrix();
-	//}
-	//modelStack.PopMatrix();
+	if (Shopper1->fowardtrolley == true)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		if (Shopper1->DoNotTurn == false)
+		{
+			modelStack.Rotate(Shopper1->GetDirection().y + 180.f, 0.f, 1.f, 0.f);
+		}
+		{
+			modelStack.PushMatrix();
+			modelStack.Translate(0, -1, 4);
+			modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_TROLLEY], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
 }
 
 void SP2::RenderShopperAI()

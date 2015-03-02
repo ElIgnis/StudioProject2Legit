@@ -22,6 +22,8 @@ CShopperAI2::CShopperAI2()
 	ItemAtRight = false;
 
 	DoNotTurn = false;
+	fowardtrolley = true;
+	backwardtrolley = false;
 
 	Rotate_Leg_Left_Back = false;
 	Rotate_Leg_Right_Back = false;
@@ -140,12 +142,16 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 			ItemAtLeft = true;
 			Anime_Take = true;
 			DoNotTurn = true;
+			fowardtrolley = true;
+			backwardtrolley = false;
 		}
 		else if (Position.x > Item->ItemPosition.x - 4.5f && Position.x < Item->ItemPosition.x)
 		{
 			ItemAtRight = true;
 			Anime_Take = true;
 			DoNotTurn = true;
+			backwardtrolley = true;
+			fowardtrolley = false;
 		}
 	}
 	if (Anime_Take)
@@ -175,6 +181,8 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 				Anim_Revert = true;
 				RecentlyDestroyed = true;
 				DoNotTurn = true;
+				//backwardtrolley = false;
+				//fowardtrolley = true;
 			}
 		}
 	}
@@ -187,6 +195,8 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 			ItemAtRight = false;
 			Anim_Revert = false;
 			DoNotTurn = false;
+			backwardtrolley = false;
+			fowardtrolley = true;
 			return true;
 		}
 	}
