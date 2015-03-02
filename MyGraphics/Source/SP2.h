@@ -187,6 +187,11 @@ private:
 		GEO_HUMAN_ARM,
 		GEO_HUMAN_LEG,
 
+		GEO_GUARD_HEAD,
+		GEO_GUARD_BODY,
+		GEO_GUARD_ARM,
+		GEO_GUARD_LEG,
+
 		GEO_LIGHTBALL1,
 		GEO_LIGHTBALL2,
 		GEO_LIGHTBALL3,
@@ -324,6 +329,7 @@ private:
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
+	void RenderGuardAI(void);
 	void RenderShopperAI2(CShopperAI *Shopper1);
 	void RenderShopperAI(void);
 	void RenderLights(void);

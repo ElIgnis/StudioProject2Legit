@@ -159,7 +159,7 @@ void SP2::Init()
 	srand(time(NULL));
 	VillainOne = new CVillainAI;
 	RollDice();
-	Guard.setPosition(-32 , 13);
+	Guard.InitGuard(-32.0f, 13.0f);
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -761,6 +761,36 @@ void SP2::Init()
 	meshList[GEO_HUMAN_LEG]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_HUMAN_LEG]->material.kShininess = 5.f;
 
+	//GUARD
+	//head
+	meshList[GEO_GUARD_HEAD] = MeshBuilder::GenerateOBJ("Head", "OBJ//Human_Head.obj");
+	meshList[GEO_GUARD_HEAD]->textureID = LoadTGA("Image//Guard.tga");
+	meshList[GEO_GUARD_HEAD]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_GUARD_HEAD]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_GUARD_HEAD]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_GUARD_HEAD]->material.kShininess = 5.f;
+	//Body
+	meshList[GEO_GUARD_BODY] = MeshBuilder::GenerateOBJ("Body", "OBJ//Human_Body.obj");
+	meshList[GEO_GUARD_BODY]->textureID = LoadTGA("Image//Guard.tga");
+	meshList[GEO_GUARD_BODY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_GUARD_BODY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_GUARD_BODY]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_GUARD_BODY]->material.kShininess = 5.f;
+	//Arm
+	meshList[GEO_GUARD_ARM] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Arm.obj");
+	meshList[GEO_GUARD_ARM]->textureID = LoadTGA("Image//Guard.tga");
+	meshList[GEO_GUARD_ARM]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_GUARD_ARM]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_GUARD_ARM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_GUARD_ARM]->material.kShininess = 5.f;
+	//Leg
+	meshList[GEO_GUARD_LEG] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Leg.obj");
+	meshList[GEO_GUARD_LEG]->textureID = LoadTGA("Image//Guard.tga");
+	meshList[GEO_GUARD_LEG]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_GUARD_LEG]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_GUARD_LEG]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
+	meshList[GEO_GUARD_LEG]->material.kShininess = 5.f;
+
 	//Human Model
 	meshList[GEO_HUMAN_MODEL] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//HumanModel.obj");
 	//meshList[GEO_HUMAN_MODEL]->textureID = LoadTGA("Image//Conveyor.tga");
@@ -959,6 +989,7 @@ void SP2::UpdateGame(double dt)
 	//Update AI
 	UpdateVillainAI(dt, VillainOne);
 	updateShopperAI(dt, Shopper1);
+	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
 }
 
 void SP2::CheckCollision(void)
@@ -1756,6 +1787,9 @@ void SP2::RenderGame(void)
 	RenderVillainAI(VillainOne);
 	modelStack.PopMatrix();
 
+	//Render Guard AI Model
+	RenderGuardAI();
+
 	//Render Shopper AI Models
 	RenderShopperAI();
 	//RenderShopperAI2(Shopper1);
@@ -2211,6 +2245,49 @@ void SP2::RenderVillainAI(CVillainAI *Villain)
 	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	//modelStack.PopMatrix();
 }
+
+void SP2::RenderGuardAI(void)
+{
+	modelStack.PushMatrix();
+	modelStack.Translate(Guard.getX(), 1.0f, Guard.getZ());
+	modelStack.Rotate(Guard.getY2(), 0.f, 1.f, 0.f);
+	modelStack.PushMatrix();
+	RenderMesh(meshList[GEO_GUARD_BODY], false);
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2.95, 0);
+	RenderMesh(meshList[GEO_GUARD_HEAD], false);
+	modelStack.PopMatrix(); // Pop Head
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 2.3, 0);
+	modelStack.Rotate(Guard.Rotation_Left_Hand,1,0,0);
+	RenderMesh(meshList[GEO_GUARD_ARM], false); //Left
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-1, 2.3, 0);
+	modelStack.Rotate(Guard.Rotation_Right_Hand, -1, 0, 0);
+	RenderMesh(meshList[GEO_GUARD_ARM], false); //right
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0.3, -0.05, 0);
+	modelStack.Rotate(Guard.Rotation_Left_Leg, -1, 0,0);
+	RenderMesh(meshList[GEO_GUARD_LEG], false); //left
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.3, -0.05, 0);
+	modelStack.Rotate(Guard.Rotation_Right_Leg, 1, 0, 0);
+	RenderMesh(meshList[GEO_GUARD_LEG], false); //right
+	modelStack.PopMatrix();
+
+	modelStack.PopMatrix();
+	
+	modelStack.PopMatrix();
+}
+
 //Using Wl'sMethOd
 void SP2::RenderShopperAI2(CShopperAI *Shopper1)
 {
