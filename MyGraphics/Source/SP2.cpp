@@ -157,20 +157,21 @@ void SP2::Init()
 	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
 	Fridge.SetShelfCollision(6.2, 54);
 
+	//Initialize Shelf collision
 	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
 	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
 	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
 	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
 	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
 
-	//Initialize Wall position
+	//Initialize Wall collision
 	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
 	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
 	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
 	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
-	camera.SetBounds(3.5f, 8.f, 16.f, 38.f); // | of L shape wall
+	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
 
-	//Initialize Exit Position(From Right to left, right is towards entrance)
+	//Initialize Exit collision(From Right to left, right is towards entrance)
 	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
 	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
 	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
@@ -180,6 +181,11 @@ void SP2::Init()
 	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
 	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
 	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
+
+	//Initialize Cashier collision
+	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
+	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
+	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
 
 	//Cashier details
 	armRotation = 0.f;
