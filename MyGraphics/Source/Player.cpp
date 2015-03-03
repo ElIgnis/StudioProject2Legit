@@ -26,7 +26,7 @@ Vector3 CPlayer::getPos(void)
 //Score
 void CPlayer::setShopperScoreSucceed(double dt)
 {
-	score = 5000 + 300 / dt * 200;
+	score = 5000 + (300 / dt * 200);
 }
 
 //if Mission fail
