@@ -1644,7 +1644,7 @@ void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 
 void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 {
-	/*cout << Villain.Anim_Rotate << "   Ix: " << Container.Shelf.at(RandomNumber)->ItemPosition.x << "   Iy: " << Container.Shelf.at(RandomNumber)->ItemPosition.y << "   Iz: " << Container.Shelf.at(RandomNumber)->ItemPosition.z << endl;*/
+
 	//Reroll random number when item is destroyed
 	if(Villain->DestroyItem(Container.Shelf.at(RandomNumber), dt) == true)
 	{
@@ -2524,8 +2524,6 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 	modelStack.PopMatrix();
 
 	AITrolley.SetPosition(Shopper1->GetPosition());
-	//std::cout << RandomNumber << std::endl;
-	//std::cout << RandomNumber2 << std::endl << std::endl;
 
 	int i = 0;
 
@@ -2541,7 +2539,6 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 		//RenderMesh(meshList[AITrolley.Inventory.at(i)->GEO_TYPE], true);
 		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 		modelStack.PopMatrix();
-		std::cout << AITrolley.TrolleyDirection << std::endl;
 	}
 
 	if (Shopper1->backwardtrolley == true)
