@@ -1035,11 +1035,15 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI(dt);
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
-
+	CheckCollision();
 }
 
 void SP2::CheckCollision(void)
 {
+	if (Trolley.UpdateTrolleyBox(player.getPos()) == true)
+		{
+			camera.Limiter();
+		}
 	//Cold Shelf Right
 	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
 	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
@@ -1445,6 +1449,7 @@ void SP2::Scenario_Shopper(double dt)
 			Guard.setShoplifter(player.getPos());
 		}
 	}
+
 
 	//If the guard catches the player for shoplifting, the game ends
 	if (Guard.returnState() == "CAUGHT")
@@ -2270,6 +2275,49 @@ void SP2::RenderScenarioShopper(void)
 	{
 		RenderPlayerArm();
 	}
+
+
+
+
+
+
+
+
+
+
+
+	float difference = -4.0;
+	float angle = Trolley.TrolleyDirection.y * M_PI / 180.0f;
+	float s = sin(angle);
+	float c = cos(angle);
+	Vector3 newTrolley(Trolley.TrolleyPosition.x + (difference * s) + (difference * c), 0.0f, Trolley.TrolleyPosition.x + (difference * c) + (difference * s));
+
+	long double xvalue = static_cast<double>(Trolley.Offset.x);
+	long double zvalue = static_cast<double>(Trolley.Offset.z);
+	long double xXvalue = static_cast<double>(s);
+	long double zZvalue = static_cast<double>(c);
+	long double Yvalue = static_cast<double>(angle);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Sine: " + std::to_string(xXvalue), Color(1, 0, 0), 5.0f, 2.0f ,8.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Cosine: " + std::to_string(zZvalue), Color(1, 0, 0), 5.0f, 2.0f ,9.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "R-Angle: " + std::to_string(Yvalue), Color(1, 0, 0), 5.0f, 2.0f ,10.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "X: " + std::to_string(xvalue), Color(1, 0, 0), 5.0f, 2.0f ,6.0f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Z: " + std::to_string(zvalue), Color(1, 0, 0), 5.0f, 2.0f ,7.0f);
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	//UI Rendering
 	int UI_PlayerStart = 10;
@@ -3136,8 +3184,10 @@ void SP2::RenderObject()
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
+	
 	modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f); //Rotate with camera
-	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
+	modelStack.Translate(-4.0f,0,0);
+	
 	int i = 0;
 	//Rendering items on trolley
 	if (renderItemOnTrolley == true)

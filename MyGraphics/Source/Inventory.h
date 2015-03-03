@@ -1,4 +1,6 @@
 #pragma once
+#define _USE_MATH_DEFINES // for C++
+#include <cmath>
 #include "Item.h"
 
 class CInventory
@@ -6,6 +8,8 @@ class CInventory
 public:
 	Vector3 TrolleyPosition;
 	Vector3 TrolleyDirection;
+	Vector3 Offset;
+	Vector3 Offset2;
 	vector<CItem*>Inventory;
 	vector<int>InventoryIndexing;
 	unsigned int MaxInventorySize;
@@ -35,6 +39,9 @@ public:
 	bool Minus_TrolleyToInvent(CItem *Item, int ItemIndex);
 	void SetPosition(Vector3 &NewPosition);
 	void SetDirection(Vector3 &NewDirection);
+
+	bool UpdateTrolleyBox(Vector3 player_position);
+	long double ex, ez;
 
 	CInventory(void);
 	~CInventory(void);
