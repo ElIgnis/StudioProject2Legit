@@ -439,7 +439,7 @@ void SP2::Init()
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(0.f, 0.f, 100.f);
 	lights[0].color.Set(1, 1, 1);
-	lights[0].power = 0.25f;
+	lights[0].power = 1.25f;
 	lights[0].kC = 1.0f;
 	lights[0].kL = 0.01f;
 	lights[0].kQ = 0.001f;
@@ -449,11 +449,11 @@ void SP2::Init()
 	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[1].type = Light::LIGHT_POINT;
-	lights[1].position.Set(-20.f, 4.f, -30.f);
+	lights[1].position.Set(-20.f, 3.f, -30.f);
 	lights[1].color.Set(1, 1, 1);
-	lights[1].power = 0.5f;
+	lights[1].power = 0.6f;
 	lights[1].kC = 1.f;
-	lights[1].kL = 0.01f;
+	lights[1].kL = 0.001f;
 	lights[1].kQ = 0.001f;
 	lights[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[1].cosInner = cos(Math::DegreeToRadian(30));
@@ -461,11 +461,11 @@ void SP2::Init()
 	lights[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[2].type = Light::LIGHT_POINT;
-	lights[2].position.Set(0.f, 4.f, -30.f);
+	lights[2].position.Set(0.f, 3.f, -30.f);
 	lights[2].color.Set(1, 1, 1);
-	lights[2].power = 0.5f;
+	lights[2].power = 0.6f;
 	lights[2].kC = 1.f;
-	lights[2].kL = 0.01f;
+	lights[2].kL = 0.001f;
 	lights[2].kQ = 0.001f;
 	lights[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[2].cosInner = cos(Math::DegreeToRadian(30));
@@ -473,11 +473,11 @@ void SP2::Init()
 	lights[2].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[3].type = Light::LIGHT_POINT;
-	lights[3].position.Set(20.f, 4.f, -30.f);
+	lights[3].position.Set(20.f, 3.f, -30.f);
 	lights[3].color.Set(1, 1, 1);
-	lights[3].power = 0.5f;
+	lights[3].power = 0.6f;
 	lights[3].kC = 1.f;
-	lights[3].kL = 0.01f;
+	lights[3].kL = 0.001f;
 	lights[3].kQ = 0.001f;
 	lights[3].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[3].cosInner = cos(Math::DegreeToRadian(30));
@@ -485,11 +485,11 @@ void SP2::Init()
 	lights[3].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[4].type = Light::LIGHT_POINT;
-	lights[4].position.Set(-20.f, 4.f, 0.f);
+	lights[4].position.Set(-20.f, 3.f, 30.f);
 	lights[4].color.Set(1, 1, 1);
-	lights[4].power = 0.5f;
+	lights[4].power = 0.6f;
 	lights[4].kC = 1.f;
-	lights[4].kL = 0.01f;
+	lights[4].kL = 0.001f;
 	lights[4].kQ = 0.001f;
 	lights[4].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[4].cosInner = cos(Math::DegreeToRadian(30));
@@ -497,11 +497,11 @@ void SP2::Init()
 	lights[4].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[5].type = Light::LIGHT_POINT;
-	lights[5].position.Set(0.f, 4.f, 0.f);
+	lights[5].position.Set(0.f, 3.f, 30.f);
 	lights[5].color.Set(1, 1, 1);
-	lights[5].power = 0.5f;
+	lights[5].power = 0.6f;
 	lights[5].kC = 1.f;
-	lights[5].kL = 0.01f;
+	lights[5].kL = 0.001f;
 	lights[5].kQ = 0.001f;
 	lights[5].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[5].cosInner = cos(Math::DegreeToRadian(30));
@@ -509,11 +509,11 @@ void SP2::Init()
 	lights[5].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[6].type = Light::LIGHT_POINT;
-	lights[6].position.Set(20.f, 4.f, 0.f);
+	lights[6].position.Set(20.f, 3.f, 30.f);
 	lights[6].color.Set(1, 1, 1);
-	lights[6].power = 0.5f;
+	lights[6].power = 0.6f;
 	lights[6].kC = 1.f;
-	lights[6].kL = 0.01f;
+	lights[6].kL = 0.001f;
 	lights[6].kQ = 0.001f;
 	lights[6].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[6].cosInner = cos(Math::DegreeToRadian(30));
@@ -1128,16 +1128,6 @@ void SP2::CheckCollision(void)
 		{
 			camera.Limiter();
 		}
-	//Cold Shelf Right
-	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
-	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
-	//{
-	//	camera.CAMERA_SPEED2 = 0;
-	//}
-	//else
-	//{
-	//	camera.CAMERA_SPEED2 = 10.f;
-	//}
 }
 
 void SP2::Scenario_Shopper(double dt)
@@ -2172,14 +2162,15 @@ void SP2::RenderLights(void)
 	modelStack.LoadIdentity();
 	//Light arrangement
 	// 1  2  3
-	// 4  5  6
-	// 7  8  9 x - Entrance
+	// 4  5  6 x - Entrance
 
 	//Directional Light
 	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
 	{
 		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		Mtx44 rotation;
+		rotation.SetToRotation(90.f, 1.f, 0.f, 0.f);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
 	}
 	else if(lights[0].type == Light::LIGHT_SPOT)
@@ -2198,10 +2189,8 @@ void SP2::RenderLights(void)
 	//Light 1
 	if(lights[1].type == Light::LIGHT_DIRECTIONAL)
 	{
-		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-		Mtx44 rotation;
-		rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
+		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);	
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
 		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
 	}
 	else if(lights[1].type == Light::LIGHT_SPOT)
@@ -2322,36 +2311,6 @@ void SP2::RenderLights(void)
 		Position lightPosition_cameraspace = viewStack.Top() * lights[6].position;
 		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightPosition_cameraspace.x);
 	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL1], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[2].position.x, lights[2].position.y, lights[2].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL2], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[3].position.x, lights[3].position.y, lights[3].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL3], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[4].position.x, lights[4].position.y, lights[4].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL4], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[5].position.x, lights[5].position.y, lights[5].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL5], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[6].position.x, lights[6].position.y, lights[6].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL6], false);
-	modelStack.PopMatrix();
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
@@ -3163,15 +3122,19 @@ void SP2::RenderObject()
 		modelStack.PopMatrix();
 	}
 	//ENTRANCE chehckbox
-	if ((camera.position.x > 32 && camera.position.x < 42) && (camera.position.z >39 && camera.position.z < 46))
+	if ((camera.position.x > 31 && camera.position.x < 43) && (camera.position.z > 39 && camera.position.z < 46))
 	{
 		rotateback = true;
+		camera.HasEntered = false;
 	}
 	else
 	{
 		rotateback = false;
 	}
-
+	if(rotateback == false && camera.position.z < 35)
+	{
+		camera.HasEntered = true;
+	}
 	if (rotateback == true && rotationofdoor < 70)
 	{
 		rotationofdoor++;
@@ -3217,7 +3180,7 @@ void SP2::RenderObject()
 	//LightBulb
 	for (int j = -20; j < 40; j += 20)
 	{
-		for (int i = 0; i > -40; i -= 30)
+		for (int i = 30; i > -31; i -= 60)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(j, 0, i);

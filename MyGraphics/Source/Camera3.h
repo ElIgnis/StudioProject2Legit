@@ -15,6 +15,7 @@ public:
 	//Vector3 up;
 	bool CanRotate;
 	bool IsCrouched;
+	bool HasEntered;
 	float worldScale;
 	float angle;
 	float RotationYAxis;
@@ -39,7 +40,6 @@ public:
 	~Camera3();
 
 	//Boundary checking
-	void TrolleyBounds(Vector3 &TrolleyPosition, Vector3& TrolleyDirection);
 	void SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength, float NewMaxLength);
 	void BoundsCheck(void);
 	void Limiter(void);
