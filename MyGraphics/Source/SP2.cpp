@@ -295,6 +295,10 @@ void SP2::Init()
 			chocolateNo++;
 		}
 	}
+
+	//Sound
+	engine = createIrrKlangDevice();
+
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//Enable depth buffer and depth testing
@@ -617,7 +621,7 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall3.obj");
 	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall2.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -964,6 +968,10 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
+	if(Application::IsKeyPressed('M'))
+	{
+		engine->play2D("Media//test.wav");
+	}
 	if (startScreen == true)
 	{
 		if (Application::IsKeyPressed('1'))
@@ -3630,6 +3638,7 @@ void SP2::Exit()
 		if(meshList[i] != NULL)
 			delete meshList[i];
 	}
+	engine->drop();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

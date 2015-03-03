@@ -29,7 +29,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include<irrKlang.h>
 
+using namespace irrklang;
 using std::string;
 
 class SP2: public Scene
@@ -314,6 +316,9 @@ private:
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
 	CShopperAI2 *Shopper1;
+
+	//Sound
+	ISoundEngine * engine;
 
 	bool toggleLight;
 
