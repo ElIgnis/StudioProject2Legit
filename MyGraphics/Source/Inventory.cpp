@@ -22,10 +22,10 @@ CInventory::~CInventory(void)
 
 bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 {
-	if(Inventory.size() < MaxInventorySize)
+	if (Inventory.size() < MaxTrolleySize)
 	{
 		//Only add default items
-		if(Item->ItemState == CItem::DEFAULT)
+		//if(Item->ItemState == CItem::DEFAULT)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);

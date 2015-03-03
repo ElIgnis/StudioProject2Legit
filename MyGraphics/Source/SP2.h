@@ -308,6 +308,7 @@ private:
 	//AI Villain loading properties
 	CVillainAI *VillainOne;
 	int RandomNumber;
+	int RandomNumber2;
 
 	//AI Guard loading properties
 	CGuardAI Guard;
@@ -330,7 +331,8 @@ private:
 	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
-	int RollDice(void);
+	int RollDiceVillain(void);
+	int RollDiceShopper(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
