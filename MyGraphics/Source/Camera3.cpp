@@ -9,6 +9,9 @@ Camera3::Camera3()
 	RotationYAxis = -90.f;
 	CAMERA_SPEED = 100.f;
 	CAMERA_SPEED2 = 10.f;
+	HasEntered = false;
+	IsCrouched = false;
+
 }
 
 Camera3::~Camera3()
@@ -231,17 +234,6 @@ void Camera3::SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength
 
 }
 
-void Camera3::TrolleyBounds(Vector3 &TrolleyPosition, Vector3 &TrolleyDirection)
-{
-	TrolleyLength = TrolleyPosition;
-	TrolleyWidth = TrolleyPosition;
-	if(position.x > TrolleyPosition.x - 8 && position.x < TrolleyPosition.x
-		&& position.z > TrolleyPosition.z - 2 && position.z < TrolleyPosition.z + 2)
-	{
-		Limiter();
-	}
-}
-
 void Camera3::BoundsCheck()
 {
 	//Fill in position here and check
@@ -252,18 +244,15 @@ void Camera3::BoundsCheck()
 		{
 			Limiter();
 		}
-		//if(position.x 
 	}
-	/*if(position.x > TrolleyMin.at(0).x - 8 && position.x < TrolleyMax.at(0).x
-		&& position.z > TrolleyMax.at(0).z - 8 && position.z < TrolleyMax.at(0).z)
+	if(HasEntered)
 	{
-		Limiter();
-	}*/
-
-	//std::cout << "Min Width: " << MinWidth << std::endl;
-	//std::cout << "Max Width: " << MaxWidth << std::endl;
-	//std::cout << "Min Length: " << MinLength << std::endl;
-	//std::cout << "Max Length: " << MaxLength << std::endl << std::endl;
+		if(position.x > 31.f && position.x < 43.f
+			&& position.z > 35.f && position.z < 39.f)
+		{
+			Limiter();
+		}
+	}
 }
 
 //Collision
