@@ -259,11 +259,6 @@ void Camera3::BoundsCheck()
 	{
 		Limiter();
 	}*/
-
-	//std::cout << "Min Width: " << MinWidth << std::endl;
-	//std::cout << "Max Width: " << MaxWidth << std::endl;
-	//std::cout << "Min Length: " << MinLength << std::endl;
-	//std::cout << "Max Length: " << MaxLength << std::endl << std::endl;
 }
 
 //Collision

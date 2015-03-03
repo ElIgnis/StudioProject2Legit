@@ -127,10 +127,6 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	//Check distance
 	if(DistanceZ <= 0.2f && Item->ItemState == CItem::DEFAULT)
 	{
-		//cout << "Plx: " << Position.x << endl;
-		//cout << "Plz: " << Position.z << endl;
-		
-		//cout <<  << endl;
 
 		//Update for animation
 		if(Position.x < Item->ItemPosition.x + 4.5f && Position.x > Item->ItemPosition.x)

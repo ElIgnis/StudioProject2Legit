@@ -87,35 +87,35 @@ Vector3 CShopperAI2::GetDirection(void)
 
 void CShopperAI2::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
-	if (RecentlyDestroyed && CurrentState != CShopperAI2::CAUGHT)
-	{
-		DetectionTimer += (float)(dt);
-	}
-	if (DetectionTimer >= ResetTimer)
-	{
-		DetectionTimer = 0.f;
-		RecentlyDestroyed = false;
-	}
+	//if (RecentlyDestroyed && CurrentState != CShopperAI2::CAUGHT)
+	//{
+	//	DetectionTimer += (float)(dt);
+	//}
+	//if (DetectionTimer >= ResetTimer)
+	//{
+	//	DetectionTimer = 0.f;
+	//	RecentlyDestroyed = false;
+	//}
 
-	float DistanceToPlayer = sqrt((Position.x - PlayerPosition.x) * (Position.x - PlayerPosition.x) + (Position.z - PlayerPosition.z) * (Position.z - PlayerPosition.z));
+	//float DistanceToPlayer = sqrt((Position.x - PlayerPosition.x) * (Position.x - PlayerPosition.x) + (Position.z - PlayerPosition.z) * (Position.z - PlayerPosition.z));
 
-	//Stops updating AI when caught
-	if (CurrentState != CShopperAI2::CAUGHT)
-	{
-		if (DistanceToPlayer < 0.f)
-		{
-			DistanceToPlayer *= -1;
-		}
-		else if (DistanceToPlayer < 8.f && RecentlyDestroyed == true)
-		{
-			CurrentState = CShopperAI2::DETECTED;
-		}
-		else
-		{
-			CurrentState = CShopperAI2::DEFAULT;
-		}
+	////Stops updating AI when caught
+	//if (CurrentState != CShopperAI2::CAUGHT)
+	//{
+	//	if (DistanceToPlayer < 0.f)
+	//	{
+	//		DistanceToPlayer *= -1;
+	//	}
+	//	else if (DistanceToPlayer < 8.f && RecentlyDestroyed == true)
+	//	{
+	//		CurrentState = CShopperAI2::DETECTED;
+	//	}
+	//	else
+	//	{
+	//		CurrentState = CShopperAI2::DEFAULT;
+	//	}
 		UpdatePath(dt);
-	}
+	//}
 }
 
 bool CShopperAI2::TakingItem(CItem *Item, double dt)
@@ -131,10 +131,7 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 	//Check distance
 	if (DistanceZ <= 0.2f && Item->ItemState == CItem::DEFAULT)
 	{
-		//cout << "Plx: " << Position.x << endl;
-		//cout << "Plz: " << Position.z << endl;
 
-		//cout << "taken" << endl;
 
 		//Update for animation
 		if (Position.x < Item->ItemPosition.x + 4.5f && Position.x > Item->ItemPosition.x)

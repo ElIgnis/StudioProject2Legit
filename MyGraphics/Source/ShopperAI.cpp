@@ -1,7 +1,7 @@
 #include "ShopperAI.h"
 
-bool ShopperPath2[12] = { true, false, false, false, false, false, false, false, false, false, false, false };
-bool ShopperPath3[15] = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+bool ShopperPath2[10] = { true, false, false, false, false, false, false, false, false, false };
+bool ShopperPath3[12] = { true, false, false, false, false, false, false, false, false, false, false, false };
 
 CShopperAI::CShopperAI()
 {
@@ -14,8 +14,8 @@ CShopperAI::CShopperAI()
 	Rotangle = 0;
 	timer = 0;
 	SetDirection = false;
-	Animate_ON = true;
 	Directions = false;
+	Animate_ON = true;
 	RENDERINGAI = true;
 	//timer_item1 = 0;
 	item1 = false;
@@ -27,10 +27,6 @@ CShopperAI::CShopperAI()
 	item_maggie = false;
 	item_iceCream = false;
 	item_choco = false;
-
-	
-
-
 }
 
 
@@ -218,31 +214,6 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 			}
 		}
 	}
-
-	////Walking ( Last week Coding)
-	//if (walkFront = true)
-	//{
-	//	if (position.z > -56)
-	//	{
-	//		position.z -= (30 * dt);
-	//	}
-	//	else if ((position.z <= -56) && (position.x > 8))
-	//	{ 
-	//		position.x -= (30 * dt);
-	//		direction = 1;
-	//	}
-	//	else if ((position.z <= -55) && (position.x >= 7))
-	//	{
-	//		direction = 2;
-	//		walkFront = false;
-	//		walkBack = true;
-	//	}
-	//}
-	//if ((walkBack == true))// && (walkFront ==false))
-	//{
-	//	position.z += (30 * dt);
-	//}
-
 	// speed
 	float Speed = 10.f;
 	//Shopper2 Path-ing
@@ -478,11 +449,12 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 			timer++;
 			item1 = false;
 			item2 = false;
+			Animate_ON = true;
 		}
 		if (timer == 40)
 		{
 			NewState = CShopperAI::EXIT;
-			Animate_ON = true;
+			Animate_ON = false;
 		}
 		if (NewState == CShopperAI::EXIT)
 		{
@@ -496,13 +468,9 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 				if (Animate_ON == false)
 				{
 					ShopperPath2[9] = false;
-					//NewState = CShopperAI::WALK;
+					ShopperPath2[10] = true;
 				}
 			}
-		}
-		if (NewState == CShopperAI::WALK)
-		{
-			ShopperPath2[10] = true;
 		}
 	}		
 	if (ShopperPath2[10] == true)
@@ -514,12 +482,19 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		}
 		else
 		{
-			ShopperPath2[10] = false;
-			ShopperPath3[0] = true;
-			RENDERINGAI = false;
+			position.x = 36;
+			position.y = 1;
+			position.z = 37;
+			direction = 0;
 			Rotangle = 0;
 			timer = 0;
-			position.Set(36, 1, 37);
+			SetDirection = false;
+			Directions = false;
+			item1 = false;
+			item2 = false;
+			ShopperPath2[10] = false;
+			ShopperPath2[0] = true;
+			RENDERINGAI = false;
 		}
 	}
 }
@@ -962,6 +937,10 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 		if (position.z >= 19.f)
 		{
 			NewState = CShopperAI::Pay;
+		}
+		if (NewState == CShopperAI::Pay)
+		{
+			timer++;
 			RenderTrolley = false;
 			item_choco = false;
 			item_iceCream = false;
@@ -969,18 +948,23 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 			item_milo = false;
 			item_MnC = false;
 			item_sardine = false;
-		}
-		if (NewState == CShopperAI::Pay)
-		{
-			timer++;
+			Animate_ON = true;
 		}
 		if (timer == 100)
 		{
 			NewState = CShopperAI::EXIT;
+			Animate_ON = false;
 		}
 		if (NewState == CShopperAI::EXIT)
 		{
 			direction = 10;
+			item_choco = true;
+			item_iceCream = true;
+			item_maggie = true;
+			item_milo = true;
+			item_MnC = true;
+			item_sardine = true;
+			RenderTrolley = false;
 			SetDirection = true;
 
 			NewState = CShopperAI::WALK;
@@ -988,21 +972,10 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 			{
 				if (Animate_ON == false)
 				{
-					item_choco = true;
-					item_iceCream = true;
-					item_maggie = true;
-					item_milo = true;
-					item_MnC = true;
-					item_sardine = true;
-					RenderTrolley = false;
-					ShopperPath3[12] = false;
-					//NewState = CShopperAI::WALK;
+					ShopperPath3[11] = false;
+					ShopperPath3[12] = true;
 				}
 			}
-		}
-		if (NewState == CShopperAI::WALK)
-		{
-			ShopperPath3[12] = true;
 		}
 	}
 	if (ShopperPath3[12] == true)
@@ -1014,12 +987,24 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 		}
 		else
 		{
-			ShopperPath3[12] = false;
-			RENDERINGAI = true;
-			ShopperPath2[0] = true;
-			position.Set(36, 1, 37);
+			position.x = 36;
+			position.y = 1;
+			position.z = 37;
+			direction = 0;
 			Rotangle = 0;
 			timer = 0;
+			SetDirection = false;
+			Directions = false;
+			RenderTrolley = false;
+			item_choco = false;
+			item_iceCream = false;
+			item_maggie = false;
+			item_milo = false;
+			item_MnC = false;
+			item_sardine = false;
+			ShopperPath3[12] = false;
+			ShopperPath3[0] = true;
+			RENDERINGAI = true;
 		}
 	}
 }
