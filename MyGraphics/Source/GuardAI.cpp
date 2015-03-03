@@ -2,6 +2,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h> 
+#define _USE_MATH_DEFINES
+#include <math.h>
 using std::string;
 
 CGuardAI::CGuardAI(void)
@@ -322,12 +324,44 @@ void CGuardAI::ChasingPath(double dt)
 		{	
 			Z_Required.z = X_Required.x = 0.0F;
 			chase_path_completed = true;
+			//Guard will close in on shoplifter
 			distance_to_shoplifter = guard_position - shoplifter;
 			guard_position -= distance_to_shoplifter.Normalized() * dt * MovementSpeed;
 
-			guard_next_direction = 0.0F;
+			
+			//Guard will always face shoplifter
+			//Obtain angle via trigonometry
+			Vector3 far(guard_position.x, 0, shoplifter.z);
+			Vector3 adjecant = far - guard_position;
+			Vector3 hypotenuse = guard_position - shoplifter;
+			float angle = acos(adjecant.Length() / hypotenuse.Length()) * 180.0f / M_PI;
+
+			//Original angle is only 0 ~ 90 , '0 ~ 360' is based on Guard and Player positions
+			if (guard_position.x >= shoplifter.x)
+			{
+				if (guard_position.z >= shoplifter.z) 
+				{
+					angle += 180.0f;
+				}
+				else 
+				{
+					angle *= -1.0f;
+				}
+			}
+			else
+			{
+				if (guard_position.z >= shoplifter.z) 
+				{
+					angle += 180.0f;
+					angle *= -1.0f;
+				}
+				else 
+				{
+				}
+			}
+			guard_direction.y = guard_next_direction = angle;
 		}
-		//Guard will first move to Z-coordinates before the Cashier
+		//Guard will first move to Z-coordinates which is before the Cashier
 		if (Z_Required.z >= 2.0F)
 		{				
 			Z_Required.x = 0.0F;

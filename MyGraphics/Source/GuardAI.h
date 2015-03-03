@@ -3,6 +3,7 @@
 #include "Vector3.h"
 #include <iostream>
 #include <math.h>
+#define _USE_MATH_DEFINES
 using std::string;
 
 class CGuardAI
@@ -67,5 +68,6 @@ public:
 	float getY2(void); //Returns Direction.Y
 	float getZ(void);
 	string returnState(void);
+
 };
 
