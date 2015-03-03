@@ -198,6 +198,9 @@ void SP2::Init()
 	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
 	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
 
+	//Initialize Food Stand collision
+	camera.SetBounds(21.5f, 28.5f, 1.5f, 6.5f);
+
 	//Cashier details
 	armRotation = 0.f;
 	armMoving = false;
@@ -1450,6 +1453,10 @@ void SP2::Scenario_Shopper(double dt)
 	//Update trolley only when equipped
 	if(Trolley.EquippedTrolley)
 	{
+		if(camera.IsCrouched)
+		{
+			Trolley.EquippedTrolley = false;
+		}
 		//CW Rotation
 		if(Application::IsKeyPressed(VK_RIGHT))
 		{
