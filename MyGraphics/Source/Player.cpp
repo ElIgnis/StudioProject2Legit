@@ -24,15 +24,15 @@ Vector3 CPlayer::getPos(void)
 
 //CUSTOMER FUNCTIONS
 //Score
-void CPlayer::setShopperScoreSucceed(double dt, int moneyLeft)
+void CPlayer::setShopperScoreSucceed(double dt)
 {
-	score = moneyLeft * 10 + 300 / dt * 200;
+	score = 5000 + 300 / dt * 200;
 }
 
 //if Mission fail
-void CPlayer::setShopperScoreFailed(double dt, int moneyNeeded)
+void CPlayer::setShopperScoreFailed(double dt)
 {
-	score = (800 - moneyNeeded) / dt * 10;
+	score = 300 / dt * 200;
 }
 
 int CPlayer::getShopperScore(void)

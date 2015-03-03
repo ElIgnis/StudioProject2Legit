@@ -331,7 +331,8 @@ private:
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
 	int RollDice(void);
-	void checkItemType(CItem *Item);
+	void checkItemTypeAdd(CItem *Item);
+	void checkItemTypeRemove(CItem *Item);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
@@ -355,6 +356,7 @@ private:
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 	void RenderCashier(void);
 	void RenderPlayerArm(void);
+	void RenderNPC(void);
 
 	//Player functions
 	bool startScreen;
@@ -434,30 +436,41 @@ private:
 	bool customerCheckOut;
 
 	//Random to choose shopping list
-	int randomSL;
-	bool shoppingList1;
-	bool shoppingList2;
-	bool shoppingList3;
+	int randomSL[8];
+	stringstream ssSL[8];
+	string strSL[8];
 
-	int sardineNo;
-	int miloNo;
-	int tobleroneNo;
 	int cokeNo;
-	int cCerealNo;
-	int noodlesNo;
-	int rootbeerNo;
-	int beansNo;
+	int mtnDewNo;
+	int kinderNo;
+	int snickerNo;
+	int iceCreamNo;
 	int pizzaNo;
+	int cCerealNo;
+	int cerealNo;
+	int beansNo;
+	int sardineNo;
+	int rootbeerNo;
+	int miloNo;
+	int noodlesNo;
+	int tobleroneNo;
+	int chocolateNo;
 
-	string sardineSL;
-	string miloSL;
-	string tobleroneSL;
-	string cokeSL;
-	string cCerealSL;
-	string noodlesSL;
-	string rootbeerSL;
-	string beansSL;
-	string pizzaSL;
+	int inventCokeNo;
+	int inventMtnDewNo;
+	int inventKinderNo;
+	int inventSnickerNo;
+	int inventIceCreamNo;
+	int inventPizzaNo;
+	int inventCCerealNo;
+	int inventCerealNo;
+	int inventBeansNo;
+	int inventSardineNo;
+	int inventRootbeerNo;
+	int inventMiloNo;
+	int inventNoodlesNo;
+	int inventTobleroneNo;
+	int inventChocolateNo;
 
 	//number of objects destroyed by villain
 	string desObj;
