@@ -156,51 +156,6 @@ void SP2::Init()
 	//Initialize trolley position
 	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
 
-	//Initialize shelf position
-	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -20.f));
-	ColdShelf_Right.SetShelfCollision(6, 78);
-	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -20.f));
-	ColdShelf_Left.SetShelfCollision(6, 78);
-	RedShelf_Right.SetShelfPosition(Vector3(14.5f, 0.f, -26.f));
-	RedShelf_Right.SetShelfCollision(10, 60);
-	RedShelf_Left.SetShelfPosition(Vector3(-23.5f, 0.f, -26.f));
-	RedShelf_Left.SetShelfCollision(10, 60);
-	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
-	Fridge.SetShelfCollision(6.2, 54);
-
-	//Initialize Shelf collision
-	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
-	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
-	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
-	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
-	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
-
-	//Initialize Wall collision
-	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
-	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
-	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
-	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
-	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
-
-	//Initialize Exit collision(From Right to left, right is towards entrance)
-	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
-	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
-	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
-	camera.SetBounds(-14.f, -11.5f, 36.f, 40.f);
-	camera.SetBounds(-20.f, -17.5f, 36.f, 40.f);
-	camera.SetBounds(-26.f, -23.5f, 36.f, 40.f);
-	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
-	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
-	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
-
-	//Initialize Cashier collision
-	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
-	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
-	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
-
-	//Initialize Food Stand collision
-	camera.SetBounds(21.5f, 28.5f, 1.5f, 6.5f);
-
 	//Cashier details
 	armRotation = 0.f;
 	armMoving = false;
@@ -334,7 +289,65 @@ void SP2::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 
-	Mtx44 projection;
+	Init_Collision();
+	Init_Lights();
+	Init_GEOMS();
+}
+
+static float ROT_LIMIT = 45.f;
+static float SCALE_LIMIT = 5.f;
+
+void SP2::Init_Collision(void)
+{
+	//Initialize shelf position
+	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -20.f));
+	ColdShelf_Right.SetShelfCollision(6, 78);
+	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -20.f));
+	ColdShelf_Left.SetShelfCollision(6, 78);
+	RedShelf_Right.SetShelfPosition(Vector3(14.5f, 0.f, -26.f));
+	RedShelf_Right.SetShelfCollision(10, 60);
+	RedShelf_Left.SetShelfPosition(Vector3(-23.5f, 0.f, -26.f));
+	RedShelf_Left.SetShelfCollision(10, 60);
+	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
+	Fridge.SetShelfCollision(6.2, 54);
+
+	//Initialize Shelf collision
+	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
+	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
+	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
+	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
+	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
+
+	//Initialize Wall collision
+	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
+	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
+	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
+	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
+	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
+
+	//Initialize Exit collision(From Right to left, right is towards entrance)
+	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
+	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
+	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
+	camera.SetBounds(-14.f, -11.5f, 36.f, 40.f);
+	camera.SetBounds(-20.f, -17.5f, 36.f, 40.f);
+	camera.SetBounds(-26.f, -23.5f, 36.f, 40.f);
+	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
+	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
+	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
+
+	//Initialize Cashier collision
+	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
+	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
+	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
+
+	//Initialize Food Stand collision
+	camera.SetBounds(21.5f, 28.5f, 1.5f, 6.5f);
+}
+
+void SP2::Init_Lights(void)
+{
+		Mtx44 projection;
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 4000.f);
 	projectionStack.LoadMatrix(projection);
 
@@ -601,8 +614,11 @@ void SP2::Init()
 	glUniform1f(m_parameters[U_LIGHT6_COSCUTOFF], lights[6].cosCutoff);
 	glUniform1f(m_parameters[U_LIGHT6_COSINNER], lights[6].cosInner);
 	glUniform1f(m_parameters[U_LIGHT6_EXPONENT], lights[6].exponent);
+}
 
-	//Text
+void SP2::Init_GEOMS(void)
+{
+		//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//HelveticaLTStd-Cond.tga");
 
@@ -933,13 +949,6 @@ void SP2::Init()
 	meshList[GEO_HUMAN_MODEL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_HUMAN_MODEL]->material.kShininess = 5.f;
 
-	meshList[GEO_LIGHTBALL1] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL2] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL4] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL5] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-
 	//Wallet
 	meshList[GEO_WALLET] = MeshBuilder::GenerateOBJ("Wallet", "OBJ//Wallet.obj");
 	meshList[GEO_WALLET]->textureID = LoadTGA("Image//Wallet.tga");
@@ -963,15 +972,8 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
 }
 
-static float ROT_LIMIT = 45.f;
-static float SCALE_LIMIT = 5.f;
-
 void SP2::Update(double dt)
 {
-	if(Application::IsKeyPressed('M'))
-	{
-		engine->play2D("Media//test.wav");
-	}
 	if (startScreen == true)
 	{
 		if (Application::IsKeyPressed('1'))
@@ -1128,6 +1130,41 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
 	CheckCollision();
+	PlaySound();
+}
+
+void SP2::PlaySound(void)
+{
+	//ISound * bgm = engine->play2D("Media//test.mp3", false);
+	ISound *TrolleyRolling;
+	//Trolley rolling sound
+	if(Trolley.EquippedTrolley)
+	{
+		if(Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D'))
+		{
+			if(!engine->isCurrentlyPlaying("Media//Trolley.wav")) //Check if sound is playing
+			{
+				TrolleyRolling = engine->play2D("Media//Trolley.wav", false);      //Plays sound
+			}
+		}
+	}
+	//Walking sound
+	else if(!Trolley.EquippedTrolley)
+	{
+		if(Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D'))
+		{
+			if(!engine->isCurrentlyPlaying("Media//Walking.wav")) //Check if sound is playing
+			{
+				engine->play2D("Media//Walking.wav", false);      //Plays sound
+			}
+		}
+	}
+	//if(Application::IsKeyPressed(VK_SPACE))
+	{
+		/*if(!engine->isCurrentlyPlaying("Media//test.ogg"))
+		engine->play2D("Media//test.ogg", false);*/
+	}
+	 //TODO BGM?(Environmental sound)
 }
 
 void SP2::CheckCollision(void)
@@ -1220,6 +1257,10 @@ void SP2::Scenario_Shopper(double dt)
 			{
 				renderMoney = false;
 				playerArmPayingLeftAni = false;
+				if(!engine->isCurrentlyPlaying("Media//Cash Register.mp3")) //Check if sound is playing
+				{
+					engine->play2D("Media//Cash Register.mp3", false);      //Plays cash register sound
+				}
 			}
 			else if (playerArmPayingLeft < -30)
 			{
@@ -1245,7 +1286,7 @@ void SP2::Scenario_Shopper(double dt)
 	}
 
 	float RotationSpeed = 100.f;
-	float DelayInterval = 0.25f;
+	float DelayInterval = 1.f;
 	if(Delay < DelayInterval)
 	{
 		Delay += dt;
@@ -1273,6 +1314,36 @@ void SP2::Scenario_Shopper(double dt)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
+							//Play packet grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_KINDER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_NOODLE
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_SNICKER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Packet.wav"))
+									engine->play2D("Media//Packet.wav", false);
+							}
+							//Plays box grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CEREAL
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOCO
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_ICECREAM
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Box.wav"))
+									engine->play2D("Media//Box.wav", false);
+							}
+							//Plays can grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_BEANS
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_COKE
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MILO
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MTNDEW
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_ROOTBEER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Can.wav"))
+									engine->play2D("Media//Can.wav", false);
+							}
 							checkItemTypeAdd(Container.Shelf.at(i));
 							break;
 						}
@@ -1299,6 +1370,36 @@ void SP2::Scenario_Shopper(double dt)
 					//Only able to put back taken items
 					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::TAKEN)
 					{
+						//Play packet grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_KINDER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_NOODLE
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_SNICKER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Packet.wav"))
+								engine->play2D("Media//Packet.wav", false);
+						}
+						//Plays box grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CEREAL
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOCO
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_ICECREAM
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Box.wav"))
+								engine->play2D("Media//Box.wav", false);
+						}
+						//Plays can grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_BEANS
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_COKE
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MILO
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MTNDEW
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_ROOTBEER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Can.wav"))
+								engine->play2D("Media//Can.wav", false);
+						}
 						checkItemTypeRemove(Container.Shelf.at(i));
 						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
@@ -1445,6 +1546,7 @@ void SP2::Scenario_Shopper(double dt)
 		if(Trolley.EquippedTrolley)
 		{
 			Trolley.EquippedTrolley = false;
+			//engine->stopAllSounds(); //Stops playing trolley rolling sound
 		}
 	}
 	
@@ -1952,6 +2054,10 @@ void SP2::UpdateConveyor(double dt)
 			if(armRotation < -90)
 			{
 				armMovement = true;
+				if(!engine->isCurrentlyPlaying("Media//Beep.wav")) //Check if sound is playing
+				{
+					engine->play2D("Media//Beep.wav", false);      //Plays beeping sound
+				}
 			}
 		}
 	}
