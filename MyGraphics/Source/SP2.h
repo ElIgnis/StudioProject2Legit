@@ -355,7 +355,6 @@ private:
 	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
-	void RenderCashier(void);
 	void RenderPlayerArm(void);
 	void RenderNPC(void);
 
@@ -365,6 +364,9 @@ private:
 	bool highScoreScreen;
 	bool gameStart;
 	bool endScreen;
+
+	bool playerMovement;
+	bool trolleyTaken;
 
 	CPlayer player;
 	bool modeCustomer;
@@ -417,6 +419,7 @@ private:
 	//Player Animation
 	bool playerArmSwipeAni;
 	float playerArmSwipe;
+
 	//Right Arm 
 	bool playerPayingAni;
 	bool playerArmPayingRightAni;

@@ -61,6 +61,8 @@ void SP2::Init()
 
 	newHighScore = false;
 
+	playerMovement = true;
+
 	modeCustomer = false;
 	modeGuard = true;
 	modeVillain = false;
@@ -92,6 +94,7 @@ void SP2::Init()
 
 	playerArmSwipeAni = false;
 
+	playerPayingAni = false;
 	playerArmPayingRightAniUp = false;
 	playerArmPayingRightAniDown = false;
 
@@ -1076,8 +1079,9 @@ void SP2::UpdateGame(double dt)
 	if(Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	camera.Update(dt);
-
+	camera.Movement(dt);
 	player.setPos(camera.position);
+
 
 	//FPS value
 	fps = 1 / dt;
@@ -1164,10 +1168,12 @@ void SP2::Scenario_Shopper(double dt)
 			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
 			{
 				Trolley.Inventory.at(i)->render = false;
+
 				if (Trolley.Inventory.at(0)->render == false)
 				{
 					armMoving = true;
 				}
+
 				if(i == Trolley.Inventory.size() - 1)
 				{
 					renderItemOnTrolley = true;
@@ -1226,8 +1232,9 @@ void SP2::Scenario_Shopper(double dt)
 		playerArmSwipeAni = false;
 	}
 	//Paying animation
-	if (playerPayingAni == true)
+	if (playerPayingAni == true && beltMovement == false)
 	{
+		Trolley.EquippedTrolley = false;
 		if (playerArmPayingRightAni == true)
 		{
 			if (playerArmPayingRight > 0)
@@ -1279,6 +1286,16 @@ void SP2::Scenario_Shopper(double dt)
 	{
 		renderWallet = false;
 		playerPayingAni = false;
+		//Trolley.EquippedTrolley = true;
+	}
+	//Stop player from moving
+	if (playerPayingAni == true || playerArmSwipeAni == true)
+	{
+		camera.playerMovement = false;
+	}
+	else
+	{
+		camera.playerMovement = true;
 	}
 
 	float RotationSpeed = 100.f;
@@ -1368,35 +1385,6 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 
-		if(playerPayingAni == true)
-		{
-			Trolley.EquippedTrolley = false;
-			for(int i = 0; i < ItemLine; i++)
-			{
-				//Taking of items
-				if(camera.target.x > Container.Shelf.at(i)->MinWidth && camera.target.x < Container.Shelf.at(i)->MaxWidth
-					&& camera.target.y > Container.Shelf.at(i)->MinHeight && camera.target.y < Container.Shelf.at(i)->MaxHeight
-					&& camera.target.z > Container.Shelf.at(i)->MinLength && camera.target.z < Container.Shelf.at(i)->MaxLength)
-				{
-					//Distance is updated
-					Distance = (camera.position.x - Container.Shelf.at(i)->ItemPosition.x) 
-						+ (camera.position.y - Container.Shelf.at(i)->ItemPosition.y)
-						+ (camera.position.z - Container.Shelf.at(i)->ItemPosition.z);
-
-					//Only able to destroy default items
-					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::DEFAULT)
-					{
-						Container.Shelf.at(i)->ItemState = CItem::DESTROYED;
-						break;
-					}
-				}
-			}
-		}
-		/*if(renderMoney == false)
-		{
-			Trolley.EquippedTrolley = true;
-		}*/
-
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
@@ -1435,7 +1423,7 @@ void SP2::Scenario_Shopper(double dt)
 				armRotation = -90.f;
 
 				//Checkout
-				if (Trolley.EquippedTrolley == true)
+				if (trolleyTaken == true)
 				{
 					for (int i = 0; i < Trolley.Inventory.size(); i++)
 					{
@@ -1469,6 +1457,7 @@ void SP2::Scenario_Shopper(double dt)
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
 	{
+		trolleyTaken = true;
 		//Equip trolley condition
 		if(camera.position.x > Trolley.RotationMinWidth
 			&& camera.position.x < Trolley.RotationMaxWidth
@@ -1596,7 +1585,6 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 
-
 	//If the guard catches the player for shoplifting, the game ends
 	if (Guard.returnState() == "CAUGHT")
 	{
@@ -1624,10 +1612,16 @@ void SP2::Scenario_Shopper(double dt)
 			&& inventChocolateNo == chocolateNo)
 		{
 			missionComplete = true;
+			player.setShopperScoreSucceed(elapsedTime);
+			//Set high score
+			player.setShopperHighScore(player.getShopperScore());
 		}
 		else
 		{
 			missionComplete = false;
+			player.setShopperScoreFailed(elapsedTime);
+			//Set high score
+			player.setShopperHighScore(player.getShopperScore());
 		}
 
 		gameStart = false;
@@ -1648,12 +1642,21 @@ void SP2::Scenario_Guard(double dt)
 			DistanceToPlayer *= -1;
 		}
 
+		//Game winning condition
 		if(DistanceToPlayer < 3.f && VillainOne->RecentlyDestroyed == true)
 		{
 			VillainOne->SetState(CVillainAI::CAUGHT);
 			gameStart = false;
 			endScreen = true;
 			missionComplete = true;
+			player.setGuardScoreSucceed(elapsedTime);
+			player.setGuardHighScore(player.getGuardScoreSucceed());
+		}
+		else if (elapsedTime < 0)
+		{
+			gameStart = false;
+			endScreen = false;
+			player.setGuardScoreFailed();
 		}
 	}
 }
@@ -1705,6 +1708,18 @@ void SP2::Scenario_Villain(double dt)
 			gameStart = false;
 			endScreen = true;
 			missionComplete = true;
+			if (missionComplete == true)
+			{
+				player.setVillainScoreSucceed(elapsedTime);
+				//Set high score
+				player.setVillainHighScore(player.getVillainScore());
+			}
+			else
+			{
+				player.setVillainScoreFailed(objectsDestroyed);
+				//Set high score
+				player.setVillainHighScore(player.getVillainScore());
+			}
 		}
 	}
 }
@@ -1915,50 +1930,6 @@ void SP2::ShowEndScreen(double dt)
 		highScoreScreen = false;
 		gameStart = false;
 		endScreen = false;
-	}
-
-	//Score calculation
-	if (modeCustomer == true)
-	{
-		//Calculate score & Set high score
-		if (missionComplete == true)
-		{
-			player.setShopperScoreSucceed(elapsedTime);
-			//Set high score
-			player.setShopperHighScore(player.getShopperScore());
-		}
-		else
-		{
-			player.setShopperScoreFailed(elapsedTime);
-			//Set high score
-			player.setShopperHighScore(player.getShopperScore());
-		}
-	}
-
-	else if (modeGuard == true)
-	{
-		if (missionComplete == true)
-		{
-			player.setGuardScoreSucceed(elapsedTime);
-			//Set high score
-			player.setGuardHighScore(player.getGuardScoreSucceed());
-		}
-	}
-
-	else if (modeVillain == true)
-	{
-		if (missionComplete == true)
-		{
-			player.setVillainScoreSucceed(elapsedTime);
-			//Set high score
-			player.setVillainHighScore(player.getVillainScore());
-		}
-		else
-		{
-			player.setVillainScoreFailed(objectsDestroyed);
-			//Set high score
-			player.setVillainHighScore(player.getVillainScore());
-		}
 	}
 }
 
@@ -2526,6 +2497,7 @@ void SP2::RenderScenarioShopper(void)
 	float y = 14.5f;
 	for (int i = 0; i < 8; i++)
 	{
+		
 		RenderTextOnScreen(meshList[GEO_TEXT], strSL[i], Color(1, 0, 0), 2.5f, 0.5f, y);
 		y--;
 	} 
@@ -2560,7 +2532,7 @@ void SP2::RenderScenarioShopper(void)
 	if (NPCInteraction == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(42, 1, -59);
+		modelStack.Translate(41.5, 1, -59);
 		modelStack.Rotate(-90, 0, 1, 0);
 		RenderText(meshList[GEO_TEXT], "Weed?", Color(0, 1, 0));
 		modelStack.PopMatrix();
@@ -3336,10 +3308,6 @@ void SP2::RenderObject()
 			modelStack.Translate(beltPos.x, beltPos.y, beltPos.z);
 			RenderMesh(meshList[GEO_CONVEYORBELT], false);
 			modelStack.PopMatrix();
-
-			modelStack.PushMatrix();
-			RenderCashier();
-			modelStack.PopMatrix();
 		}
 		modelStack.PopMatrix();
 	}
@@ -3353,7 +3321,7 @@ void SP2::RenderObject()
 	
 	int i = 0;
 	//Rendering items on trolley
-	if (Trolley.EquippedTrolley == true)
+	if (trolleyTaken == true)
 	{
 		if (renderItemOnTrolley == true)
 		{
@@ -3381,13 +3349,6 @@ void SP2::RenderObject()
 	}
 	else
 	{
-		if (renderItemOnTrolley == true)
-		{
-			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
-			{
-				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-			}
-		}
 		RenderMesh(meshList[GEO_TROLLEY], true);
 		modelStack.PopMatrix();
 
@@ -3405,10 +3366,129 @@ void SP2::RenderObject()
 			modelStack.PopMatrix();
 		}
 	}
+	
+	//NPC
+	//Cashier 1
+	modelStack.PushMatrix(); //Push body
+	modelStack.Translate(cTablePos.x, cTablePos.y - 0.5, cTablePos.z);
+	modelStack.Translate(3, 3, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2.95, 0);
+	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+	modelStack.PopMatrix(); // Pop Head
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 2.3, 0);
+	if (camera.position.x > cTablePos.x - 5
+		&& camera.position.x < cTablePos.x - 2
+		&& camera.position.z > cTablePos.z - 10
+		&& camera.position.z < cTablePos.z - 5)
+	{
+		modelStack.Rotate(armRotation,1,0,0);
+	}
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.9, 2.3, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
 
+	//Cashier 2
+	modelStack.PushMatrix(); //Push body
+	modelStack.Translate(cTablePos.x - 15, cTablePos.y - 0.5, cTablePos.z);
+	modelStack.Translate(3, 3, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2.95, 0);
+	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+	modelStack.PopMatrix(); // Pop Head
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 2.3, 0);
+	if (camera.position.x > cTablePos.x - 20
+		&& camera.position.x < cTablePos.x - 17
+		&& camera.position.z > cTablePos.z - 10
+		&& camera.position.z < cTablePos.z -5)
+	{
+		modelStack.Rotate(armRotation,1,0,0);
+	}
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.9, 2.3, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix(); //Push body
+	modelStack.Translate(cTablePos.x - 30, cTablePos.y - 0.5, cTablePos.z);
+	modelStack.Translate(3, 3, 0);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2.95, 0);
+	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+	modelStack.PopMatrix(); // Pop Head
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 2.3, 0);
+	if (camera.position.x > cTablePos.x - 35
+		&& camera.position.x < cTablePos.x - 32
+		&& camera.position.z > cTablePos.z - 10
+		&& camera.position.z < cTablePos.z - 5)
+	{
+		modelStack.Rotate(armRotation,1,0,0);
+	}
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.9, 2.3, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+	modelStack.PopMatrix();
+	modelStack.PopMatrix();
+	
+	//NPC behind shelves
 	modelStack.PushMatrix();
 	modelStack.Translate(42, 0, -59);
 	modelStack.Rotate(-90, 0, 1, 0);
+	RenderNPC();
+	modelStack.PopMatrix();
+
+	//NPC behind food stand
+	modelStack.PushMatrix();
+	modelStack.Translate(25, 0, 2);
+	RenderNPC();
+	modelStack.PopMatrix();
+
+	//NPC infront of food stand
+	modelStack.PushMatrix();
+	modelStack.Translate(25, 0, 6);
+	modelStack.Rotate(180, 0, 1, 0);
 	RenderNPC();
 	modelStack.PopMatrix();
 }
@@ -3625,38 +3705,6 @@ void SP2::RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float Tran
 	modelStack.PopMatrix();
 
 	glEnable(GL_DEPTH_TEST);
-}
-
-void SP2::RenderCashier(void)
-{
-	//Render Cashier
-	modelStack.PushMatrix(); //Push body
-	modelStack.Translate(cTablePos.x, cTablePos.y, cTablePos.z);
-	modelStack.Translate(3, 3, 0);
-	modelStack.Rotate(-90, 0, 1, 0);
-	RenderMesh(meshList[GEO_HUMAN_BODY], false);
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 2.95, 0);
-	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
-	modelStack.PopMatrix(); // Pop Head
-	modelStack.PushMatrix();
-	modelStack.Translate(1, 2.3, 0);
-	modelStack.Rotate(armRotation,1,0,0);
-	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(-0.9, 2.3, 0);
-	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(0.3, -0.05, 0);
-	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
-	modelStack.PopMatrix();
-	modelStack.PushMatrix();
-	modelStack.Translate(-0.3, -0.05, 0);
-	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
-	modelStack.PopMatrix();
-	modelStack.PopMatrix();
 }
 
 void SP2::RenderPlayerArm(void)

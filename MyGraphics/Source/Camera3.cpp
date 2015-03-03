@@ -27,6 +27,7 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	right.y = 0;
 	right.Normalize();
 	this->up = defaultUp = right.Cross(view).Normalized();
+	playerMovement = true;
 }
 
 void Camera3::Update(double dt)
@@ -106,7 +107,6 @@ void Camera3::Update(double dt)
 		{
 			pitch = 0;
 		}
-		
 		Vector3 view = (target - position).Normalized();
 		Vector3 right = view.Cross(up);
 		right.y = 0;
@@ -141,54 +141,6 @@ void Camera3::Update(double dt)
 		target = view + position;
 	}
 	
-	if(Application::IsKeyPressed('A'))
-	{
-		oldpos = position;
-		oldtgt = target;
-
-		Vector3 view = (target - position).Normalized();
-		Vector3 right = view.Cross(up);
-		right.y = 0;
-		right.Normalize();
-		position -= right * CAMERA_SPEED2 * dt;
-		target -= right * CAMERA_SPEED2 * dt;
-		BoundsCheck();
-	}
-	if(Application::IsKeyPressed('D'))
-	{
-		oldpos = position;
-		oldtgt = target;
-
-		Vector3 view = (target - position).Normalized();
-		Vector3 right = view.Cross(up);
-		right.y = 0;
-		right.Normalize();
-		position += right * CAMERA_SPEED2 * dt;
-		target += right * CAMERA_SPEED2 * dt;
-		BoundsCheck();
-	}
-	if(Application::IsKeyPressed('W'))
-	{
-		oldpos = position;
-		oldtgt = target;
-		Vector3 view = (target - position).Normalized();
-		view.y = 0;
-		view.Normalize();
-		position += view * CAMERA_SPEED2 * dt;
-		target += view * CAMERA_SPEED2 * dt;
-		BoundsCheck();
-	}
-	if(Application::IsKeyPressed('S'))
-	{
-		oldpos = position;
-		oldtgt = target;
-		Vector3 view = (target - position).Normalized();
-		view.y = 0;
-		view.Normalize();
-		position -= view * CAMERA_SPEED2 * dt;
-		target -= view * CAMERA_SPEED2 * dt;
-		BoundsCheck();
-	}
 	//Crouching
 	if(Application::IsKeyPressed(VK_CONTROL))
 	{
@@ -262,4 +214,59 @@ void Camera3::Limiter(void)
 	target = oldtgt;
 	oldpos = position;
 	oldtgt = target;
+}
+
+void Camera3::Movement(double dt)
+{
+	if (playerMovement == true)
+	{
+	if(Application::IsKeyPressed('A'))
+	{
+		oldpos = position;
+		oldtgt = target;
+
+		Vector3 view = (target - position).Normalized();
+		Vector3 right = view.Cross(up);
+		right.y = 0;
+		right.Normalize();
+		position -= right * CAMERA_SPEED2 * dt;
+		target -= right * CAMERA_SPEED2 * dt;
+		BoundsCheck();
+	}
+	if(Application::IsKeyPressed('D'))
+	{
+		oldpos = position;
+		oldtgt = target;
+
+		Vector3 view = (target - position).Normalized();
+		Vector3 right = view.Cross(up);
+		right.y = 0;
+		right.Normalize();
+		position += right * CAMERA_SPEED2 * dt;
+		target += right * CAMERA_SPEED2 * dt;
+		BoundsCheck();
+	}
+	if(Application::IsKeyPressed('W'))
+	{
+		oldpos = position;
+		oldtgt = target;
+		Vector3 view = (target - position).Normalized();
+		view.y = 0;
+		view.Normalize();
+		position += view * CAMERA_SPEED2 * dt;
+		target += view * CAMERA_SPEED2 * dt;
+		BoundsCheck();
+	}
+	if(Application::IsKeyPressed('S'))
+	{
+		oldpos = position;
+		oldtgt = target;
+		Vector3 view = (target - position).Normalized();
+		view.y = 0;
+		view.Normalize();
+		position -= view * CAMERA_SPEED2 * dt;
+		target -= view * CAMERA_SPEED2 * dt;
+		BoundsCheck();
+	}
+	}
 }

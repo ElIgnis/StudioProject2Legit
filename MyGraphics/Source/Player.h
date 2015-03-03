@@ -36,6 +36,7 @@ public:
 	//GUARD FUNCTIONS
 	void setGuardScoreSucceed(double dt);
 	int getGuardScoreSucceed(void);
+	void setGuardScoreFailed();
 
 	void setGuardHighScore(int score);
 	int getGuardHighScore(void);

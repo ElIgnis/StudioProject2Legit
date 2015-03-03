@@ -103,6 +103,12 @@ void CPlayer::setGuardScoreSucceed(double dt)
 {
 	score = 1800 - 10 * dt;
 }
+
+void CPlayer::setGuardScoreFailed()
+{
+	score = 0;
+}
+
 int CPlayer::getGuardScoreSucceed(void)
 {
 	return score;
