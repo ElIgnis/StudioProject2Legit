@@ -97,6 +97,17 @@ void SP2::Init()
 
 	NPCInteraction = false;
 
+	//UI in shopper mode
+	sardineNo = 0;
+	miloNo = 0;
+	tobleroneNo = 0;
+	cokeNo = 0;
+	cCerealNo = 0;
+	noodlesNo = 0;
+	rootbeerNo = 0;
+	beansNo = 0;
+	pizzaNo = 0;
+
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
 	inFile.open("Source//charWidth.txt");
@@ -196,6 +207,9 @@ void SP2::Init()
 	VillainOne = new CVillainAI;
 	RollDice();
 	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
+
+	//Random Shopping List
+	randomSL = rand() % 30 + 1;
 
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -965,7 +979,7 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
 
-	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 30);
+	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 20);
 	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
 }
 
@@ -1289,6 +1303,7 @@ void SP2::Scenario_Shopper(double dt)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
+							checkItemType(Container.Shelf.at(i));
 							break;
 						}
 					}
@@ -1556,6 +1571,36 @@ void SP2::Scenario_Shopper(double dt)
 		gameStart = false;
 		endScreen = true;
 	}
+
+	//String streams for UI
+	stringstream sardineSS, miloSS, tobleroneSS, cokeSS, cCerealSS, noodlesSS, rootbeerSS, beansSS, pizzaSS;
+	
+	sardineSS << sardineNo;
+	sardineSL = sardineSS.str();
+
+	miloSS << miloNo;
+	miloSL = miloSS.str();
+
+	tobleroneSS << tobleroneNo;
+	tobleroneSL = tobleroneSS.str();
+
+	cokeSS << cokeNo;
+	cokeSL = cokeSS.str();
+
+	cCerealSS << cCerealNo;
+	cCerealSL = cCerealSS.str();
+
+	noodlesSS << noodlesNo;
+	noodlesSL = noodlesSS.str();
+
+	rootbeerSS << rootbeerNo;
+	rootbeerSL = rootbeerSS.str();
+
+	beansSS << beansNo;
+	beansSL = beansSS.str();
+
+	pizzaSS << pizzaNo;
+	pizzaSL = pizzaSS.str();
 }
 
 void SP2::Scenario_Guard(double dt)
@@ -1923,6 +1968,46 @@ void SP2::UpdateConveyor(double dt)
 
 }
 
+void SP2::checkItemType(CItem *Item)
+{
+	if (Item->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+	{
+		sardineNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_CAN_MILO)
+	{
+		miloNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+	{
+		tobleroneNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_CAN_COKE)
+	{
+		cokeNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL)
+	{
+		cCerealNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_PACK_NOODLE)
+	{
+		noodlesNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_CAN_ROOTBEER)
+	{
+		rootbeerNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_CAN_BEANS)
+	{
+		beansNo++;
+	}
+	if (Item->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+	{
+		pizzaNo++;
+	}
+}
+
 void SP2::Render()
 {
 	//Start Screen
@@ -1958,9 +2043,7 @@ void SP2::Render()
 			if (Guard.returnState() == "CAUGHT")
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(0, -30, 0);
-			//modelStack.Rotate(-22.5, 1, 0, 0);
-			RenderMesh(meshList[GEO_POLICE], true);
+			RenderUIOnScreen(meshList[GEO_POLICE], Color(1, 1, 1), 0, 0, 0, 0, 1, 1, 1);
 			modelStack.PopMatrix();
 			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
 		}
@@ -2461,10 +2544,59 @@ void SP2::RenderScenarioShopper(void)
 	}
 
 	//Rendering Text
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping Cart:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0, 1, 0), 3.f, 2.8f, 3.f);
 
-	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
+	if (randomSL > 1 && randomSL < 11)
+	{
+		shoppingList1 = true;
+		if (sardineNo < 2)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Sardine:" +sardineSL+"/2", Color(1, 0, 0), 3.f, 0.5f, 12.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Sardine:" +sardineSL+"/2", Color(0, 1, 0), 3.f, 0.5f, 12.f);
+		if (miloNo < 1)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Milo:"+miloSL+"/1", Color(1, 0, 0), 3.f, 0.5f, 11.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Milo:"+miloSL+"/1", Color(0, 1, 0), 3.f, 0.5f, 11.f);
+		if (tobleroneNo < 4)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Toblerone:"+tobleroneSL+"/4", Color(1, 0, 0), 3.f, 0.5f, 10.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Toblerone:"+tobleroneSL+"/4", Color(0, 1, 0), 3.f, 0.5f, 10.f);
+	}
+	else if (randomSL > 10 && randomSL < 21)
+	{
+		shoppingList2 = true;
+		if (cokeNo < 3)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Coke:"+cokeSL+"/3", Color(1, 0, 0), 3.f, 0.5f, 12.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Coke:"+cokeSL+"/3", Color(0, 1, 0), 3.f, 0.5f, 12.f);
+		if (cCerealNo < 2)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Chocolate Cereal:"+cCerealSL+"/2", Color(1, 0, 0), 3.f, 0.5f, 11.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Chocolate Cereal:"+cCerealSL+"/2", Color(0, 1, 0), 3.f, 0.5f, 11.f);
+		if (noodlesNo < 3)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Packet Noodle:"+noodlesSL+"/3", Color(1, 0, 0), 3.f, 0.5f, 10.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Packet Noodle:"+noodlesSL+"/3", Color(0, 1, 0), 3.f, 0.5f, 10.f);
+	}
+	else if (randomSL > 20 && randomSL < 31)
+	{
+		shoppingList3 = true;
+		if (rootbeerNo < 2)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Rootbeer:"+rootbeerSL+"/2", Color(1, 0, 0), 3.f, 0.5f, 12.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Rootbeer:"+rootbeerSL+"/2", Color(0, 1, 0), 3.f, 0.5f, 12.f);
+		if (beansNo < 3)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Can Beans:"+beansSL+"/3", Color(1, 0, 0), 3.f, 0.5f, 11.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Can Beans:"+beansSL+"/3", Color(0, 1, 0), 3.f, 0.5f, 11.f);
+		if (pizzaNo < 1)
+			RenderTextOnScreen(meshList[GEO_TEXT], "Pizza:"+pizzaSL+"/1", Color(1, 0, 0), 3.f, 0.5f, 10.f);
+		else
+			RenderTextOnScreen(meshList[GEO_TEXT], "Pizza:"+pizzaSL+"/1", Color(0, 1, 0), 3.f, 0.5f, 10.f);
+	}
+
 
 	if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
@@ -2499,7 +2631,7 @@ void SP2::RenderScenarioShopper(void)
 	if (NPCInteraction == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(cTablePos.x, 5, cTablePos.z);
+		modelStack.Translate(cTablePos.x + 2, 3, cTablePos.z);
 		modelStack.Rotate(-90, 0, 1, 0);
 		RenderText(meshList[GEO_TEXT], "HI !", Color(0, 1, 0));
 		modelStack.PopMatrix();

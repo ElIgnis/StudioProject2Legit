@@ -364,6 +364,7 @@ private:
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
 	int RollDice(void);
+	void checkItemType(CItem *Item);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
@@ -385,7 +386,6 @@ private:
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 	void RenderCashier(void);
 	void RenderPlayerArm(void);
-	void RestartGame(void);
 
 	//Player functions
 	bool startScreen;
@@ -461,10 +461,37 @@ private:
 
 	//NPC Interaction
 	bool NPCInteraction;
-	
-	string desObj;
 
 	bool customerCheckOut;
+
+	//Random to choose shopping list
+	int randomSL;
+	bool shoppingList1;
+	bool shoppingList2;
+	bool shoppingList3;
+
+	int sardineNo;
+	int miloNo;
+	int tobleroneNo;
+	int cokeNo;
+	int cCerealNo;
+	int noodlesNo;
+	int rootbeerNo;
+	int beansNo;
+	int pizzaNo;
+
+	string sardineSL;
+	string miloSL;
+	string tobleroneSL;
+	string cokeSL;
+	string cCerealSL;
+	string noodlesSL;
+	string rootbeerSL;
+	string beansSL;
+	string pizzaSL;
+
+	//number of objects destroyed by villain
+	string desObj;
 };
 
 #endif
