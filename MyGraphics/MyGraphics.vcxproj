@@ -101,6 +101,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Shelf.cpp" />
     <ClCompile Include="Source\ShopperAI.cpp" />
+    <ClCompile Include="Source\ShopperAI2.cpp" />
     <ClCompile Include="Source\SP2.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Shelf.h" />
     <ClInclude Include="Source\ShopperAI.h" />
+    <ClInclude Include="Source\ShopperAI2.h" />
     <ClInclude Include="Source\SP2.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Utility.h" />

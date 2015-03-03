@@ -7,6 +7,10 @@ CInventory::CInventory(void)
 	CurrentSize = 0;
 	EquippedTrolley = false;
 
+	TrolleyPosition.x = 30.f;
+	TrolleyPosition.y = 0.f;
+	TrolleyPosition.z = 30.f;
+
 	TrolleyDirection.x = 0;
 	TrolleyDirection.y = 0;
 	TrolleyDirection.z = 0;

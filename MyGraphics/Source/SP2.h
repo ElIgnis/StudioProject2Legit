@@ -22,6 +22,7 @@
 
 //kel
 #include"ShopperAI.h"
+#include "ShopperAI2.h"
 
 #include <sstream>
 #include <fstream>
@@ -128,42 +129,6 @@ private:
 		U_LIGHT6_COSINNER,
 		U_LIGHT6_EXPONENT,
 
-		U_LIGHT7_POSITION, //Light 8
-		U_LIGHT7_TYPE,
-		U_LIGHT7_COLOR,
-		U_LIGHT7_POWER,
-		U_LIGHT7_KC,
-		U_LIGHT7_KL,
-		U_LIGHT7_KQ,
-		U_LIGHT7_SPOTDIRECTION,
-		U_LIGHT7_COSCUTOFF,
-		U_LIGHT7_COSINNER,
-		U_LIGHT7_EXPONENT,
-
-		U_LIGHT8_POSITION, //Light 9
-		U_LIGHT8_TYPE,
-		U_LIGHT8_COLOR,
-		U_LIGHT8_POWER,
-		U_LIGHT8_KC,
-		U_LIGHT8_KL,
-		U_LIGHT8_KQ,
-		U_LIGHT8_SPOTDIRECTION,
-		U_LIGHT8_COSCUTOFF,
-		U_LIGHT8_COSINNER,
-		U_LIGHT8_EXPONENT,
-
-		U_LIGHT9_POSITION, //Light 10
-		U_LIGHT9_TYPE,
-		U_LIGHT9_COLOR,
-		U_LIGHT9_POWER,
-		U_LIGHT9_KC,
-		U_LIGHT9_KL,
-		U_LIGHT9_KQ,
-		U_LIGHT9_SPOTDIRECTION,
-		U_LIGHT9_COSCUTOFF,
-		U_LIGHT9_COSINNER,
-		U_LIGHT9_EXPONENT,
-
 		U_NUMLIGHTS,
 		U_COLOR_TEXTURE_ENABLED,
 		U_COLOR_TEXTURE,
@@ -264,7 +229,7 @@ private:
 
 	MS modelStack, viewStack, projectionStack;
 
-	Light lights[10];
+	Light lights[7];
 
 	double fps;
 	float WorldOffset;
@@ -328,6 +293,7 @@ private:
 	CInventory PlayerInvent;
 	CInventory Trolley;
 	float Delay;
+	CInventory AITrolley;
 
 	//Item taking
 	float Distance;
@@ -348,7 +314,7 @@ private:
 
 	//AI Shopper Loading Properties
 	CShopperAI ShopperAI;
-	CShopperAI *Shopper1;
+	CShopperAI2 *Shopper1;
 
 	bool toggleLight;
 
@@ -359,7 +325,8 @@ private:
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
 	void Scenario_Villain(double dt);
-	void updateShopperAI(double dt,CShopperAI *Shopper1);
+	void updateShopperAI(double dt);
+	void updateShopperAI2(double dt, CShopperAI2 *Shopper1);
 	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
@@ -371,8 +338,10 @@ private:
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
+
+	void RenderShopperAI2(CShopperAI2 *Shopper1);
 	void RenderGuardAI(void);
-	void RenderShopperAI2(CShopperAI *Shopper1);
+	
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
