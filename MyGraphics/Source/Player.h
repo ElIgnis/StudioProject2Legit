@@ -23,9 +23,9 @@ public:
 	Vector3 getPos(void);
 
 	//SHOPPER FUNCTIONS
-	void setShopperScoreSucceed(double dt, int moneyLeft);
+	void setShopperScoreSucceed(double dt);
 	int getShopperScore(void);
-	void setShopperScoreFailed(double dt, int moneyNeeded);
+	void setShopperScoreFailed(double dt);
 	
 	void setShopperHighScore(int score);
 	int getShopperHighScore(void);

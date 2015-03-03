@@ -234,8 +234,6 @@ private:
 	double fps;
 	float WorldOffset;
 
-	std::string plXCoord;
-	std::string plZCoord;
 	std::string fpsText;
 
 	float textWidth[256];
@@ -331,6 +329,9 @@ private:
 	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
 	void UpdateConveyor(double dt);
+	int RollDice(void);
+	void checkItemTypeAdd(CItem *Item);
+	void checkItemTypeRemove(CItem *Item);
 	int RollDiceVillain(void);
 	int RollDiceShopper(void);
 	 //Renders
@@ -356,7 +357,7 @@ private:
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 	void RenderCashier(void);
 	void RenderPlayerArm(void);
-	void RestartGame(void);
+	void RenderNPC(void);
 
 	//Player functions
 	bool startScreen;
@@ -432,10 +433,48 @@ private:
 
 	//NPC Interaction
 	bool NPCInteraction;
-	
-	string desObj;
 
 	bool customerCheckOut;
+
+	//Random to choose shopping list
+	int randomSL[8];
+	stringstream ssSL[8];
+	string strSL[8];
+
+	int cokeNo;
+	int mtnDewNo;
+	int kinderNo;
+	int snickerNo;
+	int iceCreamNo;
+	int pizzaNo;
+	int cCerealNo;
+	int cerealNo;
+	int beansNo;
+	int sardineNo;
+	int rootbeerNo;
+	int miloNo;
+	int noodlesNo;
+	int tobleroneNo;
+	int chocolateNo;
+
+	int inventCokeNo;
+	int inventMtnDewNo;
+	int inventKinderNo;
+	int inventSnickerNo;
+	int inventIceCreamNo;
+	int inventPizzaNo;
+	int inventCCerealNo;
+	int inventCerealNo;
+	int inventBeansNo;
+	int inventSardineNo;
+	int inventRootbeerNo;
+	int inventMiloNo;
+	int inventNoodlesNo;
+	int inventTobleroneNo;
+	int inventChocolateNo;
+
+	//number of objects destroyed by villain
+	string desObj;
 };
 
 #endif

@@ -97,6 +97,17 @@ void SP2::Init()
 
 	NPCInteraction = false;
 
+	//UI in shopper mode
+	sardineNo = 0;
+	miloNo = 0;
+	tobleroneNo = 0;
+	cokeNo = 0;
+	cCerealNo = 0;
+	noodlesNo = 0;
+	rootbeerNo = 0;
+	beansNo = 0;
+	pizzaNo = 0;
+
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
 	inFile.open("Source//charWidth.txt");
@@ -201,6 +212,86 @@ void SP2::Init()
 
 	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
 
+	//Random Shopping List
+	for (int i = 0; i < 8 ; i++)	//Random number 
+	{
+		randomSL[i] = rand() % 14 + 20;
+		if(randomSL[i] == 20)
+		{
+			strSL[i] = "Coke";
+			cokeNo++;
+		}
+		else if(randomSL[i] == 21)
+		{
+			strSL[i] = "Mountain Dew";
+			mtnDewNo++;
+		}
+		else if(randomSL[i] == 22)
+		{
+			strSL[i] = "Kinder Bueno";
+			kinderNo++;
+		}
+		else if(randomSL[i] == 23)
+		{
+			strSL[i] = "Snicker";
+			snickerNo++;
+		}
+		else if(randomSL[i] == 24)
+		{
+			strSL[i] = "Ice Cream";
+			iceCreamNo++;
+		}
+		else if(randomSL[i] == 25)
+		{
+			strSL[i] = "Pizza";
+			pizzaNo++;
+		}
+		else if(randomSL[i] == 26)
+		{
+			strSL[i] = "Chocolate Cereal";
+			cCerealNo++;
+		}
+		else if(randomSL[i] == 27)
+		{
+			strSL[i] = "Cereal";
+			cerealNo++;
+		}
+		else if(randomSL[i] == 28)
+		{
+			strSL[i] = "Beans";
+			beansNo++;
+		}
+		else if(randomSL[i] == 29)
+		{
+			strSL[i] = "Sardine";
+			sardineNo++;
+		}
+		else if(randomSL[i] == 30)
+		{
+			strSL[i] = "Root Beer";
+			rootbeerNo++;
+		}
+		else if(randomSL[i] == 31)
+		{
+			strSL[i] = "Milo";
+			miloNo++;
+		}
+		else if(randomSL[i] == 32)
+		{
+			strSL[i] = "Instant Noodles";
+			noodlesNo++;
+		}
+		else if(randomSL[i] == 33)
+		{
+			strSL[i] = "Toblerone";
+			tobleroneNo++;
+		}
+		else if(randomSL[i] == 34)
+		{
+			strSL[i] = "Chocolate";
+			chocolateNo++;
+		}
+	}
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//Enable depth buffer and depth testing
@@ -228,10 +319,6 @@ void SP2::Init()
 
 	//Initialize camera settings
 	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-
-	//cl check
-	double plX = camera.position.x;
-	double plZ = camera.position.z;
 
 	//Initialize all meshes to NULL
 	for(int i = 0; i < NUM_GEOMETRY; ++i)
@@ -861,8 +948,12 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
 
-	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 30);
+	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 40);
 	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
+	meshList[GEO_MONEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_MONEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_MONEY]->material.kShininess = 5.f;
 }
 
 static float ROT_LIMIT = 45.f;
@@ -991,16 +1082,6 @@ void SP2::UpdateGame(double dt)
 	ss << fps;
 	fpsText = ss.str();
 
-	//Pos checker
-	std::stringstream s_plX;
-	std::stringstream s_plZ;
-
-	s_plX << camera.position.x;
-	s_plZ << camera.position.z;
-
-	plXCoord = s_plX.str();
-	plZCoord = s_plZ.str();
-
 	//Time Taken
 	elapsedTime += (float)(1*dt);
 	std::stringstream s_timeElapsed;
@@ -1035,11 +1116,15 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI(dt);
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
-
+	CheckCollision();
 }
 
 void SP2::CheckCollision(void)
 {
+	if (Trolley.UpdateTrolleyBox(player.getPos()) == true)
+		{
+			camera.Limiter();
+		}
 	//Cold Shelf Right
 	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
 	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
@@ -1187,6 +1272,7 @@ void SP2::Scenario_Shopper(double dt)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
+							checkItemTypeAdd(Container.Shelf.at(i));
 							break;
 						}
 					}
@@ -1212,6 +1298,7 @@ void SP2::Scenario_Shopper(double dt)
 					//Only able to put back taken items
 					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::TAKEN)
 					{
+						checkItemTypeRemove(Container.Shelf.at(i));
 						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
 					}
@@ -1275,6 +1362,13 @@ void SP2::Scenario_Shopper(double dt)
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
+			if(camera.position.x > 35
+				&& camera.position.z < -57 
+				&& camera.position.z > -61)
+			{
+				NPCInteraction = true;
+			}
+
 			if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
 				&& camera.position.z > cTablePos.z - 10
@@ -1289,7 +1383,6 @@ void SP2::Scenario_Shopper(double dt)
 				&& camera.position.z < cTablePos.z - 5 ))
 			{
 				customerCheckOut = true;
-				NPCInteraction = true;
 				//Paying animation
 				playerPayingAni = true;
 				playerArmPayingRightAni = true;
@@ -1446,15 +1539,40 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 
+
 	//If the guard catches the player for shoplifting, the game ends
 	if (Guard.returnState() == "CAUGHT")
 	{
+		missionComplete = false;
 		gameStart = false;
 		endScreen = true;
 	}
 
 	if (customerCheckOut == true && player.getPos().z > 40.f)
 	{
+		if (inventCokeNo == cokeNo
+			&& inventMtnDewNo == mtnDewNo
+			&& inventKinderNo == kinderNo
+			&& inventSnickerNo == snickerNo
+			&& inventIceCreamNo == iceCreamNo
+			&& inventPizzaNo == pizzaNo
+			&& inventCCerealNo == cCerealNo
+			&& inventCerealNo == cerealNo
+			&& inventBeansNo == beansNo
+			&& inventSardineNo == sardineNo
+			&& inventRootbeerNo == rootbeerNo
+			&& inventMiloNo == miloNo
+			&& inventNoodlesNo == noodlesNo
+			&& inventTobleroneNo == tobleroneNo
+			&& inventChocolateNo == chocolateNo)
+		{
+			missionComplete = true;
+		}
+		else
+		{
+			missionComplete = false;
+		}
+
 		gameStart = false;
 		endScreen = true;
 	}
@@ -1745,28 +1863,16 @@ void SP2::ShowEndScreen(double dt)
 	//Score calculation
 	if (modeCustomer == true)
 	{
-		//Mission pass/fail for customer
-		if (amountSpent < startingAmount)
-		{
-			remaindingAmount = startingAmount - amountSpent;
-			missionComplete = true;
-		}
-		else
-		{
-			amountOvershot = amountSpent - startingAmount;
-			missionFailed = true;
-		}
-
 		//Calculate score & Set high score
 		if (missionComplete == true)
 		{
-			player.setShopperScoreSucceed(elapsedTime, remaindingAmount);
+			player.setShopperScoreSucceed(elapsedTime);
 			//Set high score
 			player.setShopperHighScore(player.getShopperScore());
 		}
-		else if(missionFailed == true)
+		else
 		{
-			player.setShopperScoreFailed(elapsedTime, amountOvershot);
+			player.setShopperScoreFailed(elapsedTime);
 			//Set high score
 			player.setShopperHighScore(player.getShopperScore());
 		}
@@ -1847,6 +1953,74 @@ void SP2::UpdateConveyor(double dt)
 
 }
 
+void SP2::checkItemTypeAdd(CItem *Item)
+{
+	if (Item->GEO_TYPE == SP2::GEO_CAN_COKE)
+		inventCokeNo++;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_MTNDEW)
+		inventMtnDewNo++;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_KINDER)
+		inventKinderNo++;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_SNICKER)
+		inventSnickerNo++;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_ICECREAM)
+		inventIceCreamNo++;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+		inventPizzaNo++;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL)
+		inventCCerealNo++;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CEREAL)
+		inventCerealNo++;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_BEANS)
+		inventBeansNo++;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+		inventSardineNo++;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_ROOTBEER)
+		inventRootbeerNo++;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_MILO)
+		inventMiloNo++;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_NOODLE)
+		inventNoodlesNo++;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+		inventTobleroneNo++;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOCO)
+		inventChocolateNo++;
+}
+
+void SP2::checkItemTypeRemove(CItem *Item)
+{
+	if (Item->GEO_TYPE == SP2::GEO_CAN_COKE)
+		inventCokeNo--;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_MTNDEW)
+		inventMtnDewNo--;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_KINDER)
+		inventKinderNo--;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_SNICKER)
+		inventSnickerNo--;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_ICECREAM)
+		inventIceCreamNo--;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+		inventPizzaNo--;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL)
+		inventCCerealNo--;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CEREAL)
+		inventCerealNo--;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_BEANS)
+		inventBeansNo--;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+		inventSardineNo--;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_ROOTBEER)
+		inventRootbeerNo--;
+	if (Item->GEO_TYPE == SP2::GEO_CAN_MILO)
+		inventMiloNo--;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_NOODLE)
+		inventNoodlesNo--;
+	if (Item->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+		inventTobleroneNo--;
+	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOCO)
+		inventChocolateNo--;
+}
+
 void SP2::Render()
 {
 	//Start Screen
@@ -1882,14 +2056,13 @@ void SP2::Render()
 			if (Guard.returnState() == "CAUGHT")
 		{
 			modelStack.PushMatrix();
-			modelStack.Translate(0, -30, 0);
-			//modelStack.Rotate(-22.5, 1, 0, 0);
-			RenderMesh(meshList[GEO_POLICE], true);
+			modelStack.Translate(0, -15, 0);
+			RenderMesh(meshList[GEO_POLICE], false);
 			modelStack.PopMatrix();
-			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 1, 1), 5.f, 2.5f, 11.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 0, 0), 5.f, 2.5f, 11.f);
 		}
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
-			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (1, 0, 1), 5.f, 8.f, 7.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (0, 1, 0), 5.f, 7.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (0, 1, 0), 5.f, 8.f, 7.f);
 		}
 		else if (modeGuard == true)
 		{
@@ -1956,8 +2129,6 @@ void SP2::RenderGame(void)
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 4.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 3.f);
 	if (modeCustomer == true || modeVillain == true)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
@@ -2181,6 +2352,8 @@ void SP2::RenderLights(void)
 
 void SP2::RenderScenarioShopper(void)
 {
+	//Player Arms
+	//Render Player Arms
 	if (Trolley.EquippedTrolley == true)
 	{
 		modelStack.PushMatrix();
@@ -2271,6 +2444,18 @@ void SP2::RenderScenarioShopper(void)
 		RenderPlayerArm();
 	}
 
+	float difference = -4.0;
+	float angle = Trolley.TrolleyDirection.y * M_PI / 180.0f;
+	float s = sin(angle);
+	float c = cos(angle);
+	Vector3 newTrolley(Trolley.TrolleyPosition.x + (difference * s) + (difference * c), 0.0f, Trolley.TrolleyPosition.x + (difference * c) + (difference * s));
+
+	long double xvalue = static_cast<double>(Trolley.Offset.x);
+	long double zvalue = static_cast<double>(Trolley.Offset.z);
+	long double xXvalue = static_cast<double>(s);
+	long double zZvalue = static_cast<double>(c);
+	long double Yvalue = static_cast<double>(angle);
+
 	//UI Rendering
 	int UI_PlayerStart = 10;
 	int PlayerDifference = 12;
@@ -2308,10 +2493,16 @@ void SP2::RenderScenarioShopper(void)
 	}
 
 	//Rendering Text
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0, 1, 0), 3.f, 9.5f, 3.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0, 1, 0), 3.f, 2.8f, 3.f);
-
-	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping List:", Color(0, 1, 0), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Shopping Cart:", Color(0.2, 0.87, 0.87), 3.f, 9.5f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "On hand:", Color(0.2, 0.87, 0.87), 3.f, 2.8f, 3.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0.2, 0.87, 0.87), 3.f, 0.5f, 13.f);
+	//Goals
+	float y = 14.5f;
+	for (int i = 0; i < 8; i++)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], strSL[i], Color(1, 0, 0), 2.5f, 0.5f, y);
+		y--;
+	} 
 
 	if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
@@ -2346,9 +2537,9 @@ void SP2::RenderScenarioShopper(void)
 	if (NPCInteraction == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(cTablePos.x, 5, cTablePos.z);
+		modelStack.Translate(42, 1, -59);
 		modelStack.Rotate(-90, 0, 1, 0);
-		RenderText(meshList[GEO_TEXT], "HI !", Color(0, 1, 0));
+		RenderText(meshList[GEO_TEXT], "Weed?", Color(0, 1, 0));
 		modelStack.PopMatrix();
 	}
 }
@@ -2356,7 +2547,7 @@ void SP2::RenderScenarioShopper(void)
 void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0.2, 0.87, 0.87), 3.f, 0.5f, 13.f);
 	if (objectsDestroyed < 15)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Objects:"+desObj+"/15", Color(1, 0, 0), 2.5f, 0.5f, 14.f);
@@ -2371,12 +2562,8 @@ void SP2::RenderScenarioVillain(void)
 void SP2::RenderScenarioGuard(void)
 {
 	RenderPlayerArm();
-	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(1, 1, 1), 3.f, 0.5f, 13.f);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0.2, 0.87, 0.87), 3.f, 0.5f, 13.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Villain 0/1", Color(1, 0, 0), 2.5f, 0.5f, 13.5f);
-	if (VillainOne->GetState() == CVillainAI::CAUGHT)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Villain 1/1", Color(0, 1, 0), 2.5f, 0.5f, 14.f);
-	}
 }
 
 void SP2::RenderVillainAI(CVillainAI *Villain)
@@ -3133,8 +3320,10 @@ void SP2::RenderObject()
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
+	
 	modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f); //Rotate with camera
-	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
+	modelStack.Translate(-4.0f,0,0);
+	
 	int i = 0;
 	//Rendering items on trolley
 	if (renderItemOnTrolley == true)
@@ -3160,6 +3349,12 @@ void SP2::RenderObject()
 		}
 		modelStack.PopMatrix();
 	}
+
+	modelStack.PushMatrix();
+	modelStack.Translate(42, 0, -59);
+	modelStack.Rotate(-90, 0, 1, 0);
+	RenderNPC();
+	modelStack.PopMatrix();
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
@@ -3426,6 +3621,34 @@ void SP2::RenderPlayerArm(void)
 	RenderMesh(meshList[GEO_HUMAN_ARM], true);
 	modelStack.PopMatrix();
 
+	modelStack.PopMatrix();
+}
+
+void SP2::RenderNPC(void)
+{
+	modelStack.PushMatrix(); //Push body
+	modelStack.Translate(0, 0.5, 0);
+	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2.95, 0);
+	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
+	modelStack.PopMatrix(); // Pop Head
+	modelStack.PushMatrix();
+	modelStack.Translate(1, 2.3, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.9, 2.3, 0);
+	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
+	modelStack.PopMatrix();
+	modelStack.PushMatrix();
+	modelStack.Translate(-0.3, -0.05, 0);
+	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
+	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 }
 
