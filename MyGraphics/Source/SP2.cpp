@@ -205,7 +205,8 @@ void SP2::Init()
 	//AI details
 	srand(time(NULL));
 	VillainOne = new CVillainAI;
-	RollDice();
+	RollDiceVillain();
+	RollDiceShopper();
 	
 	Shopper1 = new CShopperAI2;
 
@@ -318,10 +319,6 @@ void SP2::Init()
 
 	//Initialize camera settings
 	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-
-	//cl check
-	double plX = camera.position.x;
-	double plZ = camera.position.z;
 
 	//Initialize all meshes to NULL
 	for(int i = 0; i < NUM_GEOMETRY; ++i)
@@ -1085,16 +1082,6 @@ void SP2::UpdateGame(double dt)
 	ss << fps;
 	fpsText = ss.str();
 
-	//Pos checker
-	std::stringstream s_plX;
-	std::stringstream s_plZ;
-
-	s_plX << camera.position.x;
-	s_plZ << camera.position.z;
-
-	plXCoord = s_plX.str();
-	plZCoord = s_plZ.str();
-
 	//Time Taken
 	elapsedTime += (float)(1*dt);
 	std::stringstream s_timeElapsed;
@@ -1129,11 +1116,15 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI(dt);
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
-
+	CheckCollision();
 }
 
 void SP2::CheckCollision(void)
 {
+	if (Trolley.UpdateTrolleyBox(player.getPos()) == true)
+		{
+			camera.Limiter();
+		}
 	//Cold Shelf Right
 	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
 	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
@@ -1548,6 +1539,7 @@ void SP2::Scenario_Shopper(double dt)
 		}
 	}
 
+
 	//If the guard catches the player for shoplifting, the game ends
 	if (Guard.returnState() == "CAUGHT")
 	{
@@ -1738,10 +1730,10 @@ void SP2::updateShopperAI(double dt)
 
 void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 {
-	if (Shopper1->TakingItem(Container.Shelf.at(RandomNumber), dt) == true)
+	if (Shopper1->TakingItem(Container.Shelf.at(RandomNumber2), dt) == true)
 	{
-		AITrolley.Add_ShelfToTrolley(Container.Shelf.at(RandomNumber), RandomNumber);
-		RollDice();
+		AITrolley.Add_ShelfToTrolley(Container.Shelf.at(RandomNumber2), RandomNumber2);
+		RollDiceShopper();
 	}
 	//Shopper Taking with rotation
 	else if (Shopper1->Anime_Take == true)
@@ -1749,6 +1741,7 @@ void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 		if (Shopper1->ItemAtLeft)
 		{
 			Shopper1->SetDirection(Vector3(0.f, -90.f + 90.f * (float)(Shopper1->RotateLeft), 0.f), dt);
+			
 		}
 		else if (Shopper1->ItemAtRight)
 		{
@@ -1759,6 +1752,7 @@ void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 	else if (Shopper1->Anim_Rotate == true && Shopper1->Anime_Take == false)
 	{
 		Shopper1->SetDirection(Vector3(0, 90.f * (float)(Shopper1->RotateLeft), 0), dt);
+		AITrolley.SetDirection(Vector3(Shopper1->GetDirection()));
 	}
 	else
 	{
@@ -1772,7 +1766,7 @@ void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 	//Reroll random number when item is destroyed
 	if(Villain->DestroyItem(Container.Shelf.at(RandomNumber), dt) == true)
 	{
-		RollDice();
+		RollDiceVillain();
 	}
 	//Villain wrecking with rotation
 	else if(Villain->Anim_Wreck == true)
@@ -1799,17 +1793,31 @@ void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 	//Guard.UpdateGuard(dt, camera.position);
 }
 
-int SP2::RollDice(void)
+int SP2::RollDiceVillain(void)
 {
 	RandomNumber = rand() % ItemLine;
 	//Filtering out items that are too far
-	while((Container.Shelf.at(RandomNumber)->ItemState != CItem::DEFAULT 
+	while(Container.Shelf.at(RandomNumber)->ItemState != CItem::DEFAULT 
 		|| Container.Shelf.at(RandomNumber)->ItemPosition.x > 41.6f
-		|| Container.Shelf.at(RandomNumber)->ItemPosition.x < -43.5f))
+		|| Container.Shelf.at(RandomNumber)->ItemPosition.x < -43.5f)
 	{
 		RandomNumber = rand() % ItemLine;
 	}
 	return RandomNumber;
+
+}
+
+int SP2::RollDiceShopper(void)
+{
+	RandomNumber2 = rand() % ItemLine;
+	while (Container.Shelf.at(RandomNumber2)->ItemState != CItem::DEFAULT
+		|| Container.Shelf.at(RandomNumber2)->ItemPosition.x > 41.6f
+		|| Container.Shelf.at(RandomNumber2)->ItemPosition.x < -43.5f
+		|| RandomNumber2 == RandomNumber)
+	{
+		RandomNumber2 = rand() % ItemLine;
+	}
+	return RandomNumber2;
 }
 
 void SP2::ShowEndScreen(double dt)
@@ -2121,8 +2129,6 @@ void SP2::RenderGame(void)
 
 	//Text display for FPS(Remove X,Z before submission)
 	RenderTextOnScreen(meshList[GEO_TEXT], "FPS:"+fpsText, Color(1, 0, 0), textSize, 22.5f, 19.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "X:"+plXCoord, Color(0, 1, 0), 5.f, 0.5f, 4.f);
-	RenderTextOnScreen(meshList[GEO_TEXT], "Z:"+plZCoord, Color(0, 1, 0), 5.f, 0.5f, 3.f);
 	if (modeCustomer == true || modeVillain == true)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], timeElapsed, Color (1, 1, 1), 5.f, 8.f, 11.f);
@@ -2438,6 +2444,18 @@ void SP2::RenderScenarioShopper(void)
 		RenderPlayerArm();
 	}
 
+	float difference = -4.0;
+	float angle = Trolley.TrolleyDirection.y * M_PI / 180.0f;
+	float s = sin(angle);
+	float c = cos(angle);
+	Vector3 newTrolley(Trolley.TrolleyPosition.x + (difference * s) + (difference * c), 0.0f, Trolley.TrolleyPosition.x + (difference * c) + (difference * s));
+
+	long double xvalue = static_cast<double>(Trolley.Offset.x);
+	long double zvalue = static_cast<double>(Trolley.Offset.z);
+	long double xXvalue = static_cast<double>(s);
+	long double zZvalue = static_cast<double>(c);
+	long double Yvalue = static_cast<double>(angle);
+
 	//UI Rendering
 	int UI_PlayerStart = 10;
 	int PlayerDifference = 12;
@@ -2451,8 +2469,8 @@ void SP2::RenderScenarioShopper(void)
 
 	int UI_PlayerIndex = 0;
 	int UI_TrolleyIndex = 0;
+	
 	//Inventory rendering
-	//Trolley rendering
 	for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
 	{
 		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
@@ -2693,12 +2711,24 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 	modelStack.PopMatrix();
 
 	AITrolley.SetPosition(Shopper1->GetPosition());
-	std::cout << AITrolley.TrolleyPosition.x << endl;
+	//std::cout << RandomNumber << std::endl;
+	//std::cout << RandomNumber2 << std::endl << std::endl;
+
 	int i = 0;
 
 	for (vector<CItem*>::iterator iter = AITrolley.Inventory.begin(); iter != AITrolley.Inventory.end(); ++iter, ++i)
 	{
+		
+		modelStack.PushMatrix();
+	
+		modelStack.Translate(Shopper1->GetPosition().x, Shopper1->GetPosition().y, Shopper1->GetPosition().z);
+		modelStack.Rotate(AITrolley.TrolleyDirection.y + 180.f, 0.f, 1.f, 0.f);
+		modelStack.Translate(0, -0.6f, 4);
+		modelStack.Rotate(90.f, 0.f, 1.f, 0.f);
+		//RenderMesh(meshList[AITrolley.Inventory.at(i)->GEO_TYPE], true);
 		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+		modelStack.PopMatrix();
+		std::cout << AITrolley.TrolleyDirection << std::endl;
 	}
 
 	if (Shopper1->backwardtrolley == true)
@@ -3293,8 +3323,10 @@ void SP2::RenderObject()
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
+	
 	modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f); //Rotate with camera
-	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
+	modelStack.Translate(-4.0f,0,0);
+	
 	int i = 0;
 	//Rendering items on trolley
 	if (renderItemOnTrolley == true)

@@ -14,6 +14,13 @@ CInventory::CInventory(void)
 	TrolleyDirection.x = 0;
 	TrolleyDirection.y = 0;
 	TrolleyDirection.z = 0;
+
+	Offset.x = 0.0f;
+	Offset.y = 0.0f;
+	Offset.z = 0.0f;
+	Offset2.x = -4.0f;
+	Offset2.y = 0.0f;
+	Offset2.z = 0.0f;
 }
 
 CInventory::~CInventory(void)
@@ -22,10 +29,10 @@ CInventory::~CInventory(void)
 
 bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 {
-	if(Inventory.size() < MaxInventorySize)
+	if (Inventory.size() < MaxTrolleySize)
 	{
 		//Only add default items
-		if(Item->ItemState == CItem::DEFAULT)
+		//if(Item->ItemState == CItem::DEFAULT)
 		{
 			cout << "Pushing item no.: " << ItemIndex << endl;
 			Inventory.push_back(Item);
@@ -266,4 +273,41 @@ bool CInventory::Minus_TrolleyToInvent(CItem *Item, int ItemIndex)
 		MatchingIndex++;
 	}
 	return false;
+}
+
+bool CInventory::UpdateTrolleyBox(Vector3 player_position)
+{
+	float width = 5;
+	float height = 3;
+	float angle = TrolleyDirection.y * M_PI / 180.0f;
+	float s = sin(angle) / 2;
+	float c = cos(angle) / 2;
+	if (s < 0) 
+	{
+			s = -s;
+	}
+	if (c < 0)
+	{
+		c = -c;
+	}
+	//Offset2 = Amount to be offset
+	//Offset = The position of the bounding box after offset
+	Offset2.x = cos(angle) * -4.0f;
+	Offset2.z = -sin(angle) * -4.0f;
+
+	Offset = TrolleyPosition + Offset2;
+
+	ex = (height * s) + (width * c);
+	ez = (height * c) + (width * s);
+	if (Offset.x + ex > player_position.x && 
+		Offset.x - ex  < player_position.x &&
+		Offset.z + ez > player_position.z &&
+		Offset.z - ez < player_position.z)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

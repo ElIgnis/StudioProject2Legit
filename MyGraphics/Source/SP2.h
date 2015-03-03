@@ -234,8 +234,6 @@ private:
 	double fps;
 	float WorldOffset;
 
-	std::string plXCoord;
-	std::string plZCoord;
 	std::string fpsText;
 
 	float textWidth[256];
@@ -308,6 +306,7 @@ private:
 	//AI Villain loading properties
 	CVillainAI *VillainOne;
 	int RandomNumber;
+	int RandomNumber2;
 
 	//AI Guard loading properties
 	CGuardAI Guard;
@@ -333,6 +332,8 @@ private:
 	int RollDice(void);
 	void checkItemTypeAdd(CItem *Item);
 	void checkItemTypeRemove(CItem *Item);
+	int RollDiceVillain(void);
+	int RollDiceShopper(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
