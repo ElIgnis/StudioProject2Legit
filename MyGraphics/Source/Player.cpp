@@ -4,6 +4,7 @@
 
 CPlayer::CPlayer()
 {
+	score = 0;
 }
 
 CPlayer::~CPlayer()

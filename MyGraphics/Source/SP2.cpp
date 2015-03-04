@@ -71,7 +71,7 @@ void SP2::Init()
 
 	//Score calculation
 	missionComplete = false;
-	missionFailed = false;
+	//missionFailed = false;
 
 	//Time
 	elapsedTime = 0.f;
@@ -259,7 +259,7 @@ void SP2::RestartGame(void)
 	modeVillain = false;
 
 	missionComplete = false;
-	missionFailed = false;
+	//missionFailed = false;
 
 	elapsedTime = 0.f;
 	countDown = 180;
@@ -1049,9 +1049,12 @@ void SP2::Update(double dt)
 
 	//Choose Mode
 	else if (chooseModeScreen == true)
-	{
+	{	
+		bool checkDelay = false;
 		if (menuDelay > 0.5)
 		{
+			checkDelay = true;
+		}
 			if (Application::IsKeyPressed('1')) //Play as Customer
 			{
 				startScreen = false;
@@ -1061,7 +1064,7 @@ void SP2::Update(double dt)
 				chooseModeScreen = false;
 				gameStart = true;
 			}
-			if (Application::IsKeyPressed('2')) //Play as Security Guard
+			else if (Application::IsKeyPressed('2')) //Play as Security Guard
 			{
 				startScreen = false;
 				modeCustomer = false;
@@ -1079,8 +1082,6 @@ void SP2::Update(double dt)
 				chooseModeScreen = false;
 				gameStart = true;
 			}
-			menuDelay = 0.f;
-		}
 	}
 
 	//High score
@@ -1238,14 +1239,21 @@ void SP2::PlaySound(void)
 
 	//Environmental Sound
 	//People Talking
-	if(!engine->isCurrentlyPlaying("Media//people_talking.wav")) //Check if sound is playing
+	if(gameStart == true)
 	{
-		engine->play2D("Media//people_talking.wav", false);      //Plays sound
+		if(!engine->isCurrentlyPlaying("Media//people_talking.wav")) //Check if sound is playing
+		{
+			engine->play2D("Media//people_talking.wav", false);      //Plays sound
+		}
+		//Supermarket Music
+		if(!engine->isCurrentlyPlaying("Media//music1.wav")) //Check if sound is playing
+		{
+			engine->play2D("Media//music1.wav", false);      //Plays sound
+		}
 	}
-	//Supermarket Music
-	if(!engine->isCurrentlyPlaying("Media//music1.wav")) //Check if sound is playing
+	if(gameStart == false)
 	{
-		engine->play2D("Media//music1.wav", false);      //Plays sound
+		engine->stopAllSounds();
 	}
 }
 
@@ -2157,15 +2165,6 @@ void SP2::ShowEndScreen(double dt)
 	std::stringstream villainEGS;
 	villainEGS << player.getVillainScore();
 	EGSVillain = villainEGS.str();
-
-	//if (Application::IsKeyPressed('1'))
-	//{
-	//	chooseModeScreen = false;
-	//	startScreen = true;
-	//	highScoreScreen = false;
-	//	gameStart = false;
-	//	endScreen = false;
-	//}
 }
 
 void SP2::UpdateConveyor(double dt)
