@@ -1,8 +1,22 @@
+/******************************************************************************/
+/*!
+\file	Light.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Light with different type and attenuation
+*/
+/******************************************************************************/
 #ifndef _LIGHT_H
 #define _LIGHT_H
 
 #include "Vertex.h"
-
+/******************************************************************************/
+/*!
+		struct Light:
+\brief	A light with several properties
+*/
+/******************************************************************************/
 struct Light
 {
 	Position position;

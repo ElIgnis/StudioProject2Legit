@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	Mesh.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Mesh data storage for generated shapes
+*/
+/******************************************************************************/
 #ifndef MESH_H
 #define MESH_H
 
@@ -12,12 +21,14 @@
 class Mesh
 {
 public:
+	//! An enum.
+	/*! Enum for uniform type */
 	enum DRAW_MODE
 	{
-		DRAW_TRIANGLES, //default mode
-		DRAW_TRIANGLE_STRIP,
-		DRAW_LINES,
-		DRAW_MODE_LAST,
+		DRAW_TRIANGLES,			/*!< DRAW_TRIANGLES */
+		DRAW_TRIANGLE_STRIP,	/*!< DRAW_TRIANGLE_STRIP */
+		DRAW_LINES,				/*!< DRAW_LINES */
+		DRAW_MODE_LAST,			/*!< DRAW_MODE_LAST */
 	};
 	Mesh(const std::string &meshName);
 	~Mesh();

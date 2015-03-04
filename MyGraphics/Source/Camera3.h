@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	Camera3.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Camera for viewing the scene in 3d
+*/
+/******************************************************************************/
 #ifndef CAMERA_3_H
 #define CAMERA_3_H
 
@@ -6,7 +15,12 @@
 #include <Windows.h>
 
 using std::vector;
-
+/******************************************************************************/
+/*!
+		Class Camera3:
+\brief	An FPS camera with rotation and movement
+*/
+/******************************************************************************/
 class Camera3 : public Camera
 {
 public:
@@ -28,8 +42,6 @@ public:
 	vector<float>MaxWidth;
 	vector<float>MinLength;
 	vector<float>MaxLength;
-	Vector3 TrolleyWidth;
-	Vector3 TrolleyLength;
 
 	Vector3 oldpos;
 	Vector3 oldtgt;

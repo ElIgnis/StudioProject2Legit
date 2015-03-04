@@ -1,9 +1,23 @@
+/******************************************************************************/
+/*!
+\file	Villain.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Villain NPC going around to wreck stuff randomly
+*/
+/******************************************************************************/
 #pragma once
 
 #include "Vector3.h"
 #include "Item.h"
 #define VillainPathSize 16
-
+/******************************************************************************/
+/*!
+		Class CVillainAI:
+\brief	A Villain NPC class
+*/
+/******************************************************************************/
 class CVillainAI
 {
 private:
@@ -12,12 +26,14 @@ private:
 	int CurrentState;
 
 public:
+	//! An enum.
+	/*! Enum for uniform type */
 	enum States
 	{
-		DEFAULT,
-		CAUGHT,
-		DETECTED,
-		NUM_STATES,
+		DEFAULT,	/*!< DEFAULT */
+		CAUGHT,		/*!< CAUGHT */
+		DETECTED,	/*!< DETECTED */
+		NUM_STATES,	/*!< NUM_STATES */
 	};
 	
 	CVillainAI(void);

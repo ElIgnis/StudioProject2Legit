@@ -1,4 +1,12 @@
-
+/******************************************************************************/
+/*!
+\file	Application.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Application handler for handling multiple scenes
+*/
+/******************************************************************************/
 #include "Application.h"
 
 //Include GLEW
@@ -16,39 +24,86 @@
 GLFWwindow* m_window;
 const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
-
+/******************************************************************************/
+/*!
+\brief
+Resize the window by width and height
+\param window - set x and y of window
+\param w - width of window
+\param h - height of window
+*/
+/******************************************************************************/
 void resize_callback(GLFWwindow* window, int w, int h)
 {
 	glViewport(0, 0, w, h);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Define an error callback
+\param error - index of error
+\param description - description of error
+*/
+/******************************************************************************/
 //Define an error callback
 static void error_callback(int error, const char* description)
 {
 	fputs(description, stderr);
 	_fgetchar();
 }
-
+/******************************************************************************/
+/*!
+\brief
+Define the key input callback
+\param window - set x and y of window
+\param key - number of key input
+\param scancode - number of scancode
+\param action - number of action
+\param mods - number of mods
+*/
+/******************************************************************************/
 //Define the key input callback
 static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Check for key pressed
+\param key - type of key pressed
+\return Boolean of whether a key is pressed
+*/
+/******************************************************************************/
 bool Application::IsKeyPressed(unsigned short key)
 {
     return ((GetAsyncKeyState(key) & 0x8001) != 0);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
+*/
+/******************************************************************************/
 Application::Application()
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 Application::~Application()
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initialise the application
+*/
+/******************************************************************************/
 void Application::Init()
 {
 	//Set the error callback
@@ -98,7 +153,12 @@ void Application::Init()
 		//return -1;
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Runs application based on scene
+*/
+/******************************************************************************/
 void Application::Run()
 {
 	//Main Loop
@@ -120,7 +180,12 @@ void Application::Run()
 	scene->Exit();
 	delete scene;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Exits the application
+*/
+/******************************************************************************/
 void Application::Exit()
 {
 	//Close OpenGL window and terminate GLFW

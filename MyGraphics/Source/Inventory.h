@@ -1,8 +1,22 @@
+/******************************************************************************/
+/*!
+\file	Inventory.h
+\author Wei Liang Lee, Bryn Shannon Ho Zhi Wen
+\par	email: 140511H\@mymail.nyp.edu.sg, 144104B\@mymail.nyp.edu.sg
+\brief
+Inventory to store items with trolley collision detection
+*/
+/******************************************************************************/
 #pragma once
 #define _USE_MATH_DEFINES // for C++
 #include <cmath>
 #include "Item.h"
-
+/******************************************************************************/
+/*!
+		Class CInventory:
+\brief	An Inventory class with size 
+*/
+/******************************************************************************/
 class CInventory
 {
 public:

@@ -1,4 +1,12 @@
-
+/******************************************************************************/
+/*!
+\file	Mesh.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Mesh data storage for generated shapes
+*/
+/******************************************************************************/
 #include "Mesh.h"
 #include "GL\glew.h"
 #include "Vertex.h"

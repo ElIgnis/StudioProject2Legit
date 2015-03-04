@@ -1,14 +1,47 @@
+/******************************************************************************/
+/*!
+\file	Item.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Item with details and state machine
+*/
+/******************************************************************************/
 #include "Item.h"
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CItem::CItem(void)
 {
 	ItemState = DEFAULT;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CItem::~CItem(void)
 {
 }
+/******************************************************************************/
+/*!
+\brief
+Sets details of items
 
+\param SetName - sets name of item
+\param SetPrice - sets price of item
+\param SetPosition - sets position of item
+\param SetType - sets geometry type of item
+\param SetIndex - sets index of item
+*/
+/******************************************************************************/
 void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, string SetType, int SetIndex)
 {
 	ItemName = SetName;
@@ -89,7 +122,14 @@ void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, st
 	MinLength = (ItemPosition.z - 1.25f);
 	MaxLength = (ItemPosition.z + 1.25f);
 }
+/******************************************************************************/
+/*!
+\brief
+Sets only position of item
 
+\param NewPosition - position to update
+*/
+/******************************************************************************/
 void CItem::SetPosition(Vector3 &NewPosition)
 {
 	//ItemPosition.x = NewPosition.x;
@@ -108,18 +148,36 @@ void CItem::SetPosition(Vector3 &NewPosition)
 	MinLength = (ItemPosition.z - 1.25f);
 	MaxLength = (ItemPosition.z + 1.25f);
 }
+/******************************************************************************/
+/*!
+\brief
+Sets only shape of item
 
+\param NewPosition - shape to update
+*/
+/******************************************************************************/
 void CItem::SetShape(Vector3 &NewShape)
 {
 	ItemShape.x = NewShape.x;
 	ItemShape.y = NewShape.y;
 	ItemShape.z = NewShape.z;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Gets name of item
+*/
+/******************************************************************************/
 string CItem::GetName(void)
 {
 	return ItemName;
 }
+/******************************************************************************/
+/*!
+\brief
+Gets price of item
+*/
+/******************************************************************************/
 double CItem::GetPrice(void)
 {
 	return ItemPrice;

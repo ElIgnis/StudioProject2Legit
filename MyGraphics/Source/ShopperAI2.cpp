@@ -1,7 +1,24 @@
+/******************************************************************************/
+/*!
+\file	ShopperAI2.cpp
+\author Kelvin Tan Young Yew
+\par	email: 144117P\@mymail.nyp.edu.sg
+\brief
+Shopper NPC with trolley walking around and takes some items before checking out
+*/
+/******************************************************************************/
 #include "ShopperAI2.h"
 
 bool ShopperPath[ShopperPathSize] = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CShopperAI2::CShopperAI2()
 {
 	//Villain starts outside of mall
@@ -44,12 +61,21 @@ CShopperAI2::CShopperAI2()
 	DetectionTimer = 0.f;
 	RecentlyDestroyed = false;
 }
-
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CShopperAI2::~CShopperAI2()
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Intialise the guard
+*/
+/******************************************************************************/
 void CShopperAI2::ShopperInitialize(void)
 {
 	ShopperPath[0] = true;
@@ -98,12 +124,27 @@ void CShopperAI2::ShopperInitialize(void)
 	DetectionTimer = 0.f;
 	RecentlyDestroyed = false;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets position of shopper NPC2
 
+\param NewPosition - position to update
+*/
+/******************************************************************************/
 void CShopperAI2::SetPosition(Vector3 &NewPosition)
 {
 	Position = NewPosition;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets direction of shopper NPC2
 
+\param NewDirection - direction to update
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI2::SetDirection(Vector3 &NewDirection, double dt)
 {
 	if (Direction.y < NewDirection.y)
@@ -123,17 +164,39 @@ void CShopperAI2::SetDirection(Vector3 &NewDirection, double dt)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Gets position of shopper NPC2
 
+\return position of shopper NPC2
+*/
+/******************************************************************************/
 Vector3 CShopperAI2::GetPosition(void)
 {
 	return Position;
 }
+/******************************************************************************/
+/*!
+\brief
+Gets direction of shopper NPC2
 
+\return direction of shopper NPC2
+*/
+/******************************************************************************/
 Vector3 CShopperAI2::GetDirection(void)
 {
 	return Direction;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates shopper NPC2
 
+\param dt - delta time update
+\param PlayerPosition - position of player
+*/
+/******************************************************************************/
 void CShopperAI2::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
 	//if (RecentlyDestroyed && CurrentState != CShopperAI2::CAUGHT)
@@ -166,7 +229,16 @@ void CShopperAI2::UpdateAI(double dt, Vector3 &PlayerPosition)
 		UpdatePath(dt);
 	//}
 }
+/******************************************************************************/
+/*!
+\brief
+Shopper NPC2 taking items
 
+\param *Item - item to take
+\param dt - delta time update
+\return if any items are taken
+*/
+/******************************************************************************/
 bool CShopperAI2::TakingItem(CItem *Item, double dt)
 {
 	//Calculate distance from villain to item
@@ -250,7 +322,15 @@ bool CShopperAI2::TakingItem(CItem *Item, double dt)
 	else
 		return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Update shopper NPC2 path
 
+\param Item - item to take
+\param dt - delta time update
+*/
+/******************************************************************************/
 bool CShopperAI2::UpdatePath(double dt)
 {
 	//Red shelf coords
@@ -591,7 +671,15 @@ bool CShopperAI2::UpdatePath(double dt)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis positive
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI2::MoveZPlus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -605,7 +693,15 @@ void CShopperAI2::MoveZPlus(double StopPoint, double dt)
 		Position.z += (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis negative
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI2::MoveZMinus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -619,7 +715,15 @@ void CShopperAI2::MoveZMinus(double StopPoint, double dt)
 		Position.z -= (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves X axis positive
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI2::MoveXPlus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -633,7 +737,15 @@ void CShopperAI2::MoveXPlus(double StopPoint, double dt)
 		Position.x += (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves X axis negative
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI2::MoveXMinus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -647,12 +759,26 @@ void CShopperAI2::MoveXMinus(double StopPoint, double dt)
 		Position.x -= (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Sets state of shopper NPC2
 
+\param NewState - state to update
+*/
+/******************************************************************************/
 void CShopperAI2::SetState(int NewState)
 {
 	CurrentState = NewState;
 }
+/******************************************************************************/
+/*!
+\brief
+Gets current state of shopper NPC2
 
+\return current state of shopper NPC2
+*/
+/******************************************************************************/
 int CShopperAI2::GetState(void)
 {
 	return CurrentState;

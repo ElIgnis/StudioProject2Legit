@@ -1,10 +1,24 @@
+/******************************************************************************/
+/*!
+\file	Player.h
+\author Marcus Lim Tow Siang
+\par	email: 141732S\@mymail.nyp.edu.sg
+\brief
+Player with score reading/recording
+*/
+/******************************************************************************/
 #pragma once
 
 #include "Vector3.h"
 #include "Application.h"
 #include <string>
 #include <sstream>
-
+/******************************************************************************/
+/*!
+		Class CPlayer:
+\brief	A Player class
+*/
+/******************************************************************************/
 class CPlayer
 {
 private:

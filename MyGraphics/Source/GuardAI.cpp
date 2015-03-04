@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	GuardAI.cpp
+\author Bryn Shannon Ho Zhi Wen
+\par	email: 144104B\@mymail.nyp.edu.sg
+\brief
+Guard NPC patrolling the supermarket and interacts with player
+*/
+/******************************************************************************/
 #include "GuardAI.h"
 #include <iostream>
 #include <stdlib.h>
@@ -5,15 +14,38 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 using std::string;
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CGuardAI::CGuardAI(void)
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CGuardAI::~CGuardAI(void)
 {
 }
+/******************************************************************************/
+/*!
+\brief
+Intialise the guard
 
+\param x - X axis position
+\param z - Z axis position
+\param Movement_Speed - movement speed of guard
+\param Rotation_Speed - rotation speed of guard
+*/
+/******************************************************************************/
 void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_Speed)
 {
 	//placeholder for shoplifter
@@ -61,9 +93,15 @@ void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_
 	Rotation_Left_Hand = 0.f;
 	Rotation_Right_Hand = 0.f;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates state of guard
 
-
-
+\param player_position - position of player
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CGuardAI::UpdateState(Vector3 player_position, double dt)
 {
 	//Guard moves or responds according to its state
@@ -85,7 +123,17 @@ void CGuardAI::UpdateState(Vector3 player_position, double dt)
 		break;
 	};
 }
+/******************************************************************************/
+/*!
+\brief
+Updates guard based on game mode
 
+\param player_position - position of player
+\param modeShopper - shopper game mode
+\param modeVillain - villain game mode
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeVillain, double dt)
 {
 	//Obtain distance based on guard's position and player's position
@@ -222,7 +270,14 @@ void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeV
 		Rotate_Leg_Right_Back = false;
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Updates guard patrol path
 
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CGuardAI::PatrolPath(double dt)
 {
 	//If Guard is facing the correct direction, he will move towards closest point at a rate of 1 unit
@@ -308,7 +363,14 @@ void CGuardAI::PatrolPath(double dt)
 		distance_to_point = guard_position - PatrolPoint[current_patrol_point];
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Updates guard chasing path
 
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CGuardAI::ChasingPath(double dt)
 {
 	if (rotation_complete == true)
@@ -411,7 +473,14 @@ void CGuardAI::ChasingPath(double dt)
 	}
 
 }
+/******************************************************************************/
+/*!
+\brief
+Updates guard rotating left
 
+\param rotation - amount to rotate
+*/
+/******************************************************************************/
 void CGuardAI::RotateLeft(float rotation)
 {
 	//Add the difference of the rotation
@@ -421,7 +490,14 @@ void CGuardAI::RotateLeft(float rotation)
 		rotation_complete = false;
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Updates guard rotating right
 
+\param rotation - amount to rotate
+*/
+/******************************************************************************/
 void CGuardAI::RotateRight(float rotation)
 {
 	//Add the difference of the rotation
@@ -431,31 +507,69 @@ void CGuardAI::RotateRight(float rotation)
 		rotation_complete = false;
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Set shoplifter's position
 
+\param shoplifter_position - set shoplifter's position
+*/
+/******************************************************************************/
 void CGuardAI::setShoplifter(Vector3 shoplifter_position)
 {
 	shoplifter = shoplifter_position;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Return X axis position of guard
+\return X position value
+*/
+/******************************************************************************/
 float CGuardAI::getX(void)
 {
 	return guard_position.x;
 }
+/******************************************************************************/
+/*!
+\brief
+Return Y axis position of guard
+\return Y position value
+*/
+/******************************************************************************/
 float CGuardAI::getY(void)
 {
 	return guard_position.y;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Return second Y axis position of guard
+\return second Y position value
+*/
+/******************************************************************************/
 float CGuardAI::getY2(void)
 {
 	return guard_direction.y;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Return Z axis position of guard
+\return Z position value
+*/
+/******************************************************************************/
 float CGuardAI::getZ(void)
 {
 	return guard_position.z;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Return state of guard
+\return state of guard as string
+*/
+/******************************************************************************/
 string CGuardAI::returnState(void)
 {
 	//Return Guard's current State

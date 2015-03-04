@@ -1,7 +1,24 @@
+/******************************************************************************/
+/*!
+\file	Camera3.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Camera for viewing the scene in 3d
+*/
+/******************************************************************************/
 #include "Camera3.h"
 #include "Application.h"
 #include "Mtx44.h"
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 Camera3::Camera3()
 {
 	worldScale = 4004.f;
@@ -12,11 +29,25 @@ Camera3::Camera3()
 	HasEntered = false;
 	IsCrouched = false;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 Camera3::~Camera3()
 {
 }
+/******************************************************************************/
+/*!
+\brief
+Intialise the camera
 
+\param pos - position of vector
+\param target - position of target
+\param up - position of up
+*/
+/******************************************************************************/
 void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 {
 	this->position = defaultPosition = pos;
@@ -34,7 +65,14 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	playerArmRotation = 0.f;
 	angle = 0.f;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates the camera
 
+\param dt - updates the camera based on delta time
+*/
+/******************************************************************************/
 void Camera3::Update(double dt)
 {
 	CAMERA_SPEED = 100.f;
@@ -174,23 +212,42 @@ void Camera3::Update(double dt)
 	//	Reset();
 	//}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Reset the camera
+*/
+/******************************************************************************/
 void Camera3::Reset()
 {
 	position = defaultPosition;
 	target = defaultTarget;
 	up = defaultUp;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets the boundary for camera to collide against
 
+\param NewMinWidth - Minimum width of collision
+\param NewMaxWidth - Maximum width of collision
+\param NewMinLength - Minimum length of collision
+\param NewMaxLength - Maximum length of collision
+*/
+/******************************************************************************/
 void Camera3::SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength, float NewMaxLength)
 {
 	MinWidth.push_back(NewMinWidth);
 	MaxWidth.push_back(NewMaxWidth);
 	MinLength.push_back(NewMinLength);
 	MaxLength.push_back(NewMaxLength);
-
 }
-
+/******************************************************************************/
+/*!
+\brief
+Checks against set boundary
+*/
+/******************************************************************************/
 void Camera3::BoundsCheck()
 {
 	//Fill in position here and check
@@ -211,7 +268,12 @@ void Camera3::BoundsCheck()
 		}
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Limits the camera from moving past bounds
+*/
+/******************************************************************************/
 //Collision
 void Camera3::Limiter(void)
 {
@@ -220,7 +282,14 @@ void Camera3::Limiter(void)
 	oldpos = position;
 	oldtgt = target;
 }
+/******************************************************************************/
+/*!
+\brief
+Moves the camera normally
 
+\param dt - updates the camera based on delta time
+*/
+/******************************************************************************/
 void Camera3::Movement(double dt)
 {
 	if (playerMovement == true)
@@ -275,7 +344,14 @@ void Camera3::Movement(double dt)
 	}
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves the camera reversed
 
+\param dt - updates the camera based on delta time
+*/
+/******************************************************************************/
 void Camera3::reverseMovement(double dt)
 {
 	if (playerMovement == true)

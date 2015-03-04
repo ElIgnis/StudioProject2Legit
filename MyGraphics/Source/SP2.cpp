@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	SP2.cpp
+\author Wei Liang Lee, Kelvin Tan Young Yew, Marcus Lim Tow Siang, Bryn Shannon Ho Zhi Wen
+\par	email: 140511H\@mymail.nyp.edu.sg, 144117P\@mymail.nyp.edu.sg, 141732S\@mymail.nyp.edu.sg, 144104B\@mymail.nyp.edu.sg
+\brief
+Scene for rendering graphics and control scene updates
+*/
+/******************************************************************************/
 #include "SP2.h"
 #include "GL\glew.h"
 
@@ -11,15 +20,30 @@
 #include "LoadTGA.h"
 
 #include <iomanip>
-
+/******************************************************************************/
+/*!
+\brief
+Default Constructor.
+*/
+/******************************************************************************/
 SP2::SP2()
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor.
+*/
+/******************************************************************************/
 SP2::~SP2()
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initialise variables and load programs
+*/
+/******************************************************************************/
 void SP2::Init()
 {
 	//Vars
@@ -149,14 +173,14 @@ void SP2::Init()
 		checkSL[i] = false;
 	}
 	//checkSL[8] = {false, false, false, false, false, false, false, false};
-	GenerateList();
 
 	//AI details
 	srand(time(NULL));
 	VillainOne = new CVillainAI;
 	RollDiceVillain();
 	RollDiceShopper();
-	
+	GenerateList();
+
 	Shopper1 = new CShopperAI2;
 
 	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
@@ -206,7 +230,12 @@ void SP2::Init()
 
 static float ROT_LIMIT = 45.f;
 static float SCALE_LIMIT = 5.f;
-
+/******************************************************************************/
+/*!
+\brief
+Reinitialise variables for restart
+*/
+/******************************************************************************/
 void SP2::RestartGame(void)
 {
 	//Vars
@@ -310,7 +339,12 @@ void SP2::RestartGame(void)
 	//Reinitialize List
 	GenerateList();
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initialise collision
+*/
+/******************************************************************************/
 void SP2::Init_Collision(void)
 {
 	//Initialize shelf position
@@ -363,7 +397,12 @@ void SP2::Init_Collision(void)
 	//Initialize Food Stand collision
 	camera.SetBounds(21.5f, 28.5f, 1.5f, 6.5f);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initialise lights
+*/
+/******************************************************************************/
 void SP2::Init_Lights(void)
 {
 		Mtx44 projection;
@@ -634,7 +673,12 @@ void SP2::Init_Lights(void)
 	glUniform1f(m_parameters[U_LIGHT6_COSINNER], lights[6].cosInner);
 	glUniform1f(m_parameters[U_LIGHT6_EXPONENT], lights[6].exponent);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initialise geometry types
+*/
+/******************************************************************************/
 void SP2::Init_GEOMS(void)
 {
 		//Text
@@ -1009,7 +1053,13 @@ void SP2::Init_GEOMS(void)
 	meshList[GEO_NPCSIT]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_NPCSIT]->material.kShininess = 5.f;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates program based on user input
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::Update(double dt)
 {
 	menuDelay += (float)(1 * dt);
@@ -1130,7 +1180,13 @@ void SP2::Update(double dt)
 		}
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates game based on user input
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::UpdateGame(double dt)
 {
 	if(Application::IsKeyPressed('1')) //enable back face culling
@@ -1192,10 +1248,16 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI(dt);
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
-	CheckCollision();
+	CheckTrolleyCollision();
 	PlaySound();
 }
+/******************************************************************************/
+/*!
+\brief
+Plays sound based on user input
 
+*/
+/******************************************************************************/
 void SP2::PlaySound(void)
 {
 	//ISound * bgm = engine->play2D("Media//test.mp3", false);
@@ -1248,15 +1310,27 @@ void SP2::PlaySound(void)
 		engine->stopAllSounds();
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Check collision against trolley
 
-void SP2::CheckCollision(void)
+*/
+/******************************************************************************/
+void SP2::CheckTrolleyCollision(void)
 {
 	if (Trolley.UpdateTrolleyBox(player.getPos()) == true)
 		{
 			camera.Limiter();
 		}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates shopper scenario ONLY
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::Scenario_Shopper(double dt)
 {
 	///ENTIRE PORTION BUGGY///
@@ -1908,7 +1982,13 @@ void SP2::Scenario_Shopper(double dt)
 		endScreen = true;
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates guard scenario ONLY
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::Scenario_Guard(double dt)
 {
 
@@ -1940,7 +2020,13 @@ void SP2::Scenario_Guard(double dt)
 		}
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates villain scenario ONLY
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::Scenario_Villain(double dt)
 {
 	//Destroying items
@@ -2003,7 +2089,13 @@ void SP2::Scenario_Villain(double dt)
 		}
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates shopper NPC
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::updateShopperAI(double dt)
 {
 	//####ANIMATION#####
@@ -2079,7 +2171,14 @@ void SP2::updateShopperAI(double dt)
 	ShopperAI.UpdatePath(dt, camera.position);
 
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates shopper NPC2
+\param dt - program updated based on delta time
+\param *Shopper1 - pointer of shopper NPC2
+*/
+/******************************************************************************/
 void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 {
 	if (Shopper1->TakingItem(Container.Shelf.at(RandomNumber2), dt) == true)
@@ -2111,7 +2210,14 @@ void SP2::updateShopperAI2(double dt, CShopperAI2 *Shopper1)
 		Shopper1->UpdateAI(dt, camera.position);
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Updates villain NPC
+\param dt - program updated based on delta time
+\param *Villain - pointer of villain NPC
+*/
+/******************************************************************************/
 void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 {
 
@@ -2144,7 +2250,13 @@ void SP2::UpdateVillainAI(double dt, CVillainAI * Villain)
 	
 	//Guard.UpdateGuard(dt, camera.position);
 }
-
+/******************************************************************************/
+/*!
+\brief
+RNG for villain
+\return random number for villain to wreck item
+*/
+/******************************************************************************/
 int SP2::RollDiceVillain(void)
 {
 	RandomNumber = rand() % ItemLine;
@@ -2158,7 +2270,13 @@ int SP2::RollDiceVillain(void)
 	return RandomNumber;
 
 }
-
+/******************************************************************************/
+/*!
+\brief
+RNG for shopper
+\return random number for shopper to pick item
+*/
+/******************************************************************************/
 int SP2::RollDiceShopper(void)
 {
 	RandomNumber2 = rand() % ItemLine;
@@ -2171,7 +2289,13 @@ int SP2::RollDiceShopper(void)
 	}
 	return RandomNumber2;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Shows end screen
+\param dt - program updated based on delta time
+*/
+/******************************************************************************/
 void SP2::ShowEndScreen(double dt)
 {
 	chooseModeScreen = false;
@@ -2203,7 +2327,13 @@ void SP2::ShowEndScreen(double dt)
 	villainEGS << player.getVillainScore();
 	EGSVillain = villainEGS.str();
 }
-
+/******************************************************************************/
+/*!
+\brief
+Checks item added(shopper scenario goal list)
+\param *Item - item added into inventory/trolley
+*/
+/******************************************************************************/
 void SP2::checkItemTypeAdd(CItem *Item)
 {
 	if (Item->GEO_TYPE == SP2::GEO_CAN_COKE)
@@ -2237,7 +2367,13 @@ void SP2::checkItemTypeAdd(CItem *Item)
 	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOCO)
 		inventChocolateNo++;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Checks item remove(shopper scenario goal list)
+\param *Item - item removed from inventory/trolley
+*/
+/******************************************************************************/
 void SP2::checkItemTypeRemove(CItem *Item)
 {
 	if (Item->GEO_TYPE == SP2::GEO_CAN_COKE)
@@ -2271,7 +2407,12 @@ void SP2::checkItemTypeRemove(CItem *Item)
 	if (Item->GEO_TYPE == SP2::GEO_BOX_CHOCO)
 		inventChocolateNo--;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Randomly generates list of goal for shopper scenario
+*/
+/******************************************************************************/
 void SP2::GenerateList(void)
 {
 	//Shopping List (move to class)
@@ -2387,24 +2528,29 @@ void SP2::GenerateList(void)
 		}
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render everything
+*/
+/******************************************************************************/
 void SP2::Render()
 {
 	//Start Screen
 	if (startScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderUIOnScreen(meshList[GEO_MENU], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_MENU], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (chooseModeScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderUIOnScreen(meshList[GEO_SCENARIO], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_SCENARIO], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (highScoreScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderUIOnScreen(meshList[GEO_HIGHSCORE], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_HIGHSCORE], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], customerHS, Color (1, 0, 0), 6.f, 5.6f, 6.4f);
 		RenderTextOnScreen(meshList[GEO_TEXT], villainHS, Color (1, 0, 0), 6.f, 4.7f, 4.f);
 		RenderTextOnScreen(meshList[GEO_TEXT], guardHS, Color (1, 0, 0), 6.f, 8.f, 1.6f);
@@ -2414,7 +2560,7 @@ void SP2::Render()
 	if (endScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderUIOnScreen(meshList[GEO_GAMEOVER], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_GAMEOVER], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 		if (modeCustomer == true)
 		{
 			if (Guard.returnState() == "CAUGHT")
@@ -2447,7 +2593,12 @@ void SP2::Render()
 		RenderGame();
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render game scene
+*/
+/******************************************************************************/
 void SP2::RenderGame(void)
 {
 	float textSize = 3.f;
@@ -2508,7 +2659,12 @@ void SP2::RenderGame(void)
 		RenderScenarioGuard();
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render lights
+*/
+/******************************************************************************/
 void SP2::RenderLights(void)
 {
 	//clear depth and color buffer
@@ -2675,7 +2831,12 @@ void SP2::RenderLights(void)
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render everything related to shopper scenario
+*/
+/******************************************************************************/
 void SP2::RenderScenarioShopper(void)
 {
 	//Player Arms
@@ -2756,20 +2917,20 @@ void SP2::RenderScenarioShopper(void)
 	//Inventory rendering
 	for(int i = UI_PlayerStart; i < UI_PlayerEnd; i+= PlayerIncrement)
 	{
-		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 	}
 	for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); iter++, UI_PlayerIndex++)
 	{
-		RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+		RenderImgOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_PlayerStart + (UI_PlayerIndex * PlayerIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
 	}
 	//Trolley rendering
 	for(int i = UI_TrolleyStart; i < UI_TrolleyEnd; i+= TrolleyIncrement)
 	{
-		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 	}
 	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
 	{
-		RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
+		RenderImgOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
 	}
 
 	//Rendering Text
@@ -2838,7 +2999,12 @@ void SP2::RenderScenarioShopper(void)
 			modelStack.PopMatrix();
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render goals for villain scenario with color update on clear
+*/
+/******************************************************************************/
 void SP2::RenderScenarioVillain(void)
 {
 	RenderPlayerArm();
@@ -2853,14 +3019,26 @@ void SP2::RenderScenarioVillain(void)
 		RenderTextOnScreen(meshList[GEO_TEXT], "Escape from the supermarket", Color(1, 0, 0), 2.5f, 0.5f, 13.f);
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render goals for guard scenario
+*/
+/******************************************************************************/
 void SP2::RenderScenarioGuard(void)
 {
 	RenderPlayerArm();
 	RenderTextOnScreen(meshList[GEO_TEXT], "Objective:", Color(0.2, 0.87, 0.87), 3.f, 0.5f, 13.f);
 	RenderTextOnScreen(meshList[GEO_TEXT], "Villain 0/1", Color(1, 0, 0), 2.5f, 0.5f, 13.5f);
 }
+/******************************************************************************/
+/*!
+\brief
+Render villain NPC with animation
 
+\param Villain - Villain NPC pointer to render
+*/
+/******************************************************************************/
 void SP2::RenderVillainAI(CVillainAI *Villain)
 {
 	modelStack.PushMatrix();
@@ -2910,7 +3088,13 @@ void SP2::RenderVillainAI(CVillainAI *Villain)
 	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
 	//modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Render Guard NPC with animation
 
+*/
+/******************************************************************************/
 void SP2::RenderGuardAI(void)
 {
 	modelStack.PushMatrix();
@@ -2952,7 +3136,14 @@ void SP2::RenderGuardAI(void)
 	
 	modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Render shopper NPC2 with animation
 
+\param Shopper1 - shopper NPC2 pointer to render
+*/
+/******************************************************************************/
 void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 {
 	modelStack.PushMatrix();
@@ -3061,20 +3252,17 @@ void SP2::RenderShopperAI2(CShopperAI2 *Shopper1)
 		modelStack.PopMatrix();
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Render shopper NPC with animation
+*/
+/******************************************************************************/
 void SP2::RenderShopperAI()
 {
-	//modelStack.PushMatrix();
-	//modelStack.Translate(ShopperAI.getPositionX(), 0, ShopperAI.getPositionZ());
-	//modelStack.Rotate(180, 0, 1, 0);
-	//modelStack.Rotate(ShopperAI.getShopperDirection(), 0, 1, 0);
-	//RenderMesh(meshList[GEO_HUMAN_MODEL], true);
-	//modelStack.PopMatrix();
-
 	//WithShopperCart
 	if (ShopperAI.RENDERINGAI == false)
 	{
-
 		modelStack.PushMatrix();
 		modelStack.Translate(ShopperAI.getPositionX(), -4, ShopperAI.getPositionZ());
 		modelStack.Rotate(180, 0, 1, 0);
@@ -3225,7 +3413,15 @@ void SP2::RenderShopperAI()
 		modelStack.PopMatrix();
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Render meshes
 
+\param *mesh - renders the selected mesh
+\param enableLight - enables light on mesh
+*/
+/******************************************************************************/
 void SP2::RenderMesh(Mesh *mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
@@ -3272,7 +3468,12 @@ void SP2::RenderMesh(Mesh *mesh, bool enableLight)
 	}
 
 }
-
+/******************************************************************************/
+/*!
+\brief
+Renders skybox
+*/
+/******************************************************************************/
 void SP2::RenderSkyBox()
 {
 	Mtx44 MVP;
@@ -3320,7 +3521,12 @@ void SP2::RenderSkyBox()
 	RenderMesh(meshList[GEO_BOTTOM], false);
 	modelStack.PopMatrix();
 }
-
+/******************************************************************************/
+/*!
+\brief
+Renders all OBJ in scene
+*/
+/******************************************************************************/
 void SP2::RenderObject()
 {
 	//Mtx44 MVP;
@@ -3798,7 +4004,18 @@ void SP2::RenderObject()
 	RenderMesh(meshList[GEO_NPCSIT], false);
 	modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Renders all shelf items
 
+\param ItemName - name of item
+\param ItemPrice - price of item
+\param ItemPosition - position of item
+\param ItemType - type of item
+\param ItemNumber - item number
+*/
+/******************************************************************************/
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
 {
 	Mtx44 MVP;
@@ -3864,7 +4081,18 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 
 	modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Renders item on trolley
 
+\param ItemName - name of item
+\param ItemPrice - price of item
+\param ItemPosition - position of item
+\param ItemType - type of item
+\param ItemNumber - item number
+*/
+/******************************************************************************/
 void SP2::RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
 {
 	Mtx44 MVP;
@@ -3892,7 +4120,16 @@ void SP2::RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPos
 	RenderMesh(meshList[ItemType], false);
 	modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Renders Text
 
+\param *mesh - renders the selected mesh
+\param text - text to render
+\param Color - color of text
+*/
+/******************************************************************************/
 void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
@@ -3922,7 +4159,19 @@ void SP2::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
 }
+/******************************************************************************/
+/*!
+\brief
+Renders Text on screen
 
+\param *mesh - renders the selected mesh
+\param text - text to render
+\param Color - color of text
+\param size - size of text
+\param x - X axis translation
+\param y - Y axis translation
+*/
+/******************************************************************************/
 void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
@@ -3969,8 +4218,23 @@ void SP2::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float si
 
 	glEnable(GL_DEPTH_TEST);
 }
+/******************************************************************************/
+/*!
+\brief
+Renders targa images on screen
 
-void SP2::RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ)
+\param *mesh - renders the selected mesh
+\param Color - color of text
+\param TranslateX - X axis translation
+\param TranslateY - Y axis translation
+\param degrees - rotation degrees
+\param RotateY - Y axis rotation
+\param ScaleX - X axis scaling
+\param ScaleY - Y axis scaling
+\param ScaleZ - Z axis scaling
+*/
+/******************************************************************************/
+void SP2::RenderImgOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ)
 {
 	if(!mesh || mesh->textureID <= 0) //Proper error check
 	return;
@@ -3997,7 +4261,13 @@ void SP2::RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float Tran
 
 	glEnable(GL_DEPTH_TEST);
 }
+/******************************************************************************/
+/*!
+\brief
+Renders arms of player
 
+*/
+/******************************************************************************/
 void SP2::RenderPlayerArm(void)
 {
 	modelStack.PushMatrix();
@@ -4018,7 +4288,13 @@ void SP2::RenderPlayerArm(void)
 
 	modelStack.PopMatrix();
 }
+/******************************************************************************/
+/*!
+\brief
+Renders NPC
 
+*/
+/******************************************************************************/
 void SP2::RenderNPC(void)
 {
 	modelStack.PushMatrix(); //Push body
@@ -4046,7 +4322,12 @@ void SP2::RenderNPC(void)
 	modelStack.PopMatrix();
 	modelStack.PopMatrix();
 }
-
+/******************************************************************************/
+/*!
+\brief
+Exit scene and free up memory
+*/
+/******************************************************************************/
 void SP2::Exit()
 {
 	// Cleanup here

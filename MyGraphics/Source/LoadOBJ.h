@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	LoadOBJ.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Object Loader with vertices, uvs and normals
+*/
+/******************************************************************************/
 #ifndef LOAD_OBJ_H
 #define LOAD_OBJ_H
 

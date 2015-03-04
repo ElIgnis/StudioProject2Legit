@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	ShopperAI2.h
+\author Kelvin Tan Young Yew
+\par	email: 144117P\@mymail.nyp.edu.sg
+\brief
+Shopper NPC with trolley walking around and takes some items before checking out
+*/
+/******************************************************************************/
 #pragma once
 #include <iostream>
 #include "Vector3.h"
@@ -6,7 +15,12 @@
 #define ShopperPathSize 15
 
 using namespace std;
-
+/******************************************************************************/
+/*!
+		Class CShopperAI2:
+\brief	Another Shopper NPC class
+*/
+/******************************************************************************/
 class CShopperAI2
 {
 private:
@@ -17,13 +31,14 @@ private:
 public:
 	CShopperAI2();
 	~CShopperAI2();
-
+	//! An enum.
+	/*! Enum for uniform type */
 	enum States
 	{
-		DEFAULT,
-		CAUGHT,
-		DETECTED,
-		NUM_STATES,
+		DEFAULT,	/*!< DEFAULT */
+		CAUGHT,		/*!< CAUGHT */
+		DETECTED,	/*!< DETECTED */
+		NUM_STATES,	/*!< NUM_STATES */
 	};
 
 	float RotationSpeed;

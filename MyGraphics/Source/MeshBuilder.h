@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	MeshBuilder.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Generate different types of meshes
+*/
+/******************************************************************************/
 #ifndef MESH_BUILDER_H
 #define MESH_BUILDER_H
 

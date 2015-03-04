@@ -1,6 +1,20 @@
+/******************************************************************************/
+/*!
+\file	Material.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Materials for the light
+*/
+/******************************************************************************/
 #ifndef _MATERIAL_H
 #define _MATERIAL_H
-
+/******************************************************************************/
+/*!
+		struct Component:
+\brief	r, g, b material components
+*/
+/******************************************************************************/
 struct Component
 {
 	float r, g, b;
@@ -15,7 +29,12 @@ struct Component
 		this->b = b;
 	}
 };
-
+/******************************************************************************/
+/*!
+		struct Material:
+\brief	Components of materials
+*/
+/******************************************************************************/
 struct Material
 {
 	Component kAmbient;

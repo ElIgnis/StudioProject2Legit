@@ -1,6 +1,14 @@
+/******************************************************************************/
+/*!
+\file	ShopperAI.h
+\author Kelvin Tan Young Yew
+\par	email: 144117P\@mymail.nyp.edu.sg
+\brief
+Shopper NPC without trolley walking around and takes some items before checking out
+*/
+/******************************************************************************/
 #pragma once
 #include <iostream>
-//#include "Source\SP2.h"
 #include <Vector3.h>
 #include "Item.h"
 
@@ -8,6 +16,12 @@
 #define ShopperPathSize3 12
 
 using namespace std;
+/******************************************************************************/
+/*!
+		Class CShopperAI:
+\brief	A Shopper NPC class
+*/
+/******************************************************************************/
 class CShopperAI
 {
 private:

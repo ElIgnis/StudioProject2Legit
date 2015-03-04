@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	GuardAI.h
+\author Bryn Shannon Ho Zhi Wen
+\par	email: 144104B\@mymail.nyp.edu.sg
+\brief
+Guard NPC patrolling the supermarket and interacts with player
+*/
+/******************************************************************************/
 #pragma once
 
 #include "Vector3.h"
@@ -5,7 +14,12 @@
 #include <math.h>
 #define _USE_MATH_DEFINES
 using std::string;
-
+/******************************************************************************/
+/*!
+		Class CGuardAI:
+\brief	A Guard NPC with state
+*/
+/******************************************************************************/
 class CGuardAI
 {
 private:

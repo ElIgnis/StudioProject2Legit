@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	Shader.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Loading of shaders from external files
+*/
+/******************************************************************************/
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -12,7 +21,14 @@ using namespace std;
 #include <GL/glew.h>
 
 #include "shader.hpp"
-
+/******************************************************************************/
+/*!
+\brief
+Load shaders
+\param vertex_file_path - path of vertex file
+\param fragment_file_path - path of fragment file
+*/
+/******************************************************************************/
 GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path){
 
 	// Create the shaders

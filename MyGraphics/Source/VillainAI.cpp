@@ -1,8 +1,25 @@
+/******************************************************************************/
+/*!
+\file	Villain.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Villain NPC going around to wreck stuff randomly
+*/
+/******************************************************************************/
 #include "VillainAI.h"
 
 bool PathOneChecker[VillainPathSize] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 //bool PathOneCoords[16]
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CVillainAI::CVillainAI(void)
 {
 	//Villain starts outside of mall
@@ -41,11 +58,21 @@ CVillainAI::CVillainAI(void)
 	DetectionTimer = 0.f;
 	RecentlyDestroyed = false;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CVillainAI::~CVillainAI(void)
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Intialise the villain
+*/
+/******************************************************************************/
 void CVillainAI::Init_Villain(void)
 {
 	PathOneChecker[0] = true;
@@ -91,12 +118,27 @@ void CVillainAI::Init_Villain(void)
 	DetectionTimer = 0.f;
 	RecentlyDestroyed = false;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets position of villain NPC
 
+\param NewPosition - position to update
+*/
+/******************************************************************************/
 void CVillainAI::SetPosition(Vector3 &NewPosition)
 {	
 	Position = NewPosition;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets direction of villain NPC
 
+\param NewDirection - direction to update
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CVillainAI::SetDirection(Vector3 &NewDirection, double dt)
 {
 	if(Direction.y < NewDirection.y)
@@ -116,17 +158,39 @@ void CVillainAI::SetDirection(Vector3 &NewDirection, double dt)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Gets direction of villain NPC
 
+\return direction of villain NPC
+*/
+/******************************************************************************/
 Vector3 CVillainAI::GetPosition(void)
 {
 	return Position;
 }
+/******************************************************************************/
+/*!
+\brief
+Gets direction of villain NPC
 
+\return direction of villain NPC
+*/
+/******************************************************************************/
 Vector3 CVillainAI::GetDirection(void)
 {
 	return Direction;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates villain NPC
 
+\param dt - delta time update
+\param PlayerPosition - position of player
+*/
+/******************************************************************************/
 void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 {
 	if(RecentlyDestroyed && CurrentState != CVillainAI::CAUGHT)
@@ -141,25 +205,34 @@ void CVillainAI::UpdateAI(double dt, Vector3 &PlayerPosition)
 
 	float DistanceToPlayer = sqrt((Position.x - PlayerPosition.x) * (Position.x - PlayerPosition.x) + (Position.z - PlayerPosition.z) * (Position.z - PlayerPosition.z));
 
-	//Stops updating AI when caught
-	if(CurrentState != CVillainAI::CAUGHT)
+	if(DistanceToPlayer < 0.f)
 	{
-		if(DistanceToPlayer < 0.f)
-		{
-			DistanceToPlayer *= -1;
-		}
-		else if(DistanceToPlayer < 8.f && RecentlyDestroyed == true)
-		{
-			CurrentState = CVillainAI::DETECTED;
-		}
-		else
-		{
-			CurrentState = CVillainAI::DEFAULT;
-		}
+		DistanceToPlayer *= -1;
+	}
+	if(DistanceToPlayer < 15.f && RecentlyDestroyed == true)
+	{
+		CurrentState = CVillainAI::DETECTED;
+	}
+	else
+	{
+		CurrentState = CVillainAI::DEFAULT;
+	}
+	//Stops updating AI when caught
+	if(CurrentState == CVillainAI::DEFAULT || CurrentState == CVillainAI::DETECTED)
+	{
 		UpdatePath(dt);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Villain NPC wrecking items
 
+\param *Item - item to wreck
+\param dt - delta time update
+\return if any items are wrecked
+*/
+/******************************************************************************/
 bool CVillainAI::DestroyItem(CItem *Item, double dt)
 {
 	//Calculate distance from villain to item
@@ -228,7 +301,15 @@ bool CVillainAI::DestroyItem(CItem *Item, double dt)
 	else
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Update villain NPC path
 
+\param Item - item to take
+\param dt - delta time update
+*/
+/******************************************************************************/
 bool CVillainAI::UpdatePath(double dt)
 {
 	//Red shelf coords
@@ -569,7 +650,15 @@ bool CVillainAI::UpdatePath(double dt)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis positive
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CVillainAI::MoveZPlus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -579,7 +668,7 @@ void CVillainAI::MoveZPlus(double StopPoint, double dt)
 	}
 	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		MovementSpeed = 16.f;
+		MovementSpeed = 20.f;
 	}
 	else if(CurrentState == CVillainAI::CAUGHT)
 	{
@@ -591,7 +680,15 @@ void CVillainAI::MoveZPlus(double StopPoint, double dt)
 		Position.z += (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis negative
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CVillainAI::MoveZMinus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -601,7 +698,7 @@ void CVillainAI::MoveZMinus(double StopPoint, double dt)
 	}
 	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		MovementSpeed = 16.f;
+		MovementSpeed = 20.f;
 	}
 	else if(CurrentState == CVillainAI::CAUGHT)
 	{
@@ -613,7 +710,15 @@ void CVillainAI::MoveZMinus(double StopPoint, double dt)
 		Position.z -= (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves X axis positive
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CVillainAI::MoveXPlus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -623,7 +728,7 @@ void CVillainAI::MoveXPlus(double StopPoint, double dt)
 	}
 	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		MovementSpeed = 16.f;
+		MovementSpeed = 20.f;
 	}
 	else if(CurrentState == CVillainAI::CAUGHT)
 	{
@@ -635,7 +740,15 @@ void CVillainAI::MoveXPlus(double StopPoint, double dt)
 		Position.x += (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves X axis negative
 
+\param StopPoint - point to stop
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CVillainAI::MoveXMinus(double StopPoint, double dt)
 {
 	//MovementSpeed based on state
@@ -645,7 +758,7 @@ void CVillainAI::MoveXMinus(double StopPoint, double dt)
 	}
 	else if(CurrentState == CVillainAI::DETECTED)
 	{
-		MovementSpeed = 16.f;
+		MovementSpeed = 20.f;
 	}
 	else if(CurrentState == CVillainAI::CAUGHT)
 	{
@@ -657,12 +770,26 @@ void CVillainAI::MoveXMinus(double StopPoint, double dt)
 		Position.x -= (float)(dt * MovementSpeed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Sets state of villain NPC
 
+\param NewState - state to update
+*/
+/******************************************************************************/
 void CVillainAI::SetState(int NewState)
 {
 	CurrentState = NewState;
 }
+/******************************************************************************/
+/*!
+\brief
+Gets current state of villain NPC
 
+\return current state of villain NPC
+*/
+/******************************************************************************/
 int CVillainAI::GetState(void)
 {
 	return CurrentState;

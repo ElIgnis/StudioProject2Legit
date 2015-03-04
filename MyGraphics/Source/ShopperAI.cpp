@@ -1,8 +1,25 @@
+/******************************************************************************/
+/*!
+\file	ShopperAI.cpp
+\author Kelvin Tan Young Yew
+\par	email: 144117P\@mymail.nyp.edu.sg
+\brief
+Shopper NPC without trolley walking around and takes some items before checking out
+*/
+/******************************************************************************/
 #include "ShopperAI.h"
 
 bool ShopperPath2[ShopperPathSize2] = { true, false, false, false, false, false, false, false, false, false };
 bool ShopperPath3[ShopperPathSize3] = { true, false, false, false, false, false, false, false, false, false, false, false };
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CShopperAI::CShopperAI()
 {
 	//starting point
@@ -28,40 +45,94 @@ CShopperAI::CShopperAI()
 	item_iceCream = false;
 	item_choco = false;
 }
-
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CShopperAI::~CShopperAI()
 {
 }
-//Kel's
+/******************************************************************************/
+/*!
+\brief
+Sets X axis position
+
+\param x - X axis position
+*/
+/******************************************************************************/
 void CShopperAI::setPositionX(float x)
 {
 	position.x = x;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets Z axis position
+
+\param x - Z axis position
+*/
+/******************************************************************************/
 void CShopperAI::setPositionZ(float z)
 {
 	position.z = z;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets X axis position
 
+\return X axis position
+*/
+/******************************************************************************/
 float CShopperAI::getPositionX(void)
 {
 	return position.x;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets Z axis position
+
+\return Z axis position
+*/
+/******************************************************************************/
 float CShopperAI::getPositionZ(void)
 {
 	return position.z;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets shopper direction
 
+\param r - direction of shopper
+*/
+/******************************************************************************/
 void CShopperAI::setShopperDirection(int r)
 {
 	Rotangle = r;
 }
+/******************************************************************************/
+/*!
+\brief
+Returns rotation angle
+
+\return rotation angle of shopper
+*/
+/******************************************************************************/
 int CShopperAI::getShopperDirection(void)
 {
 	return Rotangle;
 }
+/******************************************************************************/
+/*!
+\brief
+Initialise shopper properties
 
-//Kel's
+*/
+/******************************************************************************/
 void CShopperAI::ShopperInitialize(void)
 {
 	ShopperPath2[0] = true;
@@ -100,7 +171,15 @@ void CShopperAI::ShopperInitialize(void)
 	//initialize Shopper state
 	ShopperSTATE = WALK;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates path of shopper NPC
 
+\param dt - delta time update
+\param Playerposition - position of player
+*/
+/******************************************************************************/
 void CShopperAI::UpdatePath(double dt, Vector3 &Playerposition)
 {
 	//TODO: Update path till if reach item
@@ -116,7 +195,15 @@ void CShopperAI::UpdatePath(double dt, Vector3 &Playerposition)
 		WalkingPath3(dt, CShopperAI::WALK);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Updates path of shopper NPC
 
+\param dt - delta time update
+\param NewState - moves based on state
+*/
+/******************************************************************************/
 void CShopperAI::WalkingPath(double dt, int NewState)
 {
 	//#######Rotation of Shoppers#############
@@ -531,6 +618,15 @@ void CShopperAI::WalkingPath(double dt, int NewState)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Updates alternate path of shopper NPC
+
+\param dt - delta time update
+\param NewState - moves based on state
+*/
+/******************************************************************************/
 void CShopperAI::WalkingPath3(double dt, int NewState)
 {
 	//#######Rotation of Shoppers#############
@@ -1041,8 +1137,17 @@ void CShopperAI::WalkingPath3(double dt, int NewState)
 		}
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis positive
 
-
+\param StopPoint - point to stop
+\param NewState - moves based on state
+\param Speed - speed of movement
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI::MoveZPlus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -1060,6 +1165,17 @@ void CShopperAI::MoveZPlus(double StopPoint, int NewState, double Speed, double 
 		position.z += (float)(dt * Speed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves Z axis negative
+
+\param StopPoint - point to stop
+\param NewState - moves based on state
+\param Speed - speed of movement
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI::MoveZMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -1073,6 +1189,17 @@ void CShopperAI::MoveZMinus(double StopPoint, int NewState, double Speed, double
 		position.z -= (float)(dt * Speed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves X axis positive
+
+\param StopPoint - point to stop
+\param NewState - moves based on state
+\param Speed - speed of movement
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI::MoveXPlus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state
@@ -1086,6 +1213,17 @@ void CShopperAI::MoveXPlus(double StopPoint, int NewState, double Speed, double 
 		position.x += (float)(dt * Speed);
 	}
 }
+/******************************************************************************/
+/*!
+\brief
+Moves x axis negative
+
+\param StopPoint - point to stop
+\param NewState - moves based on state
+\param Speed - speed of movement
+\param dt - delta time update
+*/
+/******************************************************************************/
 void CShopperAI::MoveXMinus(double StopPoint, int NewState, double Speed, double dt)
 {
 	//Speed based on state

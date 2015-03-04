@@ -1,10 +1,25 @@
-
+/******************************************************************************/
+/*!
+\file	LoadTGA.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+TGA image file loader
+*/
+/******************************************************************************/
 #include <iostream>
 #include <fstream>
 #include <GL\glew.h>
 
 #include "LoadTGA.h"
-
+/******************************************************************************/
+/*!
+\brief
+Loads targa files
+\param file_path - path of file to be loaded
+\return texture of targa file
+*/
+/******************************************************************************/
 GLuint LoadTGA(const char *file_path)				// load TGA file to memory
 {
 	std::ifstream fileStream(file_path, std::ios::binary);

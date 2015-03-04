@@ -1,5 +1,22 @@
+/******************************************************************************/
+/*!
+\file	Inventory.cpp
+\author Wei Liang Lee, Bryn Shannon Ho Zhi Wen
+\par	email: 140511H\@mymail.nyp.edu.sg, 144104B\@mymail.nyp.edu.sg
+\brief
+Inventory to store items with trolley collision detection
+*/
+/******************************************************************************/
 #include "Inventory.h"
+/******************************************************************************/
+/*!
+\brief
+Default Constructor
 
+\exception None
+\return None
+*/
+/******************************************************************************/
 CInventory::CInventory(void)
 {
 	MaxInventorySize = 2;
@@ -22,11 +39,21 @@ CInventory::CInventory(void)
 	Offset2.y = 0.0f;
 	Offset2.z = 0.0f;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Default Destructor
+*/
+/******************************************************************************/
 CInventory::~CInventory(void)
 {
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initializes trolley properties
+*/
+/******************************************************************************/
 void CInventory::Init_Trolley(void)
 {
 	EquippedTrolley = false;
@@ -51,7 +78,12 @@ void CInventory::Init_Trolley(void)
 	RotationMinLength = TrolleyPosition.z - 0.5f;
 	RotationMaxLength = TrolleyPosition.z + 0.5f;
 }
-
+/******************************************************************************/
+/*!
+\brief
+Initializes inventory properties
+*/
+/******************************************************************************/
 void CInventory::Init_Inventory(void)
 {
 	for(vector<CItem*>::iterator iter = Inventory.begin(); iter != Inventory.end();)
@@ -83,7 +115,15 @@ void CInventory::Init_Inventory(void)
 	//		break;
 	//}
 }
+/******************************************************************************/
+/*!
+\brief
+Adds item from shelf to trolley
 
+\param *Item - item to add
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 {
 	if (Inventory.size() < MaxTrolleySize)
@@ -99,7 +139,15 @@ bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Adds item from shelf to inventory
 
+\param *Item - item to add
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Add_ShelfToInvent(CItem *Item, int ItemIndex)
 {
 	//Adds Items from shelf to inventory
@@ -119,7 +167,15 @@ bool CInventory::Add_ShelfToInvent(CItem *Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Adds item from trolley to inventory
 
+\param *Item - item to add
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Add_TrolleyToInvent(CItem *Item, int ItemIndex)
 {
 	//Adds Items from trolley to inventory
@@ -139,7 +195,15 @@ bool CInventory::Add_TrolleyToInvent(CItem *Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Removes item from inventory to shelf
 
+\param *Item - item to remove
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Minus_InventToShelf(CItem * Item, int ItemIndex)
 {
 	//Removes Items from inventory to shelf
@@ -176,7 +240,15 @@ bool CInventory::Minus_InventToShelf(CItem * Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Removes item from inventory to trolley
 
+\param *Item - item to remove
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Minus_InventToTrolley(CItem * Item, int ItemIndex)
 {
 	//Removes Items from inventory to trolley
@@ -213,7 +285,15 @@ bool CInventory::Minus_InventToTrolley(CItem * Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Swaps item from inventory to shelf
 
+\param *Item - item to swap
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::SwapFromInvent(CItem *Item, int ItemIndex)
 {
 	int MatchingIndex = 0;
@@ -237,7 +317,14 @@ bool CInventory::SwapFromInvent(CItem *Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets position of inventory
 
+\param NewPosition - position to be updated
+*/
+/******************************************************************************/
 void CInventory::SetPosition(Vector3 &NewPosition)
 {
 	TrolleyPosition.x = NewPosition.x;
@@ -249,14 +336,29 @@ void CInventory::SetPosition(Vector3 &NewPosition)
 	RotationMinLength = TrolleyPosition.z - 0.5f;
 	RotationMaxLength = TrolleyPosition.z + 0.5f;
 }
+/******************************************************************************/
+/*!
+\brief
+Sets direction of inventory
 
+\param NewDirection - direction to be updated
+*/
+/******************************************************************************/
 void CInventory::SetDirection(Vector3 &NewDirection)
 {
 	TrolleyDirection.x = NewDirection.x;
 	TrolleyDirection.y = NewDirection.y;
 	TrolleyDirection.z = NewDirection.z;
 }
+/******************************************************************************/
+/*!
+\brief
+Adds item from inventory to trolley
 
+\param *Item - item to add
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Add_InventToTrolley(CItem *Item, int ItemIndex)
 {
 	//Adds Items from inventory to trolley
@@ -276,7 +378,15 @@ bool CInventory::Add_InventToTrolley(CItem *Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Removes item from trolley to inventory
 
+\param *Item - item to remove
+\param ItemIndex - Index of item
+*/
+/******************************************************************************/
 bool CInventory::Minus_TrolleyToInvent(CItem *Item, int ItemIndex)
 {
 	//Removes Items from trolley to inventory
@@ -313,7 +423,14 @@ bool CInventory::Minus_TrolleyToInvent(CItem *Item, int ItemIndex)
 	}
 	return false;
 }
+/******************************************************************************/
+/*!
+\brief
+Updates bounding box of trolley
 
+\param player_position - position of player
+*/
+/******************************************************************************/
 bool CInventory::UpdateTrolleyBox(Vector3 player_position)
 {
 	float width = 5;

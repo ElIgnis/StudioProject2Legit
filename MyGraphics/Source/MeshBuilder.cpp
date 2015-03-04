@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	MeshBuilder.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Generate different types of meshes
+*/
+/******************************************************************************/
 #include "MeshBuilder.h"
 #include <GL\glew.h>
 #include <vector>
@@ -209,7 +218,20 @@ Mesh* MeshBuilder::GenerateCube(const std::string &meshName, Color color, float 
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a circle; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of circle
+\param numSlice - number of slices of circle
+\param radius - radius of circle
+
+\return Pointer to mesh storing VBO/IBO of circle
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateCircle(const std::string &meshName, Color color, unsigned numSlice, float radius)
 {
 	Vertex v;
@@ -251,7 +273,20 @@ Mesh* MeshBuilder::GenerateCircle(const std::string &meshName, Color color, unsi
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a cone; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of cone
+\param numSlice - number of slices of cone
+\param radius - radius of cone
+
+\return Pointer to mesh storing VBO/IBO of cone
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsigned numSlice, float radius)
 {
 	Vertex v;
@@ -294,7 +329,20 @@ Mesh* MeshBuilder::GenerateCone(const std::string &meshName, Color color, unsign
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a ring; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of ring
+\param numSlice - number of slices of ring
+\param outerR - outer radius of ring
+\param innerR - inner radius of ring
+\return Pointer to mesh storing VBO/IBO of ring
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateRing(const std::string &meshName, Color color, unsigned numSlice, float outerR, float innerR)
 {
 	Vertex v;
@@ -341,7 +389,20 @@ Mesh* MeshBuilder::GenerateRing(const std::string &meshName, Color color, unsign
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a half ring; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of half ring
+\param numSlice - number of slices of half ring
+\param outerR - outer radius of half ring
+\param innerR - inner radius of half ring
+\return Pointer to mesh storing VBO/IBO of half ring
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateSemiring(const std::string &meshName, Color color, unsigned numSlice, float outerR, float innerR)
 {
 	Vertex v;
@@ -388,17 +449,62 @@ Mesh* MeshBuilder::GenerateSemiring(const std::string &meshName, Color color, un
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Calculates X coordinates for sphere
 
+\param phi - value of phi
+\param theta - value of theta
+
+\return the X value
+*/
+/******************************************************************************/
 float sphereX(float phi, float theta) {
 	return cos(Math::DegreeToRadian(phi)) * cos(Math::DegreeToRadian(theta));
 }
+/******************************************************************************/
+/*!
+\brief
+Calculates Y coordinates for sphere
+
+\param phi - value of phi
+\param theta - value of theta
+
+\return the Y value
+*/
+/******************************************************************************/
 float sphereY(float phi, float theta) {
 	return sin(Math::DegreeToRadian(phi));
-}
+}/******************************************************************************/
+/*!
+\brief
+Calculates Z coordinates for sphere
+
+\param phi - value of phi
+\param theta - value of theta
+
+\return the Z value
+*/
+/******************************************************************************/
 float sphereZ(float phi, float theta) {
 	return cos(Math::DegreeToRadian(phi)) * sin(Math::DegreeToRadian(theta));
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a sphere; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of sphere
+\param numStack - number of stacks of sphere
+\param numSlice - number of slices of sphere
+\param radius - radius of sphere
+
+\return Pointer to mesh storing VBO/IBO of sphere
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateSphere(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float radius)
 {
 	Vertex v;
@@ -434,7 +540,21 @@ Mesh* MeshBuilder::GenerateSphere(const std::string &meshName, Color color, unsi
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a hemisphere; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of hemisphere
+\param numStack - number of stacks of hemisphere
+\param numSlice - number of slices of hemisphere
+\param radius - radius of hemisphere
+
+\return Pointer to mesh storing VBO/IBO of hemisphere
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateHemisphere(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float radius)
 {
 		Vertex v;
@@ -469,7 +589,21 @@ Mesh* MeshBuilder::GenerateHemisphere(const std::string &meshName, Color color, 
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a torus; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of torus
+\param numStack - number of stacks of torus
+\param numSlice - number of slices of torus
+\param outerR - outer radius of torus
+\param innerR - inner radius of torus
+\return Pointer to mesh storing VBO/IBO of torus
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateTorus(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float outerR, float innerR)
 {
 	Vertex v;
@@ -521,15 +655,47 @@ Mesh* MeshBuilder::GenerateTorus(const std::string &meshName, Color color, unsig
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Calculates X coordinates for cylinder
 
+\param theta - value of theta
+
+\return the X value
+*/
+/******************************************************************************/
 float CylinderX(float theta) {
 	return cos(Math::DegreeToRadian(theta));
 }
+/******************************************************************************/
+/*!
+\brief
+Calculates Z coordinates for cylinder
 
+\param theta - value of theta
+
+\return the Z value
+*/
+/******************************************************************************/
 float CylinderZ(float theta) {
 	return sin(Math::DegreeToRadian(theta));
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the vertices of a cylinder; Use random color for each vertex
+Then generate the VBO/IBO and store them in Mesh object
 
+\param meshName - name of mesh
+\param color - color of cylinder
+\param numStack - number of stacks of cylinder
+\param numSlice - number of slices of cylinder
+\param radius - radius of cylinder
+
+\return Pointer to mesh storing VBO/IBO of cylinder
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateCylinder(const std::string &meshName, Color color, unsigned numStack, unsigned numSlice, float radius, float height)
 {
 	float stackHeight = height / numStack;
@@ -602,7 +768,17 @@ Mesh* MeshBuilder::GenerateCylinder(const std::string &meshName, Color color, un
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the object
 
+\param meshName - name of mesh
+\param file_path - path of file
+
+\return Pointer to mesh storing vertices, uvs and normals of OBJ
+*/
+/******************************************************************************/
 Mesh*MeshBuilder::GenerateOBJ(const std::string &meshName, const std::string &file_path)
 {
 	//Read vertices, texcoords & normals from OBJ
@@ -632,7 +808,18 @@ Mesh*MeshBuilder::GenerateOBJ(const std::string &meshName, const std::string &fi
 
 	return mesh;
 }
+/******************************************************************************/
+/*!
+\brief
+Generate the object
 
+\param meshName - name of mesh
+\param numRow - number of rows
+\param numCol - number of columns
+
+\return Pointer to mesh storing vertices, uvs and normals of OBJ
+*/
+/******************************************************************************/
 Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, unsigned numCol)
 {
 	Vertex v;

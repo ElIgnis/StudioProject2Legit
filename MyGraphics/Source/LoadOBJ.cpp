@@ -1,9 +1,24 @@
+/******************************************************************************/
+/*!
+\file	LoadOBJ.cpp
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Object Loader with vertices, uvs and normals
+*/
+/******************************************************************************/
 #include <iostream>
 #include <fstream>
 #include <map>
 
 #include "LoadOBJ.h"
-
+/******************************************************************************/
+/*!
+\brief
+Loads OBJ
+\return whether OBJ is loaded
+*/
+/******************************************************************************/
 bool LoadOBJ(
 	const char *file_path, 
 	std::vector<Position> & out_vertices, 
@@ -119,7 +134,12 @@ bool LoadOBJ(
 
 	return true;
 }
-
+/******************************************************************************/
+/*!
+		struct Packed Vertex:
+\brief	A packed vertex
+*/
+/******************************************************************************/
 struct PackedVertex{
 	Position position;
 	TexCoord uv;
@@ -128,7 +148,13 @@ struct PackedVertex{
 		return memcmp((void*)this, (void*)&that, sizeof(PackedVertex))>0;
 	};
 };
-
+/******************************************************************************/
+/*!
+\brief
+Loads OBJ
+\return similar vertex index
+*/
+/******************************************************************************/
 bool getSimilarVertexIndex_fast( 
 	PackedVertex & packed, 
 	std::map<PackedVertex, unsigned short> & VertexToOutIndex,
@@ -145,7 +171,12 @@ bool getSimilarVertexIndex_fast(
 		return true;
 	}
 }
-
+/******************************************************************************/
+/*!
+\brief
+Index VBO
+*/
+/******************************************************************************/
 void IndexVBO(
 	std::vector<Position> & in_vertices,
 	std::vector<TexCoord> & in_uvs,

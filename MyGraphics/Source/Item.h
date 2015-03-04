@@ -1,3 +1,12 @@
+/******************************************************************************/
+/*!
+\file	Item.h
+\author Wei Liang Lee
+\par	email: 140511H\@mymail.nyp.edu.sg
+\brief
+Item with details and state machine
+*/
+/******************************************************************************/
 #pragma once
 
 #include"Vector3.h"
@@ -7,7 +16,12 @@
 using std::vector;
 using std::string;
 
-
+/******************************************************************************/
+/*!
+		Class CItem:
+\brief	An Item class with state
+*/
+/******************************************************************************/
 class CItem
 {
 public:
@@ -24,8 +38,6 @@ public:
 	float MinHeight;
 	float MaxHeight;
 	int ItemIndex;
-
-	bool render;
 
 	//States
 	enum States
