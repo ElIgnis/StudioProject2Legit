@@ -11,7 +11,6 @@ Camera3::Camera3()
 	CAMERA_SPEED2 = 10.f;
 	HasEntered = false;
 	IsCrouched = false;
-
 }
 
 Camera3::~Camera3()
@@ -27,7 +26,13 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	right.y = 0;
 	right.Normalize();
 	this->up = defaultUp = right.Cross(view).Normalized();
+	
 	playerMovement = true;
+	RotationYAxis = -90.f;
+	HasEntered = false;
+	IsCrouched = false;
+	playerArmRotation = 0.f;
+	angle = 0.f;
 }
 
 void Camera3::Update(double dt)

@@ -330,7 +330,6 @@ private:
 	void updateShopperAI2(double dt, CShopperAI2 *Shopper1);
 	void UpdateVillainAI(double dt, CVillainAI * Villain);
 	void ShowEndScreen(double dt);
-	void UpdateConveyor(double dt);
 	int RollDice(void);
 	void checkItemTypeAdd(CItem *Item);
 	void checkItemTypeRemove(CItem *Item);
@@ -357,7 +356,6 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
-	void RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderUIOnScreen(Mesh* mesh, Color color, float TranslateX, float TranslateY, float degrees, float RotateY, float ScaleX, float ScaleY, float ScaleZ);
 	void RenderPlayerArm(void);
 	void RenderNPC(void);
@@ -404,35 +402,13 @@ private:
 	string EGSVillain;
 
 	bool newHighScore;
-	bool CheckingOut;
-	bool renderItemOnTrolley;
-	bool beltMovement;
+
 	Vector3 beltPos;
 	Vector3 cTablePos;
-	float movingOnBelt;
-
-	//Cashier
-	bool armMoving;
-	bool armMovement;
-	float armRotation;
 
 	//Player Animation
 	bool playerArmSwipeAni;
 	float playerArmSwipe;
-
-	//Right Arm 
-	bool playerPayingAni;
-	bool playerArmPayingRightAni;
-	bool playerArmPayingRightAniDown;
-	bool playerArmPayingRightAniUp;
-	float playerArmPayingRight;
-	bool renderWallet;
-	//Left Arm
-	bool playerArmPayingLeftAni;
-	bool playerArmPayingLeftAniIn;
-	bool playerArmPayingLeftAniOut;
-	float playerArmPayingLeft;
-	bool renderMoney;
 
 	//NPC Interaction
 	bool NPCInteraction;

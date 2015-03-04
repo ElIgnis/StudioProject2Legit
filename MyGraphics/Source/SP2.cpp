@@ -71,7 +71,6 @@ void SP2::Init()
 
 	//Score calculation
 	missionComplete = false;
-	//missionFailed = false;
 
 	//Time
 	elapsedTime = 0.f;
@@ -83,8 +82,6 @@ void SP2::Init()
 	villainEscaped = false;
 	villainCaught = false;
 	
-	renderItemOnTrolley = true;
-	beltMovement = false;
 	beltPos.x = -3.14; 
 	beltPos.y = 1.12;
 	beltPos.z = 17.33;
@@ -97,9 +94,6 @@ void SP2::Init()
 
 	//Player (move to class)
 	playerArmSwipeAni = false;
-	playerPayingAni = false;
-	playerArmPayingRightAniUp = false;
-	playerArmPayingRightAniDown = false;
 
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
@@ -231,7 +225,6 @@ void SP2::RestartGame(void)
 	RangeOfOne = 1.f;
 	rotationofdoor = 0;
 	rotateback = false;
-	CheckingOut = false;
 
 	//ShopperAI Init
 	Rotate_Leg_Left_Back = false;
@@ -244,76 +237,56 @@ void SP2::RestartGame(void)
 	Rotation_Left_Hand = 0;
 	Rotation_Right_Hand = 0;
 
-	//UI
-	//Screen
-	chooseModeScreen = false;
-	highScoreScreen = false;
-	gameStart = false;
-	endScreen = false;
-	startScreen = true;
+	//Player functions
+	playerMovement = true;
+	trolleyTaken = false;
 
-	newHighScore = false;
-
-	modeCustomer = false;
-	modeGuard = true;
-	modeVillain = false;
-
-	missionComplete = false;
-	//missionFailed = false;
-
-	elapsedTime = 0.f;
-	countDown = 180;
-
-	isCaught = false;
-	objectsDestroyed = 0;
-
-	villainEscaped = false;
-	villainCaught = false;
-	
-	renderItemOnTrolley = true;
-	beltMovement = false;
-	beltPos.x = -3.14; 
-	beltPos.y = 1.12;
-	beltPos.z = 17.33;
-	cTablePos.x = -3.15;
-	cTablePos.y = -2;
-	cTablePos.z = 21.7;
-
-	playerArmSwipeAni = false;
-
-	playerArmPayingRightAniUp = false;
-	playerArmPayingRightAniDown = false;
-
-	NPCInteraction = false;
-
-	//UI in shopper mode
-	sardineNo = 0;
-	miloNo = 0;
-	tobleroneNo = 0;
-	cokeNo = 0;
-	cCerealNo = 0;
-	noodlesNo = 0;
-	rootbeerNo = 0;
-	beansNo = 0;
-	pizzaNo = 0;
-
-	//Cashier details
-	armRotation = 0.f;
-	armMoving = false;
-
-	//Reinitialize menu screens
-	chooseModeScreen = false;
-	highScoreScreen = false;
-	gameStart = false;
-	endScreen = false;
-	startScreen = true;
-
+	CPlayer player;
 	modeCustomer = false;
 	modeGuard = false;
 	modeVillain = false;
 
+	//Villain
+	objectsDestroyed = 0;
+	isCaught = false;
+	//Guard
+	villainCaught = false;
+	villainEscaped = false;
+	missionComplete = false;
+
+	//Time Taken
+	timeElapsed = " ";
+	elapsedTime = 0;
+	countDownTime = " ";
+	countDown = 0;
+
+	//Highscore in Highscore screen
+	customerHS = " ";
+	guardHS = " ";
+	villainHS = " ";
+
+	EGSShopper = " ";
+	EGSGuard = " ";
+	EGSVillain = " ";
+
+	newHighScore = false;
+
+	//NPC Interaction
+	NPCInteraction = false;
+	weedMode  = false;
+
+	customerCheckOut  = false;
+
+	//Reinitialize menu screens
+	menuDelay = 0.f;
+	chooseModeScreen = false;
+	highScoreScreen = false;
+	gameStart = false;
+	endScreen = false;
+	startScreen = true;
+
 	//Reinitialize Player && Trolley
-	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(0, 0, 68), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	Trolley.Init_Trolley();
 
 	//Reinitialize AI
@@ -326,14 +299,14 @@ void SP2::RestartGame(void)
 	//Empty player vectors
 	PlayerInvent.Init_Inventory();
 	Trolley.Init_Inventory();
-	std::cout << Container.Shelf.at(0)->ItemPosition << std::endl;
+
 	//Reset shelf item position
 	for(int i = 0; i < ItemLine; i++)
 	{
 		Container.Shelf.at(i)->ItemState = CItem::DEFAULT;
 		Container.Shelf.at(i)->SetPosition(Container.Init_Pos.at(i));
 	}
-	std::cout << Container.Shelf.at(0)->ItemPosition << std::endl;
+	
 	//Reinitialize List
 	GenerateList();
 }
@@ -1141,13 +1114,8 @@ void SP2::Update(double dt)
 	{
 		ShowEndScreen(dt);
 	}
-	//Belt movement
-	if (beltMovement == true)
-	{
-		UpdateConveyor(dt);
-	}
 
-	if(endScreen == true)
+	//if(endScreen == true)
 	{
 		if(Application::IsKeyPressed('N'))
 		{
@@ -1284,176 +1252,178 @@ void SP2::CheckCollision(void)
 
 void SP2::Scenario_Shopper(double dt)
 {
-	if(CheckingOut)
-	{
-		movingOnBelt += (float)(0.5 * dt);
-		if (Trolley.EquippedTrolley == true)
-		{
-			for(int i = 0; i < Trolley.Inventory.size(); i++)
-			{
-				//Setting of position of Items on conveyor Belt
-				if (camera.position.x > -5 && camera.position.x < -2)
-				{
-					Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-				}
-				else if (camera.position.x > -20 && camera.position.x < -17)
-				{
-					Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
-				}
-				else if (camera.position.x > -35 && camera.position.x < -32)
-				{
-					Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-				}
+	///ENTIRE PORTION BUGGY///
+	//if(CheckingOut)
+	//{
+	//	movingOnBelt += (float)(0.5 * dt);
+	//	if (Trolley.EquippedTrolley == true)
+	//	{
+	//		for(int i = 0; i < Trolley.Inventory.size(); i++)
+	//		{
+	//			//Setting of position of Items on conveyor Belt
+	//			if (camera.position.x > -5 && camera.position.x < -2)
+	//			{
+	//				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+	//			}
+	//			else if (camera.position.x > -20 && camera.position.x < -17)
+	//			{
+	//				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
+	//			}
+	//			else if (camera.position.x > -35 && camera.position.x < -32)
+	//			{
+	//				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+	//			}
 
-				//Render when item is on the conveyor belt
-				if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
-				{
-					Trolley.Inventory.at(i)->render = true;
-				}
-				else
-				{
-					Trolley.Inventory.at(i)->render = false;
-				}
-				if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
-				{
-					Trolley.Inventory.at(i)->render = false;
+	//			//Render when item is on the conveyor belt
+	//			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
+	//			{
+	//				Trolley.Inventory.at(i)->render = true;
+	//			}
+	//			else
+	//			{
+	//				Trolley.Inventory.at(i)->render = false;
+	//			}
+	//			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
+	//			{
+	//				Trolley.Inventory.at(i)->render = false;
 
-					if (i == 0)
-					{
-						armMoving = true;
-					}
+	//				if (i == 0)
+	//				{
+	//					armMoving = true;
+	//				}
 
-					if(i == Trolley.Inventory.size() - 1)
-					{
-						renderItemOnTrolley = true;
-						beltMovement = false;
+	//				if(i == Trolley.Inventory.size() - 1)
+	//				{
+	//					renderItemOnTrolley = true;
+	//					beltMovement = false;
 
-					}
-				}
-			}
-		}
+	//				}
+	//			}
+	//		}
+	//	}
 
-		else
-		{
-			for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
-			{
-				//Setting of position of Items on conveyor Belt
-				if (camera.position.x > -5 && camera.position.x < -2)
-				{
-					PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-				}
-				else if (camera.position.x > -20 && camera.position.x < -17)
-				{
-					PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
-				}
-				else if (camera.position.x > -35 && camera.position.x < -32)
-				{
-					PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-				}
+	//	else
+	//	{
+	//		for(int i = 0; i < PlayerInvent.Inventory.size(); i++)
+	//		{
+	//			//Setting of position of Items on conveyor Belt
+	//			if (camera.position.x > -5 && camera.position.x < -2)
+	//			{
+	//				PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+	//			}
+	//			else if (camera.position.x > -20 && camera.position.x < -17)
+	//			{
+	//				PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
+	//			}
+	//			else if (camera.position.x > -35 && camera.position.x < -32)
+	//			{
+	//				PlayerInvent.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+	//			}
 
-				//Render when item is on the conveyor belt
-				if (PlayerInvent.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
-				{
-					PlayerInvent.Inventory.at(i)->render = true;
-				}
-				else
-				{
-					PlayerInvent.Inventory.at(i)->render = false;
-				}
-				if (PlayerInvent.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
-				{
-					PlayerInvent.Inventory.at(i)->render = false;
-					if (PlayerInvent.Inventory.at(0)->render == false)
-					{
-						armMoving = true;
-					}
-					if(i == PlayerInvent.Inventory.size() - 1)
-					{
-						beltMovement = false;
+	//			//Render when item is on the conveyor belt
+	//			if (PlayerInvent.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
+	//			{
+	//				PlayerInvent.Inventory.at(i)->render = true;
+	//			}
+	//			else
+	//			{
+	//				PlayerInvent.Inventory.at(i)->render = false;
+	//			}
+	//			if (PlayerInvent.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
+	//			{
+	//				PlayerInvent.Inventory.at(i)->render = false;
+	//				if (PlayerInvent.Inventory.at(0)->render == false)
+	//				{
+	//					armMoving = true;
+	//				}
+	//				if(i == PlayerInvent.Inventory.size() - 1)
+	//				{
+	//					beltMovement = false;
 
-					}
-				}
-			}
-		}
+	//				}
+	//			}
+	//		}
+	//	}
 
-		//Taking animation
+		
+	//	//Paying animation
+	//	if (playerPayingAni == true && beltMovement == false)
+	//	{
+	//		Trolley.EquippedTrolley = false;
+	//		if (playerArmPayingRightAni == true)
+	//		{
+	//			if (playerArmPayingRight > 0)
+	//			{
+	//				playerArmPayingRightAni = false;
+	//			}
+	//			else if (playerArmPayingRight < -90)
+	//			{
+	//				renderWallet = true;
+	//				playerArmPayingRightAniUp = true;
+	//				playerArmPayingRightAniDown = false;
+	//			}
+
+	//			if (playerArmPayingRightAniDown == true)
+	//			{
+	//				playerArmPayingRight -= (float)(30 * dt);
+	//			}
+	//			if (playerArmPayingRightAniUp == true)
+	//			{
+	//				playerArmPayingRight += (float)(30 * dt);
+	//			}
+	//		}
+
+	//		if (playerArmPayingRightAni == false && playerArmPayingLeftAni == true)
+	//		{
+	//			if (playerArmPayingLeft > 0)
+	//			{
+	//				renderMoney = false;
+	//				playerArmPayingLeftAni = false;
+	//				if(!engine->isCurrentlyPlaying("Media//Cash Register.mp3")) //Check if sound is playing
+	//				{
+	//					engine->play2D("Media//Cash Register.mp3", false);      //Plays cash register sound
+	//				}
+	//			}
+	//			else if (playerArmPayingLeft < -20)
+	//			{
+	//				renderMoney = true;
+	//				playerArmPayingLeftAniOut = true;
+	//				playerArmPayingLeftAniIn = false;
+	//			}
+
+	//			if (playerArmPayingLeftAniIn == true)
+	//			{
+	//				playerArmPayingLeft -= (float)(30 * dt);
+	//			}
+	//			if (playerArmPayingLeftAniOut == true)
+	//			{
+	//				playerArmPayingLeft += (float)(20 * dt);
+	//			}
+	//		}
+	//	}
+	//	if (renderMoney == false)
+	//	{
+	//		renderWallet = false;
+	//		playerPayingAni = false;
+	//	}
+	//	//Stop player from moving
+	//	if (playerPayingAni == true || playerArmSwipeAni == true)
+	//	{
+	//		camera.playerMovement = false;
+	//	}
+	//	else
+	//	{
+	//		camera.playerMovement = true;
+	//	}
+	//}
+
+	//Taking animation
 		playerArmSwipe -= (float)(45 * dt);
 		if (playerArmSwipe < -90)
 		{
 			playerArmSwipe = 0.f;
 			playerArmSwipeAni = false;
 		}
-		//Paying animation
-		if (playerPayingAni == true && beltMovement == false)
-		{
-			Trolley.EquippedTrolley = false;
-			if (playerArmPayingRightAni == true)
-			{
-				if (playerArmPayingRight > 0)
-				{
-					playerArmPayingRightAni = false;
-				}
-				else if (playerArmPayingRight < -90)
-				{
-					renderWallet = true;
-					playerArmPayingRightAniUp = true;
-					playerArmPayingRightAniDown = false;
-				}
-
-				if (playerArmPayingRightAniDown == true)
-				{
-					playerArmPayingRight -= (float)(30 * dt);
-				}
-				if (playerArmPayingRightAniUp == true)
-				{
-					playerArmPayingRight += (float)(30 * dt);
-				}
-			}
-
-			if (playerArmPayingRightAni == false && playerArmPayingLeftAni == true)
-			{
-				if (playerArmPayingLeft > 0)
-				{
-					renderMoney = false;
-					playerArmPayingLeftAni = false;
-					if(!engine->isCurrentlyPlaying("Media//Cash Register.mp3")) //Check if sound is playing
-					{
-						engine->play2D("Media//Cash Register.mp3", false);      //Plays cash register sound
-					}
-				}
-				else if (playerArmPayingLeft < -20)
-				{
-					renderMoney = true;
-					playerArmPayingLeftAniOut = true;
-					playerArmPayingLeftAniIn = false;
-				}
-
-				if (playerArmPayingLeftAniIn == true)
-				{
-					playerArmPayingLeft -= (float)(30 * dt);
-				}
-				if (playerArmPayingLeftAniOut == true)
-				{
-					playerArmPayingLeft += (float)(20 * dt);
-				}
-			}
-		}
-		if (renderMoney == false)
-		{
-			renderWallet = false;
-			playerPayingAni = false;
-		}
-		//Stop player from moving
-		if (playerPayingAni == true || playerArmSwipeAni == true)
-		{
-			camera.playerMovement = false;
-		}
-		else
-		{
-			camera.playerMovement = true;
-		}
-	}
-	
 	
 	float RotationSpeed = 100.f;
 	float DelayInterval = 0.25f;
@@ -1643,6 +1613,7 @@ void SP2::Scenario_Shopper(double dt)
 				}
 			}
 		}
+
 		//Swapping items
 		if(Application::IsKeyPressed('T'))
 		{
@@ -1687,54 +1658,54 @@ void SP2::Scenario_Shopper(double dt)
 				|| (camera.position.x > cTablePos.x - 20 && camera.position.x < cTablePos.x - 17 && camera.position.z > cTablePos.z - 5 && camera.position.z < cTablePos.z - 3)
 				|| (camera.position.x > cTablePos.x - 35 && camera.position.x < cTablePos.x - 32 && camera.position.z > cTablePos.z - 5 && camera.position.z < cTablePos.z - 3))
 			{
-				if (Trolley.Inventory.size() > 0
-					|| PlayerInvent.Inventory.size() > 0)
+				customerCheckOut = true;
+				//if (Trolley.Inventory.size() > 0 || PlayerInvent.Inventory.size() > 0)
 
-				{
-					CheckingOut = true;
-					customerCheckOut = true;
-					//Paying animation
-					playerPayingAni = true;
-					playerArmPayingRightAni = true;
-					playerArmPayingRightAniDown = true;
+				//{
+				//	CheckingOut = true;
+				//	customerCheckOut = true;
+				//	//Paying animation
+				//	playerPayingAni = true;
+				//	playerArmPayingRightAni = true;
+				//	playerArmPayingRightAniDown = true;
 
-					playerArmPayingLeftAni = true;
-					playerArmPayingLeftAniIn = true;
+				//	playerArmPayingLeftAni = true;
+				//	playerArmPayingLeftAniIn = true;
 
-					movingOnBelt = 0.f;
-					beltMovement = true;
-					renderItemOnTrolley = false;
-					armRotation = -90.f;
+				//	movingOnBelt = 0.f;
+				//	beltMovement = true;
+				//	renderItemOnTrolley = false;
+				//	armRotation = -90.f;
 
-					//Checkout
-					if (trolleyTaken == true)
-					{
-						for (int i = 0; i < Trolley.Inventory.size(); i++)
-						{
-							Trolley.Inventory.at(i)->ItemState = CItem::CHECKED_OUT;
-						}
+				//	//Checkout
+				//	if (trolleyTaken == true)
+				//	{
+				//		for (int i = 0; i < Trolley.Inventory.size(); i++)
+				//		{
+				//			Trolley.Inventory.at(i)->ItemState = CItem::CHECKED_OUT;
+				//		}
 
-						int i = 0;
-						for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-						{
-							RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-						}
-					}
-					//Checking out without trolley
-					else
-					{
-						for (int i = 0; i < PlayerInvent.Inventory.size(); i++)
-						{
-							PlayerInvent.Inventory.at(i)->ItemState = CItem::CHECKED_OUT;
-						}
+				//		int i = 0;
+				//		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+				//		{
+				//			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				//		}
+				//	}
+				//	//Checking out without trolley
+				//	else
+				//	{
+				//		for (int i = 0; i < PlayerInvent.Inventory.size(); i++)
+				//		{
+				//			PlayerInvent.Inventory.at(i)->ItemState = CItem::CHECKED_OUT;
+				//		}
 
-						int i = 0;
-						for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
-						{
-							RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-						}
-					}
-				}
+				//		int i = 0;
+				//		for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
+				//		{
+				//			RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+				//		}
+				//	}
+				//}
 				Delay = 0;
 			}
 		}
@@ -1856,10 +1827,6 @@ void SP2::Scenario_Shopper(double dt)
 			}
 		}
 	}
-	//if(!Trolley.EquippedTrolley)
-	//{
-	//	camera.TrolleyBounds(Trolley.TrolleyPosition);
-	//}
 
 	//NPC Interaction
 	if(camera.position.x > 35.5
@@ -1899,7 +1866,7 @@ void SP2::Scenario_Shopper(double dt)
 		endScreen = true;
 	}
 
-	if (customerCheckOut == true && player.getPos().z > 40.f)
+	if (customerCheckOut == true) //&& player.getPos().z > 40.f
 	{
 		if (inventCokeNo == cokeNo
 			&& inventMtnDewNo == mtnDewNo
@@ -2228,58 +2195,6 @@ void SP2::ShowEndScreen(double dt)
 	std::stringstream villainEGS;
 	villainEGS << player.getVillainScore();
 	EGSVillain = villainEGS.str();
-}
-
-void SP2::UpdateConveyor(double dt)
-{
-	//ConveyorBelt code
-	//white
-	if (translateBack == false)
-	{
-		if (beltMovement == true)
-		{
-			translateZ += (float)(0.5 * dt);
-		}
-	}
-	else
-	{
-		translateZ = 0.1 ;
-	}
-	if (translateZ >= 8.75)
-	{
-		translateBack = true;
-		translateY = -0.1;
-	}
-	else if (translateZ <= 0.4)
-	{
-		translateBack = false;
-		translateY = 0;
-	}
-
-	if (armMoving == true)
-	{
-		if(armMovement == true)
-		{
-			armRotation += (float)(90 * dt);
-			if(armRotation > 0)
-			{
-				armMovement = false;
-			}
-		}
-		else
-		{
-			armRotation -= (float)(30 * dt);
-			if(armRotation < -90)
-			{
-				armMovement = true;
-				if(!engine->isCurrentlyPlaying("Media//Beep.wav")) //Check if sound is playing
-				{
-					engine->play2D("Media//Beep.wav", false);      //Plays beeping sound
-				}
-			}
-		}
-	}
-
 }
 
 void SP2::checkItemTypeAdd(CItem *Item)
@@ -2800,49 +2715,6 @@ void SP2::RenderScenarioShopper(void)
 
 		modelStack.PopMatrix();
 	}
-	else if (playerPayingAni == true)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(camera.position.x , camera.position.y, camera.position.z);
-		modelStack.Rotate(camera.playerArmRotation, 0, 1, 0);
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-1.5, -1.5, -1);
-		modelStack.Rotate(90, 1, 0, 0);
-		modelStack.Rotate(-playerArmPayingLeft, 0, 0, 1);
-		RenderMesh(meshList[GEO_HUMAN_ARM], true);
-		if(renderMoney == true)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(0.5, -3, 0);
-			modelStack.Rotate(90, 0, 1, 0);
-			modelStack.Rotate(-90, 0, 0, 1);
-			modelStack.Rotate(60, 0, 1, 0);
-			//modelStack.Rotate(-20, 0, 0, 1);
-			RenderMesh(meshList[GEO_MONEY], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(1.5, -1.5, -1);
-		modelStack.Rotate(90, 1, 0, 0);
-		modelStack.Rotate(playerArmPayingRight, 1, 0, 0);
-		RenderMesh(meshList[GEO_HUMAN_ARM], true);
-		if(renderWallet == true)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(-0.5, -3, 0.5);
-			modelStack.Rotate(180, 0, 1, 0);
-			modelStack.Rotate(90, 1, 0, 0);
-			modelStack.Rotate(-45, 0, 1, 0);
-			RenderMesh(meshList[GEO_WALLET], true);
-			modelStack.PopMatrix();
-		}
-		modelStack.PopMatrix();
-
-		modelStack.PopMatrix();
-	}
 	else
 	{
 		RenderPlayerArm();
@@ -2888,12 +2760,9 @@ void SP2::RenderScenarioShopper(void)
 	{
 		RenderUIOnScreen(meshList[GEO_UI], Color(1, 0 , 0), i, 5.f, 0.f, 1.f, 6.f, 6.f, 1.f);
 	}
-	if (renderItemOnTrolley == true)
+	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
 	{
-		for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); iter++, UI_TrolleyIndex++)
-		{
-			RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
-		}
+		RenderUIOnScreen((meshList[(*iter)->GEO_TYPE]), Color(), UI_TrolleyStart + (UI_TrolleyIndex * TrolleyIncrement), 5.f, 90.f, 1.f, 1.f, 3.f, 3.f);
 	}
 
 	//Rendering Text
@@ -3768,57 +3637,17 @@ void SP2::RenderObject()
 	//Trolley
 	modelStack.PushMatrix();
 	modelStack.Translate(Trolley.TrolleyPosition.x, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z); //Move trolley with camera
-	
 	modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f); //Rotate with camera
-	modelStack.Translate(-4.0f,0,0);
-	
+	modelStack.Translate(-4.f, 0.f, 0.f); //Offset
 	int i = 0;
 	//Rendering items on trolley
-	if (trolleyTaken == true)
+	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 	{
-		if (renderItemOnTrolley == true)
-		{
-			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-			{
-				RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-			}
-		}
-		RenderMesh(meshList[GEO_TROLLEY], true);
-		modelStack.PopMatrix();
-
-		if (renderItemOnTrolley == false)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(0, 0, movingOnBelt);
-			for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-			{
-				if (Trolley.Inventory.at(i)->render == true)
-				{
-					RenderBeltItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-				}
-			}
-			modelStack.PopMatrix();
-		}
+		(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
+		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 	}
-	else
-	{
-		RenderMesh(meshList[GEO_TROLLEY], true);
-		modelStack.PopMatrix();
-
-		if (renderItemOnTrolley == false)
-		{
-			modelStack.PushMatrix();
-			modelStack.Translate(0, 0, movingOnBelt);
-			for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
-			{
-				if (PlayerInvent.Inventory.at(i)->render == true)
-				{
-					RenderBeltItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-				}
-			}
-			modelStack.PopMatrix();
-		}
-	}
+	RenderMesh(meshList[GEO_TROLLEY], true);
+	modelStack.PopMatrix();
 	
 	//NPC
 	//Cashier 1
@@ -3827,33 +3656,32 @@ void SP2::RenderObject()
 	modelStack.Translate(3, 3, 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2.95, 0);
 	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
 	modelStack.PopMatrix(); // Pop Head
+
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	if (camera.position.x > cTablePos.x - 5
-		&& camera.position.x < cTablePos.x - 2
-		&& camera.position.z > cTablePos.z - 5
-		&& camera.position.z < cTablePos.z - 3)
-	{
-		modelStack.Rotate(armRotation,1,0,0);
-	}
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.9, 2.3, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PopMatrix();
 
 	//Cashier 2
@@ -3862,33 +3690,32 @@ void SP2::RenderObject()
 	modelStack.Translate(3, 3, 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2.95, 0);
 	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
 	modelStack.PopMatrix(); // Pop Head
+
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	if (camera.position.x > cTablePos.x - 20
-		&& camera.position.x < cTablePos.x - 17
-		&& camera.position.z > cTablePos.z - 5
-		&& camera.position.z < cTablePos.z - 3)
-	{
-		modelStack.Rotate(armRotation,1,0,0);
-	}
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.9, 2.3, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix(); //Push body
@@ -3896,33 +3723,32 @@ void SP2::RenderObject()
 	modelStack.Translate(3, 3, 0);
 	modelStack.Rotate(-90, 0, 1, 0);
 	RenderMesh(meshList[GEO_HUMAN_BODY], false);
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2.95, 0);
 	RenderMesh(meshList[GEO_HUMAN_HEAD], false);
 	modelStack.PopMatrix(); // Pop Head
+
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	if(camera.position.x > cTablePos.x - 35
-		&& camera.position.x < cTablePos.x - 32
-		&& camera.position.z > cTablePos.z - 5
-		&& camera.position.z < cTablePos.z - 3)
-	{
-		modelStack.Rotate(armRotation,1,0,0);
-	}
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //Left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.9, 2.3, 0);
 	RenderMesh(meshList[GEO_HUMAN_ARM], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //left
 	modelStack.PopMatrix();
+
 	modelStack.PushMatrix();
 	modelStack.Translate(-0.3, -0.05, 0);
 	RenderMesh(meshList[GEO_HUMAN_LEG], false); //right
 	modelStack.PopMatrix();
+
 	modelStack.PopMatrix();
 	
 	//NPC behind shelves
@@ -4035,21 +3861,6 @@ void SP2::RenderTrolleyItems(string ItemName, double ItemPrice, Vector3 &ItemPos
 	}
 	//modelStack.Rotate(Trolley.TrolleyDirection.y, 0.f, 1.f, 0.f);
 	//modelStack.Translate(-4.f, 0.f, 0.f);
-
-	RenderMesh(meshList[ItemType], false);
-	modelStack.PopMatrix();
-}
-
-void SP2::RenderBeltItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
-{
-	float offSetZ = 2.f;
-	Mtx44 MVP;
-	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
-	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
-
-	modelStack.PushMatrix();
-
-	modelStack.Translate(ItemPosition.x, ItemPosition.y, ItemPosition.z);
 
 	RenderMesh(meshList[ItemType], false);
 	modelStack.PopMatrix();
