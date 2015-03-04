@@ -3523,7 +3523,7 @@ void SP2::RenderObject()
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-10, -1.3, 55);
+			modelStack.Translate(-10, -1.4, 55);
 			modelStack.Rotate(90,0,1,0);
 			RenderMesh(meshList[GEO_DUSTBIN], false);
 			modelStack.PopMatrix();
@@ -3537,7 +3537,7 @@ void SP2::RenderObject()
 		{
 			modelStack.PushMatrix();
 			modelStack.Scale(1, 1, 1);
-			modelStack.Translate(-43, -1.3,68);
+			modelStack.Translate(-43, -1.4,68);
 			modelStack.Rotate(90, 0, 1, 0);
 			RenderMesh(meshList[GEO_DUSTBIN], false);
 			modelStack.PopMatrix();
