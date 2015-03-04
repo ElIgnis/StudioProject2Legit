@@ -44,6 +44,7 @@ public:
 	void SetBounds(float NewMinWidth, float NewMaxWidth, float NewMinLength, float NewMaxLength);
 	void BoundsCheck(void);
 	void Movement(double dt);
+	void reverseMovement(double dt);
 	void Limiter(void);
 	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
 	virtual void Update(double dt);

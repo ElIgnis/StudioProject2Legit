@@ -46,6 +46,7 @@ void SP2::Init()
 	Rotate_Hand_Left_Back = false;
 	Rotate_Hand_Right_Back = false;
 
+	//Animation
 	Rotation_Left_Leg = 0;
 	Rotation_Right_Leg = 0;
 	Rotation_Left_Hand = 0;
@@ -61,21 +62,20 @@ void SP2::Init()
 
 	newHighScore = false;
 
-	playerMovement = true;
-
 	modeCustomer = false;
 	modeGuard = true;
 	modeVillain = false;
 
+	//Movement
+	playerMovement = true;
+
+	//Score calculation
 	missionComplete = false;
 	missionFailed = false;
 
+	//Time
 	elapsedTime = 0.f;
 	countDown = 180;
-
-	startingAmount = 100;
-	amountOvershot = 0;
-	remaindingAmount = 0;
 
 	isCaught = false;
 	objectsDestroyed = 0;
@@ -92,24 +92,14 @@ void SP2::Init()
 	cTablePos.y = -2;
 	cTablePos.z = 21.7;
 
-	playerArmSwipeAni = false;
+	NPCInteraction = false;
+	weedMode = false;
 
+	//Player (move to class)
+	playerArmSwipeAni = false;
 	playerPayingAni = false;
 	playerArmPayingRightAniUp = false;
 	playerArmPayingRightAniDown = false;
-
-	NPCInteraction = false;
-
-	//UI in shopper mode
-	sardineNo = 0;
-	miloNo = 0;
-	tobleroneNo = 0;
-	cokeNo = 0;
-	cCerealNo = 0;
-	noodlesNo = 0;
-	rootbeerNo = 0;
-	beansNo = 0;
-	pizzaNo = 0;
 
 	//File reading - Non-Monospacing
 	std::ifstream inFile;
@@ -218,10 +208,38 @@ void SP2::Init()
 
 	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
 
-	//Random Shopping List
-	for (int i = 0; i < 8 ; i++)	//Random number 
+	//Shopping List (move to class)
+	sardineNo = 0;
+	miloNo = 0;
+	tobleroneNo = 0;
+	cokeNo = 0;
+	cCerealNo = 0;
+	noodlesNo = 0;
+	rootbeerNo = 0;
+	beansNo = 0;
+	pizzaNo = 0;
+
+	bool checkSL[8] = {false, false, false, false, false, false, false, false};
+	for (int i = 0; i < 8 ; ++i)	//Random number 
 	{
-		randomSL[i] = rand() % 14 + 20;
+		randomSL[i] = rand() % 13 + 20;
+		for (int x = 0; x < 8; ++x)	//Checking current item against shopping list
+		{
+			if (i == 0) //Don't need to check for first item
+			{
+				randomSL[i] = randomSL[i];
+			}
+
+			else if (i > 0)
+			{
+				if((i != x) && randomSL[i] == randomSL[x])
+				{
+					randomSL[i]++;
+				}
+			}
+		}
+
+		//Assign item to array position
 		if(randomSL[i] == 20)
 		{
 			strSL[i] = "Coke";
@@ -298,6 +316,7 @@ void SP2::Init()
 			chocolateNo++;
 		}
 	}
+
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//Enable depth buffer and depth testing
@@ -967,61 +986,71 @@ static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
+	menuDelay += (float)(1 * dt);
+
 	if (startScreen == true)
 	{
-		if (Application::IsKeyPressed('1'))
+		if (menuDelay > 0.5)
 		{
-			chooseModeScreen = true;
-			startScreen = false;
-			highScoreScreen = false;
-			gameStart = false;
-			endScreen = false;
-		}
+			if (Application::IsKeyPressed('1'))
+			{
+				chooseModeScreen = true;
+				startScreen = false;
+				highScoreScreen = false;
+				gameStart = false;
+				endScreen = false;
+			}
 
-		if (Application::IsKeyPressed('2'))
-		{
-			chooseModeScreen = false;
-			startScreen = false;
-			highScoreScreen = true;
-			gameStart = false;
-			endScreen = false;
-		}
+			if (Application::IsKeyPressed('2'))
+			{
+				chooseModeScreen = false;
+				startScreen = false;
+				highScoreScreen = true;
+				gameStart = false;
+				endScreen = false;
+			}
 
-		if (Application::IsKeyPressed('3'))
-		{
-			exit(0);
+			if (Application::IsKeyPressed('3'))
+			{
+				exit(0);
+			}
+			menuDelay = 0.f;
 		}
 	}
 
 	//Choose Mode
 	else if (chooseModeScreen == true)
 	{
-		if (Application::IsKeyPressed('1')) //Play as Customer
+		if (menuDelay > 0.5)
 		{
-			startScreen = false;
-			modeCustomer = true;
-			modeGuard = false;
-			modeVillain = false;
-			chooseModeScreen = false;
-			gameStart = true;
-		}
-		 if (Application::IsKeyPressed('2')) //Play as Security Guard
-		{
-			startScreen = false;
-			modeCustomer = false;
-			modeGuard = true;
-			modeVillain = false;
-			chooseModeScreen = false;
-			gameStart = true;
-		}
-		else if (Application::IsKeyPressed('3')) //Play as Villain
-		{
-			startScreen = false;
-			modeCustomer = false;
-			modeGuard = false;
-			modeVillain = true;
-			chooseModeScreen = false;
-			gameStart = true;
+			if (Application::IsKeyPressed('1')) //Play as Customer
+			{
+				startScreen = false;
+				modeCustomer = true;
+				modeGuard = false;
+				modeVillain = false;
+				chooseModeScreen = false;
+				gameStart = true;
+			}
+			if (Application::IsKeyPressed('2')) //Play as Security Guard
+			{
+				startScreen = false;
+				modeCustomer = false;
+				modeGuard = true;
+				modeVillain = false;
+				chooseModeScreen = false;
+				gameStart = true;
+			}
+			else if (Application::IsKeyPressed('3')) //Play as Villain
+			{
+				startScreen = false;
+				modeCustomer = false;
+				modeGuard = false;
+				modeVillain = true;
+				chooseModeScreen = false;
+				gameStart = true;
+			}
+			menuDelay = 0.f;
 		}
 	}
 
@@ -1041,13 +1070,17 @@ void SP2::Update(double dt)
 		villainHighScoreHSS << player.getVillainHighScore();
 		villainHS = villainHighScoreHSS.str();
 
-		if (Application::IsKeyPressed('1'))
+		if (menuDelay > 0.5)
 		{
-			chooseModeScreen = false;
-			startScreen = true;
-			highScoreScreen = false;
-			gameStart = false;
-			endScreen = false;
+			if (Application::IsKeyPressed('1'))
+			{
+				chooseModeScreen = false;
+				startScreen = true;
+				highScoreScreen = false;
+				gameStart = false;
+				endScreen = false;
+			}
+			menuDelay = 0.f;
 		}
 	}
 
@@ -1079,9 +1112,15 @@ void SP2::UpdateGame(double dt)
 	if(Application::IsKeyPressed('4'))
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	camera.Update(dt);
-	camera.Movement(dt);
+	if (weedMode == true)
+	{
+		camera.reverseMovement(dt);
+	}
+	else
+	{
+		camera.Movement(dt);
+	}
 	player.setPos(camera.position);
-
 
 	//FPS value
 	fps = 1 / dt;
@@ -1137,7 +1176,6 @@ void SP2::CheckCollision(void)
 void SP2::Scenario_Shopper(double dt)
 {
 	movingOnBelt += (float)(0.5 * dt);
-
 	if (Trolley.EquippedTrolley == true)
 	{
 		for(int i = 0; i < Trolley.Inventory.size(); i++)
@@ -1169,7 +1207,7 @@ void SP2::Scenario_Shopper(double dt)
 			{
 				Trolley.Inventory.at(i)->render = false;
 
-				if (Trolley.Inventory.at(0)->render == false)
+				if (i == 0)
 				{
 					armMoving = true;
 				}
@@ -1265,7 +1303,7 @@ void SP2::Scenario_Shopper(double dt)
 				renderMoney = false;
 				playerArmPayingLeftAni = false;
 			}
-			else if (playerArmPayingLeft < -30)
+			else if (playerArmPayingLeft < -20)
 			{
 				renderMoney = true;
 				playerArmPayingLeftAniOut = true;
@@ -1286,7 +1324,6 @@ void SP2::Scenario_Shopper(double dt)
 	{
 		renderWallet = false;
 		playerPayingAni = false;
-		//Trolley.EquippedTrolley = true;
 	}
 	//Stop player from moving
 	if (playerPayingAni == true || playerArmSwipeAni == true)
@@ -1327,6 +1364,13 @@ void SP2::Scenario_Shopper(double dt)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
+							for (int x = 0; x < 8; ++x)
+							{
+								if (Container.Shelf.at(i)->GEO_TYPE == randomSL[x])
+								{
+									checkSL[x] = true;
+								}
+							}
 							checkItemTypeAdd(Container.Shelf.at(i));
 							break;
 						}
@@ -1353,8 +1397,17 @@ void SP2::Scenario_Shopper(double dt)
 					//Only able to put back taken items
 					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::TAKEN)
 					{
+						if(PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i))
+						{
+							for (int x = 0; x < 8; ++x)
+							{
+								if (Container.Shelf.at(i)->GEO_TYPE == randomSL[x])
+								{
+									checkSL[x] = false;
+								}
+							}
+						}
 						checkItemTypeRemove(Container.Shelf.at(i));
-						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
 					}
 				}
@@ -1388,72 +1441,68 @@ void SP2::Scenario_Shopper(double dt)
 		//Checkout items
 		if(Application::IsKeyPressed(VK_RETURN))
 		{
-			if(camera.position.x > 35
-				&& camera.position.z < -57 
-				&& camera.position.z > -61)
-			{
-				NPCInteraction = true;
-			}
-
 			if ((camera.position.x > cTablePos.x - 5
 				&& camera.position.x < cTablePos.x - 2
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z - 5)
+				&& camera.position.z > cTablePos.z - 5
+				&& camera.position.z < cTablePos.z - 3)
 				|| (camera.position.x > cTablePos.x - 20
 				&& camera.position.x < cTablePos.x - 17
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z -5)
+				&& camera.position.z > cTablePos.z - 5
+				&& camera.position.z < cTablePos.z - 3)
 				|| (camera.position.x > cTablePos.x - 35
 				&& camera.position.x < cTablePos.x - 32
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z - 5 ))
-			{
-				customerCheckOut = true;
-				//Paying animation
-				playerPayingAni = true;
-				playerArmPayingRightAni = true;
-				playerArmPayingRightAniDown = true;
-
-				playerArmPayingLeftAni = true;
-				playerArmPayingLeftAniIn = true;
-
-				movingOnBelt = 0.f;
-				beltMovement = true;
-				renderItemOnTrolley = false;
-				armRotation = -90.f;
-
-				//Checkout
-				if (trolleyTaken == true)
+				&& camera.position.z > cTablePos.z - 5
+				&& camera.position.z < cTablePos.z - 3))
+				if (Trolley.Inventory.size() > 0
+					|| PlayerInvent.Inventory.size() > 0)
 				{
-					for (int i = 0; i < Trolley.Inventory.size(); i++)
 					{
-						Trolley.Inventory.at(i)->CHECKED_OUT;
-					}
+						customerCheckOut = true;
+						//Paying animation
+						playerPayingAni = true;
+						playerArmPayingRightAni = true;
+						playerArmPayingRightAniDown = true;
 
-					int i = 0;
-					for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
-					{
-						RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
-					}
-				}
-				else
-				{
-					for (int i = 0; i < PlayerInvent.Inventory.size(); i++)
-					{
-						PlayerInvent.Inventory.at(i)->CHECKED_OUT;
-					}
+						playerArmPayingLeftAni = true;
+						playerArmPayingLeftAniIn = true;
 
-					int i = 0;
-					for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
-					{
-						RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+						movingOnBelt = 0.f;
+						beltMovement = true;
+						renderItemOnTrolley = false;
+						armRotation = -90.f;
+
+						//Checkout
+						if (trolleyTaken == true)
+						{
+							for (int i = 0; i < Trolley.Inventory.size(); i++)
+							{
+								Trolley.Inventory.at(i)->CHECKED_OUT;
+							}
+
+							int i = 0;
+							for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
+							{
+								RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+							}
+						}
+						else
+						{
+							for (int i = 0; i < PlayerInvent.Inventory.size(); i++)
+							{
+								PlayerInvent.Inventory.at(i)->CHECKED_OUT;
+							}
+
+							int i = 0;
+							for(vector<CItem*>::iterator iter = PlayerInvent.Inventory.begin(); iter != PlayerInvent.Inventory.end(); ++iter, i++)
+							{
+								RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
+							}
+						}
 					}
+					Delay = 0;
 				}
-			}
 		}
-		Delay = 0;
 	}
-
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
 	{
@@ -1575,6 +1624,27 @@ void SP2::Scenario_Shopper(double dt)
 	//{
 	//	camera.TrolleyBounds(Trolley.TrolleyPosition);
 	//}
+
+	//NPC Interaction
+	if(camera.position.x > 35.5
+		&& camera.position.z < -57
+		&& camera.position.z > -61)
+	{
+		NPCInteraction = true;
+		if (Application::IsKeyPressed('1'))
+		{
+			weedMode = true;
+		}
+		else if (Application::IsKeyPressed('2'))
+		{
+			weedMode = false;
+		}
+	}
+	else
+	{
+		NPCInteraction = false;
+	}
+
 	//If the player shoplifts, the guard will chase after the player
 	for (size_t i = 0; i < PlayerInvent.InventoryIndexing.size(); ++i)
 	{
@@ -1963,7 +2033,7 @@ void SP2::UpdateConveyor(double dt)
 	{
 		if(armMovement == true)
 		{
-			armRotation += (float)(80 * dt);
+			armRotation += (float)(90 * dt);
 			if(armRotation > 0)
 			{
 				armMovement = false;
@@ -2497,26 +2567,37 @@ void SP2::RenderScenarioShopper(void)
 	float y = 14.5f;
 	for (int i = 0; i < 8; i++)
 	{
-		
-		RenderTextOnScreen(meshList[GEO_TEXT], strSL[i], Color(1, 0, 0), 2.5f, 0.5f, y);
+		if (checkSL[i] == true)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], strSL[i], Color(0, 1, 0), 2.5f, 0.5f, y);
+		}
+
+		else
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], strSL[i], Color(1, 0, 0), 2.5f, 0.5f, y);
+		}
 		y--;
 	} 
 
 	if ((camera.position.x > cTablePos.x - 5
-				&& camera.position.x < cTablePos.x - 2
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z - 5)
-				|| (camera.position.x > cTablePos.x - 20
-				&& camera.position.x < cTablePos.x - 17
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z -5)
-				|| (camera.position.x > cTablePos.x - 35
-				&& camera.position.x < cTablePos.x - 32
-				&& camera.position.z > cTablePos.z - 10
-				&& camera.position.z < cTablePos.z - 5 ))
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'Enter' to check out", Color (0, 1, 0), 2.5f, 7.f, 5.5f);
-	}
+		&& camera.position.x < cTablePos.x - 2
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3)
+		|| (camera.position.x > cTablePos.x - 20
+		&& camera.position.x < cTablePos.x - 17
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3)
+		|| (camera.position.x > cTablePos.x - 35
+		&& camera.position.x < cTablePos.x - 32
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3))
+		if ((Trolley.Inventory.size() > 0
+			|| PlayerInvent.Inventory.size() > 0))
+		{
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press 'Enter' to check out", Color (0, 1, 0), 2.5f, 7.f, 5.5f);
+			}
+		}
 	if(camera.position.x > Trolley.RotationMinWidth
 			&& camera.position.x < Trolley.RotationMaxWidth
 			&& camera.position.z > Trolley.RotationMinLength
@@ -2532,10 +2613,15 @@ void SP2::RenderScenarioShopper(void)
 	if (NPCInteraction == true)
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(41.5, 1, -59);
+		modelStack.Translate(45.f, 0.5f, -59.5f);
 		modelStack.Rotate(-90, 0, 1, 0);
 		RenderText(meshList[GEO_TEXT], "Weed?", Color(0, 1, 0));
-		modelStack.PopMatrix();
+		if ((camera.RotationYAxis > -200 && camera.RotationYAxis < -160) || (camera.RotationYAxis > 170 && camera.RotationYAxis < 180))
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "1. Yes", Color(0, 1, 0), 3.5f, 8.f, 5.f);
+				RenderTextOnScreen(meshList[GEO_TEXT], "2. No", Color(0, 1, 0), 3.5f, 14.f, 5.f);
+			}
+			modelStack.PopMatrix();
 	}
 }
 
@@ -3382,8 +3468,8 @@ void SP2::RenderObject()
 	modelStack.Translate(1, 2.3, 0);
 	if (camera.position.x > cTablePos.x - 5
 		&& camera.position.x < cTablePos.x - 2
-		&& camera.position.z > cTablePos.z - 10
-		&& camera.position.z < cTablePos.z - 5)
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3)
 	{
 		modelStack.Rotate(armRotation,1,0,0);
 	}
@@ -3417,8 +3503,8 @@ void SP2::RenderObject()
 	modelStack.Translate(1, 2.3, 0);
 	if (camera.position.x > cTablePos.x - 20
 		&& camera.position.x < cTablePos.x - 17
-		&& camera.position.z > cTablePos.z - 10
-		&& camera.position.z < cTablePos.z -5)
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3)
 	{
 		modelStack.Rotate(armRotation,1,0,0);
 	}
@@ -3449,10 +3535,10 @@ void SP2::RenderObject()
 	modelStack.PopMatrix(); // Pop Head
 	modelStack.PushMatrix();
 	modelStack.Translate(1, 2.3, 0);
-	if (camera.position.x > cTablePos.x - 35
+	if(camera.position.x > cTablePos.x - 35
 		&& camera.position.x < cTablePos.x - 32
-		&& camera.position.z > cTablePos.z - 10
-		&& camera.position.z < cTablePos.z - 5)
+		&& camera.position.z > cTablePos.z - 5
+		&& camera.position.z < cTablePos.z - 3)
 	{
 		modelStack.Rotate(armRotation,1,0,0);
 	}

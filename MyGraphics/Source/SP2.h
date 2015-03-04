@@ -359,6 +359,7 @@ private:
 	void RenderNPC(void);
 
 	//Player functions
+	float menuDelay;
 	bool startScreen;
 	bool chooseModeScreen;
 	bool highScoreScreen;
@@ -373,11 +374,6 @@ private:
 	bool modeGuard;
 	bool modeVillain;
 
-	//Customer
-	float startingAmount;
-	float amountSpent;
-	float remaindingAmount;
-	float amountOvershot;
 	//Villain
 	unsigned long long objectsDestroyed;
 	bool isCaught;
@@ -436,10 +432,12 @@ private:
 
 	//NPC Interaction
 	bool NPCInteraction;
+	bool weedMode;
 
 	bool customerCheckOut;
 
 	//Random to choose shopping list
+	bool checkSL[8];
 	int randomSL[8];
 	stringstream ssSL[8];
 	string strSL[8];

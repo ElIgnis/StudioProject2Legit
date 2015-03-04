@@ -270,3 +270,58 @@ void Camera3::Movement(double dt)
 	}
 	}
 }
+
+void Camera3::reverseMovement(double dt)
+{
+	if (playerMovement == true)
+	{
+		if(Application::IsKeyPressed('A'))
+		{
+			oldpos = position;
+			oldtgt = target;
+
+			Vector3 view = (target - position).Normalized();
+			Vector3 right = view.Cross(up);
+			right.y = 0;
+			right.Normalize();
+			position += right * CAMERA_SPEED2 * dt;
+			target += right * CAMERA_SPEED2 * dt;
+			BoundsCheck();
+		}
+		if(Application::IsKeyPressed('D'))
+		{
+			oldpos = position;
+			oldtgt = target;
+
+			Vector3 view = (target - position).Normalized();
+			Vector3 right = view.Cross(up);
+			right.y = 0;
+			right.Normalize();
+			position -= right * CAMERA_SPEED2 * dt;
+			target -= right * CAMERA_SPEED2 * dt;
+			BoundsCheck();
+		}
+		if(Application::IsKeyPressed('W'))
+		{
+			oldpos = position;
+			oldtgt = target;
+			Vector3 view = (target - position).Normalized();
+			view.y = 0;
+			view.Normalize();
+			position -= view * CAMERA_SPEED2 * dt;
+			target -= view * CAMERA_SPEED2 * dt;
+			BoundsCheck();
+		}
+		if(Application::IsKeyPressed('S'))
+		{
+			oldpos = position;
+			oldtgt = target;
+			Vector3 view = (target - position).Normalized();
+			view.y = 0;
+			view.Normalize();
+			position += view * CAMERA_SPEED2 * dt;
+			target += view * CAMERA_SPEED2 * dt;
+			BoundsCheck();
+		}
+	}
+}
