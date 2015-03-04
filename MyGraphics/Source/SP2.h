@@ -29,7 +29,9 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include<irrKlang.h>
 
+using namespace irrklang;
 using std::string;
 
 class SP2: public Scene
@@ -281,6 +283,7 @@ private:
 
 	//Shelf
 	CShelf Container;
+	CShelf Init_Container;
 	CShelf ColdShelf_Right;
 	CShelf ColdShelf_Left;
 	CShelf RedShelf_Right;
@@ -315,10 +318,16 @@ private:
 	CShopperAI ShopperAI;
 	CShopperAI2 *Shopper1;
 
+	//Sound
+	ISoundEngine * engine;
+
 	bool toggleLight;
 
 	//Methods
 	 //Updates
+	void Init_Collision(void);
+	void Init_Lights(void);
+	void Init_GEOMS(void);
 	void UpdateGame(double dt);
 	void CheckCollision(void);
 	void Scenario_Shopper(double dt);
@@ -334,16 +343,16 @@ private:
 	void checkItemTypeRemove(CItem *Item);
 	int RollDiceVillain(void);
 	int RollDiceShopper(void);
+	void PlaySound(void);
+	void RestartGame(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
-
 	void RenderShopperAI2(CShopperAI2 *Shopper1);
 	void RenderGuardAI(void);
-	
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
@@ -400,7 +409,7 @@ private:
 	string EGSVillain;
 
 	bool newHighScore;
-
+	bool CheckingOut;
 	bool renderItemOnTrolley;
 	bool beltMovement;
 	Vector3 beltPos;

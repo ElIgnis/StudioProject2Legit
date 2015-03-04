@@ -1,6 +1,6 @@
 #include "ShopperAI2.h"
 
-bool ShopperPath[15] = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+bool ShopperPath[ShopperPathSize] = { true, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
 
 CShopperAI2::CShopperAI2()
 {
@@ -48,6 +48,55 @@ CShopperAI2::CShopperAI2()
 
 CShopperAI2::~CShopperAI2()
 {
+}
+
+void CShopperAI2::ShopperInitialize(void)
+{
+	ShopperPath[0] = true;
+	for(int i = 1; i < ShopperPathSize; i++)
+	{
+		ShopperPath[i] = false;
+	}
+
+	//Villain starts outside of mall
+	Position.x = 37.f;
+	Position.y = -3.f;
+	Position.z = 40.f;
+	Direction.x = 0.f;
+	Direction.y = 0.f;
+	Direction.z = 0.f;
+
+	//Animation
+	RotateLeft = 0;
+	Anime_Take = false;
+	Anim_Rotate = false;
+	Anim_Revert = false;
+	RotationSpeed = 100.f;
+	ItemAtLeft = false;
+	ItemAtRight = false;
+
+	DoNotTurn = false;
+	fowardtrolley = true;
+	backwardtrolley = false;
+
+	Rotate_Leg_Left_Back = false;
+	Rotate_Leg_Right_Back = false;
+	Rotate_Hand_Left_Back = false;
+	Rotate_Hand_Right_Back = false;
+
+	Rotation_Left_Leg = 0.f;
+	Rotation_Right_Leg = 0.f;
+	Rotation_Left_Hand = 0.f;
+	Rotation_Right_Hand = 0.f;
+
+	//State
+	MovementSpeed = 10.f;
+	CurrentState = CShopperAI2::DEFAULT;
+
+	//Detection
+	ResetTimer = 20.f;
+	DetectionTimer = 0.f;
+	RecentlyDestroyed = false;
 }
 
 void CShopperAI2::SetPosition(Vector3 &NewPosition)

@@ -1,7 +1,7 @@
 #include "ShopperAI.h"
 
-bool ShopperPath2[10] = { true, false, false, false, false, false, false, false, false, false };
-bool ShopperPath3[12] = { true, false, false, false, false, false, false, false, false, false, false, false };
+bool ShopperPath2[ShopperPathSize2] = { true, false, false, false, false, false, false, false, false, false };
+bool ShopperPath3[ShopperPathSize3] = { true, false, false, false, false, false, false, false, false, false, false, false };
 
 CShopperAI::CShopperAI()
 {
@@ -64,6 +64,39 @@ int CShopperAI::getShopperDirection(void)
 //Kel's
 void CShopperAI::ShopperInitialize(void)
 {
+	ShopperPath2[0] = true;
+	for(int i = 1; i < ShopperPathSize2; i++)
+	{
+		ShopperPath2[i] = false;
+	}
+
+	ShopperPath3[0] = true;
+	for(int i = 1; i < ShopperPathSize3; i++)
+	{
+		ShopperPath3[i] = false;
+	}
+
+	//starting point
+	position.x = 36;
+	position.y = 1;
+	position.z = 37;
+	direction = 0;
+	Rotangle = 0;
+	timer = 0;
+	SetDirection = false;
+	Directions = false;
+	Animate_ON = true;
+	RENDERINGAI = true;
+	item1 = false;
+	item2 = false;
+	RenderTrolley = false;
+	item_milo = false;
+	item_sardine =false;
+	item_MnC = false;
+	item_maggie = false;
+	item_iceCream = false;
+	item_choco = false;
+
 	//initialize Shopper state
 	ShopperSTATE = WALK;
 }

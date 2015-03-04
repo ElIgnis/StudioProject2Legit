@@ -1,6 +1,6 @@
 #include "VillainAI.h"
 
-bool PathOneChecker[16] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+bool PathOneChecker[VillainPathSize] = {true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
 //bool PathOneCoords[16]
 
 CVillainAI::CVillainAI(void)
@@ -44,6 +44,52 @@ CVillainAI::CVillainAI(void)
 
 CVillainAI::~CVillainAI(void)
 {
+}
+
+void CVillainAI::Init_Villain(void)
+{
+	PathOneChecker[0] = true;
+
+	for(int i = 1; i < VillainPathSize; i++)
+	{
+		PathOneChecker[i] = false;
+	}
+
+	//Villain starts outside of mall
+	Position.x = 37.f;
+	Position.y = 0.5f;
+	Position.z = 45.f;
+	Direction.x = 0.f;
+	Direction.y = 0.f;
+	Direction.z = 0.f;
+
+	//Animation
+	RotateLeft = 0;
+	Anim_Wreck = false;
+	Anim_Rotate = false;
+	Anim_Revert = false;
+	RotationSpeed = 100.f;
+	ItemAtLeft = false;
+	ItemAtRight = false;
+
+	Rotate_Leg_Left_Back = false;
+	Rotate_Leg_Right_Back = false;
+	Rotate_Hand_Left_Back = false;
+	Rotate_Hand_Right_Back = false;
+
+	Rotation_Left_Leg = 0.f;
+	Rotation_Right_Leg = 0.f;
+	Rotation_Left_Hand = 0.f;
+	Rotation_Right_Hand = 0.f;
+
+	//State
+	MovementSpeed = 10.f;
+	CurrentState = CVillainAI::DEFAULT;
+
+	//Detection
+	ResetTimer = 20.f;
+	DetectionTimer = 0.f;
+	RecentlyDestroyed = false;
 }
 
 void CVillainAI::SetPosition(Vector3 &NewPosition)

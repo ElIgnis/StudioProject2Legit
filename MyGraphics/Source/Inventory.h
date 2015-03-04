@@ -28,6 +28,8 @@ public:
 	float MinLength;
 	float MaxLength;
 
+	void Init_Trolley(void);
+	void Init_Inventory(void);
 	bool Add_ShelfToTrolley(CItem * Item, int ItemIndex);
 	bool Add_ShelfToInvent(CItem *Item, int ItemIndex);
 	bool Add_TrolleyToInvent(CItem *Item, int ItemIndex);

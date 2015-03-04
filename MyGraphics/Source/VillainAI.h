@@ -2,6 +2,7 @@
 
 #include "Vector3.h"
 #include "Item.h"
+#define VillainPathSize 16
 
 class CVillainAI
 {
@@ -46,10 +47,10 @@ public:
 	float Rotation_Left_Hand;
 	float Rotation_Right_Hand;
 
+	void Init_Villain(void);
 	void SetPosition(Vector3 &NewPosition);
 	void SetDirection(Vector3 &NewDirection, double dt);
 	void UpdateAI(double dt, Vector3 &PlayerPosition);
-	//void UpdateAI(double dt, Vector3 &PlayerPosition, CItem *Item);
 	bool UpdatePath(double dt);
 	bool DestroyItem(CItem *Item, double dt);
 	void UpdateGoal(CItem *Item);
