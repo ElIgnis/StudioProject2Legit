@@ -4,6 +4,8 @@
 #include <Vector3.h>
 #include "Item.h"
 
+#define ShopperPathSize2 10
+#define ShopperPathSize3 12
 
 using namespace std;
 class CShopperAI
@@ -63,7 +65,7 @@ public:
 
 
 	//Init
-	void ShopperInitialize();
+	void ShopperInitialize(void);
 	// AI Path 
 	void WalkingPath(double dt, int NewState);
 	void WalkingPath3(double dt, int NewState);

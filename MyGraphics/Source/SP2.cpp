@@ -150,53 +150,12 @@ void SP2::Init()
 
 			ItemLine++;
 			Container.Shelf.push_back(Item);
+			Init_Container.Shelf.push_back(Item);
 		}
 		inShelfItem.close();
 	}
 	//Initialize trolley position
 	Trolley.SetPosition(Vector3(30.f, 0.f, 30.f));
-
-	//Initialize shelf position
-	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -20.f));
-	ColdShelf_Right.SetShelfCollision(6, 78);
-	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -20.f));
-	ColdShelf_Left.SetShelfCollision(6, 78);
-	RedShelf_Right.SetShelfPosition(Vector3(14.5f, 0.f, -26.f));
-	RedShelf_Right.SetShelfCollision(10, 60);
-	RedShelf_Left.SetShelfPosition(Vector3(-23.5f, 0.f, -26.f));
-	RedShelf_Left.SetShelfCollision(10, 60);
-	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
-	Fridge.SetShelfCollision(6.2, 54);
-
-	//Initialize Shelf collision
-	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
-	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
-	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
-	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
-	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
-
-	//Initialize Wall collision
-	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
-	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
-	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
-	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
-	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
-
-	//Initialize Exit collision(From Right to left, right is towards entrance)
-	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
-	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
-	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
-	camera.SetBounds(-14.f, -11.5f, 36.f, 40.f);
-	camera.SetBounds(-20.f, -17.5f, 36.f, 40.f);
-	camera.SetBounds(-26.f, -23.5f, 36.f, 40.f);
-	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
-	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
-	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
-
-	//Initialize Cashier collision
-	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
-	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
-	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
 
 	//Cashier details
 	armRotation = 0.f;
@@ -292,6 +251,10 @@ void SP2::Init()
 			chocolateNo++;
 		}
 	}
+
+	//Sound
+	engine = createIrrKlangDevice();
+
 	// Set background color to black
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	//Enable depth buffer and depth testing
@@ -327,7 +290,99 @@ void SP2::Init()
 	}
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference", 1000, 1000, 1000);
 
-	Mtx44 projection;
+	Init_Collision();
+	Init_Lights();
+	Init_GEOMS();
+	std::cout << Container.Shelf.at(0)->ItemPosition << std::endl;
+	std::cout << Init_Container.Shelf.at(0)->ItemPosition << std::endl << std::endl;
+}
+
+static float ROT_LIMIT = 45.f;
+static float SCALE_LIMIT = 5.f;
+
+void SP2::RestartGame(void)
+{
+	//Reinitialize menu screens
+	chooseModeScreen = false;
+	highScoreScreen = false;
+	gameStart = false;
+	endScreen = false;
+	startScreen = true;
+
+	//Reinitialize Player && Trolley
+	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	Trolley.Init_Trolley();
+
+	//Reinitialize AI
+	VillainOne->Init_Villain();
+	ShopperAI.ShopperInitialize();
+	Shopper1->ShopperInitialize();
+	AITrolley.Init_Inventory();
+	
+	//Empty player vectors
+	PlayerInvent.Init_Inventory();
+	Trolley.Init_Inventory();
+	
+	//Reset shelf item position
+	for(int i = 0; i < ItemLine; i++)
+	{
+		Container.Shelf.at(i)->ItemState = CItem::DEFAULT;
+		Container.Shelf.at(i)->SetPosition(Init_Container.Shelf.at(i)->ItemPosition);
+	}
+	
+}
+
+void SP2::Init_Collision(void)
+{
+	//Initialize shelf position
+	ColdShelf_Right.SetShelfPosition(Vector3(40.1f, 0.f, -20.f));
+	ColdShelf_Right.SetShelfCollision(6, 78);
+	ColdShelf_Left.SetShelfPosition(Vector3(-42.4f, 0.f, -20.f));
+	ColdShelf_Left.SetShelfCollision(6, 78);
+	RedShelf_Right.SetShelfPosition(Vector3(14.5f, 0.f, -26.f));
+	RedShelf_Right.SetShelfCollision(10, 60);
+	RedShelf_Left.SetShelfPosition(Vector3(-23.5f, 0.f, -26.f));
+	RedShelf_Left.SetShelfCollision(10, 60);
+	Fridge.SetShelfPosition(Vector3(-3.f, 0.f, -25.f));
+	Fridge.SetShelfCollision(6.2, 54);
+
+	//Initialize Shelf collision
+	camera.SetBounds(ColdShelf_Right.MinWidth, ColdShelf_Right.MaxWidth, ColdShelf_Right.MinLength, ColdShelf_Right.MaxLength);
+	camera.SetBounds(ColdShelf_Left.MinWidth, ColdShelf_Left.MaxWidth, ColdShelf_Left.MinLength, ColdShelf_Left.MaxLength);
+	camera.SetBounds(RedShelf_Right.MinWidth, RedShelf_Right.MaxWidth, RedShelf_Right.MinLength, RedShelf_Right.MaxLength);
+	camera.SetBounds(RedShelf_Left.MinWidth, RedShelf_Left.MaxWidth, RedShelf_Left.MinLength, RedShelf_Left.MaxLength);
+	camera.SetBounds(Fridge.MinWidth, Fridge.MaxWidth, Fridge.MinLength, Fridge.MaxLength);
+
+	//Initialize Wall collision
+	camera.SetBounds(43.f, 48.f, -62.f, 41.f); //Right of super
+	camera.SetBounds(-45.f, 45.f, -63.f, -60.f); //Back of super
+	camera.SetBounds(-50.f, -44.f, -62.f, 41.f); //Right of super
+	camera.SetBounds(4.5f, 33.f, 38.f, 42.f); // _ of L shape wall
+	camera.SetBounds(4.f, 8.f, 16.f, 38.f); // | of L shape wall
+
+	//Initialize Exit collision(From Right to left, right is towards entrance)
+	camera.SetBounds(2.8f, 4.f, 36.f, 40.f);
+	camera.SetBounds(-2.f, 0.5f, 36.f, 40.f);
+	camera.SetBounds(-8.f, -5.5f, 36.f, 40.f);
+	camera.SetBounds(-14.f, -11.5f, 36.f, 40.f);
+	camera.SetBounds(-20.f, -17.5f, 36.f, 40.f);
+	camera.SetBounds(-26.f, -23.5f, 36.f, 40.f);
+	camera.SetBounds(-32.f, -29.5f, 36.f, 40.f);
+	camera.SetBounds(-38.f, -35.5f, 36.f, 40.f);
+	camera.SetBounds(-44.f, -41.5f, 36.f, 40.f);
+
+	//Initialize Cashier collision
+	camera.SetBounds(-6.f, 3.f, 14.f, 28.f);
+	camera.SetBounds(-20.f, -11.f, 14.f, 28.f);
+	camera.SetBounds(-35.f, -26.f, 14.f, 28.f);
+
+	//Initialize Food Stand collision
+	camera.SetBounds(21.5f, 28.5f, 1.5f, 6.5f);
+}
+
+void SP2::Init_Lights(void)
+{
+		Mtx44 projection;
 	projection.SetToPerspective(45.f, 4.f / 3.f, 0.1f, 4000.f);
 	projectionStack.LoadMatrix(projection);
 
@@ -436,7 +491,7 @@ void SP2::Init()
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
 	lights[0].position.Set(0.f, 0.f, 100.f);
 	lights[0].color.Set(1, 1, 1);
-	lights[0].power = 0.25f;
+	lights[0].power = 1.25f;
 	lights[0].kC = 1.0f;
 	lights[0].kL = 0.01f;
 	lights[0].kQ = 0.001f;
@@ -446,11 +501,11 @@ void SP2::Init()
 	lights[0].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[1].type = Light::LIGHT_POINT;
-	lights[1].position.Set(-20.f, 4.f, -30.f);
+	lights[1].position.Set(-20.f, 3.f, -30.f);
 	lights[1].color.Set(1, 1, 1);
-	lights[1].power = 0.5f;
+	lights[1].power = 0.6f;
 	lights[1].kC = 1.f;
-	lights[1].kL = 0.01f;
+	lights[1].kL = 0.001f;
 	lights[1].kQ = 0.001f;
 	lights[1].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[1].cosInner = cos(Math::DegreeToRadian(30));
@@ -458,11 +513,11 @@ void SP2::Init()
 	lights[1].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[2].type = Light::LIGHT_POINT;
-	lights[2].position.Set(0.f, 4.f, -30.f);
+	lights[2].position.Set(0.f, 3.f, -30.f);
 	lights[2].color.Set(1, 1, 1);
-	lights[2].power = 0.5f;
+	lights[2].power = 0.6f;
 	lights[2].kC = 1.f;
-	lights[2].kL = 0.01f;
+	lights[2].kL = 0.001f;
 	lights[2].kQ = 0.001f;
 	lights[2].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[2].cosInner = cos(Math::DegreeToRadian(30));
@@ -470,11 +525,11 @@ void SP2::Init()
 	lights[2].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[3].type = Light::LIGHT_POINT;
-	lights[3].position.Set(20.f, 4.f, -30.f);
+	lights[3].position.Set(20.f, 3.f, -30.f);
 	lights[3].color.Set(1, 1, 1);
-	lights[3].power = 0.5f;
+	lights[3].power = 0.6f;
 	lights[3].kC = 1.f;
-	lights[3].kL = 0.01f;
+	lights[3].kL = 0.001f;
 	lights[3].kQ = 0.001f;
 	lights[3].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[3].cosInner = cos(Math::DegreeToRadian(30));
@@ -482,11 +537,11 @@ void SP2::Init()
 	lights[3].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[4].type = Light::LIGHT_POINT;
-	lights[4].position.Set(-20.f, 4.f, 0.f);
+	lights[4].position.Set(-20.f, 3.f, 30.f);
 	lights[4].color.Set(1, 1, 1);
-	lights[4].power = 0.5f;
+	lights[4].power = 0.6f;
 	lights[4].kC = 1.f;
-	lights[4].kL = 0.01f;
+	lights[4].kL = 0.001f;
 	lights[4].kQ = 0.001f;
 	lights[4].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[4].cosInner = cos(Math::DegreeToRadian(30));
@@ -494,11 +549,11 @@ void SP2::Init()
 	lights[4].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[5].type = Light::LIGHT_POINT;
-	lights[5].position.Set(0.f, 4.f, 0.f);
+	lights[5].position.Set(0.f, 3.f, 30.f);
 	lights[5].color.Set(1, 1, 1);
-	lights[5].power = 0.5f;
+	lights[5].power = 0.6f;
 	lights[5].kC = 1.f;
-	lights[5].kL = 0.01f;
+	lights[5].kL = 0.001f;
 	lights[5].kQ = 0.001f;
 	lights[5].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[5].cosInner = cos(Math::DegreeToRadian(30));
@@ -506,11 +561,11 @@ void SP2::Init()
 	lights[5].spotDirection.Set(0.f, 1.f, 0.f);
 
 	lights[6].type = Light::LIGHT_POINT;
-	lights[6].position.Set(20.f, 4.f, 0.f);
+	lights[6].position.Set(20.f, 3.f, 30.f);
 	lights[6].color.Set(1, 1, 1);
-	lights[6].power = 0.5f;
+	lights[6].power = 0.6f;
 	lights[6].kC = 1.f;
-	lights[6].kL = 0.01f;
+	lights[6].kL = 0.001f;
 	lights[6].kQ = 0.001f;
 	lights[6].cosCutoff = cos(Math::DegreeToRadian(45));
 	lights[6].cosInner = cos(Math::DegreeToRadian(30));
@@ -594,8 +649,11 @@ void SP2::Init()
 	glUniform1f(m_parameters[U_LIGHT6_COSCUTOFF], lights[6].cosCutoff);
 	glUniform1f(m_parameters[U_LIGHT6_COSINNER], lights[6].cosInner);
 	glUniform1f(m_parameters[U_LIGHT6_EXPONENT], lights[6].exponent);
+}
 
-	//Text
+void SP2::Init_GEOMS(void)
+{
+		//Text
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//HelveticaLTStd-Cond.tga");
 
@@ -926,13 +984,6 @@ void SP2::Init()
 	meshList[GEO_HUMAN_MODEL]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_HUMAN_MODEL]->material.kShininess = 5.f;
 
-	meshList[GEO_LIGHTBALL1] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL2] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL3] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL4] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL5] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-	meshList[GEO_LIGHTBALL6] = MeshBuilder::GenerateSphere("ball", Color(1,1,1),10,10,1);
-
 	//Wallet
 	meshList[GEO_WALLET] = MeshBuilder::GenerateOBJ("Wallet", "OBJ//Wallet.obj");
 	meshList[GEO_WALLET]->textureID = LoadTGA("Image//Wallet.tga");
@@ -971,9 +1022,6 @@ void SP2::Init()
 	meshList[GEO_BENCH]->material.kShininess = 5.f;
 
 }
-
-static float ROT_LIMIT = 45.f;
-static float SCALE_LIMIT = 5.f;
 
 void SP2::Update(double dt)
 {
@@ -1076,6 +1124,14 @@ void SP2::Update(double dt)
 	{
 		UpdateConveyor(dt);
 	}
+
+	if(endScreen == true)
+	{
+		if(Application::IsKeyPressed(VK_RETURN))
+		{
+			RestartGame();
+		}
+	}
 }
 
 void SP2::UpdateGame(double dt)
@@ -1133,6 +1189,41 @@ void SP2::UpdateGame(double dt)
 	updateShopperAI2(dt, Shopper1);
 	Guard.UpdateGuard(player.getPos(), modeCustomer, modeVillain, dt);
 	CheckCollision();
+	PlaySound();
+}
+
+void SP2::PlaySound(void)
+{
+	//ISound * bgm = engine->play2D("Media//test.mp3", false);
+	ISound *TrolleyRolling;
+	//Trolley rolling sound
+	if(Trolley.EquippedTrolley)
+	{
+		if(Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D'))
+		{
+			if(!engine->isCurrentlyPlaying("Media//Trolley.wav")) //Check if sound is playing
+			{
+				TrolleyRolling = engine->play2D("Media//Trolley.wav", false);      //Plays sound
+			}
+		}
+	}
+	//Walking sound
+	else if(!Trolley.EquippedTrolley)
+	{
+		if(Application::IsKeyPressed('W') || Application::IsKeyPressed('A') || Application::IsKeyPressed('S') || Application::IsKeyPressed('D'))
+		{
+			if(!engine->isCurrentlyPlaying("Media//Walking.wav")) //Check if sound is playing
+			{
+				engine->play2D("Media//Walking.wav", false);      //Plays sound
+			}
+		}
+	}
+	//if(Application::IsKeyPressed(VK_SPACE))
+	{
+		/*if(!engine->isCurrentlyPlaying("Media//test.ogg"))
+		engine->play2D("Media//test.ogg", false);*/
+	}
+	 //TODO BGM?(Environmental sound)
 }
 
 void SP2::CheckCollision(void)
@@ -1141,61 +1232,54 @@ void SP2::CheckCollision(void)
 		{
 			camera.Limiter();
 		}
-	//Cold Shelf Right
-	//if(camera.position.x > ColdShelf_Right.MinWidth && camera.position.x < ColdShelf_Right.MaxWidth
-	//	&& camera.position.z > ColdShelf_Right.MinLength && camera.position.z < ColdShelf_Right.MaxLength)
-	//{
-	//	camera.CAMERA_SPEED2 = 0;
-	//}
-	//else
-	//{
-	//	camera.CAMERA_SPEED2 = 10.f;
-	//}
 }
 
 void SP2::Scenario_Shopper(double dt)
 {
-	movingOnBelt += (float)(0.5 * dt);
-	for(int i = 0; i < Trolley.Inventory.size(); i++)
+	if(CheckingOut)
 	{
-		//Setting of position of Items on conveyor Belt
-		if (camera.position.x > -5 && camera.position.x < -2)
+		movingOnBelt += (float)(0.5 * dt);
+		for(int i = 0; i < Trolley.Inventory.size(); i++)
 		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-		}
-		else if (camera.position.x > -20 && camera.position.x < -17)
-		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
-		}
-		else if (camera.position.x > -35 && camera.position.x < -32)
-		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-		}
-
-		//Render when item is on the conveyor belt
-		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
-		{
-			Trolley.Inventory.at(i)->render = true;
-		}
-		else
-		{
-			Trolley.Inventory.at(i)->render = false;
-		}
-		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
-		{
-			Trolley.Inventory.at(i)->render = false;
-			if (Trolley.Inventory.at(0)->render == false)
+			//Setting of position of Items on conveyor Belt
+			if (camera.position.x > -5 && camera.position.x < -2)
 			{
-				armMoving = true;
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
 			}
-			if(i == Trolley.Inventory.size() - 1)
+			else if (camera.position.x > -20 && camera.position.x < -17)
 			{
-				renderItemOnTrolley = true;
-				beltMovement = false;
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
+			}
+			else if (camera.position.x > -35 && camera.position.x < -32)
+			{
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+			}
+
+			//Render when item is on the conveyor belt
+			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
+			{
+				Trolley.Inventory.at(i)->render = true;
+			}
+			else
+			{
+				Trolley.Inventory.at(i)->render = false;
+			}
+			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
+			{
+				Trolley.Inventory.at(i)->render = false;
+				if (Trolley.Inventory.at(0)->render == false)
+				{
+					armMoving = true;
+				}
+				if(i == Trolley.Inventory.size() - 1)
+				{
+					renderItemOnTrolley = true;
+					beltMovement = false;
+					CheckingOut = false;
+				}
 			}
 		}
 	}
-
 	//Taking animation
 	playerArmSwipe -= (float)(45 * dt);
 	if (playerArmSwipe < -90)
@@ -1235,6 +1319,10 @@ void SP2::Scenario_Shopper(double dt)
 			{
 				renderMoney = false;
 				playerArmPayingLeftAni = false;
+				if(!engine->isCurrentlyPlaying("Media//Cash Register.mp3")) //Check if sound is playing
+				{
+					engine->play2D("Media//Cash Register.mp3", false);      //Plays cash register sound
+				}
 			}
 			else if (playerArmPayingLeft < -30)
 			{
@@ -1260,7 +1348,7 @@ void SP2::Scenario_Shopper(double dt)
 	}
 
 	float RotationSpeed = 100.f;
-	float DelayInterval = 0.25f;
+	float DelayInterval = 1.f;
 	if(Delay < DelayInterval)
 	{
 		Delay += dt;
@@ -1288,6 +1376,36 @@ void SP2::Scenario_Shopper(double dt)
 					{
 						if(PlayerInvent.Add_ShelfToInvent(Container.Shelf.at(i), i))
 						{
+							//Play packet grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_KINDER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_NOODLE
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_SNICKER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Packet.wav"))
+									engine->play2D("Media//Packet.wav", false);
+							}
+							//Plays box grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CEREAL
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOCO
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_ICECREAM
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Box.wav"))
+									engine->play2D("Media//Box.wav", false);
+							}
+							//Plays can grabbing sound
+							if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_BEANS
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_COKE
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MILO
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MTNDEW
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_ROOTBEER
+								||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+							{
+								if(!engine->isCurrentlyPlaying("Media//Can.wav"))
+									engine->play2D("Media//Can.wav", false);
+							}
 							checkItemTypeAdd(Container.Shelf.at(i));
 							break;
 						}
@@ -1314,6 +1432,36 @@ void SP2::Scenario_Shopper(double dt)
 					//Only able to put back taken items
 					if(Distance <= MaxDistance && Container.Shelf.at(i)->ItemState == CItem::TAKEN)
 					{
+						//Play packet grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_KINDER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_NOODLE
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_SNICKER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_PACK_TOBLERONE)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Packet.wav"))
+								engine->play2D("Media//Packet.wav", false);
+						}
+						//Plays box grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CEREAL
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOCO
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_CHOC_CEREAL
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_ICECREAM
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_BOX_PIZZA)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Box.wav"))
+								engine->play2D("Media//Box.wav", false);
+						}
+						//Plays can grabbing sound
+						if(Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_BEANS
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_COKE
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MILO
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_MTNDEW
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_ROOTBEER
+							||Container.Shelf.at(i)->GEO_TYPE == SP2::GEO_CAN_SARDINES)
+						{
+							if(!engine->isCurrentlyPlaying("Media//Can.wav"))
+								engine->play2D("Media//Can.wav", false);
+						}
 						checkItemTypeRemove(Container.Shelf.at(i));
 						PlayerInvent.Minus_InventToShelf(Container.Shelf.at(i), i);
 						break;
@@ -1398,6 +1546,7 @@ void SP2::Scenario_Shopper(double dt)
 				&& camera.position.z > cTablePos.z - 10
 				&& camera.position.z < cTablePos.z - 5 ))
 			{
+				CheckingOut = true;
 				customerCheckOut = true;
 				//Paying animation
 				playerPayingAni = true;
@@ -1460,12 +1609,17 @@ void SP2::Scenario_Shopper(double dt)
 		if(Trolley.EquippedTrolley)
 		{
 			Trolley.EquippedTrolley = false;
+			//engine->stopAllSounds(); //Stops playing trolley rolling sound
 		}
 	}
 	
 	//Update trolley only when equipped
 	if(Trolley.EquippedTrolley)
 	{
+		if(camera.IsCrouched)
+		{
+			Trolley.EquippedTrolley = false;
+		}
 		//CW Rotation
 		if(Application::IsKeyPressed(VK_RIGHT))
 		{
@@ -1596,7 +1750,6 @@ void SP2::Scenario_Shopper(double dt)
 
 void SP2::Scenario_Guard(double dt)
 {
-
 	//Catch Villain
 	if(Application::IsKeyPressed('X'))
 	{
@@ -1963,6 +2116,10 @@ void SP2::UpdateConveyor(double dt)
 			if(armRotation < -90)
 			{
 				armMovement = true;
+				if(!engine->isCurrentlyPlaying("Media//Beep.wav")) //Check if sound is playing
+				{
+					engine->play2D("Media//Beep.wav", false);      //Plays beeping sound
+				}
 			}
 		}
 	}
@@ -2181,14 +2338,15 @@ void SP2::RenderLights(void)
 	modelStack.LoadIdentity();
 	//Light arrangement
 	// 1  2  3
-	// 4  5  6
-	// 7  8  9 x - Entrance
+	// 4  5  6 x - Entrance
 
 	//Directional Light
 	if(lights[0].type == Light::LIGHT_DIRECTIONAL)
 	{
 		Vector3 lightDir(lights[0].position.x, lights[0].position.y, lights[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
+		Mtx44 rotation;
+		rotation.SetToRotation(90.f, 1.f, 0.f, 0.f);
+		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
 		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
 	}
 	else if(lights[0].type == Light::LIGHT_SPOT)
@@ -2207,10 +2365,8 @@ void SP2::RenderLights(void)
 	//Light 1
 	if(lights[1].type == Light::LIGHT_DIRECTIONAL)
 	{
-		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-		Mtx44 rotation;
-		rotation.SetToRotation(-45.f, 1.f, 0.f, 0.f);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * rotation * lightDir;
+		Vector3 lightDir(lights[1].position.x, lights[1].position.y, lights[1].position.z);	
+		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
 		glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightDirection_cameraspace.x);
 	}
 	else if(lights[1].type == Light::LIGHT_SPOT)
@@ -2331,36 +2487,6 @@ void SP2::RenderLights(void)
 		Position lightPosition_cameraspace = viewStack.Top() * lights[6].position;
 		glUniform3fv(m_parameters[U_LIGHT6_POSITION], 1, &lightPosition_cameraspace.x);
 	}
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[1].position.x, lights[1].position.y, lights[1].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL1], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[2].position.x, lights[2].position.y, lights[2].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL2], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[3].position.x, lights[3].position.y, lights[3].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL3], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[4].position.x, lights[4].position.y, lights[4].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL4], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[5].position.x, lights[5].position.y, lights[5].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL5], false);
-	modelStack.PopMatrix();
-
-	modelStack.PushMatrix();
-	modelStack.Translate(lights[6].position.x, lights[6].position.y, lights[6].position.z);
-	RenderMesh(meshList[GEO_LIGHTBALL6], false);
-	modelStack.PopMatrix();
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
 	glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
@@ -3172,15 +3298,19 @@ void SP2::RenderObject()
 		modelStack.PopMatrix();
 	}
 	//ENTRANCE chehckbox
-	if ((camera.position.x > 32 && camera.position.x < 42) && (camera.position.z >39 && camera.position.z < 46))
+	if ((camera.position.x > 31 && camera.position.x < 43) && (camera.position.z > 39 && camera.position.z < 46))
 	{
 		rotateback = true;
+		camera.HasEntered = false;
 	}
 	else
 	{
 		rotateback = false;
 	}
-
+	if(rotateback == false && camera.position.z < 35)
+	{
+		camera.HasEntered = true;
+	}
 	if (rotateback == true && rotationofdoor < 70)
 	{
 		rotationofdoor++;
@@ -3226,7 +3356,7 @@ void SP2::RenderObject()
 	//LightBulb
 	for (int j = -20; j < 40; j += 20)
 	{
-		for (int i = 0; i > -40; i -= 30)
+		for (int i = 30; i > -31; i -= 60)
 		{
 			modelStack.PushMatrix();
 			modelStack.Translate(j, 0, i);
@@ -3720,6 +3850,7 @@ void SP2::Exit()
 		if(meshList[i] != NULL)
 			delete meshList[i];
 	}
+	engine->drop();
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);
 }

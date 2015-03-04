@@ -27,6 +27,63 @@ CInventory::~CInventory(void)
 {
 }
 
+void CInventory::Init_Trolley(void)
+{
+	EquippedTrolley = false;
+
+	TrolleyPosition.x = 30.f;
+	TrolleyPosition.y = 0.f;
+	TrolleyPosition.z = 30.f;
+
+	TrolleyDirection.x = 0;
+	TrolleyDirection.y = 0;
+	TrolleyDirection.z = 0;
+
+	Offset.x = 0.0f;
+	Offset.y = 0.0f;
+	Offset.z = 0.0f;
+	Offset2.x = -4.0f;
+	Offset2.y = 0.0f;
+	Offset2.z = 0.0f;
+
+	RotationMinWidth = TrolleyPosition.x;
+	RotationMaxWidth = TrolleyPosition.x + 2;
+	RotationMinLength = TrolleyPosition.z - 0.5f;
+	RotationMaxLength = TrolleyPosition.z + 0.5f;
+}
+
+void CInventory::Init_Inventory(void)
+{
+	for(vector<CItem*>::iterator iter = Inventory.begin(); iter != Inventory.end();)
+	{
+		if(Inventory.size() > 0)
+			Inventory.erase(iter);
+		else
+			break;
+	}
+	for(vector<int>::iterator iter = InventoryIndexing.begin(); iter != InventoryIndexing.end();)
+	{
+		if(InventoryIndexing.size() > 0)
+			InventoryIndexing.erase(iter);
+		else
+			break;
+	}
+	//for(vector<CItem*>::iterator iter = Inventory.begin(); iter != Inventory.end();)
+	//{
+	//	if(Inventory.size() > 0)
+	//		Inventory.erase(iter);
+	//	else
+	//		break;
+	//}
+	//for(vector<int>::iterator iter = InventoryIndexing.begin(); iter != InventoryIndexing.end();)
+	//{
+	//	if(InventoryIndexing.size() > 0)
+	//		InventoryIndexing.erase(iter);
+	//	else
+	//		break;
+	//}
+}
+
 bool CInventory::Add_ShelfToTrolley(CItem * Item, int ItemIndex)
 {
 	if (Inventory.size() < MaxTrolleySize)

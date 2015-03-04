@@ -92,9 +92,11 @@ void CItem::SetDetails(string SetName, double SetPrice, Vector3 &SetPosition, st
 
 void CItem::SetPosition(Vector3 &NewPosition)
 {
-	ItemPosition.x = NewPosition.x;
-	ItemPosition.y = NewPosition.y;
-	ItemPosition.z = NewPosition.z;
+	//ItemPosition.x = NewPosition.x;
+	//ItemPosition.y = NewPosition.y;
+	//ItemPosition.z = NewPosition.z;
+
+	ItemPosition = NewPosition;
 
 	//Invisible box range defined based on item position
 	MinWidth = (ItemPosition.x - 1.5f);
