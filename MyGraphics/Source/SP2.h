@@ -154,7 +154,7 @@ private:
 		GEO_WALL,
 		GEO_COLDSHELVE,
 		GEO_CEILING,
-		GEO_DOORMAN,
+		GEO_ENTRY,
 		GEO_STANDER,
 		GEO_SHELF,
 		GEO_REFRIDGE,
@@ -177,7 +177,6 @@ private:
 		GEO_PACK_NOODLE,
 		GEO_PACK_TOBLERONE,
 		GEO_BOX_CHOCO,
-		GEO_ENTRY,
 		GEO_UI,
 		GEO_SENSOR,
 		GEO_LIGHTBULB,
@@ -197,6 +196,8 @@ private:
 		GEO_HUMAN_MODEL,
 		GEO_WALLET,
 		GEO_MONEY,
+		GEO_DUSTBIN,
+		GEO_BENCH,
 		GEO_POLICE,
 		GEO_MENU,
 		GEO_HIGHSCORE,
@@ -226,9 +227,9 @@ private:
 	Light lights[7];
 
 	double fps;
-	float WorldOffset;
-
 	std::string fpsText;
+
+	float WorldOffset;
 
 	float textWidth[256];
 	int count;
@@ -275,7 +276,6 @@ private:
 
 	//Shelf
 	CShelf Container;
-	CShelf Init_Container;
 	CShelf ColdShelf_Right;
 	CShelf ColdShelf_Left;
 	CShelf RedShelf_Right;

@@ -6,6 +6,7 @@ class CShelf
 {
 public:
 	vector<CItem*>Shelf;
+	vector<Vector3>Init_Pos;
 	Vector3 Position;
 	float MinWidth;
 	float MaxWidth;
