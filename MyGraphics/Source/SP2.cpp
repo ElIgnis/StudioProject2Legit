@@ -997,6 +997,7 @@ void SP2::Init_GEOMS(void)
 	meshList[GEO_WALLET]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_WALLET]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_WALLET]->material.kShininess = 5.f;
+
 	//Money
 	meshList[GEO_MONEY] = MeshBuilder::GenerateOBJ("Money", "OBJ//Money.obj");
 	meshList[GEO_MONEY]->textureID = LoadTGA("Image//Money.tga");
@@ -1005,12 +1006,17 @@ void SP2::Init_GEOMS(void)
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
 
-	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 40);
-	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
-	meshList[GEO_POLICE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
-	meshList[GEO_POLICE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
-	meshList[GEO_POLICE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
-	meshList[GEO_POLICE]->material.kShininess = 5.f;
+	meshList[GEO_MENU] = MeshBuilder::GenerateQuad("Menu", Color(1, 1, 1), 10.f);
+	meshList[GEO_MENU]->textureID = LoadTGA("Image//menu.tga");
+
+	meshList[GEO_HIGHSCORE] = MeshBuilder::GenerateQuad("Highscore", Color(1, 1, 1), 10.f);
+	meshList[GEO_HIGHSCORE]->textureID = LoadTGA("Image//highscore.tga");
+
+	meshList[GEO_SCENARIO] = MeshBuilder::GenerateQuad("Scenario", Color(1, 1, 1), 10.f);
+	meshList[GEO_SCENARIO]->textureID = LoadTGA("Image//scenario.tga");
+
+	meshList[GEO_GAMEOVER] = MeshBuilder::GenerateQuad("GameOver", Color(1, 1, 1), 10.f);
+	meshList[GEO_GAMEOVER]->textureID = LoadTGA("Image//gameover.tga");
 }
 
 void SP2::Update(double dt)
@@ -2409,62 +2415,52 @@ void SP2::Render()
 	if (startScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Start Game", Color (1, 1, 1), 4.f, 8.5f, 7.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "High Score", Color (1, 1, 1), 4.f, 8.5f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color (1, 1, 1), 4.f, 9.3f, 5.f);
+		RenderUIOnScreen(meshList[GEO_MENU], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (chooseModeScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Customer", Color (1, 1, 1), 4.f, 8.f, 7.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Security Guard", Color (1, 1, 1), 4.f, 8.f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Play as Villain", Color (1, 1, 1), 4.f, 8.f, 5.f);
+		RenderUIOnScreen(meshList[GEO_SCENARIO], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (highScoreScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Customer:"+customerHS, Color (1, 0, 0), 4.f, 8.f, 7.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Security Guard:"+guardHS, Color (1, 0, 0), 4.f, 8.f, 6.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Villain:"+villainHS, Color (1, 0, 0), 4.f, 8.f, 5.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Back to Main Menu ", Color (1, 1, 1), 4.f, 7.5f, 4.f);
+		RenderUIOnScreen(meshList[GEO_HIGHSCORE], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], customerHS, Color (1, 0, 0), 6.f, 5.6f, 6.4f);
+		RenderTextOnScreen(meshList[GEO_TEXT], villainHS, Color (1, 0, 0), 6.f, 4.7f, 4.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], guardHS, Color (1, 0, 0), 6.f, 8.f, 1.6f);
 	}
 
 	//End Game Screen
 	if (endScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		RenderUIOnScreen(meshList[GEO_GAMEOVER], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 		if (modeCustomer == true)
 		{
 			if (Guard.returnState() == "CAUGHT")
 		{
-			modelStack.PushMatrix();
-			modelStack.Translate(0, -15, 0);
-			RenderMesh(meshList[GEO_POLICE], false);
-			modelStack.PopMatrix();
 			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - Shoplifting is a CRIME!", Color (1, 0, 0), 5.f, 2.5f, 11.f);
 		}
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (0, 1, 0), 5.f, 7.5f, 8.f);
-			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (0, 1, 0), 5.f, 8.f, 7.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSShopper, Color (0, 1, 0), 6.f, 5.8f, 6.1f);
 		}
 		else if (modeGuard == true)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
-			RenderTextOnScreen(meshList[GEO_TEXT], EGSGuard, Color (1, 1, 1), 5.f, 8.f, 7.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSGuard, Color (1, 1, 1), 6.f, 5.8f, 6.1f);
 		}
 		else if (modeVillain == true)
 		{
 			if (Guard.returnState() == "CAUGHT")
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 1.5f, 11.f);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Game Over! - The Security Guard caught you!", Color (1, 1, 1), 5.f, 3.3f, 5.f);
 			}
-			RenderTextOnScreen(meshList[GEO_TEXT], "Score:", Color (1, 1, 1), 5.f, 7.5f, 8.f);
-			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 5.f, 8.f, 7.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (1, 1, 1), 6.f, 5.8f, 6.1f);
 		}
 
-		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 7.5f, 3.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (1, 1, 1), 4.f, 7.2f, 2.5f);
 		if (newHighScore == true)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "NEW HIGHSCORE! ", Color (1, 1, 1), 6.f, 4.5f, 8.f);
+			RenderTextOnScreen(meshList[GEO_TEXT], "NEW HIGHSCORE! ", Color (1, 1, 1), 6.f, 4.2f, 5.2f);
 		}
 	}
 
