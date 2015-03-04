@@ -1224,6 +1224,18 @@ void SP2::PlaySound(void)
 		engine->play2D("Media//test.ogg", false);*/
 	}
 	 //TODO BGM?(Environmental sound)
+
+	//Environmental Sound
+	//People Talking
+	if(!engine->isCurrentlyPlaying("Media//people_talking.wav")) //Check if sound is playing
+	{
+		engine->play2D("Media//people_talking.wav", false);      //Plays sound
+	}
+	//Supermarket Music
+	if(!engine->isCurrentlyPlaying("Media//music1.wav")) //Check if sound is playing
+	{
+		engine->play2D("Media//music1.wav", false);      //Plays sound
+	}
 }
 
 void SP2::CheckCollision(void)
@@ -1531,6 +1543,11 @@ void SP2::Scenario_Shopper(double dt)
 				&& camera.position.z > -61)
 			{
 				NPCInteraction = true;
+				if(!engine->isCurrentlyPlaying("Media//hello.wav")) //Check if sound is playing
+				{
+					engine->play2D("Media//hello.wav", false);      //Plays cash register sound
+				}
+
 			}
 
 			if ((camera.position.x > cTablePos.x - 5
