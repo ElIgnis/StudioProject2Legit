@@ -614,7 +614,7 @@ void SP2::Init()
 	meshList[GEO_BACK]->textureID = LoadTGA("Image//Skybox_back.tga");
 
 	//Wall&Floor
-	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall2.obj");
+	meshList[GEO_WALL] = MeshBuilder::GenerateOBJ("WALL", "OBJ//Wall3.obj");
 	meshList[GEO_WALL]->textureID = LoadTGA("Image//Wall2.tga");
 	meshList[GEO_WALL]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_WALL]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -851,7 +851,7 @@ void SP2::Init()
 	meshList[GEO_CONVEYORTABLE]->material.kShininess = 5.f;
 
 	//ConveyorBelt
-	meshList[GEO_CONVEYORBELT] = MeshBuilder::GenerateOBJ("Sensor", "OBJ//Conveyorstrap.obj");
+	meshList[GEO_CONVEYORBELT] = MeshBuilder::GenerateOBJ("Conveyor Strap", "OBJ//Conveyorstrap.obj");
 	meshList[GEO_CONVEYORBELT]->textureID = LoadTGA("Image//Conveyor.tga");
 	meshList[GEO_CONVEYORBELT]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_CONVEYORBELT]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -881,7 +881,7 @@ void SP2::Init()
 	meshList[GEO_HUMAN_ARM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_HUMAN_ARM]->material.kShininess = 5.f;
 	//Leg
-	meshList[GEO_HUMAN_LEG] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Leg.obj");
+	meshList[GEO_HUMAN_LEG] = MeshBuilder::GenerateOBJ("Leg", "OBJ//Human_Leg.obj");
 	meshList[GEO_HUMAN_LEG]->textureID = LoadTGA("Image//Villain.tga");
 	meshList[GEO_HUMAN_LEG]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_HUMAN_LEG]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -911,7 +911,7 @@ void SP2::Init()
 	meshList[GEO_GUARD_ARM]->material.kSpecular.Set(0.8f, 0.8f, 0.8f);
 	meshList[GEO_GUARD_ARM]->material.kShininess = 5.f;
 	//Leg
-	meshList[GEO_GUARD_LEG] = MeshBuilder::GenerateOBJ("Arm", "OBJ//Human_Leg.obj");
+	meshList[GEO_GUARD_LEG] = MeshBuilder::GenerateOBJ("Leg", "OBJ//Human_Leg.obj");
 	meshList[GEO_GUARD_LEG]->textureID = LoadTGA("Image//Guard.tga");
 	meshList[GEO_GUARD_LEG]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_GUARD_LEG]->material.kDiffuse.Set(1.f, 1.f, 1.f);
@@ -948,12 +948,28 @@ void SP2::Init()
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
 
+
 	meshList[GEO_POLICE] = MeshBuilder::GenerateQuad("Stop", Color(1, 1, 1), 40);
 	meshList[GEO_POLICE]->textureID = LoadTGA("Image//ShopTheft.tga");
 	meshList[GEO_MONEY]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
 	meshList[GEO_MONEY]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_MONEY]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_MONEY]->material.kShininess = 5.f;
+
+	meshList[GEO_DUSTBIN] = MeshBuilder::GenerateOBJ("DustBin", "OBJ//Dustbin.obj");
+	meshList[GEO_DUSTBIN]->textureID = LoadTGA("Image//Dustbin.tga");
+	meshList[GEO_DUSTBIN]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_DUSTBIN]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_DUSTBIN]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_DUSTBIN]->material.kShininess = 5.f;
+
+	meshList[GEO_BENCH] = MeshBuilder::GenerateOBJ("Bench", "OBJ//Bench.obj");
+	meshList[GEO_BENCH]->textureID = LoadTGA("Image//Bench.tga");
+	meshList[GEO_BENCH]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_BENCH]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_BENCH]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_BENCH]->material.kShininess = 5.f;
+
 }
 
 static float ROT_LIMIT = 45.f;
@@ -3355,6 +3371,50 @@ void SP2::RenderObject()
 	modelStack.Rotate(-90, 0, 1, 0);
 	RenderNPC();
 	modelStack.PopMatrix();
+
+	for (int i = 0; i < 60; i += 20)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+	modelStack.PushMatrix();
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(-20, -2, 55);
+	RenderMesh(meshList[GEO_BENCH], false);
+	modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
+	for (int i = 0; i < 40; i += 20)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-10, -1.3, 55);
+			modelStack.Rotate(90,0,1,0);
+			RenderMesh(meshList[GEO_DUSTBIN], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	for (int i = 0; i < 160; i += 84)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-43, -1.3,68);
+			modelStack.Rotate(90, 0, 1, 0);
+			RenderMesh(meshList[GEO_DUSTBIN], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+
 }
 
 void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)

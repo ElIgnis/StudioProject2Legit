@@ -207,6 +207,9 @@ private:
 		GEO_WALLET,
 		GEO_MONEY,
 
+		GEO_DUSTBIN,
+		GEO_BENCH,
+
 		GEO_POLICE,
 		NUM_GEOMETRY,
 	};
