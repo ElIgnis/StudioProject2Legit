@@ -283,6 +283,7 @@ private:
 
 	//Shelf
 	CShelf Container;
+	CShelf Init_Container;
 	CShelf ColdShelf_Right;
 	CShelf ColdShelf_Left;
 	CShelf RedShelf_Right;
@@ -343,6 +344,7 @@ private:
 	int RollDiceVillain(void);
 	int RollDiceShopper(void);
 	void PlaySound(void);
+	void RestartGame(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
@@ -409,7 +411,7 @@ private:
 	string EGSVillain;
 
 	bool newHighScore;
-
+	bool CheckingOut;
 	bool renderItemOnTrolley;
 	bool beltMovement;
 	Vector3 beltPos;

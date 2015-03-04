@@ -150,6 +150,7 @@ void SP2::Init()
 
 			ItemLine++;
 			Container.Shelf.push_back(Item);
+			Init_Container.Shelf.push_back(Item);
 		}
 		inShelfItem.close();
 	}
@@ -292,10 +293,44 @@ void SP2::Init()
 	Init_Collision();
 	Init_Lights();
 	Init_GEOMS();
+	std::cout << Container.Shelf.at(0)->ItemPosition << std::endl;
+	std::cout << Init_Container.Shelf.at(0)->ItemPosition << std::endl << std::endl;
 }
 
 static float ROT_LIMIT = 45.f;
 static float SCALE_LIMIT = 5.f;
+
+void SP2::RestartGame(void)
+{
+	//Reinitialize menu screens
+	chooseModeScreen = false;
+	highScoreScreen = false;
+	gameStart = false;
+	endScreen = false;
+	startScreen = true;
+
+	//Reinitialize Player && Trolley
+	camera.Init(Vector3(0, 0, 10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	Trolley.Init_Trolley();
+
+	//Reinitialize AI
+	VillainOne->Init_Villain();
+	ShopperAI.ShopperInitialize();
+	Shopper1->ShopperInitialize();
+	AITrolley.Init_Inventory();
+	
+	//Empty player vectors
+	PlayerInvent.Init_Inventory();
+	Trolley.Init_Inventory();
+	
+	//Reset shelf item position
+	for(int i = 0; i < ItemLine; i++)
+	{
+		Container.Shelf.at(i)->ItemState = CItem::DEFAULT;
+		Container.Shelf.at(i)->SetPosition(Init_Container.Shelf.at(i)->ItemPosition);
+	}
+	
+}
 
 void SP2::Init_Collision(void)
 {
@@ -1073,6 +1108,14 @@ void SP2::Update(double dt)
 	{
 		UpdateConveyor(dt);
 	}
+
+	if(endScreen == true)
+	{
+		if(Application::IsKeyPressed(VK_RETURN))
+		{
+			RestartGame();
+		}
+	}
 }
 
 void SP2::UpdateGame(double dt)
@@ -1177,47 +1220,50 @@ void SP2::CheckCollision(void)
 
 void SP2::Scenario_Shopper(double dt)
 {
-	movingOnBelt += (float)(0.5 * dt);
-	for(int i = 0; i < Trolley.Inventory.size(); i++)
+	if(CheckingOut)
 	{
-		//Setting of position of Items on conveyor Belt
-		if (camera.position.x > -5 && camera.position.x < -2)
+		movingOnBelt += (float)(0.5 * dt);
+		for(int i = 0; i < Trolley.Inventory.size(); i++)
 		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-		}
-		else if (camera.position.x > -20 && camera.position.x < -17)
-		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
-		}
-		else if (camera.position.x > -35 && camera.position.x < -32)
-		{
-			Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
-		}
-
-		//Render when item is on the conveyor belt
-		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
-		{
-			Trolley.Inventory.at(i)->render = true;
-		}
-		else
-		{
-			Trolley.Inventory.at(i)->render = false;
-		}
-		if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
-		{
-			Trolley.Inventory.at(i)->render = false;
-			if (Trolley.Inventory.at(0)->render == false)
+			//Setting of position of Items on conveyor Belt
+			if (camera.position.x > -5 && camera.position.x < -2)
 			{
-				armMoving = true;
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x, cTablePos.y + 3.5, cTablePos.z - 2 * i));
 			}
-			if(i == Trolley.Inventory.size() - 1)
+			else if (camera.position.x > -20 && camera.position.x < -17)
 			{
-				renderItemOnTrolley = true;
-				beltMovement = false;
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 15, cTablePos.y + 3.5, cTablePos.z - 2 * i));	
+			}
+			else if (camera.position.x > -35 && camera.position.x < -32)
+			{
+				Trolley.Inventory.at(i)->SetPosition(Vector3(cTablePos.x - 30, cTablePos.y + 3.5, cTablePos.z - 2 * i));
+			}
+
+			//Render when item is on the conveyor belt
+			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt >  cTablePos.z - 3)
+			{
+				Trolley.Inventory.at(i)->render = true;
+			}
+			else
+			{
+				Trolley.Inventory.at(i)->render = false;
+			}
+			if (Trolley.Inventory.at(i)->ItemPosition.z + movingOnBelt > cTablePos.z + 0.5)
+			{
+				Trolley.Inventory.at(i)->render = false;
+				if (Trolley.Inventory.at(0)->render == false)
+				{
+					armMoving = true;
+				}
+				if(i == Trolley.Inventory.size() - 1)
+				{
+					renderItemOnTrolley = true;
+					beltMovement = false;
+					CheckingOut = false;
+				}
 			}
 		}
 	}
-
 	//Taking animation
 	playerArmSwipe -= (float)(45 * dt);
 	if (playerArmSwipe < -90)
@@ -1484,6 +1530,7 @@ void SP2::Scenario_Shopper(double dt)
 				&& camera.position.z > cTablePos.z - 10
 				&& camera.position.z < cTablePos.z - 5 ))
 			{
+				CheckingOut = true;
 				customerCheckOut = true;
 				//Paying animation
 				playerPayingAni = true;
@@ -1687,7 +1734,6 @@ void SP2::Scenario_Shopper(double dt)
 
 void SP2::Scenario_Guard(double dt)
 {
-
 	//Catch Villain
 	if(Application::IsKeyPressed('X'))
 	{

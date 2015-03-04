@@ -3,6 +3,8 @@
 #include "Vector3.h"
 #include "Item.h"
 
+#define ShopperPathSize 15
+
 using namespace std;
 
 class CShopperAI2
@@ -52,6 +54,7 @@ public:
 	float Rotation_Left_Hand;
 	float Rotation_Right_Hand;
 
+	void ShopperInitialize(void);
 	void SetPosition(Vector3 &NewPosition);
 	void SetDirection(Vector3 &NewDirection, double dt);
 	void UpdateAI(double dt, Vector3 &PlayerPosition);
