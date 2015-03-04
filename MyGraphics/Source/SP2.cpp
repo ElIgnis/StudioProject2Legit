@@ -1787,9 +1787,56 @@ void SP2::Scenario_Shopper(double dt)
 				//		}
 				//	}
 				//}
-				Delay = 0;
 			}
 		}
+		if(Trolley.EquippedTrolley)
+		{
+			//Item removal from trolley by keypress
+			//TODO: UI for removal
+			int input = -1;
+
+			if(Application::IsKeyPressed('1'))
+			{
+				input = 0;
+			}
+			if(Application::IsKeyPressed('2'))
+			{
+				input = 1;
+			}
+			if(Application::IsKeyPressed('3'))
+			{
+				input = 2;
+			}
+			if(Application::IsKeyPressed('4'))
+			{
+				input = 3;
+			}
+			if(Application::IsKeyPressed('5'))
+			{
+				input = 4;
+			}
+			if(Application::IsKeyPressed('6'))
+			{
+				input = 5;
+			}
+			if(Application::IsKeyPressed('7'))
+			{
+				input = 6;
+			}
+			if(Application::IsKeyPressed('8'))
+			{
+				input = 7;
+			}
+
+			if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
+			{
+				if(PlayerInvent.Add_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
+				{
+					Trolley.Minus_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
+				}
+			}
+		}
+		Delay = 0;
 	}
 	//Equip Trolley
 	if(Application::IsKeyPressed('F'))
@@ -1862,53 +1909,7 @@ void SP2::Scenario_Shopper(double dt)
 		Trolley.RotationMaxWidth = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.x + RangeOfOne;
 		Trolley.RotationMinLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z - RangeOfOne;
 		Trolley.RotationMaxLength = cos(Math::DegreeToRadian(Trolley.TrolleyDirection.y)) + Trolley.TrolleyPosition.z + RangeOfOne;
-
-		//Item removal from trolley by keypress
-		//TODO: UI for removal
-		int input;
-
-		if(Application::IsKeyPressed('1'))
-		{
-			input = 0;
-		}
-		if(Application::IsKeyPressed('2'))
-		{
-			input = 1;
-		}
-		if(Application::IsKeyPressed('3'))
-		{
-			input = 2;
-		}
-		if(Application::IsKeyPressed('4'))
-		{
-			input = 3;
-		}
-		if(Application::IsKeyPressed('5'))
-		{
-			input = 4;
-		}
-		if(Application::IsKeyPressed('6'))
-		{
-			input = 5;
-		}
-		if(Application::IsKeyPressed('7'))
-		{
-			input = 6;
-		}
-		if(Application::IsKeyPressed('8'))
-		{
-			input = 7;
-		}
-		
-		if(input < Trolley.Inventory.size() && PlayerInvent.Inventory.size() < 2)
-		{
-			if(PlayerInvent.Add_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex))
-			{
-				Trolley.Minus_TrolleyToInvent(Trolley.Inventory.at(input), Trolley.Inventory.at(input)->ItemIndex);
-			}
-		}
 	}
-
 	//NPC Interaction
 	if(camera.position.x > 35.5
 		&& camera.position.z < -57
@@ -3856,7 +3857,6 @@ void SP2::RenderObject()
 	//Rendering items on trolley
 	for(vector<CItem*>::iterator iter = Trolley.Inventory.begin(); iter != Trolley.Inventory.end(); ++iter, i++)
 	{
-		(*iter)->SetPosition(Vector3(Trolley.TrolleyPosition.x - i, Trolley.TrolleyPosition.y, Trolley.TrolleyPosition.z));
 		RenderTrolleyItems((*iter)->ItemName, (*iter)->ItemPrice, Vector3((*iter)->ItemPosition.x, (*iter)->ItemPosition.y, (*iter)->ItemPosition.z), (*iter)->GEO_TYPE, i);
 	}
 	RenderMesh(meshList[GEO_TROLLEY], true);
