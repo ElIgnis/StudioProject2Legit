@@ -1001,6 +1001,13 @@ void SP2::Init_GEOMS(void)
 	meshList[GEO_BENCH]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_BENCH]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_BENCH]->material.kShininess = 5.f;
+
+	meshList[GEO_NPCSIT] = MeshBuilder::GenerateOBJ("NPC_SIT", "OBJ//Human_Sit.obj");
+	meshList[GEO_NPCSIT]->textureID = LoadTGA("Image//Villain.tga");
+	meshList[GEO_NPCSIT]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_NPCSIT]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_NPCSIT]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_NPCSIT]->material.kShininess = 5.f;
 }
 
 void SP2::Update(double dt)
@@ -3769,6 +3776,26 @@ void SP2::RenderObject()
 	modelStack.Translate(25, 0, 6);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderNPC();
+	modelStack.PopMatrix();
+
+	for (int i = 0; i < 60; i += 20)
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(i, 0, 0);
+		{
+			modelStack.PushMatrix();
+			modelStack.Scale(1, 1, 1);
+			modelStack.Translate(-24, 0.7, 55.6);
+			RenderMesh(meshList[GEO_NPCSIT], false);
+			modelStack.PopMatrix();
+		}
+		modelStack.PopMatrix();
+	}
+	modelStack.PushMatrix();
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(-18, 0.7, 54.3);
+	modelStack.Rotate(180,0,1,0);
+	RenderMesh(meshList[GEO_NPCSIT], false);
 	modelStack.PopMatrix();
 }
 
