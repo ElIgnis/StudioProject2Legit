@@ -31,6 +31,7 @@
 #include <vector>
 #include<irrKlang.h>
 
+using std::string;
 using namespace irrklang;
 using std::string;
 
@@ -209,9 +210,6 @@ private:
 		GEO_WALLET,
 		GEO_MONEY,
 
-		GEO_DUSTBIN,
-		GEO_BENCH,
-
 		GEO_POLICE,
 		NUM_GEOMETRY,
 	};
@@ -332,6 +330,7 @@ private:
 	void Init_Lights(void);
 	void Init_GEOMS(void);
 	void UpdateGame(double dt);
+	void PlaySound(void);
 	void CheckCollision(void);
 	void Scenario_Shopper(double dt);
 	void Scenario_Guard(double dt);
@@ -346,16 +345,18 @@ private:
 	void checkItemTypeRemove(CItem *Item);
 	int RollDiceVillain(void);
 	int RollDiceShopper(void);
-	void PlaySound(void);
 	void RestartGame(void);
+	void GenerateList(void);
 	 //Renders
 	void RenderGame(void);
 	void RenderScenarioShopper(void);
 	void RenderScenarioGuard(void);
 	void RenderScenarioVillain(void);
 	void RenderVillainAI(CVillainAI *Villain);
+
 	void RenderShopperAI2(CShopperAI2 *Shopper1);
 	void RenderGuardAI(void);
+	
 	void RenderShopperAI(void);
 	void RenderLights(void);
 	void RenderSkyBox();
