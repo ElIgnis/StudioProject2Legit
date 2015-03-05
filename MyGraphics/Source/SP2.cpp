@@ -98,7 +98,7 @@ void SP2::Init()
 
 	//Time
 	elapsedTime = 0.f;
-	countDown = 180;
+	countDown = 90.f;
 
 	isCaught = false;
 	objectsDestroyed = 0;
@@ -115,6 +115,39 @@ void SP2::Init()
 
 	NPCInteraction = false;
 	weedMode = false;
+
+	//List of generated goals
+	cokeNo = 0.f;
+	mtnDewNo = 0.f;
+	kinderNo = 0.f;
+	snickerNo = 0.f;
+	iceCreamNo = 0.f;
+	pizzaNo = 0.f;
+	cCerealNo = 0.f;
+	cerealNo = 0.f;
+	beansNo = 0.f;
+	sardineNo = 0.f;
+	rootbeerNo = 0.f;
+	miloNo = 0.f;
+	noodlesNo = 0.f;
+	tobleroneNo = 0.f;
+	chocolateNo = 0.f;
+
+	inventCokeNo = 0.f;
+	inventMtnDewNo = 0.f;
+	inventKinderNo = 0.f;
+	inventSnickerNo = 0.f;
+	inventIceCreamNo = 0.f;
+	inventPizzaNo = 0.f;
+	inventCCerealNo = 0.f;
+	inventCerealNo = 0.f;
+	inventBeansNo = 0.f;
+	inventSardineNo = 0.f;
+	inventRootbeerNo = 0.f;
+	inventMiloNo = 0.f;
+	inventNoodlesNo = 0.f;
+	inventTobleroneNo = 0.f;
+	inventChocolateNo = 0.f;
 
 	//Player (move to class)
 	playerArmSwipeAni = false;
@@ -183,7 +216,7 @@ void SP2::Init()
 
 	Shopper1 = new CShopperAI2;
 
-	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
+	Guard.InitGuard(35.0f, -60.0f, 15.0f, 30.0f);
 
 	//Sound
 	engine = createIrrKlangDevice();
@@ -285,9 +318,9 @@ void SP2::RestartGame(void)
 
 	//Time Taken
 	timeElapsed = " ";
-	elapsedTime = 0;
+	elapsedTime = 0.f;
 	countDownTime = " ";
-	countDown = 0;
+	countDown = 90.f;
 
 	//Highscore in Highscore screen
 	customerHS = " ";
@@ -323,7 +356,7 @@ void SP2::RestartGame(void)
 	ShopperAI.ShopperInitialize();
 	Shopper1->ShopperInitialize();
 	AITrolley.Init_Inventory();
-	Guard.InitGuard(35.0f, -60.0f, 10.0f, 30.0f);
+	Guard.InitGuard(35.0f, -60.0f, 15.0f, 30.0f);
 
 	//Empty player vectors
 	PlayerInvent.Init_Inventory();
@@ -338,6 +371,38 @@ void SP2::RestartGame(void)
 	
 	//Reinitialize List
 	GenerateList();
+	//List of generated goals
+	cokeNo = 0.f;
+	mtnDewNo = 0.f;
+	kinderNo = 0.f;
+	snickerNo = 0.f;
+	iceCreamNo = 0.f;
+	pizzaNo = 0.f;
+	cCerealNo = 0.f;
+	cerealNo = 0.f;
+	beansNo = 0.f;
+	sardineNo = 0.f;
+	rootbeerNo = 0.f;
+	miloNo = 0.f;
+	noodlesNo = 0.f;
+	tobleroneNo = 0.f;
+	chocolateNo = 0.f;
+
+	inventCokeNo = 0.f;
+	inventMtnDewNo = 0.f;
+	inventKinderNo = 0.f;
+	inventSnickerNo = 0.f;
+	inventIceCreamNo = 0.f;
+	inventPizzaNo = 0.f;
+	inventCCerealNo = 0.f;
+	inventCerealNo = 0.f;
+	inventBeansNo = 0.f;
+	inventSardineNo = 0.f;
+	inventRootbeerNo = 0.f;
+	inventMiloNo = 0.f;
+	inventNoodlesNo = 0.f;
+	inventTobleroneNo = 0.f;
+	inventChocolateNo = 0.f;
 }
 /******************************************************************************/
 /*!
@@ -1146,19 +1211,6 @@ void SP2::Update(double dt)
 		std::stringstream villainHighScoreHSS;
 		villainHighScoreHSS << player.getVillainHighScore();
 		villainHS = villainHighScoreHSS.str();
-
-		if (menuDelay > 0.5)
-		{
-			if (Application::IsKeyPressed('1'))
-			{
-				chooseModeScreen = false;
-				startScreen = true;
-				highScoreScreen = false;
-				gameStart = false;
-				endScreen = false;
-			}
-			menuDelay = 0.f;
-		}
 	}
 
 	//Game start
@@ -1172,7 +1224,7 @@ void SP2::Update(double dt)
 		ShowEndScreen(dt);
 	}
 
-	//if(endScreen == true)
+	if(endScreen == true || highScoreScreen == true)
 	{
 		if(Application::IsKeyPressed('N'))
 		{
@@ -1950,6 +2002,15 @@ void SP2::Scenario_Shopper(double dt)
 
 	if (customerCheckOut == true) //&& player.getPos().z > 40.f
 	{
+		if(player.getShopperScore() > player.getShopperHighScore())
+		{
+			newHighScore = true;
+		}
+		else
+		{
+			newHighScore = false;
+		}
+
 		if (inventCokeNo == cokeNo
 			&& inventMtnDewNo == mtnDewNo
 			&& inventKinderNo == kinderNo
@@ -2002,7 +2063,14 @@ void SP2::Scenario_Guard(double dt)
 		{
 			DistanceToPlayer *= -1;
 		}
-
+		if(player.getGuardScoreSucceed() > player.getGuardHighScore())
+		{
+			newHighScore = true;
+		}
+		else
+		{
+			newHighScore = false;
+		}
 		//Game winning condition
 		if(DistanceToPlayer < 3.f && VillainOne->RecentlyDestroyed == true)
 		{
@@ -2013,12 +2081,13 @@ void SP2::Scenario_Guard(double dt)
 			player.setGuardScoreSucceed(elapsedTime);
 			player.setGuardHighScore(player.getGuardScoreSucceed());
 		}
-		else if (elapsedTime < 0)
-		{
-			gameStart = false;
-			endScreen = false;
-			player.setGuardScoreFailed();
-		}
+	}
+	if (countDown <= 0)
+	{
+		gameStart = false;
+		endScreen = true;
+		missionComplete = false;
+		player.setGuardScoreFailed();
 	}
 }
 /******************************************************************************/
@@ -2072,6 +2141,14 @@ void SP2::Scenario_Villain(double dt)
 	{
 		if (player.getPos().z > 40)
 		{
+			if(player.getVillainScore() > player.getVillainHighScore())
+			{
+				newHighScore = true;
+			}
+			else
+			{
+				newHighScore = false;
+			}
 			gameStart = false;
 			endScreen = true;
 			missionComplete = true;
@@ -2541,27 +2618,28 @@ void SP2::Render()
 	if (startScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderImgOnScreen(meshList[GEO_MENU], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_MENU], Color(0, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (chooseModeScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderImgOnScreen(meshList[GEO_SCENARIO], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_SCENARIO], Color(0, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 	}
 	if (highScoreScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderImgOnScreen(meshList[GEO_HIGHSCORE], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], customerHS, Color (1, 0, 0), 6.f, 5.6f, 6.4f);
-		RenderTextOnScreen(meshList[GEO_TEXT], villainHS, Color (1, 0, 0), 6.f, 4.7f, 4.f);
-		RenderTextOnScreen(meshList[GEO_TEXT], guardHS, Color (1, 0, 0), 6.f, 8.f, 1.6f);
+		RenderImgOnScreen(meshList[GEO_HIGHSCORE], Color(0, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderTextOnScreen(meshList[GEO_TEXT], customerHS, Color (0, 0, 0), 6.f, 5.6f, 6.55f);
+		RenderTextOnScreen(meshList[GEO_TEXT], villainHS, Color (0, 0, 0), 6.f, 4.7f, 4.65f);
+		RenderTextOnScreen(meshList[GEO_TEXT], guardHS, Color (0, 0, 0), 6.f, 8.f, 2.75f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'N' to return to Main Menu", Color (0, 0, 0), 4.f, 5.5f, 1.4f);
 	}
 
 	//End Game Screen
 	if (endScreen == true)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		RenderImgOnScreen(meshList[GEO_GAMEOVER], Color(1, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
+		RenderImgOnScreen(meshList[GEO_GAMEOVER], Color(0, 0 , 0), 40, 30, 0.f, 1.f, 8.f, 6.f, 1.f);
 		if (modeCustomer == true)
 		{
 			if (Guard.returnState() == "CAUGHT")
@@ -2582,7 +2660,7 @@ void SP2::Render()
 			}
 			RenderTextOnScreen(meshList[GEO_TEXT], EGSVillain, Color (0, 0, 0), 6.f, 5.8f, 6.1f);
 		}
-		RenderTextOnScreen(meshList[GEO_TEXT], "Return to Main Menu", Color (0, 0, 0), 4.f, 7.2f, 2.5f);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'N' to return to Main Menu", Color (0, 0, 0), 4.f, 5.2f, 2.5f);
 		if (newHighScore == true)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "NEW HIGHSCORE! ", Color (0, 0, 0), 6.f, 4.2f, 5.2f);
@@ -4065,11 +4143,18 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 
 		if(Container.Shelf.at(ItemNumber)->ItemState == CItem::DEFAULT)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Name:"+itemName, Color(0, 1, 0), 2.5f, 7.f, 8.5f);
-			RenderTextOnScreen(meshList[GEO_TEXT], "Price: $"+itemPrice, Color(0, 1, 0), 2.5f, 7.f, 7.5f);
-			if (PlayerInvent.Inventory.size() < 2)
+			if (modeCustomer == true)
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press 'E' to take", Color(0, 1, 0), 2.5f, 7.f, 6.5f);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Name:"+itemName, Color(0, 1, 0), 2.5f, 7.f, 8.5f);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Price: $"+itemPrice, Color(0, 1, 0), 2.5f, 7.f, 7.5f);
+				if (PlayerInvent.Inventory.size() < 2)
+				{
+					RenderTextOnScreen(meshList[GEO_TEXT], "Press 'E' to take", Color(0, 1, 0), 2.5f, 7.f, 6.5f);
+				}
+			}
+			else if (modeVillain == true)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press 'E' to smash", Color(0, 1, 0), 2.5f, 7.f, 6.5f);
 			}
 
 		}

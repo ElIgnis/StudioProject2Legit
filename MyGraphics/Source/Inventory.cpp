@@ -38,6 +38,17 @@ CInventory::CInventory(void)
 	Offset2.x = -4.0f;
 	Offset2.y = 0.0f;
 	Offset2.z = 0.0f;
+
+	RotationMinWidth = 0.f;
+	RotationMaxWidth = 0.f;
+	RotationMinLength = 0.f;
+	RotationMaxLength = 0.f;
+
+	//For collision
+	MinWidth = 0.f;
+	MaxWidth = 0.f;
+	MinLength = 0.f;
+	MaxLength = 0.f;
 }
 /******************************************************************************/
 /*!

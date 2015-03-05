@@ -4,7 +4,7 @@
 \author Bryn Shannon Ho Zhi Wen
 \par	email: 144104B\@mymail.nyp.edu.sg
 \brief
-Guard NPC patrolling the supermarket and interacts with player
+Class to define the Guard NPC patrolling the supermarket and interacting with the player
 */
 /******************************************************************************/
 #pragma once
@@ -17,21 +17,18 @@ using std::string;
 /******************************************************************************/
 /*!
 		Class CGuardAI:
-\brief	A Guard NPC with state
+\brief	Defines the Guard NPC with its states and functions
 */
 /******************************************************************************/
 class CGuardAI
 {
 private:
 	Vector3 guard_position, guard_direction;
-
-	//Placeholder for shoplifter
-	Vector3 shoplifter;
-
+	Vector3 shoplifter; //position of shoplifter when detected
 	Vector3 distance_to_shoplifter;
 	Vector3 distance_to_player;
 	Vector3 distance_to_point;
-	Vector3 rotation_difference; //difference between guard's direction and direction he has to face
+	Vector3 rotation_difference; //angle difference between guard's direction and direction he has to face
 	Vector3 PatrolPoint[8];
 	int current_patrol_point;
 	int patrol_direction;
@@ -43,13 +40,10 @@ private:
 	bool Rotate_Leg_Right_Back;
 	bool Rotate_Hand_Left_Back;
 	bool Rotate_Hand_Right_Back;
-
-	
 	bool rotation_complete;
 
 	enum STATE
 	{
-		IDLE,
 		PATROLLING,
 		CHASING,
 		CAUGHT,
@@ -74,14 +68,15 @@ public:
 	void ChasingPath(double dt); //Pathing for chasing shoplifters
 	void RotateLeft(float rotation);
 	void RotateRight(float rotation);
+
 	bool shoplifted, chase_path_completed;
 
 	void setShoplifter(Vector3 shoplifter_position);
 	float getX(void);
-	float getY(void); //Returns Position.Y
-	float getY2(void); //Returns Direction.Y
+	float getY(void); //Returns guard_position.Y
+	float getY2(void); //Returns guard_direction.Y
 	float getZ(void);
-	string returnState(void);
+	string returnState(void); //Returns Guard's current state
 
 };
 

@@ -28,6 +28,9 @@ Camera3::Camera3()
 	CAMERA_SPEED2 = 10.f;
 	HasEntered = false;
 	IsCrouched = false;
+	playerMovement = true;
+	playerArmRotation = 0.f;
+
 }
 /******************************************************************************/
 /*!
@@ -77,66 +80,63 @@ void Camera3::Update(double dt)
 {
 	CAMERA_SPEED = 100.f;
 	CAMERA_SPEED2 = 10.f;
-	if(CanRotate)
+	if(Application::IsKeyPressed(VK_LEFT))
 	{
-		if(Application::IsKeyPressed(VK_LEFT))
+		Vector3 view = (target - position).Normalized();
+		float yaw = (float)(CAMERA_SPEED * dt);
+		Mtx44 rotation;
+		rotation.SetToRotation(yaw, 0, 1, 0);
+		view = rotation * view;
+		up = rotation * up;
+		target = view + position;
+
+		RotationYAxis += (float)(CAMERA_SPEED * dt);
+		//Reset angle for calculation
+		if(RotationYAxis >= 180.f)
 		{
-			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(CAMERA_SPEED * dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			view = rotation * view;
-			up = rotation * up;
-			target = view + position;
-
-			RotationYAxis += (float)(CAMERA_SPEED * dt);
-			//Reset angle for calculation
-			if(RotationYAxis >= 180.f)
-			{
-				RotationYAxis = -180.f;
-			}
-			playerArmRotation += (float)(CAMERA_SPEED * dt);
-			//Vector3 view = (target - position).Normalized();
-			//Vector3 right = view.Cross(up);
-			//right.Normalize();
-			//right.y = 0;
-			//up = right.Cross(view).Normalized();
-
-			//float yaw = (float)(CAMERA_SPEED * dt);
-			//Mtx44 rotation;
-			//rotation.SetToRotation(yaw, up.x, up.y, up.z);
-			//view = rotation * view;
-			//target = view + position;
+			RotationYAxis = -180.f;
 		}
-		if(Application::IsKeyPressed(VK_RIGHT))
+		playerArmRotation += (float)(CAMERA_SPEED * dt);
+		//Vector3 view = (target - position).Normalized();
+		//Vector3 right = view.Cross(up);
+		//right.Normalize();
+		//right.y = 0;
+		//up = right.Cross(view).Normalized();
+
+		//float yaw = (float)(CAMERA_SPEED * dt);
+		//Mtx44 rotation;
+		//rotation.SetToRotation(yaw, up.x, up.y, up.z);
+		//view = rotation * view;
+		//target = view + position;
+	}
+	if(Application::IsKeyPressed(VK_RIGHT))
+	{
+		Vector3 view = (target - position).Normalized();
+		float yaw = (float)(-CAMERA_SPEED * dt);
+		Mtx44 rotation;
+		rotation.SetToRotation(yaw, 0, 1, 0);
+		view = rotation * view;
+		up = rotation * up;
+		target = view + position;
+
+		RotationYAxis -= (float)(CAMERA_SPEED * dt);
+		//Reset angle for calculation
+		if(RotationYAxis <= -180.f)
 		{
-			Vector3 view = (target - position).Normalized();
-			float yaw = (float)(-CAMERA_SPEED * dt);
-			Mtx44 rotation;
-			rotation.SetToRotation(yaw, 0, 1, 0);
-			view = rotation * view;
-			up = rotation * up;
-			target = view + position;
-
-			RotationYAxis -= (float)(CAMERA_SPEED * dt);
-			//Reset angle for calculation
-			if(RotationYAxis <= -180.f)
-			{
-				RotationYAxis = 180.f;
-			}
-			playerArmRotation -= (float)(CAMERA_SPEED * dt);
-
-			//Vector3 view = (target - position).Normalized();
-			//Vector3 right = view.Cross(up);
-			//right.Normalize();
-			//right.y = 0;
-			//up = right.Cross(view).Normalized();
-			//float yaw = (float)(-CAMERA_SPEED * dt);
-			//Mtx44 rotation;
-			//rotation.SetToRotation(yaw, up.x, up.y, up.z);
-			//view = rotation * view;
-			//target = view + position;
+			RotationYAxis = 180.f;
 		}
+		playerArmRotation -= (float)(CAMERA_SPEED * dt);
+
+		//Vector3 view = (target - position).Normalized();
+		//Vector3 right = view.Cross(up);
+		//right.Normalize();
+		//right.y = 0;
+		//up = right.Cross(view).Normalized();
+		//float yaw = (float)(-CAMERA_SPEED * dt);
+		//Mtx44 rotation;
+		//rotation.SetToRotation(yaw, up.x, up.y, up.z);
+		//view = rotation * view;
+		//target = view + position;
 	}
 	if(Application::IsKeyPressed(VK_UP))
 	{

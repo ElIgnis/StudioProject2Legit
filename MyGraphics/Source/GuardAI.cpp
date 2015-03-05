@@ -4,7 +4,7 @@
 \author Bryn Shannon Ho Zhi Wen
 \par	email: 144104B\@mymail.nyp.edu.sg
 \brief
-Guard NPC patrolling the supermarket and interacts with player
+Class to define the Guard NPC patrolling the supermarket and interacting with the player
 */
 /******************************************************************************/
 #include "GuardAI.h"
@@ -38,12 +38,12 @@ CGuardAI::~CGuardAI(void)
 /******************************************************************************/
 /*!
 \brief
-Intialise the guard
+Intializes the Security Guard
 
-\param x - X axis position
-\param z - Z axis position
-\param Movement_Speed - movement speed of guard
-\param Rotation_Speed - rotation speed of guard
+\param x - X axis position of Guard
+\param z - Z axis position of Guard
+\param Movement_Speed - Movement speed of guard
+\param Rotation_Speed - Rotation speed of guard
 */
 /******************************************************************************/
 void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_Speed)
@@ -55,7 +55,6 @@ void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_
 
 
 	//Initialize Guard's Patrolpoints
-
 	PatrolPoint[0].Set(35.0F,0.0F,-56.0F);
 	PatrolPoint[1].Set(35.0F,0.0F,12.0F);
 	PatrolPoint[2].Set(8.0F,0.0F,12.0F);
@@ -65,21 +64,18 @@ void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_
 	PatrolPoint[6].Set(-30.0F,0.0F,12.0F);
 	PatrolPoint[7].Set(-30.0F,0.0F,-56.0F);
 
-
 	//Initialize patrol pathing
 	Guard_State = PATROLLING;
 	current_patrol_point = 0;
 	patrol_direction = 1;
 	distance_to_point = guard_position - PatrolPoint[current_patrol_point];
 
-
 	//Initialize random patrol direction
 	srand(time(NULL));
 
-
-
 	//Initialize Guard's Spawn Point & Animation values
 	guard_position.Set(x,0,z);
+	guard_direction.Set(0,0,0);
 	rotation_complete = true;
 	Rotate_Leg_Left_Back = false;
 	Rotate_Leg_Right_Back = false;
@@ -96,10 +92,10 @@ void CGuardAI::InitGuard(float x, float z, float Movement_Speed, float Rotation_
 /******************************************************************************/
 /*!
 \brief
-Updates state of guard
+Updates the state of the guard
 
-\param player_position - position of player
-\param dt - delta time update
+\param player_position - Position of player
+\param dt - Delta time update
 */
 /******************************************************************************/
 void CGuardAI::UpdateState(Vector3 player_position, double dt)
@@ -107,9 +103,6 @@ void CGuardAI::UpdateState(Vector3 player_position, double dt)
 	//Guard moves or responds according to its state
 	switch (Guard_State)
 	{
-	case IDLE:
-		//TODO : Idle animation(?)
-		break;
 	case PATROLLING:
 		//Guard patrols according to pathing
 		PatrolPath(dt);
@@ -119,7 +112,7 @@ void CGuardAI::UpdateState(Vector3 player_position, double dt)
 		ChasingPath(dt);
 		break;
 	case CAUGHT:
-		//TODO : What happens when Guard has caught shoplifter/player
+		//Guard has caught the player
 		break;
 	};
 }
@@ -128,19 +121,19 @@ void CGuardAI::UpdateState(Vector3 player_position, double dt)
 \brief
 Updates guard based on game mode
 
-\param player_position - position of player
-\param modeShopper - shopper game mode
-\param modeVillain - villain game mode
+\param player_position - Position of player
+\param modeShopper - Check if in Shopper game mode
+\param modeVillain - Checik if in Villain game mode
 \param dt - delta time update
 */
 /******************************************************************************/
 void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeVillain, double dt)
 {
-	//Obtain distance based on guard's position and player's position
+	//Obtain distance based on guard's position and player's/shoplifter's position
 	distance_to_player = guard_position - player_position;
 	distance_to_shoplifter = guard_position - shoplifter;
 
-	//If they are within reach, the guard will catch them
+	//If they are within reach of the shoplifter, the guard will catch them
 	if (distance_to_shoplifter.Length() < 5.0)
 	{
 		Guard_State = CAUGHT;
@@ -153,49 +146,6 @@ void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeV
 	{
 		Guard_State = CAUGHT;
 	}
-
-
-	//To be used if creating chasing for AI
-
-	//TODO : Collision Detection
-	/*
-	//If player is close to the guard, the guard will start chasing the player
-	//To Do : Guard has to be facing the player
-	if (distance_to_player.Length() < 50.0 && Guard_State == PATROLLING)
-	{
-	Guard_State = CHASING;
-	}
-	//If the player manages to outrun the guard, the guard will go back to patrolling
-	if (distance_to_player.Length() > 50.0 && Guard_State != PATROLLING)
-	{
-	Guard_State = PATROLLING;
-
-	//Guard patrols from closest patrol point
-	distance_to_point = guard_position - PatrolPoint[0];
-	for (int i = 0; i < 8; ++i)
-	{
-	//Compare guard's position with all patrol points to find closest point
-	Vector3 distance_to_point_comparison = guard_position - PatrolPoint[i];
-	if (distance_to_point.Length() >= distance_to_point_comparison.Length())
-	{
-	distance_to_point = distance_to_point_comparison;
-	current_patrol_point = i;
-
-	//patrol direction is randomly assigned
-	int r = rand() % 2;
-
-	if (r == 1) //forward patrol
-	{
-	patrol_direction = 1;
-	}
-	else //backward patrol
-	{
-	patrol_direction = -1;
-	}
-	}
-	}
-	}
-	*/
 
 	//Update Guard's State
 	UpdateState(player_position, dt);
@@ -273,7 +223,7 @@ void CGuardAI::UpdateGuard(Vector3 player_position, bool modeShopper, bool modeV
 /******************************************************************************/
 /*!
 \brief
-Updates guard patrol path
+Updates guard and moves him along patrol path
 
 \param dt - delta time update
 */
@@ -293,7 +243,7 @@ void CGuardAI::PatrolPath(double dt)
 		//Rotate guard if not fully rotated
 		if (fabs(fabs(guard_direction.y) - fabs(guard_next_direction)) >= 2.0f)
 		{
-			guard_direction += rotation_difference.Normalized() * dt * RotationSpeed;
+			guard_direction += rotation_difference.Normalized() * dt * (RotationSpeed * 5);
 		}
 		//Else, rotation is complete
 		else
@@ -312,6 +262,7 @@ void CGuardAI::PatrolPath(double dt)
 		if (shoplifted == true)
 		{
 			Guard_State = CHASING;
+			MovementSpeed *= 2;
 		}
 
 		//Guard will rotate before moving to the next point
@@ -366,22 +317,24 @@ void CGuardAI::PatrolPath(double dt)
 /******************************************************************************/
 /*!
 \brief
-Updates guard chasing path
+Updates guard and moves him along path to chase shoplifter
 
 \param dt - delta time update
 */
 /******************************************************************************/
 void CGuardAI::ChasingPath(double dt)
 {
+	//If the guard is done turning on the spot, he will begin the pathing
 	if (rotation_complete == true)
 	{
+		//Guard will first follow a set path out of the Supermarket before chasing the shoplifter
 		Vector3 Z_Required, X_Required;
 		if (chase_path_completed == false)
 		{
 			Z_Required.Set(guard_position.x, guard_position.y, (12.0F - guard_position.z));
 			X_Required.Set((guard_position.x - shoplifter.x),guard_position.y,guard_position.z);
 		}
-		//Once in line, guard will chase down shoplifter
+		//Once done, guard will chase down shoplifter
 		if (X_Required.x <= 2.0F && Z_Required.z <= 2.0F)
 		{	
 			Z_Required.z = X_Required.x = 0.0F;
@@ -398,7 +351,8 @@ void CGuardAI::ChasingPath(double dt)
 			Vector3 hypotenuse = guard_position - shoplifter;
 			float angle = acos(adjecant.Length() / hypotenuse.Length()) * 180.0f / M_PI;
 
-			//Original angle is only 0 ~ 90 , '0 ~ 360' is based on Guard and Player positions
+			//Angle obtained will only result in 0 ~ 90 degrees
+			//full 360 degree rotation is based on Guard and Player positions
 			if (guard_position.x >= shoplifter.x)
 			{
 				if (guard_position.z >= shoplifter.z) 
@@ -421,9 +375,13 @@ void CGuardAI::ChasingPath(double dt)
 				{
 				}
 			}
+
+			//Set the guard to immediately face the direction of the shoplifter
+			//Instead of rotating to it
 			guard_direction.y = guard_next_direction = angle;
 		}
-		//Guard will first move to Z-coordinates which is before the Cashier
+
+		//Guard will first move to Z-coordinates which is just before the Cashier area
 		if (Z_Required.z >= 2.0F)
 		{				
 			Z_Required.x = 0.0F;
@@ -431,7 +389,7 @@ void CGuardAI::ChasingPath(double dt)
 
 			guard_next_direction = 0.0F;
 		}
-		//Guard will then move towards shoplifter's X-coordinates to be in line with the shoplifter
+		//Guard will then move in a straight line, out of the shop
 		if (X_Required.x >= 2.0F && Z_Required.z <= 2.0F)
 		{	
 			X_Required.z = 0.0F;
@@ -450,20 +408,23 @@ void CGuardAI::ChasingPath(double dt)
 			}
 		}
 
+		//Rotate the guard to face the direction he's walking
 		rotation_difference.y = guard_next_direction - guard_direction.y;
 		if (guard_direction.y != guard_next_direction)
 		{
 			rotation_complete = false;
 		}
-	}
+	} //End of check of whether guard is rotating on spot
+
+	//If guard is not done rotating, rotate the guard
 	else
 	{
 		//Update the difference of rotation
 		rotation_difference.y = guard_next_direction - guard_direction.y;
-		//Rotate guard if not fully rotated
+		//Continue rotating guard if not fully rotated
 		if (fabs(fabs(guard_direction.y) - fabs(guard_next_direction)) >= 2.0F)
 		{
-			guard_direction += rotation_difference.Normalized() * dt * RotationSpeed;
+			guard_direction += rotation_difference.Normalized() * dt * (RotationSpeed * 5);
 		}
 		//Else, rotation is complete
 		else
@@ -476,9 +437,9 @@ void CGuardAI::ChasingPath(double dt)
 /******************************************************************************/
 /*!
 \brief
-Updates guard rotating left
+Rotates the guard to his left
 
-\param rotation - amount to rotate
+\param rotation - amount to rotate in degrees
 */
 /******************************************************************************/
 void CGuardAI::RotateLeft(float rotation)
@@ -493,9 +454,9 @@ void CGuardAI::RotateLeft(float rotation)
 /******************************************************************************/
 /*!
 \brief
-Updates guard rotating right
+Rotates the guard to his right
 
-\param rotation - amount to rotate
+\param rotation - amount to rotate in degrees
 */
 /******************************************************************************/
 void CGuardAI::RotateRight(float rotation)
@@ -510,9 +471,9 @@ void CGuardAI::RotateRight(float rotation)
 /******************************************************************************/
 /*!
 \brief
-Set shoplifter's position
+Sets the shoplifter's position
 
-\param shoplifter_position - set shoplifter's position
+\param shoplifter_position - The shoplifter's current position
 */
 /******************************************************************************/
 void CGuardAI::setShoplifter(Vector3 shoplifter_position)
@@ -522,8 +483,9 @@ void CGuardAI::setShoplifter(Vector3 shoplifter_position)
 /******************************************************************************/
 /*!
 \brief
-Return X axis position of guard
-\return X position value
+Returns X axis coordinate of guard's position
+\return 
+	Value of X coordinate of guard's position
 */
 /******************************************************************************/
 float CGuardAI::getX(void)
@@ -533,8 +495,9 @@ float CGuardAI::getX(void)
 /******************************************************************************/
 /*!
 \brief
-Return Y axis position of guard
-\return Y position value
+Returns Y axis coordinate of guard's position
+\return 
+	Value of Y coordinate of guard's position
 */
 /******************************************************************************/
 float CGuardAI::getY(void)
@@ -544,8 +507,9 @@ float CGuardAI::getY(void)
 /******************************************************************************/
 /*!
 \brief
-Return second Y axis position of guard
-\return second Y position value
+Returns Y axis coordinate of guard's direction (Amount of degrees to rotate counter-clockwise)
+\return 
+	Value of Y coordinate of guard's direction
 */
 /******************************************************************************/
 float CGuardAI::getY2(void)
@@ -555,8 +519,9 @@ float CGuardAI::getY2(void)
 /******************************************************************************/
 /*!
 \brief
-Return Z axis position of guard
-\return Z position value
+Returns Z axis coordinate of guard's position
+\return 
+	Value of Z coordinate of guard's position
 */
 /******************************************************************************/
 float CGuardAI::getZ(void)
@@ -566,8 +531,9 @@ float CGuardAI::getZ(void)
 /******************************************************************************/
 /*!
 \brief
-Return state of guard
-\return state of guard as string
+Returns state of guard
+\return
+	State of guard as a string
 */
 /******************************************************************************/
 string CGuardAI::returnState(void)
@@ -575,9 +541,6 @@ string CGuardAI::returnState(void)
 	//Return Guard's current State
 	switch (Guard_State)
 	{
-	case IDLE:
-		return "IDLE";
-		break;
 	case PATROLLING:
 		return "PATROLLING";
 		break;

@@ -28,7 +28,6 @@ public:
 	//Vector3 target;
 	//Vector3 up;
 	bool playerMovement;
-	bool CanRotate;
 	bool IsCrouched;
 	bool HasEntered;
 	float worldScale;

@@ -19,6 +19,18 @@ Default Constructor
 /******************************************************************************/
 CItem::CItem(void)
 {
+	ItemName = "";
+	ItemPrice = 0;
+	GEO_TYPE = 0;
+	ItemShape = Vector3(1.f, 1.f, 1.f);;
+	ItemPosition = Vector3(0.f, 0.f, 0.f);
+	MinWidth = 0.f;
+	MaxWidth = 0.f;
+	MinLength = 0.f;
+	MaxLength = 0.f;
+	MinHeight = 0.f;
+	MaxHeight = 0.f;
+	ItemIndex = 0;
 	ItemState = DEFAULT;
 }
 /******************************************************************************/
