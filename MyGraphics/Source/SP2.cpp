@@ -1117,6 +1117,13 @@ void SP2::Init_GEOMS(void)
 	meshList[GEO_NPCSIT]->material.kDiffuse.Set(1.f, 1.f, 1.f);
 	meshList[GEO_NPCSIT]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
 	meshList[GEO_NPCSIT]->material.kShininess = 5.f;
+
+	meshList[GEO_OUTSIDE] = MeshBuilder::GenerateOBJ("Outside", "OBJ//Outside.obj");
+	meshList[GEO_OUTSIDE]->textureID = LoadTGA("Image//Outside.tga");
+	meshList[GEO_OUTSIDE]->material.kAmbient.Set(0.1f, 0.1f, 0.1f);
+	meshList[GEO_OUTSIDE]->material.kDiffuse.Set(1.f, 1.f, 1.f);
+	meshList[GEO_OUTSIDE]->material.kSpecular.Set(0.05f, 0.05f, 0.05f);
+	meshList[GEO_OUTSIDE]->material.kShininess = 5.f;
 }
 /******************************************************************************/
 /*!
@@ -4065,7 +4072,7 @@ void SP2::RenderObject()
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderNPC();
 	modelStack.PopMatrix();
-
+	// Npc Sitting Down outside
 	for (int i = 0; i < 60; i += 20)
 	{
 		modelStack.PushMatrix();
@@ -4085,6 +4092,15 @@ void SP2::RenderObject()
 	modelStack.Rotate(180,0,1,0);
 	RenderMesh(meshList[GEO_NPCSIT], false);
 	modelStack.PopMatrix();
+	//Outside Road
+	modelStack.PushMatrix();
+	modelStack.Scale(1, 1, 1);
+	modelStack.Translate(3, -3 , 98);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_OUTSIDE], false);
+	modelStack.PopMatrix();
+
+
 }
 /******************************************************************************/
 /*!

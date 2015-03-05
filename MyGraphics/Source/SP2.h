@@ -220,6 +220,7 @@ private:
 		GEO_SCENARIO,			/*!< GEO_SCENARIO */
 		GEO_GAMEOVER,			/*!< GEO_GAMEOVER */
 		GEO_NPCSIT,				/*!< GEO_NPCSIT */
+		GEO_OUTSIDE,			/*!< GEO_OUTSIDE */
 		NUM_GEOMETRY,			/*!< NUM_GEOMETRY */
 	};
 
