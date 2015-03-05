@@ -368,6 +368,7 @@ private:
 	void RenderLights(void);
 	void RenderSkyBox();
 	void RenderObject();
+	void RenderTextUI(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber);
 	void RenderMesh(Mesh *mesh, bool enableLight);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);

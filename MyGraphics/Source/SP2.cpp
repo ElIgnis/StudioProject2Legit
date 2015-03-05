@@ -1160,7 +1160,7 @@ void SP2::Update(double dt)
 	}
 
 	//Choose Mode
-	else if (chooseModeScreen == true)
+	if (chooseModeScreen == true)
 	{	
 		bool checkDelay = false;
 		if (menuDelay > 0.5)
@@ -1197,7 +1197,7 @@ void SP2::Update(double dt)
 	}
 
 	//High score
-	else if (highScoreScreen == true)
+	if (highScoreScreen == true)
 	{
 		//Highscore screen
 		std::stringstream customerHighScoreHSS;
@@ -1214,12 +1214,12 @@ void SP2::Update(double dt)
 	}
 
 	//Game start
-	else if (gameStart == true)
+	if (gameStart == true)
 	{
 		UpdateGame(dt);
 	}
 	//Game end
-	else if (endScreen == true)
+	if (endScreen == true)
 	{
 		ShowEndScreen(dt);
 	}
@@ -2055,7 +2055,7 @@ void SP2::Scenario_Guard(double dt)
 {
 
 	//Catch Villain
-	if(Application::IsKeyPressed('X'))
+	if(Application::IsKeyPressed('E'))
 	{
 		float DistanceToPlayer = sqrt((VillainOne->GetPosition().x - camera.position.x) * (VillainOne->GetPosition().x - camera.position.x) + (VillainOne->GetPosition().z - camera.position.z) * (VillainOne->GetPosition().z - camera.position.z));
 
@@ -2698,9 +2698,13 @@ void SP2::RenderGame(void)
 	//Render Items on shelf
 	for(int i = 0; i < ItemLine; i++)
 	{
-		RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
+		RenderShelfItems(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);	
 	}
-
+	for(int i = 0; i < ItemLine; i++)
+	{
+		RenderTextUI(Container.Shelf.at(i)->ItemName, Container.Shelf.at(i)->ItemPrice, Vector3(Container.Shelf.at(i)->ItemPosition.x, Container.Shelf.at(i)->ItemPosition.y, Container.Shelf.at(i)->ItemPosition.z), Container.Shelf.at(i)->GEO_TYPE, i);
+	}
+	
 	//Render AI models
 	RenderVillainAI(VillainOne);
 	modelStack.PopMatrix();
@@ -4126,7 +4130,10 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 		modelStack.Scale(1.25f, 0.25f, 1.25f);
 		RenderMesh(meshList[ItemType], false);
 	}
-
+	modelStack.PopMatrix();
+}
+void SP2::RenderTextUI(string ItemName, double ItemPrice, Vector3 &ItemPosition, int ItemType, int ItemNumber)
+{
 	//Text info of item
 	if(camera.target.x > Container.Shelf.at(ItemNumber)->MinWidth && camera.target.x < Container.Shelf.at(ItemNumber)->MaxWidth
 		&& camera.target.y > Container.Shelf.at(ItemNumber)->MinHeight && camera.target.y < Container.Shelf.at(ItemNumber)->MaxHeight
@@ -4163,9 +4170,8 @@ void SP2::RenderShelfItems(string ItemName, double ItemPrice, Vector3 &ItemPosit
 			RenderTextOnScreen(meshList[GEO_TEXT], "Press 'G' to return", Color(0, 1, 0), 2.5f, 7.f, 5.5f);
 		}
 	}
-
-	modelStack.PopMatrix();
 }
+
 /******************************************************************************/
 /*!
 \brief
